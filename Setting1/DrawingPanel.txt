@@ -1,0 +1,1 @@
+DrawingPanelBackGroundColor(255,255,255); //White

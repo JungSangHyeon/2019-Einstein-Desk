@@ -1,0 +1,5 @@
+MainFrameNormalWidth(1000);
+MainFrameNormalHeight(800);
+
+MainFrameMinimumWidth(500);
+MainFrameMinimumHeight(400);
