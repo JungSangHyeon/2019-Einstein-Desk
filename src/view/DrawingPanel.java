@@ -6,7 +6,6 @@ import java.awt.Rectangle;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.geom.AffineTransform;
-import java.util.Iterator;
 
 import javax.swing.JPanel;
 
@@ -16,28 +15,30 @@ import deepClone.DeepClone;
 import dragAndDrop.DragAndDropManager;
 import eventListener.DrawingPanelMouseHadler;
 import global.InjectEnums.eColor;
-import moveAndZoom.MoveAndZoom;
+import moveAndZoom.DrawingPanelMoveAndZoom;
 import stuff_Component.GraphicComponent;
 import stuff_Container.AContainer;
 
 @SuppressWarnings("serial")
 public class DrawingPanel extends JPanel{
 	
-	ToolBar toolBar, toolBar2;
 	DrawingPanelMouseHadler mouseHandler;
+	ToolBar toolBar, toolBar2;
 	
 	public DrawingPanel() {
 		this.setBackground(eColor.DrawingPanelBackGroundColor.getVal());
 		
 		mouseHandler = new DrawingPanelMouseHadler(this);
-		this.addMouseListener(mouseHandler);
 		this.addMouseMotionListener(mouseHandler);
 		this.addMouseWheelListener(mouseHandler);
+		this.addMouseListener(mouseHandler);
+		
 		this.addComponentListener(new componentHandler());
+		
 		this.setLayout(null);
 
 		toolBar = new ToolBar();
-		toolBar.setLocation(100, 100);
+		toolBar.setLocation(100, 100);//Test
 		toolBar.addMaster(this);
 		this.add(toolBar);
 		
@@ -45,7 +46,7 @@ public class DrawingPanel extends JPanel{
 		toolBar2.addMaster(this);
 		this.add(toolBar2);
 		
-		Arrange();
+		ArrangeComponentLocation();
 	}
 	
 	public void initialize() {
@@ -54,31 +55,30 @@ public class DrawingPanel extends JPanel{
 	public void paint(Graphics g) {
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D)g;
-		Iterator<GraphicComponent> shapes = GCStorage.getGCVectorIterator();
 		
-		g2d.setTransform(MoveAndZoom.getAT());
+		g2d.setTransform(DrawingPanelMoveAndZoom.getAT());
 		
-		while(shapes.hasNext()){
-			GraphicComponent shapeData = shapes.next();
-			shapeData.paint(g2d);
+		for(GraphicComponent gc : GCStorage.getGCVector()) {
+			gc.paint(g2d);
 		}
+		
 		g2d.setTransform(new AffineTransform());
 		
-		toolBar.myPaint(g2d);
+		toolBar.myPaint(g2d);//draw AContainer
 		toolBar2.myPaint(g2d);
 		
-		aContainerDragComponentPaint(toolBar, g2d);
+		aContainerDragComponentPaint(toolBar, g2d);//draw AContainer Drag Component
 		aContainerDragComponentPaint(toolBar2, g2d);
 		
-		g2d.setTransform(MoveAndZoom.getAT());
-		if(DragAndDropManager.getComponentMasterPanel()==this&&DragAndDropManager.getDraggingComponent()!=null) {//drag & dropÀ» À§ÇØ!
+		g2d.setTransform(DrawingPanelMoveAndZoom.getAT());
+		if(DragAndDropManager.getComponentMasterPanel()==this&&DragAndDropManager.getDraggingComponent()!=null) {//drawPanel -> container¸¦ º¸ÀÓ.
 			DragAndDropManager.getDraggingComponent().paint(g2d);
 		}
 		g2d.setTransform(new AffineTransform());
 	}
 	
-	private void aContainerDragComponentPaint(AContainer ac, Graphics2D g2d) {
-		if(ac.getCopy()!=null) {//drag & dropÀ» À§ÇØ!
+	private void aContainerDragComponentPaint(AContainer ac, Graphics2D g2d) {//draw AContainer Drag Component
+		if(ac.getCopy()!=null) {
 			GraphicComponent nowGC = (GraphicComponent) DeepClone.clone(ac.getCopy().getGraphicComponent());
 			Rectangle r = nowGC.getShape().getBounds();
 			nowGC.setShape(new Rectangle(r.x+ac.getLocation().x, r.y+ac.getLocation().y+ac.getNowDeep(), r.width, r.height));
@@ -87,13 +87,13 @@ public class DrawingPanel extends JPanel{
 	}
 	
 	public class componentHandler implements ComponentListener{
-		public void componentResized(ComponentEvent e) {Arrange();}
+		public void componentResized(ComponentEvent e) {ArrangeComponentLocation();}
 		public void componentHidden(ComponentEvent e) {}
 		public void componentMoved(ComponentEvent e) {}
 		public void componentShown(ComponentEvent e) {}
 	}
 	
-	public void Arrange() {
+	public void ArrangeComponentLocation() {
 //		toolBar.setLocation(0, this.getHeight()-toolBar.getHeight());//¾ê´« Àá±ñ ¸·¾Æ³ð
 		toolBar2.setLocation(this.getWidth()-toolBar2.getWidth(), 0);
 		repaint();

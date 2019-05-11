@@ -16,9 +16,8 @@ public abstract class AComponentPainter  implements Serializable{
 	protected int imageIndex;
 	protected int borderThick = 5;
 	protected String name = "";
-	protected float nameSize = 50; //적은 값 : 실제 값 = 14 : 10
+	protected double nameSize = 50; //적은 값 : 실제 값 = 14 : 10
 	protected Color nameColor = Color.BLACK, backgroundColor = new Color(0, 183, 195), borderColor = new Color(60,60,60,100);//얘는 안쪽 보더임.
-	protected final static int TextLocateX = 7, TextLocateY = -9;
 	
 	public AComponentPainter(String name, String fileAddress) {
 		if(name!=null) {this.name = name;}

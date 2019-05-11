@@ -13,7 +13,7 @@ public class ToolSelector extends AMouseActionProcessor implements Serializable{
 	ATool tool;
 	
 	public ToolSelector(ATool tool) {this.tool=tool;}
-	public void mouseReleased(MouseEvent e) {GlobalData.nowTool = tool;}
+	public void mouseReleased(MouseEvent e) {GlobalData.setNowTool(tool);}
 	
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}

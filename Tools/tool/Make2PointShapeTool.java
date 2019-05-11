@@ -5,8 +5,7 @@ import java.awt.geom.Point2D;
 
 import data.GCStorage;
 import data.GlobalData;
-import moveAndZoom.MoveAndZoom;
-import painter.ImgPainter;
+import moveAndZoom.DrawingPanelMoveAndZoom;
 import processor.Mover;
 import stuff_Component.GraphicComponent;
 import toolStuff.ATool;
@@ -16,23 +15,22 @@ public class Make2PointShapeTool extends ATool{
 	
 	public void mousePressed(MouseEvent e) {
 		GraphicComponent GCData = new GraphicComponent();
-//		GCData.addPainter(new ImgPainter("", "Icons/jake_22X22.txt"));
-		GCData.addPoint(MoveAndZoom.transformPoint(e.getPoint()));
-		GCData.addPoint(MoveAndZoom.transformPoint(e.getPoint()));
+		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
+		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 		GCData.addProcessor(new Mover());
 		setShape(GCData);
 		GCStorage.addNewGC(GCData);
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		GCStorage.getLastGC().setPoint(1, MoveAndZoom.transformPoint(e.getPoint()));
+		GCStorage.getLastGC().setPoint(1, DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 		setShape(GCStorage.getLastGC());
 	}
 
 	private void setShape(GraphicComponent shapeData) {
 		Point2D.Float p1 = shapeData.getPoints().get(0);
 		Point2D.Float p2 = shapeData.getPoints().get(1);
-		shapeData.setShape(GlobalData.nowGC.getShapeMaker().newShape(p1, p2));
+		shapeData.setShape(GlobalData.getNowGC().getShapeMaker().newShape(p1, p2));
 	}
 	
 	public void mouseReleased(MouseEvent e) {}

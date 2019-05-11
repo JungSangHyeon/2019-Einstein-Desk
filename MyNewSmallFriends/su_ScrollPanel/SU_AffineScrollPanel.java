@@ -23,13 +23,10 @@ public class SU_AffineScrollPanel extends JPanel {
 	public void setSpeed(int speed) {this.speed=speed;}
 	
 	public void setDeep(int deep) {this.deep=deep;}
+	public int getNowDeep() {return deepLevel*speed;}
 	public void deeper(int howDeep) {this.deep-=howDeep;}
 	
 	public void setDeepLevel(int deepLevel) {this.deepLevel=deepLevel;}
-	
-	public int getNowDeep() {
-		return deepLevel*speed;
-	}
 	
 	public class MouseWheelHadler implements MouseWheelListener{
 		public void mouseWheelMoved(MouseWheelEvent e) {

@@ -152,14 +152,9 @@ public abstract class AContainer extends SU_AffineScrollPanel {//호호 드럽다.
 	public Image getImg() {return myImg;}//affine Transform적용시 발생하는 에러를 막기 위함. 더블 버퍼링 역할도 하나?
 	public void myPaint(Graphics g) {
 		this.repaint();
-		g.drawImage(this.getImg(), this.getX(), this.getY(), null);
-		
+		Graphics2D g2d = (Graphics2D)g;
+		g2d.drawImage(this.getImg(), this.getX(), this.getY(), null);
 		master.repaint();
-//		if(copyCurrentItem!=null) {
-//			Graphics2D g2d = (Graphics2D)master.getGraphics();
-//			copyCurrentItem.paint(g2d);
-//			master.repaint();
-//		}
 	}
 	
 	JPanel master;
@@ -194,13 +189,14 @@ public abstract class AContainer extends SU_AffineScrollPanel {//호호 드럽다.
 			img_g.fill(currentItem.getRect());
 		}
 		
-		if(copyCurrentItem!=null) {copyCurrentItem.paint(img_g);}//카피 아이템을 움직이는 것처럼 하기.
+//		if(copyCurrentItem!=null) {copyCurrentItem.paint(img_g);}//카피 아이템을 움직이는 것처럼 하기.
 		return myImg;
 	}
 	
 	public void paint(Graphics g) {
 		super.paint(g);
-		g.drawImage(makeImg(), 0, 0, null); 
+		Graphics2D g2d = (Graphics2D)g;
+		g2d.drawImage(makeImg(), 0, 0, null); 
 	}
 	
 	public JPanel getContainerPanel() {return this;}
@@ -280,7 +276,7 @@ public abstract class AContainer extends SU_AffineScrollPanel {//호호 드럽다.
 	
 	public void changeSeat() {
 		Rectangle rect = copyCurrentItem.getRect().getBounds();
-		Point startPoint = new Point(rect.x, rect.y);
+		Point startPoint = new Point(rect.x+rect.width/2, rect.y+rect.height/2);
 		
 		Pixel startPixel=null;
 		for(int i=0; i<limitYPixel; i++) {

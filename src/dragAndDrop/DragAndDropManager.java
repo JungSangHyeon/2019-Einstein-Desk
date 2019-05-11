@@ -8,7 +8,7 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.JPanel;
 
 import data.GCStorage;
-import moveAndZoom.MoveAndZoom;
+import moveAndZoom.DrawingPanelMoveAndZoom;
 import stuff_Component.GraphicComponent;
 import stuff_Container.AContainer;
 import view.DrawingPanel;
@@ -20,30 +20,35 @@ public class DragAndDropManager {
 	private static GraphicComponent draggingComponent=null;
 	
 	public static void drop() {
-		if(componentMasterPanel!=nowMouseOnPanel&&draggingComponent!=null&&nowMouseOnPanel!=null&&componentMasterPanel!=null) {
-			if(nowMouseOnPanel instanceof DrawingPanel) {//Drawing Panel
-				Rectangle r = draggingComponent.getShape().getBounds();
-				Point2D.Float point = MoveAndZoom.transformPoint(new Point(r.x+componentMasterPanel.getLocation().x, r.y+componentMasterPanel.getLocation().y+((AContainer)componentMasterPanel).getNowDeep()));
-				float scale = MoveAndZoom.getScale();
-				draggingComponent.setShape(new Rectangle2D.Float(point.x, point.y, r.width/scale, r.height/scale));
+		if (componentMasterPanel != nowMouseOnPanel && draggingComponent != null && nowMouseOnPanel != null && componentMasterPanel != null) {
+			if (nowMouseOnPanel instanceof DrawingPanel) {// Dragged To Drawing Panel
+				applyTransformToDraggingComponent();
 				GCStorage.addNewGC(draggingComponent);
-			}else {
-				((AContainer)nowMouseOnPanel).addItem(draggingComponent);
-				GCStorage.removeGC(draggingComponent);
+			} else {// Dragged To AContainer
+				((AContainer) nowMouseOnPanel).addItem(draggingComponent);
+				GCStorage.removeGC(draggingComponent);// 이건 상황에 따라 다르게 해야 겠는데.
 			}
 			reset();
 		}
 	}
 
+	private static void applyTransformToDraggingComponent() {
+		Rectangle r = draggingComponent.getShape().getBounds();
+		Point masterPoint = componentMasterPanel.getLocation();
+		Point2D.Float point = DrawingPanelMoveAndZoom.transformPoint(new Point(r.x+masterPoint.x, r.y+masterPoint.y+((AContainer)componentMasterPanel).getNowDeep()));
+		float scale = DrawingPanelMoveAndZoom.getScale();
+		draggingComponent.setShape(new Rectangle2D.Float(point.x, point.y, r.width/scale, r.height/scale));
+	}
+
 	public static void reset() {
+		componentMasterPanel=null;
 		draggingComponent=null;
 		nowMouseOnPanel=null;
-		componentMasterPanel=null;
 	}
 	
-	public static void setNowMouseOnPanel(JPanel p) {nowMouseOnPanel=p;}
-	public static void setDraggingComponent(GraphicComponent gc) {draggingComponent=gc;}
 	public static void setComponentMasterPanel(JPanel p) {if(draggingComponent!=null) {componentMasterPanel=p;}}
+	public static void setDraggingComponent(GraphicComponent gc) {draggingComponent=gc;}
+	public static void setNowMouseOnPanel(JPanel p) {nowMouseOnPanel=p;}
 	
 	public static GraphicComponent getDraggingComponent() {return draggingComponent;}
 	public static JPanel getComponentMasterPanel() {return componentMasterPanel;}

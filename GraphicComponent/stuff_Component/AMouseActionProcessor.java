@@ -8,7 +8,8 @@ public abstract class AMouseActionProcessor  implements Serializable{
 	
 	protected GraphicComponent master;
 	public void setMaster(GraphicComponent graphicComponent) {this.master=graphicComponent;}
-	public void processEvent(MouseEvent e) {
+	
+	public void processEvent(MouseEvent e) {//그냥 processEvent만 쓰려고 만듬.
 		int eID = e.getID();
 		if(eID == MouseEvent.MOUSE_PRESSED) {this.mousePressed(e);}
 		else if(eID == MouseEvent.MOUSE_RELEASED) {this.mouseReleased(e);}

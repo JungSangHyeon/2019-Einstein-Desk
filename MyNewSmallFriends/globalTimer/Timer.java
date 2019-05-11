@@ -1,14 +1,14 @@
 package globalTimer;
 
 public class Timer {
-	private String master = "";
+	private int id;
 	private int timeOut = 0, startTime = 0;
-	public Timer(String master, int timeOut, int startTime) {
-		this.master = master;
+	public Timer(int id, int timeOut, int startTime) {
+		this.id = id;
 		this.timeOut = timeOut;
 		this.startTime = startTime;
 	}
-	public String getMaster() {return this.master;}
+	public int getId() {return this.id;}
 	public int getTimeOut() {return this.timeOut;}
 	public int getStartTime() {return this.startTime;}
 	public void setStartTime(int time) {this.startTime=time;}

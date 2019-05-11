@@ -1,7 +1,5 @@
 package data;
 
-import java.awt.geom.Point2D;
-import java.util.Iterator;
 import java.util.Vector;
 
 import stuff_Component.GraphicComponent;
@@ -9,26 +7,17 @@ import stuff_Component.GraphicComponent;
 public class GCStorage {//drawing panel에 표시되는 것들
 
 	private static Vector<GraphicComponent> GCVector = new Vector<GraphicComponent>();
-
-	public static void addNewGC(GraphicComponent shapeData) {
-		GCVector.add(shapeData);
-	}
-	
-	public static Iterator<GraphicComponent> getGCVectorIterator() {return GCVector.iterator();}
+	public static void addNewGC(GraphicComponent shapeData) {GCVector.add(shapeData);}
+	public static boolean have(GraphicComponent gc) {return GCVector.contains(gc);}
 	public static GraphicComponent getGC(int i) {return GCVector.get(i);}
 	public static GraphicComponent getLastGC() {return GCVector.lastElement();}
 	public static void removeLastGC() {GCVector.remove(GCVector.size()-1);}
 	public static void removeGC(GraphicComponent gc) {GCVector.remove(gc);}
+	public static Vector<GraphicComponent> getGCVector() {return GCVector;}
 	
-	public static GraphicComponent getSelectedComponent(Point2D.Float p) {
-		for(int i=GCVector.size()-1; i>-1; i--) {
-			if(GCVector.get(i).getShape().contains(p)) {
-				return GCVector.get(i);
-			}
-		}
-		return null;
-	}
-	public static boolean have(GraphicComponent gc) {
-		return GCVector.contains(gc);
-	}
+	private static Vector<GraphicComponent> selectedComponents = new Vector <GraphicComponent>();
+	public static void addSelectedGC(GraphicComponent shapeData) {selectedComponents.add(shapeData);}
+	public static Vector<GraphicComponent> getSelectedGCVector() {return selectedComponents;}
+	public static void clearSelected() {selectedComponents.clear();}
+	public static boolean isSelected(GraphicComponent gc) {return selectedComponents.contains(gc);}
 }

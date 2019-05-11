@@ -6,7 +6,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 
-public class MoveAndZoom {
+public class DrawingPanelMoveAndZoom {
 
 	static int maxZoomLevel = 10, minZoomLevel = -20;//알어서 바꿔 쓰시오
 	static float zoomFactor = 1.2f;

@@ -9,7 +9,7 @@ public class Injector {
 	
 	//Text 양식 : "Key(val1, val2....) + 아무거나 + Enter"
 	//사용 법 :  for(EInt e : EInt.values()) {Injector.inject(e);} /  enum은 implements InjectTarget할것 / enum은 setVal이 같은 것 끼리 묶을 것.
-	//장점 : 
+	
 //	public enum example implements InjectTarget{
 //		e("tableAddress", "keyValue");//tableAddress는 공유되니, 전역변수로 빼놓고 쓰쇼. 주소 바꾸기 편하게.
 //
@@ -20,11 +20,11 @@ public class Injector {
 //		public void setVal(String[] val) {}
 //	}
 	
-	// Change
+	// User
 	static final char DILIMETER = ',', VALUESTART = '(', VALUEEND = ')';
 	static final String ErrorMSG1 = "INJECTOR ERROR : 주소 ", ErrorMSG2 = "에 ", ErrorMSG3 = "의 값이 없습니다."; //ErrorMSG1+tableAddress+ErrorMSG2+keyValue+ErrorMSG3
 	
-	// No Change
+	// System
 	static Scanner sc;
 	static final int tableAddress = 0, keyValue = 1, front = 0, back = 1;
 	static Vector<InjectTarget[]> injectTargets = new Vector<InjectTarget[]>();
@@ -61,6 +61,7 @@ public class Injector {
 			Injector.registe(targetArr);
 		}
 	}
+	
 	public static void registe(InjectTarget[] targets) {injectTargets.add(targets);}
 	public static void injectRegisted() {
 		for(InjectTarget[] targetArr : injectTargets) {

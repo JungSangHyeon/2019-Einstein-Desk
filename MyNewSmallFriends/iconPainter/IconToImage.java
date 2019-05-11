@@ -1,7 +1,7 @@
 package iconPainter;
 
-import java.awt.Color; 
-import java.awt.Graphics;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,9 +18,9 @@ public class IconToImage {
 		String w = fileAddress.substring(fileAddress.length()-9, fileAddress.length()-7);
 		String h = fileAddress.substring(fileAddress.length()-6, fileAddress.length()-4);
 		BufferedImage image = new BufferedImage(Integer.parseInt(w)*scaleX, Integer.parseInt(h)*scaleY, BufferedImage.TYPE_INT_RGB);
-		Graphics g = image.createGraphics(); 
-		g.setColor(Color.WHITE);
-		g.fillRect(0, 0,Integer.parseInt(w)*scaleX, Integer.parseInt(h)*scaleY);
+		Graphics2D g2d = image.createGraphics(); 
+		g2d.setColor(Color.WHITE);
+		g2d.fillRect(0, 0,Integer.parseInt(w)*scaleX, Integer.parseInt(h)*scaleY);
 		try {
 			Scanner sc = new Scanner(new File(fileAddress));
 			int id;
@@ -31,8 +31,8 @@ public class IconToImage {
 				y = sc.nextInt()*scaleY;
 				for (eEditColor ecolor : eEditColor.values()) {
 					if (ecolor.getID()==id) {
-						g.setColor(ecolor.getColor());
-						g.fillRect(x,y,scaleX,scaleY);
+						g2d.setColor(ecolor.getColor());
+						g2d.fillRect(x,y,scaleX,scaleY);
 						break;
 					}
 				}

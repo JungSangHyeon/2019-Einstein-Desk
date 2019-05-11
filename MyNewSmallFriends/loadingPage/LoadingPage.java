@@ -19,7 +19,7 @@ public class LoadingPage extends JFrame{
 		this.setExtendedState(MAXIMIZED_BOTH);
 		this.getContentPane().setBackground(backGroundColor);
 		try {this.img = ImageIO.read(new File(imgAddr));}
-		catch (Exception e) {}//없으면 그냥 안띄움.
+		catch (Exception e) {/*DO NOTHING*/}
 		this.setVisible(true);
 	}
 	

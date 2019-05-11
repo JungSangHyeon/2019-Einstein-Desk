@@ -10,6 +10,7 @@ import iconPainter.IconColorEnum.eEditColor;
 
 public class IconPainter {
 
+	@SuppressWarnings("resource")
 	public static void IconPaint(Graphics2D g2d, String fileAddress, Point startPoint, int scale) {
 		try {
 			Scanner sc = new Scanner(new File(fileAddress));

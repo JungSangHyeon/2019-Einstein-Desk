@@ -5,7 +5,7 @@ import java.awt.Color;
 public class IconColorEnum {
 
 	public enum eEditColor{
-		Color1(1,new Color(30,30,30,100)),
+		Color1(1,new Color(30,30,30,1)),
 		Color2(2,Color.black),
 		Color3(3,Color.gray),
 		Color4(4,Color.LIGHT_GRAY),

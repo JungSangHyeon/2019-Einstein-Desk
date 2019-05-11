@@ -3,7 +3,6 @@ package stuff_Component;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
@@ -36,9 +35,8 @@ public class GraphicComponent  implements Serializable{
 	public void paint(Graphics2D g) {
 		if(basicPaintNeed) {
 			g.setStroke(new BasicStroke(borderThick));
-			Rectangle r = shape.getBounds();
 			g.setColor(fillColor); g.fill(shape);
-			g.setColor(borderColor); g.draw(new Rectangle(r.x+borderThick/2, r.y+borderThick/2, r.width-borderThick, r.height-borderThick));
+			g.setColor(borderColor); g.draw(shape);
 		}
 		for(AComponentPainter painter : painters) {painter.paintComponent(g,shape);}
 	}
