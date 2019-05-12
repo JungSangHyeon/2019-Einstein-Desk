@@ -12,6 +12,7 @@ public class HandTool extends ATool{//Select(1 or N) & give Event
 	private static final long serialVersionUID = -7463646428712999248L;
 	
 	boolean areaSelect = false;
+	AreaSelectTool areaSelectRect = new AreaSelectTool();
 	
 	public void mousePressed(MouseEvent e) {
 		GraphicComponent nowSelected = null;
@@ -22,12 +23,13 @@ public class HandTool extends ATool{//Select(1 or N) & give Event
 				break;
 			}
 		}
-		if(nowSelected==null) {
+		if(nowSelected==null) {//press on back ground
+			GCStorage.clearSelected();
 			areaSelect = true;
-		}else if(!GCStorage.isSelected(nowSelected)) {
+		}else if(!GCStorage.isSelected(nowSelected)) {//press on new GC
 			GCStorage.clearSelected();
 			GCStorage.addSelectedGC(nowSelected);
-		}
+		}//else {}//press on selected GC -> NOTHING
 		basicAction(e);
 	}
 
@@ -37,14 +39,13 @@ public class HandTool extends ATool{//Select(1 or N) & give Event
 	}
 	
 	private void basicAction(MouseEvent e) {
-		if(!areaSelect) {
-			for(GraphicComponent gc : GCStorage.getSelectedGCVector()) {gc.processEvent(e);}
-		}
+		if(!areaSelect) {for(GraphicComponent gc : GCStorage.getSelectedGCVector()) {gc.processEvent(e);}}
+		else {areaSelectRect.processEvent(e);}
 	}
 	
 	public void mouseDragged(MouseEvent e) {basicAction(e);}
 	public void mouseClicked(MouseEvent e) {basicAction(e);}
-	public void mouseMoved(MouseEvent e) {basicAction(e);}
+	public void mouseMoved(MouseEvent e) {basicAction(e);}//need?
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
 }

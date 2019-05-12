@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.util.Vector;
 
 import javax.swing.JPanel;
 
@@ -18,6 +19,7 @@ public class DragAndDropManager {
 	static JPanel nowMouseOnPanel;
 	static JPanel componentMasterPanel;
 	private static GraphicComponent draggingComponent=null;
+//	private static Vector<GraphicComponent> draggingComponents=new Vector<GraphicComponent>();
 	
 	public static void drop() {
 		if (componentMasterPanel != nowMouseOnPanel && draggingComponent != null && nowMouseOnPanel != null && componentMasterPanel != null) {

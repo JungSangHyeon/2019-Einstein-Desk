@@ -203,8 +203,6 @@ public abstract class AContainer extends SU_AffineScrollPanel {//호호 드럽다.
 	public class MouseHandler implements MouseListener, MouseMotionListener{//TODO
 		public void mousePressed(MouseEvent e) {findCurrentShape(e);basicAction(e);}
 		public void mouseReleased(MouseEvent e) {
-			DragAndDropManager.drop();
-			DragAndDropManager.reset();
 			basicAction(e);
 			reset();
 		}

@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -74,6 +75,12 @@ public class DrawingPanel extends JPanel{
 		if(DragAndDropManager.getComponentMasterPanel()==this&&DragAndDropManager.getDraggingComponent()!=null) {//drawPanel -> container∏¶ ∫∏¿”.
 			DragAndDropManager.getDraggingComponent().paint(g2d);
 		}
+		
+//		for(GraphicComponent gc : GCStorage.getSelectedGCVector()) {//select Test
+//			gc.setFillColor(Color.red);
+//			gc.paint(g2d);
+//			gc.setFillColor(eColor.ShapeBasicFillColor.getVal());
+//		}
 		g2d.setTransform(new AffineTransform());
 	}
 	

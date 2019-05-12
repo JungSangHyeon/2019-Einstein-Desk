@@ -1,6 +1,7 @@
 package container;
 
 import painter.ImgPainter;
+import processor.DragAndDropProcessor;
 import processor.Mover;
 import processor.ToolSelector;
 import stuff_Component.AComponentPainter;
@@ -35,6 +36,7 @@ public class ToolBar extends AContainer{
 			GCData.addPainter(tool.getPainter());
 			GCData.addProcessor(new ToolSelector(tool.getTool()));
 			GCData.addProcessor(new Mover());
+			GCData.addProcessor(new DragAndDropProcessor());
 			GCData.setBasicPaintNeed(false);
 			this.addItem(GCData);
 		}

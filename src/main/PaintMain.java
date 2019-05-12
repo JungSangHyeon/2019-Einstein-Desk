@@ -44,5 +44,4 @@ public class PaintMain {
 //Icon Invisible Part
 //D&D get Same Component
 //Share Mover
-//remove select Method from Data
 //D&D for Many. edit hand tool

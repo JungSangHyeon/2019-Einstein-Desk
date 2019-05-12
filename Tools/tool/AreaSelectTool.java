@@ -1,25 +1,33 @@
 package tool;
 
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
 import data.GCStorage;
 import data.GlobalData;
 import moveAndZoom.DrawingPanelMoveAndZoom;
-import processor.DragAndDropProcessor;
 import processor.Mover;
 import stuff_Component.GraphicComponent;
 import toolStuff.ATool;
+import twoPointShapeStuff.ShapeEnum.e2PShape;
 
-public class Make2PointShapeTool extends ATool{
-	private static final long serialVersionUID = 5000619643824217376L;
+public class AreaSelectTool extends ATool{
+	private static final long serialVersionUID = 3537773334283291318L;
+	
+	e2PShape before2PShape;
 	
 	public void mousePressed(MouseEvent e) {
+		before2PShape = GlobalData.getNow2PShape();
+		GlobalData.setNow2PShape(e2PShape.rect);
+		
 		GraphicComponent GCData = new GraphicComponent();
 		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 		GCData.addProcessor(new Mover());
-		GCData.addProcessor(new DragAndDropProcessor());
+		GCData.setFillColor(new Color(100,100,100,100));
+		GCData.setBorderColor(new Color(0,0,0,1));
 		setShape(GCData);
 		GCStorage.addNewGC(GCData);
 	}
@@ -35,7 +43,18 @@ public class Make2PointShapeTool extends ATool{
 		shapeData.setShape(GlobalData.getNow2PShape().getShapeMaker().newShape(p1, p2));
 	}
 	
-	public void mouseReleased(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {
+		Rectangle2D area = GCStorage.getLastGC().getShape().getBounds2D();
+		GCStorage.removeGC(GCStorage.getLastGC());
+		
+		GlobalData.setNow2PShape(before2PShape);
+		for(GraphicComponent gc : GCStorage.getGCVector()) {
+			if(area.contains(gc.getShape().getBounds2D())) {
+				GCStorage.addSelectedGC(gc);
+			}
+		}
+		
+	}
 	public void mouseClicked(MouseEvent e) {}
 	public void mouseMoved(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
