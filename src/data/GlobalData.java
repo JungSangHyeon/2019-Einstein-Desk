@@ -1,19 +1,18 @@
 package data;
 
-import shapeMaker_Stuff.ShapeMakerEnum.e2PShapeMaker;
-import tool.Make2PointShapeTool;
+import shape_Stuff.eShape;
+import tool.PDRShapeDrawTool;
 import tool_Stuff.ATool;
 
 public class GlobalData {
 
 	//Tool
-	private static ATool nowTool = new Make2PointShapeTool();
+	private static ATool nowTool = new PDRShapeDrawTool();
 	public static ATool getNowTool() {return nowTool;}
 	public static void setNowTool(ATool nowTool) {GlobalData.nowTool = nowTool;}
 	
-	//2P Shape
-	private static e2PShapeMaker now2PShape = e2PShapeMaker.rect;
-	public static e2PShapeMaker getNow2PShape() {return now2PShape;}
-	public static void setNow2PShape(e2PShapeMaker now2PShape) {GlobalData.now2PShape = now2PShape;}
-	
+	//Shape
+	private static eShape nowShapeMaker = eShape.rect;//btn누르면 쉐잎이 버튼대로 맞춰지고, 쉐입을 통해 툴도 맞추낟.
+	public static eShape getNowShapeMaker() {return nowShapeMaker;}
+	public static void setNowShapeMaker(eShape shapeMaker) {GlobalData.nowShapeMaker = shapeMaker;}
 }

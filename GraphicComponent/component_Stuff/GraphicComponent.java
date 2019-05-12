@@ -59,6 +59,7 @@ public class GraphicComponent  implements Serializable{
 	public Vector<Point2D.Float> getPoints() {return this.points;}
 	public void setPoints(Vector<Point2D.Float> points) {this.points = points;}
 	public void setPoint(int i, Point2D.Float p) {this.points.set(i, p);}
+	public void setLastPoint(Point2D.Float p) {this.points.set(points.size()-1, p);}
 	public void addPoint(Point2D.Float point) {this.points.add(point);}
 
 	public void setFillColor(Color c) {this.fillColor = c;}
