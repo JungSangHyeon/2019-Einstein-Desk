@@ -5,9 +5,9 @@ import container_Item.ShapeSelectItems.eShapeSelectItem;
 import container_Stuff.AContainer;
 
 @SuppressWarnings("serial")
-public class ShapeSelector extends AContainer{
+public class ShapeSelectContainer extends AContainer{
 
-	public ShapeSelector() {
+	public ShapeSelectContainer() {
 		super(100,100, 5, 1);
 		this.setItemDraggable(false);
 	

@@ -30,7 +30,7 @@ public class PDRShapeDrawTool extends ATool{
 	}
 
 	private void setShape(GraphicComponent shapeData) {
-		shapeData.setShape(GlobalData.getNowShapeMaker().getShapeMaker().newShape(shapeData.getPoints()));
+		shapeData.setShape(GlobalData.getNowShapeMaker().newShape(shapeData.getPoints()));
 	}
 	
 	public void mouseReleased(MouseEvent e) {GlobalData.setNowTool(eTool.eHandTool.getTool());}

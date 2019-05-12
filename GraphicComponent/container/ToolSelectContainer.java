@@ -7,9 +7,9 @@ import container_Item.ToolSelectItems.eToolSelectItem;
 import container_Stuff.AContainer;
 
 @SuppressWarnings("serial")
-public class ToolSelector extends AContainer{
+public class ToolSelectContainer extends AContainer{
 
-	public ToolSelector() {
+	public ToolSelectContainer() {
 		super(100,100, eToolSelectItem.values().length,1);//숫자 세야 한다.
 //		this.setItemDraggable(false);
 		

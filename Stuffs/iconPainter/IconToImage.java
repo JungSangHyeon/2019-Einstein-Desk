@@ -1,6 +1,5 @@
 package iconPainter;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -14,13 +13,12 @@ public class IconToImage {
 	static BufferedImage img;
 	
 	@SuppressWarnings("resource")
-	public static BufferedImage getImg(String fileAddress, Color bgColor) {
+	public static BufferedImage getImg(String fileAddress) {
 		String w = fileAddress.substring(fileAddress.length()-9, fileAddress.length()-7);
 		String h = fileAddress.substring(fileAddress.length()-6, fileAddress.length()-4);
 		BufferedImage image = new BufferedImage(Integer.parseInt(w), Integer.parseInt(h), BufferedImage.TYPE_INT_RGB);
 		Graphics2D g2d = image.createGraphics(); 
-		g2d.setColor(bgColor);
-		g2d.fillRect(0, 0,Integer.parseInt(w), Integer.parseInt(h));
+//		g2d.fillRect(0, 0,Integer.parseInt(w), Integer.parseInt(h));//BG Color
 		try {
 			Scanner sc = new Scanner(new File(fileAddress));
 			int id, x, y;

@@ -27,7 +27,8 @@ public class PaintMain {
 	
 }
 //work
-//make n point Shape Tool
+//add all shape to item
+//finish tool Bar & Shape Bar 
 
 //make Share mover
 //make Share rotate, resizer.

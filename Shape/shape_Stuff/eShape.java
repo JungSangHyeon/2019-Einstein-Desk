@@ -21,8 +21,8 @@ public enum eShape{
 	freeLine(new FreeLineShape()), 
 	;
 	
-	AShape shapeMaker;
-	private eShape(AShape shapeMaker) {this.shapeMaker = shapeMaker;}
-	public AShape getShapeMaker() {return shapeMaker;}
+	AShape shape;
+	private eShape(AShape shape) {this.shape = shape;}
+	public AShape getShape() {return shape;}
 }
 

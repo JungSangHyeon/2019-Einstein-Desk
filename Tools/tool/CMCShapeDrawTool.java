@@ -49,7 +49,7 @@ public class CMCShapeDrawTool extends ATool{
 	}
 
 	private void setShape(GraphicComponent shapeData) {
-		shapeData.setShape(GlobalData.getNowShapeMaker().getShapeMaker().newShape(shapeData.getPoints()));
+		shapeData.setShape(GlobalData.getNowShapeMaker().newShape(shapeData.getPoints()));
 	}
 	
 	public void mousePressed(MouseEvent e) {}

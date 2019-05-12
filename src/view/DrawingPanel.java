@@ -10,7 +10,7 @@ import java.awt.geom.AffineTransform;
 import javax.swing.JPanel;
 
 import component_Stuff.GraphicComponent;
-import container.ToolSelector;
+import container.ToolSelectContainer;
 import container_Stuff.AContainer;
 import data.GCStorage;
 import deepClone.DeepClone;
@@ -22,7 +22,7 @@ import moveAndZoom.DrawingPanelMoveAndZoom;
 @SuppressWarnings("serial")
 public class DrawingPanel extends JPanel{
 	
-	ToolSelector toolBar, toolBar2;
+	ToolSelectContainer toolBar, toolBar2;
 	
 	public DrawingPanel() {
 		this.setBackground(eColor.DrawingPanelBackGroundColor.getVal());
@@ -36,12 +36,12 @@ public class DrawingPanel extends JPanel{
 		
 		this.setLayout(null);
 
-		toolBar = new ToolSelector();
+		toolBar = new ToolSelectContainer();
 		toolBar.setLocation(100, 100);//Test
 		toolBar.addMaster(this);
 		this.add(toolBar);
 		
-		toolBar2 = new ToolSelector();
+		toolBar2 = new ToolSelectContainer();
 		toolBar2.addMaster(this);
 		this.add(toolBar2);
 		

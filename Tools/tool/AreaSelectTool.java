@@ -1,6 +1,6 @@
 package tool;
 
-import java.awt.Color; 
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 
@@ -9,24 +9,26 @@ import data.GCStorage;
 import data.GlobalData;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import processor.Mover;
+import shape_Stuff.AShape;
 import shape_Stuff.eShape;
 import tool_Stuff.ATool;
 
 public class AreaSelectTool extends ATool{//extends TwoPointShapeTool 할까나. 아님 분리된 상태가 더 좋은가?
 	private static final long serialVersionUID = 3537773334283291318L;
 	
-	eShape before2PShape;
+	AShape before2PShape;
+	Color areaSelectRectColor = new Color(100,100,100,100);
 	
 	public void mousePressed(MouseEvent e) {
 		before2PShape = GlobalData.getNowShapeMaker();
-		GlobalData.setNowShapeMaker(eShape.rect);
+		GlobalData.setNowShapeMaker(eShape.rect.getShape());
 		
 		GraphicComponent GCData = new GraphicComponent();
 		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 		GCData.addProcessor(new Mover());
-		GCData.setFillColor(new Color(100,100,100,100));
-		GCData.setBorderColor(new Color(0,0,0,1));
+		GCData.setFillColor(areaSelectRectColor);
+		GCData.setBorderColor(areaSelectRectColor);
 		setShape(GCData);
 		GCStorage.addNewGC(GCData);
 	}
@@ -37,7 +39,7 @@ public class AreaSelectTool extends ATool{//extends TwoPointShapeTool 할까나. 아
 	}
 
 	private void setShape(GraphicComponent shapeData) {
-		shapeData.setShape(GlobalData.getNowShapeMaker().getShapeMaker().newShape(shapeData.getPoints()));
+		shapeData.setShape(GlobalData.getNowShapeMaker().newShape(shapeData.getPoints()));
 	}
 	
 	public void mouseReleased(MouseEvent e) {
@@ -49,8 +51,8 @@ public class AreaSelectTool extends ATool{//extends TwoPointShapeTool 할까나. 아
 				GCStorage.addSelectedGC(gc);
 			}
 		}
-		
 	}
+	
 	public void mouseClicked(MouseEvent e) {}
 	public void mouseMoved(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
