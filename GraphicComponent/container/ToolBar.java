@@ -1,15 +1,14 @@
 package container;
 
+import component_Stuff.GraphicComponent;
+import container_Stuff.AContainer;
 import painter.ImgPainter;
-import processor.DragAndDropProcessor;
+import painter_Stuff.AComponentPainter;
 import processor.Mover;
 import processor.ToolSelector;
-import stuff_Component.AComponentPainter;
-import stuff_Component.GraphicComponent;
-import stuff_Container.AContainer;
 import tool.HandTool;
 import tool.Make2PointShapeTool;
-import toolStuff.ATool;
+import tool_Stuff.ATool;
 
 @SuppressWarnings("serial")
 public class ToolBar extends AContainer{
@@ -29,6 +28,7 @@ public class ToolBar extends AContainer{
 	
 	public ToolBar() {
 		super(100,100, eTool.values().length,1);
+//		this.setItemDraggable(false);
 		
 		GraphicComponent GCData;
 		for(eTool tool : eTool.values()) {
@@ -36,7 +36,6 @@ public class ToolBar extends AContainer{
 			GCData.addPainter(tool.getPainter());
 			GCData.addProcessor(new ToolSelector(tool.getTool()));
 			GCData.addProcessor(new Mover());
-			GCData.addProcessor(new DragAndDropProcessor());
 			GCData.setBasicPaintNeed(false);
 			this.addItem(GCData);
 		}

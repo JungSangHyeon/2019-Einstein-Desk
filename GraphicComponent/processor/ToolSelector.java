@@ -4,8 +4,8 @@ import java.awt.event.MouseEvent;
 import java.io.Serializable;
 
 import data.GlobalData;
-import stuff_Component.AMouseActionProcessor;
-import toolStuff.ATool;
+import processor_Stuff.AMouseActionProcessor;
+import tool_Stuff.ATool;
 
 public class ToolSelector extends AMouseActionProcessor implements Serializable{
 	private static final long serialVersionUID = -6743524881365403749L;

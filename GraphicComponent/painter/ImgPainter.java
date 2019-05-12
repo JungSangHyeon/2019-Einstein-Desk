@@ -9,10 +9,10 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import moveAndZoom.DrawingPanelMoveAndZoom;
-import stuff_Component.AComponentPainter;
-import stuff_Component.ImgStorage;
+import painter_Stuff.AComponentPainter;
+import painter_Stuff.ImgStorage;
 
-public class ImgPainter extends AComponentPainter {
+public class ImgPainter extends AComponentPainter {// D&DÇÔ
 	private static final long serialVersionUID = -7941746680321916676L;
 	
 	final static int minTextSize = 10, textWRadio = 8, textHRadio = 4, textLocationXFactor = 40, textLocationYFactor = 20;

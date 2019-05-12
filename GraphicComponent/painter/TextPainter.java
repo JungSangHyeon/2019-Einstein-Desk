@@ -7,10 +7,11 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.image.BufferedImage;
 
-import stuff_Component.AComponentPainter;
-import stuff_Component.ImgStorage;
+import moveAndZoom.DrawingPanelMoveAndZoom;
+import painter_Stuff.AComponentPainter;
+import painter_Stuff.ImgStorage;
 
-public class TextPainter extends AComponentPainter {
+public class TextPainter extends AComponentPainter {//D&D ¾ÈÇÔ
 	private static final long serialVersionUID = -7129480604093083071L;
 	
 	final static int minTextSize = 15;
@@ -32,27 +33,18 @@ public class TextPainter extends AComponentPainter {
 		g2d.setColor(nameColor);
 		
 		BufferedImage img = ImgStorage.getImage(imageIndex) ;
-		if(rect.getWidth()<rect.getHeight()) {
-			if (img != null) {g2d.drawImage(img, rectX+imgLeftGap, rectY+imgUpDownGap, rectW-imgLeftGap*2, rectW-imgUpDownGap*2, null);}
-			float gap = rectH - (imgUpDownGap+rectW-imgUpDownGap*2);
-			nameSize = rectW/3;
-			if(nameSize>gap*1.1) {nameSize = (float) (gap*1.1);}
-			if(nameSize>minTextSize) {
-				g2d.setFont(new Font(null, Font.PLAIN, (int)nameSize));
-				g2d.drawString(name, rectX+imgLeftGap, (int) (rectY+rectW +( nameSize*textYFactor*2+imgUpDownGap) ));
-			}
-		}else {
+		if(rect.getWidth()>rect.getHeight()) {
 			if (img != null) {g2d.drawImage(img, rectX+imgLeftGap, rectY+imgUpDownGap, rectH-imgLeftGap*2, rectH-imgUpDownGap*2, null);}
 			float gap = rectW - (imgLeftGap+rectH-imgUpDownGap*4);
 			float size =g2d.getFontMetrics(new Font(null, Font.PLAIN, (int)nameSize)).stringWidth(name);
 			if(gap<size) {nameSize = gap/textWRadio;}
 			else {nameSize = Math.min(rectH/textHRadio, gap/textWRadio) ;}
-			if(nameSize>minTextSize) {
+			if(nameSize*DrawingPanelMoveAndZoom.getScale()>minTextSize) {
 				g2d.setFont(new Font(null, Font.PLAIN, (int)nameSize));
 				g2d.drawString(name, rectX+imgLeftGap+rectH+imgRightGap, (int) (rectY+rectH/2 + nameSize*textYFactor) );
 			}
 		}
 		g2d.setClip(null);
 	}
-	
+
 }

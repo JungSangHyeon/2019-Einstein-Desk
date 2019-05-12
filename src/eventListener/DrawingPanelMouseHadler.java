@@ -11,35 +11,40 @@ import dragAndDrop.DragAndDropManager;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import view.DrawingPanel;
 
-public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListener, MouseWheelListener{
+public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListener, MouseWheelListener{//manage all event except AContainer
 
-	DrawingPanel drawingPanel;
-	int pressedBTN;
+	DrawingPanel drawingPanel;//Master Panel
+	int pressedBTN;//for identify dragging BTN   
+	//Left BTN = modify Data
+	//Right BTN = Move & Zoom
 	
 	public DrawingPanelMouseHadler(DrawingPanel drawingPanel) {this.drawingPanel=drawingPanel;}
 
 	public void mousePressed(MouseEvent e) {
 		pressedBTN = e.getButton();
-		if(pressedBTN == MouseEvent.BUTTON1){GlobalData.getNowTool().processEvent(e);}
-		else if(pressedBTN == MouseEvent.BUTTON3) {DrawingPanelMoveAndZoom.setDragStartPoint(e.getPoint());}
+		if(leftBTNPressed()){GlobalData.getNowTool().processEvent(e);}
+		else if(rightBTNPressed()) {DrawingPanelMoveAndZoom.setDragStartPoint(e.getPoint());}
 		drawingPanel.repaint();
 	}
 
 	public void mouseReleased(MouseEvent e) {
-		if(pressedBTN == MouseEvent.BUTTON1){GlobalData.getNowTool().processEvent(e);}
+		if(leftBTNPressed()){GlobalData.getNowTool().processEvent(e);}
 		drawingPanel.repaint();
 	}
 	
 	public void mouseDragged(MouseEvent e) {
-		if(pressedBTN == MouseEvent.BUTTON1){
+		if(leftBTNPressed()){
 			DragAndDropManager.setComponentMasterPanel(drawingPanel);
 			GlobalData.getNowTool().processEvent(e);
-		} else if (pressedBTN == MouseEvent.BUTTON3) {DrawingPanelMoveAndZoom.moveCamera(e);}
+		} else if (rightBTNPressed()) {DrawingPanelMoveAndZoom.moveCamera(e);}
 		drawingPanel.repaint();
 	}
 	
 	public void mouseEntered(MouseEvent e) {DragAndDropManager.setNowMouseOnPanel(drawingPanel);}
 	public void mouseWheelMoved(MouseWheelEvent e) {DrawingPanelMoveAndZoom.zoomCamera(e);}
+	
+	private boolean leftBTNPressed() {return pressedBTN == MouseEvent.BUTTON1;}
+	private boolean rightBTNPressed() {return pressedBTN == MouseEvent.BUTTON3;}
 	
 	public void mouseClicked(MouseEvent e) {}
 	public void mouseMoved(MouseEvent e) {}

@@ -9,12 +9,12 @@ public class PaintMain {
 	public static void main(String[] args) {
 		System.out.println("SUPER-ULTRA-PAINT V2");
 		
-		new GlobalTimer();//시간은 흐른다!
+		new GlobalTimer();//Time Starts Moving
 		
 		InjectEnums.injectPreEnums();
 		
 //		LoadingPage loadingPage = new LoadingPage(Color.white, eString.LoadingPageImageAddress.getVal());
-//		int id = GlobalTimer.addTimer(eInt.LeastLoadingPageOnTime.getVal()); //최소 타이틀 보여주는 시간.
+//		int id = GlobalTimer.addTimer(eInt.LeastLoadingPageOnTime.getVal()); //min Title Time
 		
 		InjectEnums.injectAllEnums();
 		
@@ -40,8 +40,8 @@ public class PaintMain {
 //드래그드랍, 세모나 동글이도 고 모양대로 들어가고, 고 모양대로 나오게 해주라.
 //무버를 밖으로 못 빼나.
 
+//Icon Invisible Part or change Color
+
 //D&D Component Delete
-//Icon Invisible Part
 //D&D get Same Component
 //Share Mover
-//D&D for Many. edit hand tool

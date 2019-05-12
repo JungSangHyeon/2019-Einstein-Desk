@@ -13,18 +13,20 @@ public class InjectEnums {
 	}
 
 	public static void injectAllEnums() {
-		InjectTarget[][] targetArrs= {eInt.values(), eString.values(), eColor.values()};//여따 enum들 넣으시오.
+		InjectTarget[][] targetArrs= {eInt.values(), eString.values(), eColor.values()};//Enums Here
 		Injector.registeAll(targetArrs);
 		Injector.injectRegisted();
 	}
 	
 	//Addresses_이걸 설정하는 Enum을 만들 수 도 있긴한디....
-	static String mainFrameTableAddress = "Setting1/MainFrame.txt";
-	static String drawingPanelTableAddress = "Setting1/DrawingPanel.txt";
-	static String timeTableAddress = "Setting1/Time.txt";
-	static String shapeTableAddress = "Setting1/Shape.txt";
-	static String systemTableAddress = "Setting1/System.txt";
-	static String imageTableAddress = "Setting1/Image.txt";
+	static String setting = "Setting1";
+	
+	static String mainFrameTableAddress = setting + "/MainFrame.txt";
+	static String drawingPanelTableAddress = setting + "/DrawingPanel.txt";
+	static String timeTableAddress = setting + "/Time.txt";
+	static String shapeTableAddress = setting + "/Shape.txt";
+	static String systemTableAddress = setting + "/System.txt";
+	static String imageTableAddress = setting + "/Image.txt";
 
 	//Inject Enums
 	public enum eInt implements InjectTarget {

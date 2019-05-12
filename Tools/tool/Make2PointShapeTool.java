@@ -3,23 +3,24 @@ package tool;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 
+import component_Stuff.GraphicComponent;
 import data.GCStorage;
 import data.GlobalData;
 import moveAndZoom.DrawingPanelMoveAndZoom;
-import processor.DragAndDropProcessor;
+import painter.TextPainter;
 import processor.Mover;
-import stuff_Component.GraphicComponent;
-import toolStuff.ATool;
+import tool_Stuff.ATool;
 
 public class Make2PointShapeTool extends ATool{
 	private static final long serialVersionUID = 5000619643824217376L;
 	
 	public void mousePressed(MouseEvent e) {
+		GCStorage.clearSelected();
 		GraphicComponent GCData = new GraphicComponent();
 		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
+		GCData.addPainter(new TextPainter("testttt", "Icons/jake_22X22.txt"));
 		GCData.addProcessor(new Mover());
-		GCData.addProcessor(new DragAndDropProcessor());
 		setShape(GCData);
 		GCStorage.addNewGC(GCData);
 	}

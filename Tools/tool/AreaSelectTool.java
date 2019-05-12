@@ -5,22 +5,22 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
+import component_Stuff.GraphicComponent;
 import data.GCStorage;
 import data.GlobalData;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import processor.Mover;
-import stuff_Component.GraphicComponent;
-import toolStuff.ATool;
-import twoPointShapeStuff.ShapeEnum.e2PShape;
+import shapeMaker_Stuff.ShapeMakerEnum.e2PShapeMaker;
+import tool_Stuff.ATool;
 
 public class AreaSelectTool extends ATool{
 	private static final long serialVersionUID = 3537773334283291318L;
 	
-	e2PShape before2PShape;
+	e2PShapeMaker before2PShape;
 	
 	public void mousePressed(MouseEvent e) {
 		before2PShape = GlobalData.getNow2PShape();
-		GlobalData.setNow2PShape(e2PShape.rect);
+		GlobalData.setNow2PShape(e2PShapeMaker.rect);
 		
 		GraphicComponent GCData = new GraphicComponent();
 		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));

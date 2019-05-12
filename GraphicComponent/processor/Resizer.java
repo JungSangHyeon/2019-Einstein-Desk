@@ -4,8 +4,8 @@ import java.awt.event.MouseEvent;
 
 import processor_Stuff.AMouseActionProcessor;
 
-public class Rotator extends AMouseActionProcessor {
-	private static final long serialVersionUID = 2988753392079488444L;
+public class Resizer extends AMouseActionProcessor {
+	private static final long serialVersionUID = 6422663069840218685L;
 
 	public void mousePressed(MouseEvent e) {
 	}
