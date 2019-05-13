@@ -29,7 +29,8 @@ public class ToolSelectItems {
 		GC.addPainter(item.getPainter());
 		GC.addProcessor(new ToolSelector(item.getTool()));
 		GC.addProcessor(new Mover());
-		GC.setBasicPaintNeed(false);
+		GC.setBorderPaint(false);
+		GC.setFillPaint(false);
 		return GC;
 	}
 	

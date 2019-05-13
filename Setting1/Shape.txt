@@ -1,3 +1,3 @@
-ShapeBasicBorderThick(1);
+ShapeBasicBorderThick(5);
 ShapeBasicBorderColor(47,82,143);
 ShapeBasicFillColor(68,114,196);

@@ -8,7 +8,6 @@ import data.GlobalData;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import processor.Mover;
 import tool_Stuff.ATool;
-import tool_Stuff.eTool;
 
 public class PDRShapeDrawTool extends ATool{
 	private static final long serialVersionUID = -2451691127621671062L;
@@ -18,7 +17,7 @@ public class PDRShapeDrawTool extends ATool{
 		GraphicComponent GCData = new GraphicComponent();
 		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
-//		GCData.addPainter(new TextPainter("testttt", "Icons/jake_22X22.txt"));
+		GCData.setFillPaint(GlobalData.getNowShapeMaker().needFill());
 		GCData.addProcessor(new Mover());
 		setShape(GCData);
 		GCStorage.addNewGC(GCData);
@@ -33,7 +32,7 @@ public class PDRShapeDrawTool extends ATool{
 		shapeData.setShape(GlobalData.getNowShapeMaker().newShape(shapeData.getPoints()));
 	}
 	
-	public void mouseReleased(MouseEvent e) {GlobalData.setNowTool(eTool.eHandTool.getTool());}
+	public void mouseReleased(MouseEvent e) {}//GlobalData.setNowTool(eTool.eHandTool.getTool());
 	public void mouseClicked(MouseEvent e) {}
 	public void mouseMoved(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}

@@ -23,14 +23,16 @@ public class CMCShapeDrawTool extends ATool{
 	}
 	
 	public void mouseMoved(MouseEvent e) {
-		GCStorage.getLastGC().setLastPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
-		setShape(GCStorage.getLastGC());
+		if(GCData!=null) {
+			setShape(GCStorage.getLastGC());
+			GCData.setLastPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
+		}
 	}
 	
 	private void initDrawing(MouseEvent e) {
 		GCStorage.clearSelected();
 		GCData = new GraphicComponent();
-//	GCData.addPainter(new TextPainter("testttt", "Icons/jake_22X22.txt"));
+		//	GCData.addPainter(new TextPainter("testttt", "Icons/jake_22X22.txt"));
 		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 		GCData.addProcessor(new Mover());
 		GCStorage.addNewGC(GCData);
@@ -53,7 +55,7 @@ public class CMCShapeDrawTool extends ATool{
 	}
 	
 	public void mousePressed(MouseEvent e) {}
-	public void mouseReleased(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {}//GlobalData.setNowTool(eTool.eHandTool.getTool());
 	public void mouseDragged(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}

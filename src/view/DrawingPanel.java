@@ -6,10 +6,12 @@ import java.awt.Rectangle;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.geom.AffineTransform;
+import java.util.Vector;
 
 import javax.swing.JPanel;
 
 import component_Stuff.GraphicComponent;
+import container.ShapeSelectContainer;
 import container.ToolSelectContainer;
 import container_Stuff.AContainer;
 import data.GCStorage;
@@ -22,30 +24,32 @@ import moveAndZoom.DrawingPanelMoveAndZoom;
 @SuppressWarnings("serial")
 public class DrawingPanel extends JPanel{
 	
-	ToolSelectContainer toolBar, toolBar2;
+	ToolSelectContainer toolSelector;
+	ShapeSelectContainer shapeSelector;
+	Vector<AContainer> containers;
 	
 	public DrawingPanel() {
 		this.setBackground(eColor.DrawingPanelBackGroundColor.getVal());
-		
 		DrawingPanelMouseHadler mouseHandler = new DrawingPanelMouseHadler(this);
 		this.addMouseMotionListener(mouseHandler);
 		this.addMouseWheelListener(mouseHandler);
 		this.addMouseListener(mouseHandler);
-		
 		this.addComponentListener(new componentHandler());
-		
 		this.setLayout(null);
 
-		toolBar = new ToolSelectContainer();
-		toolBar.setLocation(100, 100);//Test
-		toolBar.addMaster(this);
-		this.add(toolBar);
+		containers = new Vector<AContainer>();
+		toolSelector = new ToolSelectContainer();
+		shapeSelector = new ShapeSelectContainer();
 		
-		toolBar2 = new ToolSelectContainer();
-		toolBar2.addMaster(this);
-		this.add(toolBar2);
-		
-		ArrangeComponentLocation();
+		containers.add(toolSelector);
+		containers.add(shapeSelector);
+
+		for(AContainer container : containers) {
+			container.setLocation(100, 100);
+			container.addMaster(this);
+			this.add(container);
+		}
+//		ArrangeContainerLocation();
 	}
 	
 	public void initialize() {}
@@ -55,50 +59,45 @@ public class DrawingPanel extends JPanel{
 		Graphics2D g2d = (Graphics2D)g;
 		
 		allGCPaint(g2d);
+		
 		aContainerPaint(g2d);
+		
 		AContainerDraggingComponentPaint(g2d);
 		DrawingPanelDraggingComponentPaint(g2d);
 	}
 	
 	public class componentHandler implements ComponentListener{
-		public void componentResized(ComponentEvent e) {ArrangeComponentLocation();}
+		public void componentResized(ComponentEvent e) {ArrangeContainerLocation();}
 		public void componentHidden(ComponentEvent e) {}
 		public void componentMoved(ComponentEvent e) {}
 		public void componentShown(ComponentEvent e) {}
 	}
 	
-	public void ArrangeComponentLocation() {
-//		toolBar.setLocation(0, this.getHeight()-toolBar.getHeight());//¾ê´« Àá±ñ ¸·¾Æ³ð
-		toolBar2.setLocation(this.getWidth()-toolBar2.getWidth(), 0);
+	public void ArrangeContainerLocation() {
+		toolSelector.setLocation(this.getWidth()-toolSelector.getWidth(), 0);//R U
+		shapeSelector.setLocation(0, 0);//L U
 		repaint();
 	}
 	
 	private void allGCPaint(Graphics2D g2d) {
 		g2d.setTransform(DrawingPanelMoveAndZoom.getAT());
 		for(GraphicComponent gc : GCStorage.getGCVector()) {gc.paint(g2d);}
-		g2d.setTransform(new AffineTransform());		
+		g2d.setTransform(new AffineTransform());
 	}
 	
-	private void aContainerPaint(Graphics2D g2d) {
-		toolBar.myPaint(g2d);//draw AContainer
-		toolBar2.myPaint(g2d);
+	private void aContainerPaint(Graphics2D g2d) {//draw AContainer
+		for(AContainer container : containers) {container.myPaint(g2d);}
 	}
 	
-	private void AContainerDraggingComponentPaint(Graphics2D g2d) {
-		DraggingComponentPaint(toolBar, g2d);//draw AContainer Drag Component
-		DraggingComponentPaint(toolBar2, g2d);
+	private void AContainerDraggingComponentPaint(Graphics2D g2d) {//draw AContainer Drag Component
+		for(AContainer container : containers) {DraggingComponentPaint(container, g2d);}
 	}
 
-	private void DrawingPanelDraggingComponentPaint(Graphics2D g2d) {
+	private void DrawingPanelDraggingComponentPaint(Graphics2D g2d) {//show GC of drawPanel -> container
 		g2d.setTransform(DrawingPanelMoveAndZoom.getAT());
-		if(DragAndDropManager.getComponentMasterPanel()==this&&DragAndDropManager.getDraggingComponent()!=null) {//show GC of drawPanel -> container
+		if(DragAndDropManager.getComponentMasterPanel()==this&&DragAndDropManager.getDraggingComponent()!=null) {
 			DragAndDropManager.getDraggingComponent().paint(g2d);
 		}
-//		for(GraphicComponent gc : GCStorage.getSelectedGCVector()) {//select Test
-//			gc.setFillColor(Color.red);
-//			gc.paint(g2d);
-//			gc.setFillColor(eColor.ShapeBasicFillColor.getVal());
-//		}
 		g2d.setTransform(new AffineTransform());
 	}
 

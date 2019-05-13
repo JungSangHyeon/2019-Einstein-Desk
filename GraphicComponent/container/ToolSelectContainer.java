@@ -10,14 +10,14 @@ import container_Stuff.AContainer;
 public class ToolSelectContainer extends AContainer{
 
 	public ToolSelectContainer() {
-		super(100,100, eToolSelectItem.values().length,1);//숫자 세야 한다.
+		super(48,48, eToolSelectItem.values().length,1);//숫자 세야 한다.
 //		this.setItemDraggable(false);
+		this.setAutoChangeSeat(false);
+		this.setGapW(0);
+		this.setGapH(0);
 		
 		this.addItem(ToolSelectItems.getGCItem(eToolSelectItem.eHandToolItem));
-		this.addItem(ToolSelectItems.getGCItem(eToolSelectItem.eCMCShapeDrawToolItem));
-		this.addItem(ToolSelectItems.getGCItem(eToolSelectItem.ePDRShapeDrawToolIteam));
-		
-		this.addItem(ShapeSelectItems.getGCItem(eShapeSelectItem.eRectShape));
+		this.addItem(ShapeSelectItems.getGCItem(eShapeSelectItem.eFreeLineItem));
 	}
 
 }

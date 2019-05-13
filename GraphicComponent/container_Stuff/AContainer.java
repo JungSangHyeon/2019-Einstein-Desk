@@ -133,8 +133,8 @@ public abstract class AContainer extends AffineScrollPanel {//호호 드럽다.
 	public void setAutoChangeSeat(boolean boo) {this.autoChangeSeat=boo;}
 	public void setBackgroundColor(Color c) {this.backGroundColor= c;}
 	public void setItemDraggable(boolean boo) {this.draggable = boo;}
-	public void setGapW(int gapW) {this.gapW=gapW;}
-	public void setGapH(int gapH) {this.gapH=gapH;}
+	public void setGapW(int gapW) {this.gapW=gapW;this.setSize(limitXPixel*(pixelW+gapW)+gapW, limitYPixel*(pixelH+gapH)+gapH);}
+	public void setGapH(int gapH) {this.gapH=gapH;this.setSize(limitXPixel*(pixelW+gapW)+gapW, limitYPixel*(pixelH+gapH)+gapH);}
 	public void addItem(GraphicComponent gc) {
 		Item item = new Item(gc);
 		item.setSize(basicPixelW, basicPixelH);
@@ -211,7 +211,7 @@ public abstract class AContainer extends AffineScrollPanel {//호호 드럽다.
 		public void mouseDragged(MouseEvent e) {
 			if(copyCurrentItem!=null&&draggable) {
 				dragStartAction();
-				changeSeat();
+				if(autoChangeSeat) {changeSeat();}
 				copyCurrentItem.processEvent(e);
 			}
 			repaint();
@@ -300,7 +300,7 @@ public abstract class AContainer extends AffineScrollPanel {//호호 드럽다.
 			removeItem(currentItem);
 			itemVector.add(currentItem);
 			
-			if(startPixel.isOccupied()&&basicPixelW==1&&basicPixelH==1&&currentItemPoint!=null&&startPixelMaster!=null&&autoChangeSeat) {
+			if(startPixel.isOccupied()&&basicPixelW==1&&basicPixelH==1&&currentItemPoint!=null&&startPixelMaster!=null) {
 				//요것은 픽셀 사이 간격에 아이템의 시작점이 위치한 경우, 바꿀 아리템이 없는 경우, 안한다.
 				startPixelMaster.setPoint(currentItemPoint.x, currentItemPoint.y);
 				refreshRect(startPixelMaster);

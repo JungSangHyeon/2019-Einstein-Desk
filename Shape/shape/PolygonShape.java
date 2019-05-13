@@ -10,6 +10,8 @@ import java.util.Vector;
 import shape_Stuff.ACMCShape;
 
 public class PolygonShape extends ACMCShape{
+	private static final long serialVersionUID = 4276418385726487576L;
+
 	public Shape newShape(Vector<Float> points) {
 		return makeClosedLine(points);
 	}

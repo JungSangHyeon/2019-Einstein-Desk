@@ -7,6 +7,8 @@ import java.awt.geom.Point2D;
 import shape_Stuff.APDRShape;
 
 public class SpeechShape extends APDRShape{
+	private static final long serialVersionUID = 6890707532351775853L;
+
 	public Shape newTwoPointShape(Point2D.Float p1, Point2D.Float p2) {
 		return makePath(Math.min(p1.x, p2.x), Math.min(p1.y, p2.y), Math.abs(p1.x-p2.x), Math.abs(p1.y-p2.y));
 	}

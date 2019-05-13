@@ -17,7 +17,7 @@ public class AreaSelectTool extends ATool{//extends TwoPointShapeTool 할까나. 아
 	private static final long serialVersionUID = 3537773334283291318L;
 	
 	AShape before2PShape;
-	Color areaSelectRectColor = new Color(100,100,100,100);
+	Color areaSelectRectColor = new Color(100,100,100,130);
 	
 	public void mousePressed(MouseEvent e) {
 		before2PShape = GlobalData.getNowShapeMaker();
@@ -28,7 +28,7 @@ public class AreaSelectTool extends ATool{//extends TwoPointShapeTool 할까나. 아
 		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 		GCData.addProcessor(new Mover());
 		GCData.setFillColor(areaSelectRectColor);
-		GCData.setBorderColor(areaSelectRectColor);
+		GCData.setBorderPaint(false);
 		setShape(GCData);
 		GCStorage.addNewGC(GCData);
 	}

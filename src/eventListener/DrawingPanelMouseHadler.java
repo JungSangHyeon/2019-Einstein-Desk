@@ -41,13 +41,16 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 	}
 	
 	public void mouseEntered(MouseEvent e) {DragAndDropManager.setNowMouseOnPanel(drawingPanel);}
-	public void mouseWheelMoved(MouseWheelEvent e) {DrawingPanelMoveAndZoom.zoomCamera(e);}
+	public void mouseWheelMoved(MouseWheelEvent e) {DrawingPanelMoveAndZoom.zoomCamera(e);drawingPanel.repaint();}
+	public void mouseMoved(MouseEvent e) {GlobalData.getNowTool().processEvent(e);drawingPanel.repaint();}
+	public void mouseClicked(MouseEvent e) {
+		if(leftBTNPressed()){GlobalData.getNowTool().processEvent(e);}
+		drawingPanel.repaint();
+	}
 	
 	private boolean leftBTNPressed() {return pressedBTN == MouseEvent.BUTTON1;}
 	private boolean rightBTNPressed() {return pressedBTN == MouseEvent.BUTTON3;}
 	
-	public void mouseClicked(MouseEvent e) {}
-	public void mouseMoved(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
 
 }

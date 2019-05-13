@@ -30,10 +30,14 @@ public class DragAndDropManager {
 					GCStorage.removeSelectedGC(draggingComponent);
 				}
 			}
-			componentMasterPanel=null;//reset
-			draggingComponent=null;
-			nowMouseOnPanel=null;
 		}
+		reset();
+	}
+
+	public static void reset() {
+		componentMasterPanel=null;//reset
+		draggingComponent=null;
+		nowMouseOnPanel=null;		
 	}
 
 	private static void applyTransformToDraggingComponent() {//AContainer -> Drawing Panel에서 DP의 Affine Transform 에 맞게 크기를 조절 해줌.

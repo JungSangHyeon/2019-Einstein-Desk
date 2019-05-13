@@ -17,6 +17,7 @@ public abstract class AComponentPainter  implements Serializable{
 	protected String name = "";
 	protected double nameSize = 50; //적은 값 : 실제 값 = 14 : 10
 	protected Color nameColor = Color.BLACK, backGroundColor = Color.WHITE;
+	protected boolean backGroundNeed = false;
 	
 	public AComponentPainter(String name, String fileAddress) {
 		if(name!=null) {this.name = name;}
@@ -33,6 +34,7 @@ public abstract class AComponentPainter  implements Serializable{
 	public void setTextSize(int size) {this.nameSize = size;}
 	public void setTextColor(Color c) {this.nameColor=c;}
 	public void setBackGroundColor(Color c) {this.backGroundColor=c;}
+	public void setBackGroundNeed(boolean boo) {this.backGroundNeed=boo;}
 	
 	public abstract void paintComponent(Graphics g, Shape shape);
 	

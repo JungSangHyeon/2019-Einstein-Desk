@@ -24,7 +24,7 @@ public class GraphicComponent  implements Serializable{
 	private Color fillColor = eColor.ShapeBasicFillColor.getVal();
 	private Color borderColor = eColor.ShapeBasicBorderColor.getVal();
 	private int borderThick = eInt.ShapeBasicBorderThick.getVal();
-	private boolean basicPaintNeed = true;
+	private boolean paintFill = true, paintBorder = true;
 	
 	public GraphicComponent() {
 		processors = new Vector<AMouseActionProcessor>();
@@ -46,13 +46,12 @@ public class GraphicComponent  implements Serializable{
 	//Painter
 	public Vector<AComponentPainter> getPainters() {return painters;}
 	public void addPainter(AComponentPainter painter) {painters.add(painter);}
-	public void setBasicPaintNeed(boolean boo) {this.basicPaintNeed = boo;}
+	public void setFillPaint(boolean boo) {this.paintFill = boo;}
+	public void setBorderPaint(boolean boo) {this.paintBorder = boo;}
 	public void paint(Graphics2D g) {
-		if(basicPaintNeed) {
-			g.setStroke(new BasicStroke(borderThick));
-			g.setColor(fillColor); g.fill(shape);
-			g.setColor(borderColor); g.draw(shape);
-		}
+		g.setStroke(new BasicStroke(borderThick, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+		if(paintFill) {g.setColor(fillColor); g.fill(shape);}
+		if(paintBorder) {g.setColor(borderColor); g.draw(shape);}
 		for(AComponentPainter painter : painters) {painter.paintComponent(g,shape);}
 	}
 	

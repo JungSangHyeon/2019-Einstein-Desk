@@ -8,14 +8,13 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
-import moveAndZoom.DrawingPanelMoveAndZoom;
 import painter_Stuff.AComponentPainter;
 import painter_Stuff.ImgStorage;
 
 public class ImgPainter extends AComponentPainter {// D&D함
 	private static final long serialVersionUID = -7941746680321916676L;
 	
-	final static int minTextSize = 10, textWRadio = 8, textHRadio = 4, textLocationXFactor = 40, textLocationYFactor = 20;
+	final static int textWRadio = 8, textHRadio = 4, textLocationXFactor = 40, textLocationYFactor = 20;
 	
 	public ImgPainter(String name, String fileAddress) {super(name, fileAddress);}
 
@@ -24,8 +23,7 @@ public class ImgPainter extends AComponentPainter {// D&D함
 		g2d.setClip(shape);
 		Rectangle2D rect = shape.getBounds2D();
 		double rectX = rect.getX(), rectY= rect.getY(), rectW = rect.getWidth(), rectH = rect.getHeight();
-		g2d.setColor(backGroundColor);//투명 이미지 활용을 위함
-		g2d.fill(rect);
+		if(backGroundNeed) {g2d.setColor(backGroundColor); g2d.fill(rect);}//투명 이미지 활용을 위함
 		BufferedImage img = ImgStorage.getImage(imageIndex) ;
 		if (img != null) {
 			double imgW = img.getWidth(), imgH = img.getHeight(), radio = 0;
@@ -41,10 +39,8 @@ public class ImgPainter extends AComponentPainter {// D&D함
 			float size =g2d.getFontMetrics(new Font(null, Font.PLAIN, (int)nameSize)).stringWidth(name);
 			if(rectW<size) {nameSize = rectW/textWRadio;}
 			else {nameSize = Math.min(rectH/textHRadio, rectW/textWRadio) ;}
-			if(nameSize*DrawingPanelMoveAndZoom.getScale()>minTextSize) {
-				g2d.setFont(new Font(null, Font.PLAIN, (int)nameSize));
-				g2d.drawString(name, (float)(rectX+rectW/textLocationXFactor), (float)(rectY+rectH-rectH/textLocationYFactor));//scale에 맞춰서 보일지 말지 해야겠는디.
-			}
+			g2d.setFont(new Font(null, Font.PLAIN, (int)nameSize));
+			g2d.drawString(name, (float)(rectX+rectW/textLocationXFactor), (float)(rectY+rectH-rectH/textLocationYFactor));//scale에 맞춰서 보일지 말지 해야겠는디.
 		}
 		g2d.setClip(null);
 	}
