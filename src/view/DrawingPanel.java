@@ -3,6 +3,7 @@ package view;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.geom.AffineTransform;
@@ -22,7 +23,7 @@ import global.InjectEnums.eColor;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 
 @SuppressWarnings("serial")
-public class DrawingPanel extends JPanel{
+public class DrawingPanel extends JPanel {
 	
 	ToolSelectContainer toolSelector;
 	ShapeSelectContainer shapeSelector;
@@ -57,13 +58,14 @@ public class DrawingPanel extends JPanel{
 	public void paint(Graphics g) {
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D)g;
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 		
 		allGCPaint(g2d);
-		
 		aContainerPaint(g2d);
 		
 		AContainerDraggingComponentPaint(g2d);
 		DrawingPanelDraggingComponentPaint(g2d);
+		System.out.println("repaint");
 	}
 	
 	public class componentHandler implements ComponentListener{
@@ -101,7 +103,7 @@ public class DrawingPanel extends JPanel{
 		g2d.setTransform(new AffineTransform());
 	}
 
-	private void DraggingComponentPaint(AContainer ac, Graphics2D g2d) {//draw AContainer Drag Component
+	public void DraggingComponentPaint(AContainer ac, Graphics2D g2d) {//draw AContainer Drag Component
 		if(ac.getCopy()!=null) {
 			GraphicComponent nowGC = (GraphicComponent) DeepClone.clone(ac.getCopy().getGraphicComponent());
 			Rectangle r = nowGC.getShape().getBounds();
@@ -109,5 +111,5 @@ public class DrawingPanel extends JPanel{
 			nowGC.paint(g2d);
 		}
 	}
-	
+
 }

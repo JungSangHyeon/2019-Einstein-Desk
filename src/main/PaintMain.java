@@ -1,7 +1,5 @@
 package main;
 
-import java.awt.RenderingHints;
-
 import global.InjectEnums;
 import globalTimer.GlobalTimer;
 import view.PaintMainFrame;

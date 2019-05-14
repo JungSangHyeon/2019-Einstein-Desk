@@ -11,6 +11,7 @@ import java.util.Vector;
 
 import global.InjectEnums.eColor;
 import global.InjectEnums.eInt;
+import lump_Stuff.ALump;
 import painter_Stuff.AComponentPainter;
 import processor_Stuff.AMouseActionProcessor;
 
@@ -18,18 +19,22 @@ public class GraphicComponent  implements Serializable{
 	private static final long serialVersionUID = 2228665649817385320L;
 	
 	private Shape shape;
+	private Vector<ALump> lumps;
 	private Vector <Point2D.Float> points;
 	private Vector<AComponentPainter> painters;
 	private Vector<AMouseActionProcessor> processors;
 	private Color fillColor = eColor.ShapeBasicFillColor.getVal();
 	private Color borderColor = eColor.ShapeBasicBorderColor.getVal();
 	private int borderThick = eInt.ShapeBasicBorderThick.getVal();
+	private int strokeCap = BasicStroke.CAP_ROUND;
+	private int strokeJoin = BasicStroke.JOIN_ROUND;
 	private boolean paintFill = true, paintBorder = true;
 	
 	public GraphicComponent() {
 		processors = new Vector<AMouseActionProcessor>();
 		painters = new Vector<AComponentPainter>();
 		points = new Vector <Point2D.Float>();
+		lumps = new Vector <ALump>();
 	}
 	
 	//Shape
@@ -48,11 +53,15 @@ public class GraphicComponent  implements Serializable{
 	public void addPainter(AComponentPainter painter) {painters.add(painter);}
 	public void setFillPaint(boolean boo) {this.paintFill = boo;}
 	public void setBorderPaint(boolean boo) {this.paintBorder = boo;}
+	public void setborderThick(int i) {borderThick =i;}
+	public void setStrokeCap(int i) {strokeCap =i;}
+	public void setStrokeJoin(int i) {strokeJoin =i;}
 	public void paint(Graphics2D g) {
-		g.setStroke(new BasicStroke(borderThick, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+		g.setStroke(new BasicStroke(borderThick, strokeCap, strokeJoin));
 		if(paintFill) {g.setColor(fillColor); g.fill(shape);}
 		if(paintBorder) {g.setColor(borderColor); g.draw(shape);}
 		for(AComponentPainter painter : painters) {painter.paintComponent(g,shape);}
+		for(ALump lump : lumps) {lump.paintComponent(g,shape);}
 	}
 	
 	//Processor
@@ -60,7 +69,12 @@ public class GraphicComponent  implements Serializable{
 	public void addProcessor(AMouseActionProcessor processor) {processor.setMaster(this);processors.add(processor);}
 	public void processEvent(MouseEvent e) {
 		for(AMouseActionProcessor processor : processors) {processor.processEvent(e);}
+		for(ALump lump : lumps) {lump.processEvent(e);}
 	}
+		
+	//Lump
+	public Vector<ALump> getLumps() {return lumps;}
+	public void addLump(ALump lump) {lump.setMaster(this);lumps.add(lump);}
 		
 	//Color
 	public void setFillColor(Color c) {this.fillColor = c;}

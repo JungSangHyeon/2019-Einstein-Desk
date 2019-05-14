@@ -8,6 +8,8 @@ import java.awt.geom.Point2D.Float;
 import java.util.Vector;
 
 import shape_Stuff.APDRShape;
+import tool_Stuff.ATool;
+import tool_Stuff.eTool;
 
 public class FreeLineShape extends APDRShape{
 	private static final long serialVersionUID = -1035475723319493551L;
@@ -25,5 +27,5 @@ public class FreeLineShape extends APDRShape{
 	public Shape newTwoPointShape(Float p1, Float p2) {return null;}//¾È¾¸.
 
 	@Override
-	public boolean needFill() {return false;}
+	public ATool getDrawer() {return eTool.eLineDrawTool.getTool();}
 }

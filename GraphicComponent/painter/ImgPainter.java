@@ -3,23 +3,28 @@ package painter;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
-import painter_Stuff.AComponentPainter;
+import painter_Stuff.ANameAndImagePainter;
 import painter_Stuff.ImgStorage;
 
-public class ImgPainter extends AComponentPainter {// D&DÇÔ
+public class ImgPainter extends ANameAndImagePainter {// D&DÇÔ
 	private static final long serialVersionUID = -7941746680321916676L;
 	
 	final static int textWRadio = 8, textHRadio = 4, textLocationXFactor = 40, textLocationYFactor = 20;
 	
-	public ImgPainter(String name, String fileAddress) {super(name, fileAddress);}
+	public ImgPainter(String name, String fileAddress) {
+		this.setName(name);
+		this.setImg(fileAddress);
+	}
 
 	public void paintComponent(Graphics g, Shape shape) {
 		Graphics2D g2d = (Graphics2D)g;
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setClip(shape);
 		Rectangle2D rect = shape.getBounds2D();
 		double rectX = rect.getX(), rectY= rect.getY(), rectW = rect.getWidth(), rectH = rect.getHeight();

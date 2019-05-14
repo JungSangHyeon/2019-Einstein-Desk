@@ -17,6 +17,4 @@ public abstract class APDRShape extends AShape {
 	public abstract Shape newTwoPointShape(Point2D.Float p1, Point2D.Float p2);
 	
 	public ATool getDrawer() {return eTool.ePDRShapeDrawTool.getTool();}
-	
-	public boolean needFill() {return true;}
 }

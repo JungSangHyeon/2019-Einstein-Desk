@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -18,6 +19,7 @@ import affineScrollPanel.AffineScrollPanel;
 import component_Stuff.GraphicComponent;
 import deepClone.DeepClone;
 import dragAndDrop.DragAndDropManager;
+import view.DrawingPanel;
 
 @SuppressWarnings("serial")
 public abstract class AContainer extends AffineScrollPanel {//호호 드럽다. 
@@ -30,7 +32,7 @@ public abstract class AContainer extends AffineScrollPanel {//호호 드럽다.
 	int pixelW, pixelH, gapW = 4, gapH = 4;
 	int basicPixelW =1,  basicPixelH =1;
 	
-	JPanel master;
+	DrawingPanel master;
 	Image myImg; 
 	Vector<Pixel> pixelVector;
 	Vector <Item>itemVector;
@@ -154,18 +156,23 @@ public abstract class AContainer extends AffineScrollPanel {//호호 드럽다.
 	public void myPaint(Graphics g) {
 		this.repaint();
 		Graphics2D g2d = (Graphics2D)g;
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.drawImage(this.getImg(), this.getX(), this.getY(), null);
-		master.repaint();
+//		System.out.println(copyCurrentItem!=null);
+//		if(copyCurrentItem!=null) {
+//			master.repaint();
+//		}
 	}
 	
-	public Item getCopy() {return copyCurrentItem;}
-	public void addMaster(JPanel p) {
+	public Item getCopy() {return copyCurrentItem;}//TODO
+	public void addMaster(DrawingPanel p) {
 		master=p;
 	}
 	
 	public Image makeImg() {
 		myImg = this.createImage(this.getWidth(),this.getHeight());
 		Graphics2D img_g = (Graphics2D)myImg.getGraphics();
+		img_g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 		img_g.setColor(backGroundColor);
 		img_g.fillRect(0, 0, getWidth(), getHeight());
 		
@@ -196,7 +203,11 @@ public abstract class AContainer extends AffineScrollPanel {//호호 드럽다.
 	public void paint(Graphics g) {
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D)g;
-		g2d.drawImage(makeImg(), 0, 0, null); 
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+		g2d.drawImage(makeImg(), 0, 0, null);
+		if(copyCurrentItem!=null) {
+			master.repaint();
+		}
 	}
 	
 	public JPanel getContainerPanel() {return this;}
@@ -240,8 +251,9 @@ public abstract class AContainer extends AffineScrollPanel {//호호 드럽다.
 	}
 	
 	public void basicAction(MouseEvent e) {
-		if(copyCurrentItem!=null) {copyCurrentItem.processEvent(e);}
+		for(Item i : itemVector) {i.processEvent(e);}
 		if(currentItem!=null) {currentItem.processEvent(e);}
+		if(copyCurrentItem!=null) {copyCurrentItem.processEvent(e);}
 		repaint();
 	}
 

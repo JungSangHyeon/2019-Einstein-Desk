@@ -1,6 +1,7 @@
 package container_Item;
 
 import component_Stuff.GraphicComponent;
+import lump.toolSelectDrawer;
 import painter.ImgPainter;
 import painter_Stuff.AComponentPainter;
 import processor.Mover;
@@ -11,8 +12,8 @@ import tool_Stuff.eTool;
 public class ToolSelectItems {
 
 	public enum eToolSelectItem{
-		ePDRShapeDrawToolIteam(eTool.ePDRShapeDrawTool.getTool(), new ImgPainter("", "Icons/cata_22X22.txt")),
-		eCMCShapeDrawToolItem(eTool.eCMCShapeDrawTool.getTool(), new ImgPainter("", "Icons/cata_22X22.txt")),
+		ePDRShapeDrawToolIteam(eTool.ePDRShapeDrawTool.getTool(), new ImgPainter("", "Icons/jake_22X22.txt")),
+		eCMCShapeDrawToolItem(eTool.eCMCShapeDrawTool.getTool(), new ImgPainter("", "Icons/jake_22X22.txt")),
 		eHandToolItem(eTool.eHandTool.getTool(), new ImgPainter("", "Icons/jake_22X22.txt")),
 		;
 		private ATool tool; private AComponentPainter painter;
@@ -29,6 +30,7 @@ public class ToolSelectItems {
 		GC.addPainter(item.getPainter());
 		GC.addProcessor(new ToolSelector(item.getTool()));
 		GC.addProcessor(new Mover());
+		GC.addLump(new toolSelectDrawer());
 		GC.setBorderPaint(false);
 		GC.setFillPaint(false);
 		return GC;

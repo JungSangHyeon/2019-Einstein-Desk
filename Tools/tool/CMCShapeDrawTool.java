@@ -17,9 +17,11 @@ public class CMCShapeDrawTool extends ATool{
 	GraphicComponent GCData;
 	
 	public void mouseClicked(MouseEvent e) {
-		if(firstClick) {initDrawing(e);}
-		if(e.getClickCount()==1) {keepDrawing(e);}
-		else if(e.getClickCount()==2) {finishDrawing(e);}
+		if(e.getButton()==MouseEvent.BUTTON1) {//우클릭으로 화면 이동하면서 그릴 수 있게 함.
+			if(firstClick) {initDrawing(e);}
+			if(e.getClickCount()==1) {keepDrawing(e);}
+			else if(e.getClickCount()==2) {finishDrawing(e);}
+		}
 	}
 	
 	public void mouseMoved(MouseEvent e) {

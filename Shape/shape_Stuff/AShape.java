@@ -12,5 +12,4 @@ public abstract class AShape implements Serializable {
 	
 	public abstract Shape newShape(Vector<Point2D.Float> points);
 	public abstract ATool getDrawer();
-	public abstract boolean needFill();
 }

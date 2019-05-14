@@ -12,15 +12,18 @@ import tool_Stuff.ATool;
 public class PDRShapeDrawTool extends ATool{
 	private static final long serialVersionUID = -2451691127621671062L;
 	
+	GraphicComponent GCData;
+	
 	public void mousePressed(MouseEvent e) {
-		GCStorage.clearSelected();
-		GraphicComponent GCData = new GraphicComponent();
-		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
-		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
-		GCData.setFillPaint(GlobalData.getNowShapeMaker().needFill());
-		GCData.addProcessor(new Mover());
-		setShape(GCData);
-		GCStorage.addNewGC(GCData);
+		if(e.getButton()==MouseEvent.BUTTON1) {//우클릭으로 화면 이동하면서 그릴 수 있게 함.
+			GCStorage.clearSelected();
+			GCData = new GraphicComponent();
+			GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
+			GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
+			GCData.addProcessor(new Mover());
+			setShape(GCData);
+			GCStorage.addNewGC(GCData);
+		}
 	}
 
 	public void mouseDragged(MouseEvent e) {
