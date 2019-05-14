@@ -155,18 +155,19 @@ public abstract class AContainer extends AffineScrollPanel {//호호 드럽다.
 	public Image getImg() {return myImg;}//affine Transform적용시 발생하는 에러를 막기 위함. 더블 버퍼링 역할도 하나?
 	public void myPaint(Graphics g) {
 		this.repaint();
-		Graphics2D g2d = (Graphics2D)g;
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-		g2d.drawImage(this.getImg(), this.getX(), this.getY(), null);
-//		System.out.println(copyCurrentItem!=null);
-//		if(copyCurrentItem!=null) {
-//			master.repaint();
-//		}
+		master.repaint();
 	}
 	
 	public Item getCopy() {return copyCurrentItem;}//TODO
 	public void addMaster(DrawingPanel p) {
 		master=p;
+	}
+	
+	public void paint(Graphics g) {
+		super.paint(g);
+		Graphics2D g2d = (Graphics2D)g;
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+		g2d.drawImage(makeImg(), 0, 0, null);
 	}
 	
 	public Image makeImg() {
@@ -198,16 +199,6 @@ public abstract class AContainer extends AffineScrollPanel {//호호 드럽다.
 		
 //		if(copyCurrentItem!=null) {copyCurrentItem.paint(img_g);}//카피 아이템을 움직이는 것처럼 하기.
 		return myImg;
-	}
-	
-	public void paint(Graphics g) {
-		super.paint(g);
-		Graphics2D g2d = (Graphics2D)g;
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-		g2d.drawImage(makeImg(), 0, 0, null);
-		if(copyCurrentItem!=null) {
-			master.repaint();
-		}
 	}
 	
 	public JPanel getContainerPanel() {return this;}

@@ -1,18 +1,20 @@
-package processor;
+package function;
 
+import java.awt.Graphics;
+import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
 
 import data.GlobalData;
-import processor_Stuff.AMouseActionProcessor;
+import function_Stuff.AFunction;
 import tool_Stuff.ATool;
 
-public class ToolSelector extends AMouseActionProcessor implements Serializable{
+public class Data_ToolSelector extends AFunction implements Serializable{
 	private static final long serialVersionUID = -6743524881365403749L;
 	
 	ATool tool;
 	
-	public ToolSelector(ATool tool) {this.tool=tool;}
+	public Data_ToolSelector(ATool tool) {this.tool=tool;}
 	public void mouseReleased(MouseEvent e) {GlobalData.setNowTool(tool);}
 	
 	public void mouseEntered(MouseEvent e) {}
@@ -21,4 +23,5 @@ public class ToolSelector extends AMouseActionProcessor implements Serializable{
 	public void mouseClicked(MouseEvent e) {}
 	public void mouseDragged(MouseEvent e) {}
 	public void mouseMoved(MouseEvent e) {}
+	public void paintComponent(Graphics g, Shape shape) {}
 }

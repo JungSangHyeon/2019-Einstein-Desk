@@ -1,8 +1,9 @@
-package painter_Stuff;
+package function_Stuff;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Shape;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.Serializable;
 
@@ -10,7 +11,7 @@ import javax.imageio.ImageIO;
 
 import iconPainter.IconToImage;
 
-public abstract class ANameAndImagePainter extends AComponentPainter implements Serializable{
+public abstract class ANameAndImagePainter extends AFunction implements Serializable{
 	private static final long serialVersionUID = -2266921661341345665L;
 	
 	protected int imageIndex; 
@@ -36,4 +37,12 @@ public abstract class ANameAndImagePainter extends AComponentPainter implements 
 		}
 		imageIndex = ImgStorage.getIndex();
 	}
+	
+	public void mousePressed(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e) {}
+	public void mouseDragged(MouseEvent e) {}
+	public void mouseMoved(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {}
 }

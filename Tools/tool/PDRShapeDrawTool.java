@@ -5,8 +5,8 @@ import java.awt.event.MouseEvent;
 import component_Stuff.GraphicComponent;
 import data.GCStorage;
 import data.GlobalData;
+import function.Shape_Mover;
 import moveAndZoom.DrawingPanelMoveAndZoom;
-import processor.Mover;
 import tool_Stuff.ATool;
 
 public class PDRShapeDrawTool extends ATool{
@@ -20,7 +20,7 @@ public class PDRShapeDrawTool extends ATool{
 			GCData = new GraphicComponent();
 			GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 			GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
-			GCData.addProcessor(new Mover());
+			GCData.addFunction(new Shape_Mover());
 			setShape(GCData);
 			GCStorage.addNewGC(GCData);
 		}

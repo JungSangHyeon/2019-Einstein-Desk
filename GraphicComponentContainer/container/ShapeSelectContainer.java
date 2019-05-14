@@ -1,7 +1,7 @@
 package container;
 
-import container_Item.ShapeSelectItems;
-import container_Item.ShapeSelectItems.eShapeSelectItem;
+import component.ShapeSelectItems;
+import component.ShapeSelectItems.eShapeSelectItem;
 import container_Stuff.AContainer;
 
 @SuppressWarnings("serial")

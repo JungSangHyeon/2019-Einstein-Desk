@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 import component_Stuff.GraphicComponent;
 
-public abstract class ATool  implements Serializable{//AMouseActionProcessor하고 똑같음. 따로 있는게 더 좋을 것 같아서 나눔.
+public abstract class ATool  implements Serializable{//AFUnction하고 똑같음. 따로 있는게 더 좋을 것 같아서 나눔.
 	private static final long serialVersionUID = -6420030261551624512L;
 	
 	protected GraphicComponent master;

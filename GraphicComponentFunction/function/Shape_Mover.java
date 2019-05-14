@@ -1,16 +1,18 @@
-package processor;
+package function;
 
+import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
 
 import data.GCStorage;
+import function_Stuff.AFunction;
 import moveAndZoom.DrawingPanelMoveAndZoom;
-import processor_Stuff.AMouseActionProcessor;
 
-public class Mover extends AMouseActionProcessor implements Serializable{
+public class Shape_Mover extends AFunction implements Serializable{
 	private static final long serialVersionUID = 2509847208800494236L;
 	
 	Point2D.Float dragStart;
@@ -40,4 +42,6 @@ public class Mover extends AMouseActionProcessor implements Serializable{
 	public void mouseMoved(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
+	public void paintComponent(Graphics g, Shape shape) {}
+	
 }

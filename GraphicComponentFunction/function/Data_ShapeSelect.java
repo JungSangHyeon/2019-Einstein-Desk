@@ -1,18 +1,20 @@
-package processor;
+package function;
 
+import java.awt.Graphics; 
+import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
 
 import data.GlobalData;
-import processor_Stuff.AMouseActionProcessor;
+import function_Stuff.AFunction;
 import shape_Stuff.AShape;
 
-public class ShapeSelector extends AMouseActionProcessor implements Serializable{
+public class Data_ShapeSelect extends AFunction implements Serializable{
 	private static final long serialVersionUID = 787188459680824163L;
 	
 	AShape shape;
 	
-	public ShapeSelector(AShape shape) {this.shape=shape;}
+	public Data_ShapeSelect(AShape shape) {this.shape=shape;}
 	public void mouseReleased(MouseEvent e) {GlobalData.setNowShapeMaker(shape);}
 	
 	public void mouseEntered(MouseEvent e) {}
@@ -21,4 +23,5 @@ public class ShapeSelector extends AMouseActionProcessor implements Serializable
 	public void mouseClicked(MouseEvent e) {}
 	public void mouseDragged(MouseEvent e) {}
 	public void mouseMoved(MouseEvent e) {}
+	public void paintComponent(Graphics g, Shape shape) {}
 }

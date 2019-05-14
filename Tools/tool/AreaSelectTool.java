@@ -7,8 +7,8 @@ import java.awt.geom.Rectangle2D;
 import component_Stuff.GraphicComponent;
 import data.GCStorage;
 import data.GlobalData;
+import function.Shape_Mover;
 import moveAndZoom.DrawingPanelMoveAndZoom;
-import processor.Mover;
 import shape_Stuff.AShape;
 import shape_Stuff.eShape;
 import tool_Stuff.ATool;
@@ -26,7 +26,7 @@ public class AreaSelectTool extends ATool{//extends TwoPointShapeTool 할까나. 아
 		GraphicComponent GCData = new GraphicComponent();
 		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
-		GCData.addProcessor(new Mover());
+		GCData.addFunction(new Shape_Mover());
 		GCData.setFillColor(areaSelectRectColor);
 		GCData.setBorderPaint(false);
 		setShape(GCData);

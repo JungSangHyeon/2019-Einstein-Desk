@@ -1,4 +1,4 @@
-package lump;
+package function;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -8,9 +8,9 @@ import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 
-import lump_Stuff.ALump;
+import function_Stuff.AFunction;
 
-public class toolSelectDrawer extends ALump{
+public class Paint_showSelected extends AFunction{
 	private static final long serialVersionUID = 5046938002818853280L;
 
 	int hRadio = 10;
@@ -24,14 +24,13 @@ public class toolSelectDrawer extends ALump{
 	
 	public void paintComponent(Graphics g, Shape shape) {
 		if(masterSelected) {
-//			System.out.println(masterSelected);
 			Graphics2D g2d = (Graphics2D)g;
 			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 			
 			g2d.setClip(shape);
 			g2d.setColor(selectColor);
 			Rectangle2D r = shape.getBounds2D();
-			g2d.fill(new Rectangle2D.Double(0, r.getHeight() - r.getHeight()/hRadio, r.getWidth(), r.getHeight()/hRadio));
+			g2d.fill(new Rectangle2D.Double(r.getX(), r.getY()+r.getHeight() - r.getHeight()/hRadio, r.getWidth(), r.getHeight()/hRadio));
 			g2d.setClip(null);
 		}
 	}

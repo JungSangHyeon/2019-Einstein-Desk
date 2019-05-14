@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -48,6 +49,7 @@ public class DrawingPanel extends JPanel {
 		for(AContainer container : containers) {
 			container.setLocation(100, 100);
 			container.addMaster(this);
+			container.getIgnoreRepaint();
 			this.add(container);
 		}
 //		ArrangeContainerLocation();
@@ -56,18 +58,23 @@ public class DrawingPanel extends JPanel {
 	public void initialize() {}
 	
 	public void paint(Graphics g) {
-		super.paint(g);
-		Graphics2D g2d = (Graphics2D)g;
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-		
-		allGCPaint(g2d);
-		aContainerPaint(g2d);
-		
-		AContainerDraggingComponentPaint(g2d);
-		DrawingPanelDraggingComponentPaint(g2d);
-		System.out.println("repaint");
+//		if(DragAndDropManager.getDraggingComponent()==null) {
+			super.paint(g);
+			
+			Graphics2D g2d = (Graphics2D)g;
+			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+			
+			aContainerPaint(g2d);
+			allGCPaint(g2d);
+			
+			AContainerDraggingComponentPaint(g2d);
+			DrawingPanelDraggingComponentPaint(g2d);
+//		}else {
+//			System.out.println(123);
+//			DragAndDropManager.getDraggingComponent().paint((Graphics2D)g);//전 꺼를 사진을 찍어서 계속 그리고, 앞에 이걸 계속 그리게 하자.
+//		}
 	}
-	
+	int q=0;
 	public class componentHandler implements ComponentListener{
 		public void componentResized(ComponentEvent e) {ArrangeContainerLocation();}
 		public void componentHidden(ComponentEvent e) {}
@@ -81,21 +88,21 @@ public class DrawingPanel extends JPanel {
 		repaint();
 	}
 	
-	private void allGCPaint(Graphics2D g2d) {
+	public void allGCPaint(Graphics2D g2d) {
 		g2d.setTransform(DrawingPanelMoveAndZoom.getAT());
 		for(GraphicComponent gc : GCStorage.getGCVector()) {gc.paint(g2d);}
 		g2d.setTransform(new AffineTransform());
 	}
 	
-	private void aContainerPaint(Graphics2D g2d) {//draw AContainer
+	public void aContainerPaint(Graphics2D g2d) {//draw AContainer
 		for(AContainer container : containers) {container.myPaint(g2d);}
 	}
 	
-	private void AContainerDraggingComponentPaint(Graphics2D g2d) {//draw AContainer Drag Component
+	public void AContainerDraggingComponentPaint(Graphics2D g2d) {//draw AContainer Drag Component
 		for(AContainer container : containers) {DraggingComponentPaint(container, g2d);}
 	}
 
-	private void DrawingPanelDraggingComponentPaint(Graphics2D g2d) {//show GC of drawPanel -> container
+	public void DrawingPanelDraggingComponentPaint(Graphics2D g2d) {//show GC of drawPanel -> container
 		g2d.setTransform(DrawingPanelMoveAndZoom.getAT());
 		if(DragAndDropManager.getComponentMasterPanel()==this&&DragAndDropManager.getDraggingComponent()!=null) {
 			DragAndDropManager.getDraggingComponent().paint(g2d);

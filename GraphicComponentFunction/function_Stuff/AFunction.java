@@ -1,4 +1,4 @@
-package lump_Stuff;
+package function_Stuff;
 
 import java.awt.Graphics;
 import java.awt.Shape;
@@ -7,8 +7,8 @@ import java.io.Serializable;
 
 import component_Stuff.GraphicComponent;
 
-public abstract class ALump  implements Serializable{
-	private static final long serialVersionUID = -5527373370146692571L;
+public abstract class AFunction  implements Serializable{
+	private static final long serialVersionUID = -1736900760929688622L;
 	
 	protected GraphicComponent master;
 	public void setMaster(GraphicComponent graphicComponent) {this.master=graphicComponent;}

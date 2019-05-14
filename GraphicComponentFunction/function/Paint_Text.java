@@ -1,4 +1,4 @@
-package painter;
+package function;
 
 import java.awt.Font;
 import java.awt.Graphics;
@@ -8,16 +8,16 @@ import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.image.BufferedImage;
 
-import painter_Stuff.ANameAndImagePainter;
-import painter_Stuff.ImgStorage;
+import function_Stuff.ANameAndImagePainter;
+import function_Stuff.ImgStorage;
 
-public class TextPainter extends ANameAndImagePainter {//D&D 안함
+public class Paint_Text extends ANameAndImagePainter {//D&D 안함
 	private static final long serialVersionUID = -7129480604093083071L;
 	
 	final static float textWRadio = 3.5f, textHRadio = 1.5f, textYFactor = 0.357f;//시작 좌표+ 네모의 높이 /2 + 글씨크기 *textYFactor
 	final static int imgLeftGap = 2, imgRightGap = 4, imgUpDownGap = 2;
 
-	public TextPainter(String name, String fileAddress) {
+	public Paint_Text(String name, String fileAddress) {
 		this.setName(name);
 		this.setImg(fileAddress);
 	}

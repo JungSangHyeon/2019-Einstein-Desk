@@ -5,8 +5,8 @@ import java.awt.event.MouseEvent;
 import component_Stuff.GraphicComponent;
 import data.GCStorage;
 import data.GlobalData;
+import function.Shape_Mover;
 import moveAndZoom.DrawingPanelMoveAndZoom;
-import processor.Mover;
 import tool_Stuff.ATool;
 import tool_Stuff.eTool;
 
@@ -36,7 +36,7 @@ public class CMCShapeDrawTool extends ATool{
 		GCData = new GraphicComponent();
 		//	GCData.addPainter(new TextPainter("testttt", "Icons/jake_22X22.txt"));
 		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
-		GCData.addProcessor(new Mover());
+		GCData.addFunction(new Shape_Mover());
 		GCStorage.addNewGC(GCData);
 		firstClick=false;
 	}

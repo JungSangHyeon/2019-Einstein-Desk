@@ -1,4 +1,4 @@
-package painter;
+package function;
 
 import java.awt.Font;
 import java.awt.Graphics;
@@ -9,15 +9,15 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
-import painter_Stuff.ANameAndImagePainter;
-import painter_Stuff.ImgStorage;
+import function_Stuff.ANameAndImagePainter;
+import function_Stuff.ImgStorage;
 
-public class ImgPainter extends ANameAndImagePainter {// D&DÇÔ
+public class Paint_IMG extends ANameAndImagePainter {// D&DÇÔ
 	private static final long serialVersionUID = -7941746680321916676L;
 	
 	final static int textWRadio = 8, textHRadio = 4, textLocationXFactor = 40, textLocationYFactor = 20;
 	
-	public ImgPainter(String name, String fileAddress) {
+	public Paint_IMG(String name, String fileAddress) {
 		this.setName(name);
 		this.setImg(fileAddress);
 	}
