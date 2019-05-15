@@ -1,13 +1,12 @@
 package function;
 
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
-import java.util.Vector;
 
 import data.GCStorage;
 import function_Stuff.AFunction;
@@ -49,6 +48,6 @@ public class Shape_Mover extends AFunction implements Serializable{
 	public void mouseMoved(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
-	public void paintComponent(Graphics g, Shape shape) {}
+	public void paintComponent(Graphics2D g, Shape shape) {}
 	
 }

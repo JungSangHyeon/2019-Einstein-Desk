@@ -1,7 +1,6 @@
 package function;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
@@ -11,7 +10,7 @@ import function_Stuff.AFunction;
 public class Paint_penColorBGPaint extends AFunction{
 	private static final long serialVersionUID = 5046938002818853280L;
 
-	public void paintComponent(Graphics g, Shape shape) {
+	public void paintComponent(Graphics2D g, Shape shape) {
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setColor(Color.CYAN);
 		g2d.fill(shape);

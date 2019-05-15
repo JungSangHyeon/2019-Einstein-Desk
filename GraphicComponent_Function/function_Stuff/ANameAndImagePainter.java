@@ -1,7 +1,7 @@
 package function_Stuff;
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -20,7 +20,7 @@ public abstract class ANameAndImagePainter extends AFunction implements Serializ
 	protected Color nameColor = Color.BLACK, backGroundColor = Color.WHITE;
 	protected boolean backGroundNeed = false;
 	
-	public abstract void paintComponent(Graphics g, Shape shape);
+	public abstract void paintComponent(Graphics2D g, Shape shape);
 	
 	public void setTextSize(int size) {this.nameSize = size;}
 	public void setTextColor(Color c) {this.nameColor=c;}

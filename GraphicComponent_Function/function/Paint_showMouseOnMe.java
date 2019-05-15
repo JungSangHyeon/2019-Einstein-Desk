@@ -1,7 +1,6 @@
 package function;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
@@ -14,7 +13,7 @@ public class Paint_showMouseOnMe extends AFunction{
 	boolean mouseOnMe = false;
 	Color selectColor  = new Color(191,191,191,100);
 	
-	public void paintComponent(Graphics g, Shape shape) {
+	public void paintComponent(Graphics2D g, Shape shape) {
 		if(mouseOnMe) {
 			Graphics2D g2d = (Graphics2D)g;
 			g2d.setColor(selectColor);

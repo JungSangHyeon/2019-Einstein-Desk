@@ -1,5 +1,6 @@
 package tool;
 
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 
 import component_Stuff.GraphicComponent;
@@ -7,6 +8,7 @@ import data.GCStorage;
 import data.GlobalData;
 import function.Shape_Mover;
 import moveAndZoom.DrawingPanelMoveAndZoom;
+import penSettingPanel.ColorCircle;
 import tool_Stuff.ATool;
 
 public class PDRShapeDrawTool extends ATool{
@@ -22,6 +24,7 @@ public class PDRShapeDrawTool extends ATool{
 			GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 			GCData.setAShape(GlobalData.getNowShapeMaker());
 			GCData.addFunction(new Shape_Mover());
+			GCData.addFunction(new ColorCircle(Color.RED, 0));
 			setShape(GCData);
 			GCStorage.addNewGC(GCData);
 		}

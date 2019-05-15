@@ -1,6 +1,6 @@
 package function;
 
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
@@ -23,5 +23,5 @@ public class Data_ToolSelector extends AFunction implements Serializable{
 	public void mouseClicked(MouseEvent e) {}
 	public void mouseDragged(MouseEvent e) {}
 	public void mouseMoved(MouseEvent e) {}
-	public void paintComponent(Graphics g, Shape shape) {}
+	public void paintComponent(Graphics2D g, Shape shape) {}
 }

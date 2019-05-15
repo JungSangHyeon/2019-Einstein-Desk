@@ -1,7 +1,6 @@
 package function;
 
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Shape;
@@ -22,7 +21,7 @@ public class Paint_IMG extends ANameAndImagePainter {// D&DÇÔ
 		this.setImg(fileAddress);
 	}
 
-	public void paintComponent(Graphics g, Shape shape) {
+	public void paintComponent(Graphics2D g, Shape shape) {
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setClip(shape);

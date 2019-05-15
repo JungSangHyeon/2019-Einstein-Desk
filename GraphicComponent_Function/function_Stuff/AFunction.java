@@ -1,6 +1,6 @@
 package function_Stuff;
 
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
@@ -32,5 +32,5 @@ public abstract class AFunction  implements Serializable{
 	public abstract void mouseEntered(MouseEvent e);
 	public abstract void mouseExited(MouseEvent e);
 	
-	public abstract void paintComponent(Graphics g, Shape shape);
+	public abstract void paintComponent(Graphics2D g, Shape shape);
 }

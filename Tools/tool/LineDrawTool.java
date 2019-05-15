@@ -9,6 +9,9 @@ import moveAndZoom.DrawingPanelMoveAndZoom;
 public class LineDrawTool extends PDRShapeDrawTool{
 	private static final long serialVersionUID = -2451691127621671062L;
 	
+	Color lineColor = Color.BLACK;
+	public void setLineColor(Color c) {lineColor = c;}
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		super.mousePressed(e);

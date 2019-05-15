@@ -1,7 +1,6 @@
 package function;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
@@ -21,7 +20,7 @@ public class Paint_showSelectedTool extends AFunction{
 		else {masterSelected=false;}
 	}
 	
-	public void paintComponent(Graphics g, Shape shape) {
+	public void paintComponent(Graphics2D g, Shape shape) {
 		if(masterSelected) {
 			Graphics2D g2d = (Graphics2D)g;
 			g2d.setClip(shape);
