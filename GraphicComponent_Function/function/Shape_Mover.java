@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
+import java.util.Vector;
 
 import data.GCStorage;
 import function_Stuff.AFunction;
@@ -34,6 +35,12 @@ public class Shape_Mover extends AFunction implements Serializable{
 		AffineTransform at = new AffineTransform();
 		at.translate(nowPoint.x-dragStart.x, nowPoint.y-dragStart.y);
 		master.setShape(at.createTransformedShape(master.getShape()));
+		
+		
+		for(Point2D.Float point : master.getPoints()) {
+			point.setLocation(point.x+nowPoint.x-dragStart.x, point.y+nowPoint.y-dragStart.y);
+		}
+		
 		dragStart = nowPoint;
 	}
 	

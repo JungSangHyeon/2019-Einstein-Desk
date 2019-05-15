@@ -6,6 +6,7 @@ import java.util.Vector;
 import component_Stuff.GraphicComponent;
 import data.GCStorage;
 import dragAndDrop.DragAndDropManager;
+import global.Calculator;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import tool_Stuff.ATool;
 
@@ -46,7 +47,7 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 	private void findMaster(MouseEvent e) {
 		Vector<GraphicComponent> Components = GCStorage.getGCVector();
 		for(int i=Components.size()-1; i>-1; i--) {
-			if(Components.get(i).getShape().contains(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
+			if(Components.get(i).getAShape().isSelected(Components.get(i), e.getPoint())) {
 				master = Components.get(i);
 				break;
 			}

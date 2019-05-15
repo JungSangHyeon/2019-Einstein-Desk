@@ -20,6 +20,7 @@ public class PDRShapeDrawTool extends ATool{
 			GCData = new GraphicComponent();
 			GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 			GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
+			GCData.setAShape(GlobalData.getNowShapeMaker());
 			GCData.addFunction(new Shape_Mover());
 			setShape(GCData);
 			GCStorage.addNewGC(GCData);
@@ -27,11 +28,11 @@ public class PDRShapeDrawTool extends ATool{
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		GCStorage.getLastGC().addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
+		GCStorage.getLastGC().setLastPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 		setShape(GCStorage.getLastGC());
 	}
 
-	private void setShape(GraphicComponent shapeData) {
+	protected void setShape(GraphicComponent shapeData) {
 		shapeData.setShape(GlobalData.getNowShapeMaker().newShape(shapeData.getPoints()));
 	}
 	

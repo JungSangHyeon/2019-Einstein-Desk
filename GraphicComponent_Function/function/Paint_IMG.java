@@ -27,6 +27,7 @@ public class Paint_IMG extends ANameAndImagePainter {// D&D함
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setClip(shape);
 		Rectangle2D rect = shape.getBounds2D();
+		g2d.fill(rect);
 		double rectX = rect.getX(), rectY= rect.getY(), rectW = rect.getWidth(), rectH = rect.getHeight();
 		if(backGroundNeed) {g2d.setColor(backGroundColor); g2d.fill(rect);}//투명 이미지 활용을 위함
 		BufferedImage img = ImgStorage.getImage(imageIndex) ;

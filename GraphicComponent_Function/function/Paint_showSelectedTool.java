@@ -3,17 +3,16 @@ package function;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 
 import function_Stuff.AFunction;
 
-public class Paint_showSelected extends AFunction{
-	private static final long serialVersionUID = 5046938002818853280L;
-
-	int hRadio = 10;
+public class Paint_showSelectedTool extends AFunction{
+	private static final long serialVersionUID = 8565884211859423875L;
+	
+	int hRadio = 15;
 	boolean masterSelected = false;
 	Color selectColor  = new Color(68, 114, 196);
 	
@@ -25,8 +24,6 @@ public class Paint_showSelected extends AFunction{
 	public void paintComponent(Graphics g, Shape shape) {
 		if(masterSelected) {
 			Graphics2D g2d = (Graphics2D)g;
-			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-			
 			g2d.setClip(shape);
 			g2d.setColor(selectColor);
 			Rectangle2D r = shape.getBounds2D();

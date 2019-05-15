@@ -6,7 +6,7 @@
 	<classpathentry kind="src" path="Shape"/>
 	<classpathentry kind="src" path="Tools"/>
 	<classpathentry kind="src" path="GraphicComponent"/>
-	<classpathentry kind="src" path="GraphicComponentContainer"/>
-	<classpathentry kind="src" path="GraphicComponentFunction"/>
+	<classpathentry kind="src" path="GraphicComponent_Container"/>
+	<classpathentry kind="src" path="GraphicComponent_Function"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

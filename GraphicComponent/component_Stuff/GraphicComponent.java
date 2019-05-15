@@ -12,11 +12,13 @@ import java.util.Vector;
 import function_Stuff.AFunction;
 import global.InjectEnums.eColor;
 import global.InjectEnums.eInt;
+import shape_Stuff.AShape;
 
 public class GraphicComponent  implements Serializable{
 	private static final long serialVersionUID = 2228665649817385320L;
 	
 	private Shape shape;
+	private AShape ashape;
 	private Vector<AFunction> functions;
 	private Vector <Point2D.Float> points;
 	private Color fillColor = eColor.ShapeBasicFillColor.getVal(), borderColor = eColor.ShapeBasicBorderColor.getVal();
@@ -48,6 +50,8 @@ public class GraphicComponent  implements Serializable{
 	//Shape
 	public Shape getShape() {return shape;}
 	public void setShape(Shape shape) {this.shape = shape;}
+	public AShape getAShape() {return ashape;}
+	public void setAShape(AShape ashape) {this.ashape = ashape;}
 	
 	//Points
 	public Vector<Point2D.Float> getPoints() {return this.points;}
@@ -64,5 +68,9 @@ public class GraphicComponent  implements Serializable{
 	public void setBorderColor(Color c) {this.borderColor = c;}
 	public void setFillPaint(boolean boo) {this.paintFill = boo;}
 	public void setBorderPaint(boolean boo) {this.paintBorder = boo;}
+
+	public int getBorderThick() {
+		return borderThick;
+	}
 	
 }

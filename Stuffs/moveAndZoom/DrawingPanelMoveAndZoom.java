@@ -43,6 +43,12 @@ public class DrawingPanelMoveAndZoom {
 		try {coordTransform.createInverse().transform(p1, p2);}catch (Exception e) {e.printStackTrace();}
 		return p2;
 	}
+	
+	public static Point2D.Float transformPoint(Point2D.Float p1)  {
+		Point2D.Float p2 = new Point2D.Float();
+		try {coordTransform.createInverse().transform(p1, p2);}catch (Exception e) {e.printStackTrace();}
+		return p2;
+	}
 
 	public static void setDragStartPoint(Point p) {dragStartPoint = p;}
 	public static AffineTransform getAT() {return coordTransform;}

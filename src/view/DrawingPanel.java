@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -26,97 +25,78 @@ import moveAndZoom.DrawingPanelMoveAndZoom;
 @SuppressWarnings("serial")
 public class DrawingPanel extends JPanel {
 	
+	Vector<AContainer> containers;
 	ToolSelectContainer toolSelector;
 	ShapeSelectContainer shapeSelector;
-	Vector<AContainer> containers;
 	
 	public DrawingPanel() {
 		this.setBackground(eColor.DrawingPanelBackGroundColor.getVal());
+		this.setLayout(null);
+		
+		this.addComponentListener(new componentHandler());
 		DrawingPanelMouseHadler mouseHandler = new DrawingPanelMouseHadler(this);
 		this.addMouseMotionListener(mouseHandler);
 		this.addMouseWheelListener(mouseHandler);
 		this.addMouseListener(mouseHandler);
-		this.addComponentListener(new componentHandler());
-		this.setLayout(null);
-
-		containers = new Vector<AContainer>();
+		
 		toolSelector = new ToolSelectContainer();
 		shapeSelector = new ShapeSelectContainer();
-		
+		containers = new Vector<AContainer>();
 		containers.add(toolSelector);
 		containers.add(shapeSelector);
-
-		for(AContainer container : containers) {
-			container.setLocation(100, 100);
-			container.addMaster(this);
-			container.getIgnoreRepaint();
-			this.add(container);
-		}
-//		ArrangeContainerLocation();
+		
+		for(AContainer container : containers) {this.add(container);}
 	}
 	
-	public void initialize() {}
+	public void initialize() {
+		for(AContainer container : containers) {container.addMaster(this);}
+	}
+	
+	public void ArrangeContainerLocation() {
+		toolSelector.setLocation(this.getWidth()-toolSelector.getWidth(), 0);//R U
+		shapeSelector.setLocation(0, 200);//L U
+		repaint();
+	}
 	
 	public void paint(Graphics g) {
-//		if(DragAndDropManager.getDraggingComponent()==null) {
-			super.paint(g);
-			
-			Graphics2D g2d = (Graphics2D)g;
-			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-			
-			aContainerPaint(g2d);
-			allGCPaint(g2d);
-			
-			AContainerDraggingComponentPaint(g2d);
-			DrawingPanelDraggingComponentPaint(g2d);
-//		}else {
-//			System.out.println(123);
-//			DragAndDropManager.getDraggingComponent().paint((Graphics2D)g);//전 꺼를 사진을 찍어서 계속 그리고, 앞에 이걸 계속 그리게 하자.
-//		}
+		super.paint(g);
+		Graphics2D g2d = (Graphics2D)g;
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+		
+		g2d.setTransform(DrawingPanelMoveAndZoom.getAT());
+		for(GraphicComponent gc : GCStorage.getGCVector()) {gc.paint(g2d);}
+		g2d.setTransform(new AffineTransform());
+		
+		for(AContainer container : containers) {container.paintImg(g2d);}
+		
+		drawDrawingPanelToContainer(g2d);
+		drawContainerToDrawingPanel(g2d);
 	}
-	int q=0;
+
+	private void drawDrawingPanelToContainer(Graphics2D g2d) {
+		if(DragAndDropManager.getComponentMasterPanel()==this&&DragAndDropManager.getDraggingComponent()!=null) {
+			g2d.setTransform(DrawingPanelMoveAndZoom.getAT());
+			DragAndDropManager.getDraggingComponent().paint(g2d);
+			g2d.setTransform(new AffineTransform());
+		}
+	}
+
+	private void drawContainerToDrawingPanel(Graphics2D g2d) {
+		if(DragAndDropManager.getComponentMasterPanel()!=null&&DragAndDropManager.getComponentMasterPanel()!=this&&DragAndDropManager.getDraggingComponent()!=null) {
+			AContainer nowDCM = (AContainer)DragAndDropManager.getComponentMasterPanel();
+			GraphicComponent nowGC = (GraphicComponent) DeepClone.clone(DragAndDropManager.getDraggingComponent());
+			Rectangle r = nowGC.getShape().getBounds();
+			nowGC.setShape(new Rectangle(r.x+nowDCM.getLocation().x, r.y+nowDCM.getLocation().y+nowDCM.getNowDeep(), r.width, r.height));
+			nowGC.paint(g2d);
+		}
+	}
+	
 	public class componentHandler implements ComponentListener{
 		public void componentResized(ComponentEvent e) {ArrangeContainerLocation();}
 		public void componentHidden(ComponentEvent e) {}
 		public void componentMoved(ComponentEvent e) {}
 		public void componentShown(ComponentEvent e) {}
 	}
-	
-	public void ArrangeContainerLocation() {
-		toolSelector.setLocation(this.getWidth()-toolSelector.getWidth(), 0);//R U
-		shapeSelector.setLocation(0, 0);//L U
-		repaint();
-	}
-	
-	public void allGCPaint(Graphics2D g2d) {
-		g2d.setTransform(DrawingPanelMoveAndZoom.getAT());
-		for(GraphicComponent gc : GCStorage.getGCVector()) {gc.paint(g2d);}
-		g2d.setTransform(new AffineTransform());
-	}
-	
-	public void aContainerPaint(Graphics2D g2d) {//draw AContainer
-		for(AContainer container : containers) {container.myPaint(g2d);}
-	}
-	
-	public void AContainerDraggingComponentPaint(Graphics2D g2d) {//draw AContainer Drag Component
-		for(AContainer container : containers) {DraggingComponentPaint(container, g2d);}
-	}
 
-	public void DrawingPanelDraggingComponentPaint(Graphics2D g2d) {//show GC of drawPanel -> container
-		g2d.setTransform(DrawingPanelMoveAndZoom.getAT());
-		if(DragAndDropManager.getComponentMasterPanel()==this&&DragAndDropManager.getDraggingComponent()!=null) {
-			DragAndDropManager.getDraggingComponent().paint(g2d);
-		}
-		g2d.setTransform(new AffineTransform());
-	}
-
-	public void DraggingComponentPaint(AContainer ac, Graphics2D g2d) {//draw AContainer Drag Component
-		if(ac.getCopy()!=null) {
-			GraphicComponent nowGC = (GraphicComponent) DeepClone.clone(ac.getCopy().getGraphicComponent());
-			Rectangle r = nowGC.getShape().getBounds();
-			nowGC.setShape(new Rectangle(r.x+ac.getLocation().x, r.y+ac.getLocation().y+ac.getNowDeep(), r.width, r.height));
-			nowGC.paint(g2d);
-		}
-	}
 
 }

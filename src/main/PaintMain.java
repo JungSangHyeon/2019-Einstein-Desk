@@ -30,6 +30,7 @@ public class PaintMain {
 
 //간단하게 만들기.
 //function전부다 static화. enum으로. 이미지는 하나씩만 저장하고 아이디로 불러오게 하기.
+//부분 페인트, 이벤트, 그래픽 플로우 정리.
 
 //finish tool Bar & Shape Bar //consider use pre made Toolbar 
 //Icon Invisible Part or change Color

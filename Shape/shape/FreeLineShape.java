@@ -1,12 +1,16 @@
 package shape;
 
 
+import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Float;
 import java.util.Vector;
 
+import component_Stuff.GraphicComponent;
+import global.Calculator;
+import moveAndZoom.DrawingPanelMoveAndZoom;
 import shape_Stuff.APDRShape;
 import tool_Stuff.ATool;
 import tool_Stuff.eTool;
@@ -28,4 +32,14 @@ public class FreeLineShape extends APDRShape{
 
 	@Override
 	public ATool getDrawer() {return eTool.eLineDrawTool.getTool();}
+	
+	@Override
+	public boolean isSelected(GraphicComponent gc, Point point) {
+		if(gc.getPoints().get(0).distance(DrawingPanelMoveAndZoom.transformPoint(point))<gc.getBorderThick()/2) {return true;}
+		for(int i=0; i<gc.getPoints().size()-1; i++) {
+			if(Calculator.distanceLineNPoint(gc.getPoints().get(i), gc.getPoints().get(i+1), DrawingPanelMoveAndZoom.transformPoint(point))<gc.getBorderThick()/2) {return true;}
+		}
+		return false;
+	}
+	
 }

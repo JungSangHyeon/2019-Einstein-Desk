@@ -28,9 +28,7 @@ public abstract class AContainer extends AffineScrollPanel {//호호 드럽다.
 	Color backGroundColor = new Color(29,31,33);//배경색
 	Color seatColor = new Color(47, 53, 62);//아이템이 갈 자리 표시색
 	
-	int limitXPixel, limitYPixel;
-	int pixelW, pixelH, gapW = 4, gapH = 4;
-	int basicPixelW =1,  basicPixelH =1;
+	int limitXPixel, limitYPixel, pixelW, pixelH, gapW = 4, gapH = 4, basicPixelW =1,  basicPixelH =1;
 	
 	DrawingPanel master;
 	Image myImg; 
@@ -43,11 +41,13 @@ public abstract class AContainer extends AffineScrollPanel {//호호 드럽다.
 	boolean draggable = true;
 	boolean darkOn = false;
 	
-	public AContainer(int pixelWSize, int pixelHSize, int wPixelNum, int hPixelNum) {
+	public AContainer(int pixelWSize, int pixelHSize, int wPixelNum, int hPixelNum, int gapW, int gapH) {
 		this.limitXPixel = wPixelNum;
 		this.limitYPixel = hPixelNum;
 		this.pixelW = pixelWSize;
 		this.pixelH = pixelHSize;
+		this.gapW = gapW;
+		this.gapH = gapH;
 		this.setSize(limitXPixel*(pixelW+gapW)+gapW, limitYPixel*(pixelH+gapH)+gapH);
 		
 		this.setSpeed((pixelH+gapH)/2);
@@ -59,7 +59,7 @@ public abstract class AContainer extends AffineScrollPanel {//호호 드럽다.
 		itemVector = new  Vector <Item>();
 		pixelVector = new  Vector <Pixel>();
 		
-		for(int i=0; i<limitYPixel; i++) {
+		for(int i=0; i<limitYPixel; i++) {//Pixel Create
 			for(int v=0; v<limitXPixel; v++) {
 				pixelVector.add(new Pixel(v,i));
 				pixelVector.lastElement().setRect(gapW+(pixelW+gapW)*v, gapH+(pixelH+gapH)*i, pixelW, pixelH);
@@ -135,8 +135,6 @@ public abstract class AContainer extends AffineScrollPanel {//호호 드럽다.
 	public void setAutoChangeSeat(boolean boo) {this.autoChangeSeat=boo;}
 	public void setBackgroundColor(Color c) {this.backGroundColor= c;}
 	public void setItemDraggable(boolean boo) {this.draggable = boo;}
-	public void setGapW(int gapW) {this.gapW=gapW;this.setSize(limitXPixel*(pixelW+gapW)+gapW, limitYPixel*(pixelH+gapH)+gapH);}
-	public void setGapH(int gapH) {this.gapH=gapH;this.setSize(limitXPixel*(pixelW+gapW)+gapW, limitYPixel*(pixelH+gapH)+gapH);}
 	public void addItem(GraphicComponent gc) {
 		Item item = new Item(gc);
 		item.setSize(basicPixelW, basicPixelH);
@@ -152,56 +150,52 @@ public abstract class AContainer extends AffineScrollPanel {//호호 드럽다.
 		return new Rectangle(gapW+(pixelW+gapW)*x, gapH+(pixelH+gapH)*y, pixelW+(pixelW+gapW)*(w-1), pixelH+(pixelH+gapH)*(h-1));
 	}
 	
-	public Image getImg() {return myImg;}//affine Transform적용시 발생하는 에러를 막기 위함. 더블 버퍼링 역할도 하나?
-	public void myPaint(Graphics g) {
-		this.repaint();
-		master.repaint();
-	}
-	
-	public Item getCopy() {return copyCurrentItem;}//TODO
-	public void addMaster(DrawingPanel p) {
-		master=p;
-	}
+	public void addMaster(DrawingPanel p) {master=p;}
 	
 	public void paint(Graphics g) {
-		super.paint(g);
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.drawImage(makeImg(), 0, 0, null);
 	}
 	
-	public Image makeImg() {
+	public void paintImg(Graphics2D g2d) {
+		g2d.drawImage(makeImg(), this.getX(), this.getY(), null);
+	}
+	
+	public Image makeImg() {//어파인 땜시.
 		myImg = this.createImage(this.getWidth(),this.getHeight());
 		Graphics2D img_g = (Graphics2D)myImg.getGraphics();
 		img_g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 		img_g.setColor(backGroundColor);
 		img_g.fillRect(0, 0, getWidth(), getHeight());
 		
-		img_g.setTransform(scrollAT);
+		img_g.setTransform(scrollAT);//아이템들 그리기
 		for(Item item : itemVector) {item.paint(img_g);}
-		
-//		for(Pixel p : pixelVector) { //픽셀의 점유? 움직임? 테스트용.
-//			img_g.setColor(Color.red);
-//			if(p.isOccupied()) {img_g.setColor(Color.green);}
-//			img_g.fill(p.getRect());
-//		}
-		
 		img_g.setTransform(new AffineTransform());
+		
 		if(darkOn) {//아이템 드래그시, 나머지 어둡게.
 			img_g.setColor(darkColor);
 			img_g.fill(new Rectangle(0,0,this.getWidth(),this.getHeight()));
 		}
+		
 		img_g.setTransform(scrollAT);
-		if(currentItem!=null&&draggable) {
+		
+//		for(Pixel p : pixelVector) {//Pixel Oqu test
+//			if(p.isOccupied()) {img_g.setColor(Color.green);}
+//			else {img_g.setColor(Color.red);}
+//			img_g.fill(p.getRect());
+//		}
+		
+		if(currentItem!=null&&draggable) {//드래그 중인게 갈 자리 표시
 			img_g.setColor(seatColor);
 			img_g.fill(currentItem.getRect());
 		}
 		
-//		if(copyCurrentItem!=null) {copyCurrentItem.paint(img_g);}//카피 아이템을 움직이는 것처럼 하기.
 		return myImg;
 	}
 	
 	public JPanel getContainerPanel() {return this;}
+	
 	public class MouseHandler implements MouseListener, MouseMotionListener{//TODO
 		public void mousePressed(MouseEvent e) {findCurrentShape(e);basicAction(e);}
 		public void mouseReleased(MouseEvent e) {
@@ -216,7 +210,8 @@ public abstract class AContainer extends AffineScrollPanel {//호호 드럽다.
 				if(autoChangeSeat) {changeSeat();}
 				copyCurrentItem.processEvent(e);
 			}
-			repaint();
+			if(copyCurrentItem!=null) {master.repaint();}
+			else {repaint();}
 		}
 		public void mouseMoved(MouseEvent e) {basicAction(e);}
 		public void mouseEntered(MouseEvent e) {basicAction(e); mouseOnThis = true;DragAndDropManager.setNowMouseOnPanel(getContainerPanel());}
@@ -257,6 +252,7 @@ public abstract class AContainer extends AffineScrollPanel {//호호 드럽다.
 			}
 		}
 	}
+	
 	public void reset() {
 		currentItem = null;
 		copyCurrentItem = null;

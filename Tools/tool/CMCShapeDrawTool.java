@@ -37,6 +37,7 @@ public class CMCShapeDrawTool extends ATool{
 		//	GCData.addPainter(new TextPainter("testttt", "Icons/jake_22X22.txt"));
 		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 		GCData.addFunction(new Shape_Mover());
+		GCData.setAShape(GlobalData.getNowShapeMaker());
 		GCStorage.addNewGC(GCData);
 		firstClick=false;
 	}

@@ -1,9 +1,13 @@
 package shape;
 
+import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
+import component_Stuff.GraphicComponent;
+import global.Calculator;
+import moveAndZoom.DrawingPanelMoveAndZoom;
 import shape_Stuff.APDRShape;
 
 public class StraightLineShape extends APDRShape{
@@ -12,4 +16,14 @@ public class StraightLineShape extends APDRShape{
 	public Shape newTwoPointShape(Point2D.Float p1, Point2D.Float p2) {
 		return new Line2D.Float(p1.x,p1.y,p2.x,p2.y);
 	}
+	
+	@Override
+	public boolean isSelected(GraphicComponent gc, Point point) {
+		if(gc.getPoints().get(0).distance(DrawingPanelMoveAndZoom.transformPoint(point))<gc.getBorderThick()/2) {return true;}
+		for(int i=0; i<gc.getPoints().size()-1; i++) {
+			if(Calculator.distanceLineNPoint(gc.getPoints().get(i), gc.getPoints().get(i+1), DrawingPanelMoveAndZoom.transformPoint(point))<gc.getBorderThick()/2) {return true;}
+		}
+		return false;
+	}
+	
 }
