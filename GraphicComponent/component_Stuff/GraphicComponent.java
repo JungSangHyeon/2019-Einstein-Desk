@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.Vector;
@@ -36,6 +37,19 @@ public class GraphicComponent  implements Serializable{
 		if(paintFill) {g.setColor(fillColor); g.fill(shape);}
 		if(paintBorder) {g.setColor(borderColor); g.draw(shape);}
 		for(AFunction lump : functions) {lump.paintComponent(g,shape);}
+		
+		if(points.size()>0) {
+		
+		g.setColor(Color.RED);//µð¹ö±ë?
+		GeneralPath p = new GeneralPath();
+		p.moveTo(points.get(0).x, points.get(0).y);
+		for(Point2D.Float pp : points) {
+			p.lineTo(pp.x, pp.y);
+		}
+		g.draw(p);
+		}
+		
+		
 	}
 	
 	//Process

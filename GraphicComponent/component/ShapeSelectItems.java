@@ -24,8 +24,8 @@ public class ShapeSelectItems {
 		eStraightLineItem(eShape.straightLine.getShape(), new Paint_IMG("straightLine", "Icons/jake_22X22.txt")),
 		ePolygonItem(eShape.polygon.getShape(), new Paint_IMG("polygon", "Icons/jake_22X22.txt")),
 		
-		eFreeLineItem(eShape.freeLine.getShape(), new Paint_IMG("", "ToolBarImgs/pen.png")),
-		eFreeHighlightItem(eShape.freeLine.getShape(), new Paint_IMG("", "ToolBarImgs/highlight.png")),
+		eFreeLineItem(eShape.pen.getShape(), new Paint_IMG("", "ToolBarImgs/pen.png")),
+		eFreeHighlightItem(eShape.highlight.getShape(), new Paint_IMG("", "ToolBarImgs/highlight.png")),
 		;
 		
 		private AShape shape;  private AFunction function;

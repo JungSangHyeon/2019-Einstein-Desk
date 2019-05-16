@@ -2,14 +2,16 @@ package tool_Stuff;
 
 import tool.CMCShapeDrawTool;
 import tool.HandTool;
-import tool.LineDrawTool;
+import tool.HighlightTool;
 import tool.PDRShapeDrawTool;
+import tool.PenTool;
 
 public enum eTool {
 	ePDRShapeDrawTool(new PDRShapeDrawTool()),
 	eCMCShapeDrawTool(new CMCShapeDrawTool()),
 	eHandTool(new HandTool()),
-	eLineDrawTool(new LineDrawTool()),
+	ePenDrawTool(new PenTool()),
+	eHighlightDrawTool(new HighlightTool()),
 	;
 	
 	private ATool tool;

@@ -1,7 +1,8 @@
 package shape_Stuff;
 
 import shape.EllipseShape;
-import shape.FreeLineShape;
+import shape.pen;
+import shape.HighlightShape;
 import shape.PolygonShape;
 import shape.RectShape;
 import shape.SpeechShape;
@@ -18,7 +19,8 @@ public enum eShape{
 	straightLine(new StraightLineShape()),
 	
 	polygon(new PolygonShape()), 
-	freeLine(new FreeLineShape()), 
+	pen(new pen()), 
+	highlight(new HighlightShape()), 
 	;
 	
 	AShape shape;

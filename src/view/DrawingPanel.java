@@ -12,6 +12,8 @@ import java.util.Vector;
 import javax.swing.JPanel;
 
 import component_Stuff.GraphicComponent;
+import container.HighlightSettingPanel;
+import container.PenSettingPanel;
 import container.ShapeSelectContainer;
 import container.ToolSelectContainer;
 import container_Stuff.AContainer;
@@ -21,6 +23,8 @@ import dragAndDrop.DragAndDropManager;
 import eventListener.DrawingPanelMouseHadler;
 import global.InjectEnums.eColor;
 import moveAndZoom.DrawingPanelMoveAndZoom;
+import shape.HighlightShape;
+import shape.pen;
 
 @SuppressWarnings("serial")
 public class DrawingPanel extends JPanel {
@@ -46,7 +50,19 @@ public class DrawingPanel extends JPanel {
 		containers.add(shapeSelector);
 		
 		for(AContainer container : containers) {this.add(container);}
+		
+		psp = new PenSettingPanel();
+		psp.setLocation(1351,50);
+		this.add(psp);
+		
+		hsp = new HighlightSettingPanel();
+		hsp.setLocation(1399,50);//ȣȣȣ
+		this.add(hsp);
+		
 	}
+	
+	PenSettingPanel psp;
+	HighlightSettingPanel hsp;
 	
 	public void initialize() {
 		for(AContainer container : containers) {container.addMaster(this);}
@@ -59,18 +75,39 @@ public class DrawingPanel extends JPanel {
 	}
 	
 	public void paint(Graphics g) {
-		super.paint(g);
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 		
-		g2d.setTransform(DrawingPanelMoveAndZoom.getAT());
-		for(GraphicComponent gc : GCStorage.getGCVector()) {gc.paint(g2d);}
-		g2d.setTransform(new AffineTransform());
+		super.paint(g2d);
+		paintGC(g2d);
 		
 		for(AContainer container : containers) {container.paintImg(g2d);}
+		psp.paint(g2d);
+		hsp.paint(g2d);
 		
 		drawDrawingPanelToContainer(g2d);
 		drawContainerToDrawingPanel(g2d);
+	}
+
+	private void paintGC(Graphics2D g2d) {
+		g2d.setTransform(DrawingPanelMoveAndZoom.getAT());
+		
+		for(GraphicComponent gc : GCStorage.getGCVector()) {
+			if(!(gc.getAShape() instanceof pen)) {
+				gc.paint(g2d);
+			}
+		}
+		for(GraphicComponent gc : GCStorage.getGCVector()) {
+			if(gc.getAShape() instanceof HighlightShape) {
+				gc.paint(g2d);
+			}
+		}
+		for(GraphicComponent gc : GCStorage.getGCVector()) {
+			if(!(gc.getAShape() instanceof HighlightShape)&&gc.getAShape() instanceof pen) {
+				gc.paint(g2d);
+			}
+		}
+		g2d.setTransform(new AffineTransform());		
 	}
 
 	private void drawDrawingPanelToContainer(Graphics2D g2d) {

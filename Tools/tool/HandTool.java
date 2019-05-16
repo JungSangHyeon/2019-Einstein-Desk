@@ -6,8 +6,6 @@ import java.util.Vector;
 import component_Stuff.GraphicComponent;
 import data.GCStorage;
 import dragAndDrop.DragAndDropManager;
-import global.Calculator;
-import moveAndZoom.DrawingPanelMoveAndZoom;
 import tool_Stuff.ATool;
 
 public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected GC & Drag Drop

@@ -15,7 +15,7 @@ import shape_Stuff.APDRShape;
 import tool_Stuff.ATool;
 import tool_Stuff.eTool;
 
-public class FreeLineShape extends APDRShape{
+public class pen extends APDRShape{
 	private static final long serialVersionUID = -1035475723319493551L;
 
 	@Override
@@ -31,7 +31,7 @@ public class FreeLineShape extends APDRShape{
 	public Shape newTwoPointShape(Float p1, Float p2) {return null;}//¾È¾¸.
 
 	@Override
-	public ATool getDrawer() {return eTool.eLineDrawTool.getTool();}
+	public ATool getDrawer() {return eTool.ePenDrawTool.getTool();}
 	
 	@Override
 	public boolean isSelected(GraphicComponent gc, Point point) {

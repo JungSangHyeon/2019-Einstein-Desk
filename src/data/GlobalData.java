@@ -34,12 +34,8 @@ public class GlobalData {
 	public static Color getHighlightColor() {return highlightColor;}
 	public static void setHighlightColor(Color hc) {highlightColor = hc;}
 	
-	public static int highlightThick = 30;
+	public static int highlightThick = 10;
 	public static int getHighlightThick() {return highlightThick;}
 	public static void setHighlightThick(int ht) {highlightThick = ht;}
-		
 	
-//	private static eShape nowShapeMaker = eShape.rect;//btn누르면 쉐잎이 버튼대로 맞춰지고, 쉐입을 통해 툴도 맞추낟.
-//	public static eShape getNowShapeMaker() {return nowShapeMaker;}
-//	public static void setNowShapeMaker(eShape shapeMaker) {GlobalData.nowShapeMaker = shapeMaker;}
 }

@@ -9,7 +9,7 @@ public class ShapeSelectContainer extends AContainer {
 
 	public ShapeSelectContainer() {
 		super(48, 48, 5, 8, 0, 0);
-		 this.setItemDraggable(false);
+//		 this.setItemDraggable(false);
 		 
 		 this.addItem(ShapeSelectItems.getGCItem(eShapeSelectItem.eRectItem));
 		 this.addItem(ShapeSelectItems.getGCItem(eShapeSelectItem.eEllipseItem));
