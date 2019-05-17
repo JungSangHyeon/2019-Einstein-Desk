@@ -34,10 +34,15 @@ public class pen extends APDRShape{
 	public ATool getDrawer() {return eTool.ePenDrawTool.getTool();}
 	
 	@Override
-	public boolean isSelected(GraphicComponent gc, Point point) {
-		if(gc.getPoints().get(0).distance(DrawingPanelMoveAndZoom.transformPoint(point))<gc.getBorderThick()/2) {return true;}
+	public boolean isSelected(GraphicComponent gc, Point2D.Float point) {
+		if(gc.getPoints().get(0).distance(point)<gc.getBorderThick()/2) {return true;}//Á¡®G
 		for(int i=0; i<gc.getPoints().size()-1; i++) {
-			if(Calculator.distanceLineNPoint(gc.getPoints().get(i), gc.getPoints().get(i+1), DrawingPanelMoveAndZoom.transformPoint(point))<gc.getBorderThick()/2) {return true;}
+			if(Calculator.distanceLineNPoint(gc.getPoints().get(i), gc.getPoints().get(i+1), point)<gc.getBorderThick()/2) {return true;}
+		}
+		for(Shape s : gc.getAggreShape()) {
+			if(s.contains(point)) {
+				return true;
+			}
 		}
 		return false;
 	}

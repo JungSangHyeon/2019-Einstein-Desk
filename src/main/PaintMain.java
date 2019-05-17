@@ -52,6 +52,7 @@ public class PaintMain {
 //log -> branch. like a tree
 //Use System Clip Board 
 //Consider use mouse Button 2 as D&D Controller 
+//portal shape
 
 //tip
 //그룹화는 Rectangle2D.union같은걸로 할 수 있다. 한 덩어리의 뉴쉐입을 주는듯. 교수님 코드는 공부할 만 한듯. 텍스트 만들면 좋아하시겠다.

@@ -20,9 +20,14 @@ public class GCStorage {
 	//Selected GC
 	private static Vector<GraphicComponent> selectedComponents = new Vector <GraphicComponent>();
 	
-	public static void addSelectedGC(GraphicComponent shapeData) {selectedComponents.add(shapeData);}
+	public static void addSelectedGC(GraphicComponent shapeData) {shapeData.setSelected(true);selectedComponents.add(shapeData);}
 	public static void removeSelectedGC(GraphicComponent gc) {selectedComponents.remove(gc);}
-	public static void clearSelected() {selectedComponents.clear();}
+	public static void clearSelected() {
+		for(GraphicComponent gc : selectedComponents) {
+			gc.setSelected(false);
+		}
+		selectedComponents.clear();
+	}
 	public static boolean isSelected(GraphicComponent gc) {return selectedComponents.contains(gc);}
 	public static Vector<GraphicComponent> getSelectedGCVector() {return selectedComponents;}
 	

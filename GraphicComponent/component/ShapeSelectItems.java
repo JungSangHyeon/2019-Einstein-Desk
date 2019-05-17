@@ -45,6 +45,7 @@ public class ShapeSelectItems {
 		GC.addFunction(new Data_ToolSelector(item.getSelectShape().getDrawer()));//순서 중요함. 페인트의 경우 덧 그려짐
 		GC.addFunction(new Data_ShapeSelect(item.getSelectShape()));
 		GC.addFunction(item.getPainter());
+		GC.setAShape(eShape.rect.getShape());
 		GC.addFunction(new Paint_showMouseOnMe());
 		GC.addFunction(new Shape_Mover());
 		return GC;
@@ -59,6 +60,7 @@ public class ShapeSelectItems {
 		GC.addFunction(new Data_ShapeSelect(item.getSelectShape()));
 		GC.addFunction(new Paint_penColorBGPaint());
 		GC.addFunction(item.getPainter());
+		GC.setAShape(eShape.rect.getShape());
 		GC.addFunction(new Paint_showSelectedTool());
 		GC.addFunction(new Paint_showMouseOnMe());
 		GC.addFunction(new Shape_Mover());

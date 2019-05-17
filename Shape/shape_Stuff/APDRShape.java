@@ -2,6 +2,7 @@ package shape_Stuff;
 
 import java.awt.Point;
 import java.awt.Shape;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 import java.util.Vector;
 
@@ -21,8 +22,14 @@ public abstract class APDRShape extends AShape {
 	
 	public ATool getDrawer() {return eTool.ePDRShapeDrawTool.getTool();}
 	
-	public boolean isSelected(GraphicComponent gc, Point point) {
-		if(gc.getShape().contains(DrawingPanelMoveAndZoom.transformPoint(point))) {return true;}
+	public boolean isSelected(GraphicComponent gc, Point2D.Float point) {
+		if(gc.getShape().contains(point)) {return true;}
+		
+		for(Shape s : gc.getAggreShape()) {
+			if(s.contains(point)) {
+				return true;
+			}
+		}
 		return false;
 	}
 	

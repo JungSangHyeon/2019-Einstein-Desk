@@ -1,4 +1,4 @@
-package tool;
+package tool_Creat;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
@@ -7,7 +7,7 @@ import data.GCStorage;
 import data.GlobalData;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 
-public class PenTool extends PDRShapeDrawTool{
+public class HighlightTool extends PDRShapeDrawTool{
 	private static final long serialVersionUID = -2451691127621671062L;
 	
 	Color lineColor = Color.BLACK;
@@ -17,8 +17,8 @@ public class PenTool extends PDRShapeDrawTool{
 	public void mousePressed(MouseEvent e) {
 		super.mousePressed(e);
 		GCData.setFillPaint(false);
-		GCData.setborderThick(GlobalData.getPenThick());
-		GCData.setBorderColor(GlobalData.getPenColor());
+		GCData.setborderThick(GlobalData.getHighlightThick());
+		GCData.setBorderColor(GlobalData.getHighlightColor());
 	}
 	
 	@Override

@@ -18,10 +18,15 @@ public class StraightLineShape extends APDRShape{
 	}
 	
 	@Override
-	public boolean isSelected(GraphicComponent gc, Point point) {
-		if(gc.getPoints().get(0).distance(DrawingPanelMoveAndZoom.transformPoint(point))<gc.getBorderThick()/2) {return true;}
+	public boolean isSelected(GraphicComponent gc, Point2D.Float p) {
+		if(gc.getPoints().get(0).distance(p)<gc.getBorderThick()/2) {return true;}
 		for(int i=0; i<gc.getPoints().size()-1; i++) {
-			if(Calculator.distanceLineNPoint(gc.getPoints().get(i), gc.getPoints().get(i+1), DrawingPanelMoveAndZoom.transformPoint(point))<gc.getBorderThick()/2) {return true;}
+			if(Calculator.distanceLineNPoint(gc.getPoints().get(i), gc.getPoints().get(i+1), p)<gc.getBorderThick()/2) {return true;}
+		}
+		for(Shape s : gc.getAggreShape()) {
+			if(s.contains(p)) {
+				return true;
+			}
 		}
 		return false;
 	}

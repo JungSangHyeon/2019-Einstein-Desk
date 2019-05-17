@@ -1,12 +1,14 @@
 package component;
 
 import component_Stuff.GraphicComponent;
+import data.GlobalData;
 import function.Data_ToolSelector;
 import function.Paint_IMG;
 import function.Paint_showMouseOnMe;
 import function.Paint_showSelectedTool;
 import function.Shape_Mover;
 import function_Stuff.AFunction;
+import shape_Stuff.eShape;
 import tool_Stuff.ATool;
 import tool_Stuff.eTool;
 
@@ -37,6 +39,7 @@ public class ToolSelectItems {
 		
 		GC.addFunction(new Data_ToolSelector(item.getTool()));//순서 중요함. 페인트의 경우 덧 그려짐
 		GC.addFunction(item.getPainter());
+		GC.setAShape(eShape.rect.getShape());
 		GC.addFunction(new Paint_showSelectedTool());
 		GC.addFunction(new Paint_showMouseOnMe());
 		GC.addFunction(new Shape_Mover());

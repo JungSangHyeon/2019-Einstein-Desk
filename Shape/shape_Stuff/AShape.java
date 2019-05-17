@@ -1,6 +1,5 @@
 package shape_Stuff;
 
-import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
@@ -14,6 +13,6 @@ public abstract class AShape implements Serializable {
 	
 	public abstract Shape newShape(Vector<Point2D.Float> points);
 	public abstract ATool getDrawer();
-	public abstract boolean isSelected(GraphicComponent gc, Point point);
+	public abstract boolean isSelected(GraphicComponent gc, Point2D.Float point);
 	
 }

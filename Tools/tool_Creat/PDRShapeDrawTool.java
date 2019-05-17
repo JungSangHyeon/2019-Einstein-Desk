@@ -1,4 +1,4 @@
-package tool;
+package tool_Creat;
 
 import java.awt.event.MouseEvent;
 
@@ -6,6 +6,7 @@ import component_Stuff.GraphicComponent;
 import data.GCStorage;
 import data.GlobalData;
 import function.Shape_Mover;
+import function.Shape_Resizer;
 import function.Shape_Rotator;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import tool_Stuff.ATool;
@@ -22,8 +23,9 @@ public class PDRShapeDrawTool extends ATool{
 			GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 			GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 			GCData.setAShape(GlobalData.getNowShapeMaker());
-//			GCData.addFunction(new Shape_Mover());
+			GCData.addFunction(new Shape_Mover());
 			GCData.addFunction(new Shape_Rotator());
+			GCData.addFunction(new Shape_Resizer());
 			setShape(GCData);
 			GCStorage.addNewGC(GCData);
 		}

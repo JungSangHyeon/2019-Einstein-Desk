@@ -1,6 +1,5 @@
 package shape;
 
-
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.GeneralPath;
@@ -29,12 +28,17 @@ public class PolygonShape extends ACMCShape{
 	}
 	
 	@Override
-	public boolean isSelected(GraphicComponent gc, Point point) {
-		if(gc.getShape().contains(DrawingPanelMoveAndZoom.transformPoint(point))) {return true;}
-		if(gc.getPoints().get(0).distance(DrawingPanelMoveAndZoom.transformPoint(point))<gc.getBorderThick()/2) {return true;}
-		if(Calculator.distanceLineNPoint(gc.getPoints().get(gc.getPoints().size()-1), gc.getPoints().get(0), DrawingPanelMoveAndZoom.transformPoint(point))<gc.getBorderThick()/2) {return true;}
+	public boolean isSelected(GraphicComponent gc, Point2D.Float point) {
+		if(gc.getShape().contains(point)) {return true;}
+		if(gc.getPoints().get(0).distance(point)<gc.getBorderThick()/2) {return true;}
+		if(Calculator.distanceLineNPoint(gc.getPoints().get(gc.getPoints().size()-1), gc.getPoints().get(0), point)<gc.getBorderThick()/2) {return true;}
 		for(int i=0; i<gc.getPoints().size()-1; i++) {
-			if(Calculator.distanceLineNPoint(gc.getPoints().get(i), gc.getPoints().get(i+1), DrawingPanelMoveAndZoom.transformPoint(point))<gc.getBorderThick()/2) {return true;}
+			if(Calculator.distanceLineNPoint(gc.getPoints().get(i), gc.getPoints().get(i+1), point)<gc.getBorderThick()/2) {return true;}
+		}
+		for(Shape s : gc.getAggreShape()) {
+			if(s.contains(point)) {
+				return true;
+			}
 		}
 		return false;
 	}
