@@ -48,9 +48,12 @@ public class Shape_Mover extends AFunction implements Serializable{//셀렉트 된애
 		at.translate(nowPoint.x-dragStart.x, nowPoint.y-dragStart.y);
 		master.setShape(at.createTransformedShape(master.getShape()));
 		
-		for(Point2D.Float point : master.getPoints()) {
+		for(Point2D.Float point : master.getPoints()) {//이거 왜 어파인 안했냐.
 			point.setLocation(point.x+nowPoint.x-dragStart.x, point.y+nowPoint.y-dragStart.y);
 		}
+		
+		master.setCenter(new Point2D.Float(master.getCenter().x+nowPoint.x-dragStart.x, master.getCenter().y+nowPoint.y-dragStart.y));
+		
 		dragStart = nowPoint;
 	}
 	
@@ -70,7 +73,8 @@ public class Shape_Mover extends AFunction implements Serializable{//셀렉트 된애
 		Vector<Point2D.Float> pointBeforeRotate =  new Vector<Point2D.Float>();
 		Rectangle2D rect = master.getShape().getBounds2D();
 		AffineTransform at = new AffineTransform();
-		at.setToRotation(-Math.toRadians(master.getAngle()), rect.getCenterX(), rect.getCenterY());
+//		at.setToRotation(-Math.toRadians(master.getAngle()), rect.getCenterX(), rect.getCenterY());
+		at.setToRotation(-Math.toRadians(master.getAngle()), master.getCenter().x, master.getCenter().y);
 		for(Point2D.Float p : master.getPoints()) {pointBeforeRotate.add(transformPoint(at,p));}
 		return master.getAShape().newShape(pointBeforeRotate).getBounds();
 	}

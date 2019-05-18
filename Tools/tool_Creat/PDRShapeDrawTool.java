@@ -1,6 +1,8 @@
 package tool_Creat;
 
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
 
 import component_Stuff.GraphicComponent;
 import data.GCStorage;
@@ -40,7 +42,10 @@ public class PDRShapeDrawTool extends ATool{
 		shapeData.setShape(GlobalData.getNowShapeMaker().newShape(shapeData.getPoints()));
 	}
 	
-	public void mouseReleased(MouseEvent e) {}//GlobalData.setNowTool(eTool.eHandTool.getTool());
+	public void mouseReleased(MouseEvent e) {
+		Rectangle rect = GCStorage.getLastGC().getShape().getBounds();
+		GCStorage.getLastGC().setCenter(new Point2D.Float(rect.x+rect.width/2, rect.y+rect.height/2));
+	}//GlobalData.setNowTool(eTool.eHandTool.getTool());
 	public void mouseClicked(MouseEvent e) {}
 	public void mouseMoved(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}

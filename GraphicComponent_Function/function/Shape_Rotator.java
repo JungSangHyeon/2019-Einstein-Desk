@@ -15,7 +15,6 @@ import java.util.Vector;
 
 import data.GCStorage;
 import function_Stuff.AFunction;
-import global.Calculator;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 
 public class Shape_Rotator extends AFunction implements Serializable{
@@ -27,19 +26,55 @@ public class Shape_Rotator extends AFunction implements Serializable{
 	Point2D.Float dragStart;
 	Shape anchor;
 	boolean rotateOn = false;
-	
+	Rectangle2D startRect;
 	public void mousePressed(MouseEvent e) {//아래 if제거 생각.
 		if(GCStorage.have(master)) {dragStart = DrawingPanelMoveAndZoom.transformPoint(new Point(e.getX(), e.getY()));}//패널은 이거.
 		else {dragStart = new Point2D.Float(e.getXOnScreen(), e.getYOnScreen());}//acontainer는 이거.
 		if(anchor!=null&&anchor.contains(dragStart)) {rotateOn = true;}
+		
+		startRect = master.getShape().getBounds2D();
 	}
 
+	
+	
+
+	public double computeRotationAngle(Point2D center, Point2D previous, Point2D current) {	//Giggle Giggle	
+		double startAngle = Math.toDegrees(Math.atan2(center.getX()-previous.getX(), center.getY()-previous.getY()));
+		double endAngle = Math.toDegrees(Math.atan2(center.getX()-current.getX(), center.getY()-current.getY()));
+		double rotationAngle = startAngle-endAngle;
+		if (rotationAngle < 0) {rotationAngle += 360;}
+		return rotationAngle;
+	}
+	
+	public void paintComponent(Graphics2D g, Shape shape) {
+		master.removeFunctionShape(anchor);
+		if(master.isSelected()) {
+			g.setColor(Color.CYAN);
+			g.fill(new Rectangle2D.Double(master.getShape().getBounds().getCenterX(), master.getShape().getBounds().getCenterY(), 10.0, 10.0));
+			g.draw(master.getShape().getBounds());
+			
+			Rectangle2D masterBorder = getBeforeRotateBorder();
+			
+			g.setColor(Color.GREEN);
+			g.fill(new Rectangle2D.Double(master.getCenter().getX(), master.getCenter().getY(), 10.0,10.0));
+			g.draw(masterBorder);
+			
+			AffineTransform at = new AffineTransform();
+			at.setToRotation(Math.toRadians(master.getAngle()), masterBorder.getCenterX(), masterBorder.getCenterY());
+			g.setColor(anchorColor);
+			g.setStroke(new BasicStroke(lineThick, BasicStroke.CAP_ROUND, BasicStroke.CAP_ROUND));
+			anchor = at.createTransformedShape(new Ellipse2D.Double(masterBorder.getX()+masterBorder.getWidth()/2-anchorSize/2, masterBorder.getY()-anchorSize-anchorDistance, anchorSize,anchorSize));
+			master.addFunctionShape(anchor);
+			g.fill(anchor);
+		}
+	}
 	
 	public void mouseDragged(MouseEvent e) {//하나로 다같이 하는건 이걸 스태틱으로 만들면 할 수 있겠다.
 		if(rotateOn) {
 			Point2D.Float nowPoint = DrawingPanelMoveAndZoom.transformPoint(new Point(e.getX(), e.getY()));
-			Rectangle2D rect = master.getShape().getBounds2D();
-			Point2D.Double center = new Point2D.Double(rect.getX()+rect.getWidth()/2, rect.getY()+rect.getHeight()/2);
+//			Rectangle2D rect = master.getShape().getBounds2D();
+//			Point2D.Double center = new Point2D.Double(rect.getX()+rect.getWidth()/2, rect.getY()+rect.getHeight()/2);
+			Point2D.Double center = new Point2D.Double(master.getCenter().getX(), master.getCenter().getY());
 			double rotationAngle = computeRotationAngle(center, dragStart, nowPoint);
 			master.addAngle(rotationAngle);
 			AffineTransform at = new AffineTransform();
@@ -53,34 +88,13 @@ public class Shape_Rotator extends AFunction implements Serializable{
 			}
 		}
 	}
-
-	public double computeRotationAngle(Point2D center, Point2D previous, Point2D current) {	//Giggle Giggle	
-		double startAngle = Math.toDegrees(Math.atan2(center.getX()-previous.getX(), center.getY()-previous.getY()));
-		double endAngle = Math.toDegrees(Math.atan2(center.getX()-current.getX(), center.getY()-current.getY()));
-		double rotationAngle = startAngle-endAngle;
-		if (rotationAngle < 0) {rotationAngle += 360;}
-		return rotationAngle;
-	}
-	
-	public void paintComponent(Graphics2D g, Shape shape) {
-		master.removeFunctionShape(anchor);
-		if(master.isSelected()) {
-			Rectangle2D masterBorder = getBeforeRotateBorder();
-			AffineTransform at = new AffineTransform();
-			at.setToRotation(Math.toRadians(master.getAngle()), masterBorder.getCenterX(), masterBorder.getCenterY());
-			g.setColor(anchorColor);
-			g.setStroke(new BasicStroke(lineThick, BasicStroke.CAP_ROUND, BasicStroke.CAP_ROUND));
-			anchor = at.createTransformedShape(new Ellipse2D.Double(masterBorder.getX()+masterBorder.getWidth()/2-anchorSize/2, masterBorder.getY()-anchorSize-anchorDistance, anchorSize,anchorSize));
-			master.addFunctionShape(anchor);
-			g.fill(anchor);
-		}
-	}
 	
 	private Rectangle2D getBeforeRotateBorder() {
 		Vector<Point2D.Float> pointBeforeRotate =  new Vector<Point2D.Float>();
 		Rectangle2D rect = master.getShape().getBounds2D();
 		AffineTransform at = new AffineTransform();
-		at.setToRotation(-Math.toRadians(master.getAngle()), rect.getCenterX(), rect.getCenterY());
+//		at.setToRotation(-Math.toRadians(master.getAngle()), rect.getCenterX(), rect.getCenterY());
+		at.setToRotation(-Math.toRadians(master.getAngle()), master.getCenter().x, master.getCenter().y);
 		for(Point2D.Float p : master.getPoints()) {pointBeforeRotate.add(transformPoint(at,p));}
 		return master.getAShape().newShape(pointBeforeRotate).getBounds();
 	}

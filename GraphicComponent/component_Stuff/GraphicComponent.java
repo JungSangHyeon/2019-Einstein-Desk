@@ -28,6 +28,10 @@ public class GraphicComponent  implements Serializable{
 	private boolean paintFill = true, paintBorder = true;
 	boolean selected = false;
 	
+	private Point2D.Float center = new Point2D.Float();
+	public Point2D.Float getCenter() {return center;}
+	public void setCenter(Point2D.Float p) {center=p;}
+	
 	private double angle =0;
 	public void addAngle(double da) {angle+=da; angle=angle%360;}
 	public double getAngle() {return angle;}

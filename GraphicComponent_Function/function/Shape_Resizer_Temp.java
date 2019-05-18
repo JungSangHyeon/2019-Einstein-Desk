@@ -17,7 +17,7 @@ import data.GCStorage;
 import function_Stuff.AFunction;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 
-public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´Ù.
+public class Shape_Resizer_Temp extends AFunction implements Serializable {//È÷¾ß ±æ´Ù.
 	private static final long serialVersionUID = 181931757073293064L;
 
 	Color anchorColor = new Color(150, 150, 150);
@@ -52,8 +52,7 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 		
 		if (resizeON) {
 			Rectangle2D rect = master.getShape().getBounds2D();
-//			Point2D.Double beforeCenter = new Point2D.Double(rect.getCenterX(), rect.getCenterY());//ÇöÀç Áß½ÉÀúÀå.
-			Point2D.Double beforeCenter = new Point2D.Double(master.getCenter().x, master.getCenter().y);//ÇöÀç Áß½ÉÀúÀå.
+			Point2D.Double beforeCenter = new Point2D.Double(rect.getCenterX(), rect.getCenterY());//ÇöÀç Áß½ÉÀúÀå.
 			
 //			Rectangle2D beforeRotateBorder = getBeforeRotateBorder();
 			
@@ -74,10 +73,6 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 			//µ¹¸®±âÀü Æ÷ÀÎÆ® µéÀ» °¡Á®¿È.
 			//Àú°Å Àû¿ë ½ÃÅ´. ÀÌ°É·Î µµÇü ¸¸µë.
 			//À§ÀÇ Æ÷ÀÎÆ®¿Í µµÇü µÑ´Ù µ¹¸².
-			
-			Point2D.Float changeCenter = new Point2D.Float(master.getCenter().x, master.getCenter().y);//ÇöÀç Áß½ÉÀúÀå.
-			changeCenter = transformPoint(at, changeCenter);
-			
 			Vector<Point2D.Float> beforePoint = getBeforeRotatePoints();
 			for (Point2D.Float point : beforePoint) {
 				Point2D.Float cpoint;
@@ -92,7 +87,6 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 			AffineTransform at2 = new AffineTransform();
 			at2.setToRotation(Math.toRadians(master.getAngle()), beforeCenter.getX(), beforeCenter.getY());
 			master.setShape(at2.createTransformedShape(master.getShape()));
-			changeCenter = transformPoint(at2, changeCenter);
 			
 			for (Point2D.Float point : master.getPoints()) {
 				Point2D.Float cpoint;
@@ -100,7 +94,7 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 				point.setLocation(cpoint.x, cpoint.y);
 			}
 				
-			master.setCenter(changeCenter);
+			
 //			AffineTransform at2 = new AffineTransform();
 //			at2.setToRotation(Math.toRadians(master.getAngle()), beforeCenter.getX(), beforeCenter.getY());
 //			master.setShape(at2.createTransformedShape(beforeShape));
@@ -147,8 +141,7 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 		Vector<Point2D.Float> pointBeforeRotate =  new Vector<Point2D.Float>();
 		Rectangle2D rect = master.getShape().getBounds2D();
 		AffineTransform at = new AffineTransform();
-//		at.setToRotation(-Math.toRadians(master.getAngle()), rect.getCenterX(), rect.getCenterY());
-		at.setToRotation(-Math.toRadians(master.getAngle()), master.getCenter().x, master.getCenter().y);
+		at.setToRotation(-Math.toRadians(master.getAngle()), rect.getCenterX(), rect.getCenterY());
 		for(Point2D.Float p : master.getPoints()) {pointBeforeRotate.add(transformPoint(at,p));}
 		return pointBeforeRotate;
 	}
@@ -156,8 +149,7 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 	private Rectangle2D getBeforeRotateAnchorBorder() {
 		Rectangle2D rect = master.getShape().getBounds2D();
 		AffineTransform at = new AffineTransform();
-//		at.setToRotation(-Math.toRadians(master.getAngle()), rect.getCenterX(), rect.getCenterY());
-		at.setToRotation(-Math.toRadians(master.getAngle()), master.getCenter().x, master.getCenter().y);
+		at.setToRotation(-Math.toRadians(master.getAngle()), rect.getCenterX(), rect.getCenterY());
 		return at.createTransformedShape(anchors.get(7-n).getBounds()).getBounds();
 	}
 	
@@ -165,8 +157,7 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 		Vector<Point2D.Float> pointBeforeRotate =  new Vector<Point2D.Float>();
 		Rectangle2D rect = master.getShape().getBounds2D();
 		AffineTransform at = new AffineTransform();
-//		at.setToRotation(-Math.toRadians(master.getAngle()), rect.getCenterX(), rect.getCenterY());
-		at.setToRotation(-Math.toRadians(master.getAngle()), master.getCenter().x, master.getCenter().y);
+		at.setToRotation(-Math.toRadians(master.getAngle()), rect.getCenterX(), rect.getCenterY());
 		for(Point2D.Float p : master.getPoints()) {pointBeforeRotate.add(transformPoint(at,p));}
 		return master.getAShape().newShape(pointBeforeRotate).getBounds();
 	}
@@ -253,16 +244,15 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 			}
 			return new Point2D.Double(-1.1, 1);
 		}else if(height + deltaH < limit) {
-//			switch (n) {
-//			case 0:  n=5; break;//0
-//			case 2:  n=7; break;//2
-//			case 1:  n=6; break;//3
-//			case 6:  n=1; break;//4
-//			case 5:  n=0; break;//5
-//			case 7:  n=2; break;//7
-//			default: break;
-//			}
-			master.addAngle(180);
+			switch (n) {
+			case 0:  n=5; break;//0
+			case 2:  n=7; break;//2
+			case 1:  n=6; break;//3
+			case 6:  n=1; break;//4
+			case 5:  n=0; break;//5
+			case 7:  n=2; break;//7
+			default: break;
+			}
 			return new Point2D.Double(1, -1.1);
 		}
 		
