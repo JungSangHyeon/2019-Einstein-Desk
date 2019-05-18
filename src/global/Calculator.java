@@ -14,5 +14,7 @@ public class Calculator {
 		else {closestPoint = new Point2D.Float(Math.round(sp.x + u * xDelta), Math.round(sp.y + u * yDelta));}
 		return Point2D.distance(closestPoint.x, closestPoint.y, p.x, p.y);
 	}
+
+
 	
 }

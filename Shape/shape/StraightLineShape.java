@@ -23,7 +23,7 @@ public class StraightLineShape extends APDRShape{
 		for(int i=0; i<gc.getPoints().size()-1; i++) {
 			if(Calculator.distanceLineNPoint(gc.getPoints().get(i), gc.getPoints().get(i+1), p)<gc.getBorderThick()/2) {return true;}
 		}
-		for(Shape s : gc.getAggreShape()) {
+		for(Shape s : gc.getFunctionShape()) {
 			if(s.contains(p)) {
 				return true;
 			}

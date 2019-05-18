@@ -38,10 +38,6 @@ public class PaintMain {
 //부분 페인트, 이벤트, 그래픽 플로우 정리.
 
 //finish tool Bar & Shape Bar //consider use pre made Toolbar 
-//Icon Invisible Part or change Color
-
-//make Share mover
-//make Share rotate, resizer.
 
 //D&D get Same Component
 //Add On Animation in A Container -> processor와 painter, time action을 합쳐버리자. 이름은 모르겠는디. 아이작 템처럼 만들어버리자. 
