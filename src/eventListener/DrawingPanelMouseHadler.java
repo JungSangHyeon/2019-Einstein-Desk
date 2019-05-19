@@ -1,11 +1,16 @@
 package eventListener;
 
+import java.awt.Cursor;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
+import javax.swing.JPanel;
+
+import component_Stuff.GraphicComponent;
+import data.GCStorage;
 import data.GlobalData;
 import dragAndDrop.DragAndDropManager;
 import moveAndZoom.DrawingPanelMoveAndZoom;
@@ -42,7 +47,21 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 	
 	public void mouseEntered(MouseEvent e) {DragAndDropManager.setNowMouseOnPanel(drawingPanel);}
 	public void mouseWheelMoved(MouseWheelEvent e) {DrawingPanelMoveAndZoom.zoomCamera(e);drawingPanel.repaint();}
-	public void mouseMoved(MouseEvent e) {GlobalData.getNowTool().processEvent(e);drawingPanel.repaint();}
+	public void mouseMoved(MouseEvent e) {
+		GlobalData.getNowTool().processEvent(e);
+		drawingPanel.repaint();
+		
+		boolean onNothing = true;
+		for(GraphicComponent gc : GCStorage.getGCVector()) {
+			if(gc.getAShape().isSelected(gc, DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
+				onNothing = false;
+				break;
+			}
+		}
+		if(onNothing) {
+			((JPanel) e.getSource()).setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+		}
+	}
 	public void mouseClicked(MouseEvent e) {
 		if(leftBTNPressed()){GlobalData.getNowTool().processEvent(e);}
 		drawingPanel.repaint();

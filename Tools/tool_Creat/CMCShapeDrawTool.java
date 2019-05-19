@@ -34,7 +34,6 @@ public class CMCShapeDrawTool extends ATool{
 	private void initDrawing(MouseEvent e) {
 		GCStorage.clearSelected();
 		GCData = new GraphicComponent();
-		//	GCData.addPainter(new TextPainter("testttt", "Icons/jake_22X22.txt"));
 		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 		GCData.addFunction(new Shape_Mover());
 		GCData.setAShape(GlobalData.getNowShapeMaker());
@@ -58,7 +57,7 @@ public class CMCShapeDrawTool extends ATool{
 	}
 	
 	public void mousePressed(MouseEvent e) {}
-	public void mouseReleased(MouseEvent e) {}//GlobalData.setNowTool(eTool.eHandTool.getTool());
+	public void mouseReleased(MouseEvent e) {GlobalData.setNowTool(eTool.eHandTool.getTool());}
 	public void mouseDragged(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}

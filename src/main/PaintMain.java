@@ -28,26 +28,24 @@ public class PaintMain {
 }
 //work
 
+//로테이트 가운데에 각도 출력 되게 하자. 그림으로!
 //스케쥴러를 사용하여 통신하기 생각.
+//이벤트를 최 상단의 것만 주는걸로 하자.
 //핸드일 때 셀렉트 아닌놈도 이벤트를 받을 필요가 있음. 고려 할 것.
-//툴바 만드는 중.... 휠 누르면 드래그 드랍 되게 하자. 그리고, 빨랑 셀렉터 만들어. 앵커하자. 
-//그리고 앵커 해서 변화주면, 점들도 죄다 변화줘.
+//툴바 만드는 중.... 휠 누르면 드래그 드랍 되게 하자.
 
-//간단하게 만들기.
-//function전부다 static화. enum으로. 이미지는 하나씩만 저장하고 아이디로 불러오게 하기.
+//이미지는 하나씩만 저장하고 아이디로 불러오게 하기.
 //부분 페인트, 이벤트, 그래픽 플로우 정리.
 
 //finish tool Bar & Shape Bar //consider use pre made Toolbar 
 
 //D&D get Same Component
-//Add On Animation in A Container -> processor와 painter, time action을 합쳐버리자. 이름은 모르겠는디. 아이작 템처럼 만들어버리자. 
+//Add On Animation in A Container -> processor와 painter, time action(force)을 합쳐버리자. 아이작 템처럼 만들어버리자. 
 
-//타임 액션 넣기. 그래픽 컴포넌트 force
 //그릴 부분만 다시 그리게 하기.
 
 //log -> branch. like a tree
 //Use System Clip Board 
-//Consider use mouse Button 2 as D&D Controller 
 //portal shape
 
 //tip

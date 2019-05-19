@@ -2,8 +2,8 @@ package function;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
@@ -11,7 +11,8 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
-import java.util.Vector;
+
+import javax.swing.JPanel;
 
 import data.GCStorage;
 import function_Stuff.AFunction;
@@ -21,82 +22,100 @@ public class Shape_Rotator extends AFunction implements Serializable{
 	private static final long serialVersionUID = 3215043540942308860L;
 	
 	Color anchorColor = new Color(150, 150, 150);
-	float anchorSize = 20, anchorDistance =30, lineThick = 2;
+	float anchorSize = 20, anchorDistance =30, lineThick = 2, gap = 2;
+	Color insideAnchorColor = Color.WHITE;
 	
 	Point2D.Float dragStart;
 	Shape anchor;
 	boolean rotateOn = false;
-	Rectangle2D startRect;
+	
 	public void mousePressed(MouseEvent e) {//아래 if제거 생각.
-		if(GCStorage.have(master)) {dragStart = DrawingPanelMoveAndZoom.transformPoint(new Point(e.getX(), e.getY()));}//패널은 이거.
+		if(GCStorage.have(master)) {dragStart = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());}//패널은 이거.
 		else {dragStart = new Point2D.Float(e.getXOnScreen(), e.getYOnScreen());}//acontainer는 이거.
 		if(anchor!=null&&anchor.contains(dragStart)) {rotateOn = true;}
-		
-		startRect = master.getShape().getBounds2D();
 	}
 
+	public void paintComponent(Graphics2D g, Shape shape) {
+		if(master.isSelected()) {
+			master.removeFunctionShape(anchor);
+			Rectangle2D beforeRotateBorder = getBeforeRotateBorder();
+			AffineTransform at = new AffineTransform();
+			
+			double angle = master.getAngle();
+			if(master.getUpsideDown()) {angle+=180;}
+			at.setToRotation(Math.toRadians(angle), beforeRotateBorder.getCenterX(), beforeRotateBorder.getCenterY());
+			
+			float scaleLineThick = lineThick;
+			float scaleAnchorDistance = anchorDistance;
+			float scaleAnchorSize = anchorSize;
+			float scaleGap = gap;
+			float scaleMasterBorderThick = master.getBorderThick();
+			float scale = DrawingPanelMoveAndZoom.getScale();
+			if(DrawingPanelMoveAndZoom.getScale()>1) {
+				scaleLineThick/=scale;
+				scaleAnchorDistance/=scale;
+				scaleAnchorSize/=scale;
+				scaleGap/=scale;
+			}
+			
+			//HAHAHAHAH
+			Rectangle2D.Double beforeRotateBar = new Rectangle2D.Double(beforeRotateBorder.getCenterX()-scaleLineThick/2, beforeRotateBorder.getY()-scaleAnchorDistance-scaleMasterBorderThick/2, scaleLineThick, scaleAnchorDistance);
+			Ellipse2D.Double beforeRotateAnchor = new Ellipse2D.Double(beforeRotateBorder.getCenterX()-scaleAnchorSize/2, beforeRotateBorder.getY()-scaleAnchorSize-scaleAnchorDistance-scaleMasterBorderThick/2,scaleAnchorSize,scaleAnchorSize);
+			Rectangle2D rect = beforeRotateAnchor.getBounds2D();
+			Ellipse2D.Double beforeRotateInsideAnchor = new Ellipse2D.Double(rect.getX()+scaleGap, rect.getY()+scaleGap, rect.getWidth()-scaleGap*2, rect.getHeight()-scaleGap*2);
+			anchor = at.createTransformedShape(beforeRotateAnchor);
+			master.addFunctionShape(anchor);
+			
+			g.setColor(anchorColor);
+			g.setStroke(new BasicStroke(lineThick/DrawingPanelMoveAndZoom.getScale(), BasicStroke.CAP_ROUND, BasicStroke.CAP_ROUND));
+			g.fill(at.createTransformedShape(beforeRotateBar));//rotate Bar
+			g.fill(anchor);
+			
+			g.setColor(insideAnchorColor);
+			g.fill(at.createTransformedShape(beforeRotateInsideAnchor));//rotate Bar
+		}
+	}
 	
+	public void mouseDragged(MouseEvent e) {//하나로 다같이 하는건 이걸 스태틱으로 만들면 할 수 있겠다.
+		if(rotateOn) {
+			Point2D.Float nowPoint = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());//get Angle
+			Point2D.Float center = master.getCenter();
+			double rotationAngle = computeRotationAngle(center, dragStart, nowPoint);
+			
+			AffineTransform at = new AffineTransform();//get AT
+			at.setToRotation(Math.toRadians(rotationAngle), center.getX(), center.getY());
+			
+			master.setShape(at.createTransformedShape(master.getShape()));//Rotate Shape
+			
+			for(Point2D.Float point : master.getPoints()) {//Rotate Points
+				Point2D.Float cpoint = transformPoint(at,point);
+				point.setLocation(cpoint.x, cpoint.y);
+			}
+			
+			master.addAngle(rotationAngle);//add Angle
+			dragStart = nowPoint;
+			System.out.println(master.getAngle());
+		}
+	}
 	
+	public void mouseMoved(MouseEvent e) {
+		if(anchor.contains(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {//mouse On this
+			((JPanel) e.getSource()).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		}
+	}
 
+	private Rectangle2D getBeforeRotateBorder() {
+		AffineTransform at = new AffineTransform();
+		at.setToRotation(-Math.toRadians(master.getAngle()), master.getCenter().x, master.getCenter().y);
+		return at.createTransformedShape(master.getShape()).getBounds2D();
+	}
+	
 	public double computeRotationAngle(Point2D center, Point2D previous, Point2D current) {	//Giggle Giggle	
 		double startAngle = Math.toDegrees(Math.atan2(center.getX()-previous.getX(), center.getY()-previous.getY()));
 		double endAngle = Math.toDegrees(Math.atan2(center.getX()-current.getX(), center.getY()-current.getY()));
 		double rotationAngle = startAngle-endAngle;
 		if (rotationAngle < 0) {rotationAngle += 360;}
 		return rotationAngle;
-	}
-	
-	public void paintComponent(Graphics2D g, Shape shape) {
-		master.removeFunctionShape(anchor);
-		if(master.isSelected()) {
-			g.setColor(Color.CYAN);
-			g.fill(new Rectangle2D.Double(master.getShape().getBounds().getCenterX(), master.getShape().getBounds().getCenterY(), 10.0, 10.0));
-			g.draw(master.getShape().getBounds());
-			
-			Rectangle2D masterBorder = getBeforeRotateBorder();
-			
-			g.setColor(Color.GREEN);
-			g.fill(new Rectangle2D.Double(master.getCenter().getX(), master.getCenter().getY(), 10.0,10.0));
-			g.draw(masterBorder);
-			
-			AffineTransform at = new AffineTransform();
-			at.setToRotation(Math.toRadians(master.getAngle()), masterBorder.getCenterX(), masterBorder.getCenterY());
-			g.setColor(anchorColor);
-			g.setStroke(new BasicStroke(lineThick, BasicStroke.CAP_ROUND, BasicStroke.CAP_ROUND));
-			anchor = at.createTransformedShape(new Ellipse2D.Double(masterBorder.getX()+masterBorder.getWidth()/2-anchorSize/2, masterBorder.getY()-anchorSize-anchorDistance, anchorSize,anchorSize));
-			master.addFunctionShape(anchor);
-			g.fill(anchor);
-		}
-	}
-	
-	public void mouseDragged(MouseEvent e) {//하나로 다같이 하는건 이걸 스태틱으로 만들면 할 수 있겠다.
-		if(rotateOn) {
-			Point2D.Float nowPoint = DrawingPanelMoveAndZoom.transformPoint(new Point(e.getX(), e.getY()));
-//			Rectangle2D rect = master.getShape().getBounds2D();
-//			Point2D.Double center = new Point2D.Double(rect.getX()+rect.getWidth()/2, rect.getY()+rect.getHeight()/2);
-			Point2D.Double center = new Point2D.Double(master.getCenter().getX(), master.getCenter().getY());
-			double rotationAngle = computeRotationAngle(center, dragStart, nowPoint);
-			master.addAngle(rotationAngle);
-			AffineTransform at = new AffineTransform();
-			at.setToRotation(Math.toRadians(rotationAngle), center.getX(), center.getY());
-			master.setShape(at.createTransformedShape(master.getShape()));
-			dragStart = nowPoint;
-			
-			for(Point2D.Float point : master.getPoints()) {
-				Point2D.Float cpoint = transformPoint(at,point);
-				point.setLocation(cpoint.x, cpoint.y);
-			}
-		}
-	}
-	
-	private Rectangle2D getBeforeRotateBorder() {
-		Vector<Point2D.Float> pointBeforeRotate =  new Vector<Point2D.Float>();
-		Rectangle2D rect = master.getShape().getBounds2D();
-		AffineTransform at = new AffineTransform();
-//		at.setToRotation(-Math.toRadians(master.getAngle()), rect.getCenterX(), rect.getCenterY());
-		at.setToRotation(-Math.toRadians(master.getAngle()), master.getCenter().x, master.getCenter().y);
-		for(Point2D.Float p : master.getPoints()) {pointBeforeRotate.add(transformPoint(at,p));}
-		return master.getAShape().newShape(pointBeforeRotate).getBounds();
 	}
 	
 	public Point2D.Float transformPoint(AffineTransform at, Point2D.Float p1)  {
@@ -107,7 +126,6 @@ public class Shape_Rotator extends AFunction implements Serializable{
 	
 	public void mouseReleased(MouseEvent e) {rotateOn = false;}
 	public void mouseClicked(MouseEvent e) {}
-	public void mouseMoved(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
 }

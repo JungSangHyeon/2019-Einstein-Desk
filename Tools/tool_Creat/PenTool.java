@@ -1,7 +1,9 @@
 package tool_Creat;
 
 import java.awt.Color;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
 
 import data.GCStorage;
 import data.GlobalData;
@@ -27,4 +29,9 @@ public class PenTool extends PDRShapeDrawTool{
 		setShape(GCStorage.getLastGC());
 	}
 	
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		Rectangle rect = GCStorage.getLastGC().getShape().getBounds();
+		GCStorage.getLastGC().setCenter(new Point2D.Float(rect.x+rect.width/2, rect.y+rect.height/2));
+	}
 }

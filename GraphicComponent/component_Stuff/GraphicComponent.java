@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
-import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.Vector;
@@ -28,9 +27,13 @@ public class GraphicComponent  implements Serializable{
 	private boolean paintFill = true, paintBorder = true;
 	boolean selected = false;
 	
-	private Point2D.Float center = new Point2D.Float();
+	private Point2D.Float center = new Point2D.Float();//죽이고픈것 1. //모르겠음. 로테이트를 바꿔야 하긴 함.
 	public Point2D.Float getCenter() {return center;}
 	public void setCenter(Point2D.Float p) {center=p;}
+	
+	boolean upsideDown = false;//죽이고픈것 2 //펑션간 통신으로 죽일 수 있겠음.
+	public void reverseUpsideDown() {upsideDown = (!upsideDown);}
+	public boolean getUpsideDown() {return upsideDown;}
 	
 	private double angle =0;
 	public void addAngle(double da) {angle+=da; angle=angle%360;}
@@ -49,16 +52,16 @@ public class GraphicComponent  implements Serializable{
 		if(paintBorder) {g.setColor(borderColor); g.draw(shape);}
 		for(AFunction lump : functions) {lump.paintComponent(g,shape);}
 		
-		//아래는 테스트용
-		if (points.size() > 0) {
-			g.setColor(Color.RED);// 디버깅?
-			GeneralPath p = new GeneralPath();
-			p.moveTo(points.get(0).x, points.get(0).y);
-			for (Point2D.Float pp : points) {
-				p.lineTo(pp.x, pp.y);
-			}
-			g.draw(p);
-		}
+//		//아래는 테스트용
+//		if (points.size() > 0) {
+//			g.setColor(Color.RED);// 디버깅?
+//			GeneralPath p = new GeneralPath();
+//			p.moveTo(points.get(0).x, points.get(0).y);
+//			for (Point2D.Float pp : points) {
+//				p.lineTo(pp.x, pp.y);
+//			}
+//			g.draw(p);
+//		}
 		
 	}
 	
