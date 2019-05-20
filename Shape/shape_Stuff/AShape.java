@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Vector;
 
 import component_Stuff.GraphicComponent;
-import tool_Stuff.ATool;
+import function_Stuff.ATool;
 
 public abstract class AShape implements Serializable {
 	private static final long serialVersionUID = -7570621592733255823L;

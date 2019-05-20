@@ -5,14 +5,15 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.Vector;
 
-import function_Stuff.AFunction;
 import global.InjectEnums.eColor;
 import global.InjectEnums.eInt;
 import shape_Stuff.AShape;
+import zFunction_Stuff.AFunction;
 
 public class GraphicComponent  implements Serializable{
 	private static final long serialVersionUID = 2228665649817385320L;
@@ -52,7 +53,7 @@ public class GraphicComponent  implements Serializable{
 		if(paintBorder) {g.setColor(borderColor); g.draw(shape);}
 		for(AFunction lump : functions) {lump.paintComponent(g,shape);}
 		
-//		//아래는 테스트용
+		//아래는 테스트용
 //		if (points.size() > 0) {
 //			g.setColor(Color.RED);// 디버깅?
 //			GeneralPath p = new GeneralPath();

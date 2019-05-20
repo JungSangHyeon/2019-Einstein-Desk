@@ -4,9 +4,10 @@ import java.awt.Color;
 
 import component_Stuff.GraphicComponent;
 import container_Stuff.AContainer;
-import function.Data_ColorCircle_Highlight;
-import function.Shape_Mover;
+import function_Data.Data_ColorCircle_Highlight;
+import function_Shape.Shape_Mover;
 import global.ColorConstant;
+import shape_Stuff.eShape;
 
 @SuppressWarnings("serial")
 public class HighlightColorSelectPanel extends AContainer {
@@ -27,6 +28,7 @@ public class HighlightColorSelectPanel extends AContainer {
 		GC.setBorderPaint(false);
 		GC.setFillPaint(false);
 		
+		GC.setAShape(eShape.rect.getShape());
 		GC.addFunction(new Data_ColorCircle_Highlight(c, pixelWH));
 		GC.addFunction(new Shape_Mover());
 		return GC;

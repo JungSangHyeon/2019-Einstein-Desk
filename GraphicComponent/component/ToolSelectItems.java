@@ -1,34 +1,32 @@
 package component;
 
 import component_Stuff.GraphicComponent;
-import data.GlobalData;
-import function.Data_ToolSelector;
-import function.Paint_IMG;
-import function.Paint_showMouseOnMe;
-import function.Paint_showSelectedTool;
-import function.Shape_Mover;
-import function_Stuff.AFunction;
+import function_Data.Data_ToolSelector;
+import function_Paint.Paint_IMG;
+import function_Paint.Paint_showMouseOnMe;
+import function_Paint.Paint_showSelectedTool;
+import function_Shape.Shape_Mover;
+import function_Stuff.eTool;
 import shape_Stuff.eShape;
-import tool_Stuff.ATool;
-import tool_Stuff.eTool;
+import zFunction_Stuff.AFunction;
 
 public class ToolSelectItems {
 
 	public enum eToolSelectItem{
-		eHandToolItem(eTool.eHandTool.getTool(), new Paint_IMG("", "ToolBarImgs/hand.png")),
-		eEraserToolItem(eTool.eHandTool.getTool(), new Paint_IMG("", "ToolBarImgs/eraser.png")),
-		eShapeToolItem(eTool.eHandTool.getTool(), new Paint_IMG("", "ToolBarImgs/shape.png")),
-		eBackItem(eTool.eHandTool.getTool(), new Paint_IMG("", "ToolBarImgs/back.png")),
-		eFrontItem(eTool.eHandTool.getTool(), new Paint_IMG("", "ToolBarImgs/front.png")),
-		eNewSlideItem(eTool.eHandTool.getTool(), new Paint_IMG("", "ToolBarImgs/newSlide.png")),
-		eOffItem(eTool.eHandTool.getTool(), new Paint_IMG("", "ToolBarImgs/off1.png")),
+		eHandToolItem(new Data_ToolSelector(eTool.eHandTool.getTool()), new Paint_IMG("", "ToolBarImgs/hand.png")),//new Data_ToolSelector(item.getTool()) -> function
+		eEraserToolItem(new Data_ToolSelector(eTool.eEraserTool.getTool()), new Paint_IMG("", "ToolBarImgs/eraser.png")),
+		eShapeToolItem(new Data_ToolSelector(eTool.eHandTool.getTool()), new Paint_IMG("", "ToolBarImgs/shape.png")),
+		eBackItem(new Data_ToolSelector(eTool.eHandTool.getTool()), new Paint_IMG("", "ToolBarImgs/back.png")),
+		eFrontItem(new Data_ToolSelector(eTool.eHandTool.getTool()), new Paint_IMG("", "ToolBarImgs/front.png")),
+		eNewSlideItem(new Data_ToolSelector(eTool.eHandTool.getTool()), new Paint_IMG("", "ToolBarImgs/newSlide.png")),
+		eOffItem(new Data_ToolSelector(eTool.eHandTool.getTool()), new Paint_IMG("", "ToolBarImgs/off1.png")),
 		;
-		private ATool tool; private AFunction painter;
-		private eToolSelectItem(ATool tool, AFunction painter) {
+		private AFunction tool; private AFunction painter;
+		private eToolSelectItem(AFunction tool, AFunction painter) {
 			this.tool=tool;
 			this.painter=painter;
 		}
-		public ATool getTool() {return this.tool;}
+		public AFunction getFunction() {return this.tool;}
 		public AFunction getPainter() {return this.painter;}
 	}
 	
@@ -37,7 +35,7 @@ public class ToolSelectItems {
 		GC.setBorderPaint(false);
 		GC.setFillPaint(false);
 		
-		GC.addFunction(new Data_ToolSelector(item.getTool()));//순서 중요함. 페인트의 경우 덧 그려짐
+		GC.addFunction(item.getFunction());//순서 중요함. 페인트의 경우 덧 그려짐
 		GC.addFunction(item.getPainter());
 		GC.setAShape(eShape.rect.getShape());
 		GC.addFunction(new Paint_showSelectedTool());

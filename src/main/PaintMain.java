@@ -7,7 +7,7 @@ import view.PaintMainFrame;
 public class PaintMain {
 
 	public static void main(String[] args) {
-		System.out.println("SUPER-ULTRA-PAINT V2");
+		System.out.println("ULTRA-PAINT_(UP)");
 		
 		new GlobalTimer();//Time Starts Moving
 		

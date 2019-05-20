@@ -1,16 +1,16 @@
 package component;
 
 import component_Stuff.GraphicComponent;
-import function.Data_ShapeSelect;
-import function.Data_ToolSelector;
-import function.Paint_IMG;
-import function.Paint_penColorBGPaint;
-import function.Paint_showMouseOnMe;
-import function.Paint_showSelectedTool;
-import function.Shape_Mover;
-import function_Stuff.AFunction;
+import function_Data.Data_ShapeSelect;
+import function_Data.Data_ToolSelector;
+import function_Paint.Paint_IMG;
+import function_Paint.Paint_penColorBGPaint;
+import function_Paint.Paint_showMouseOnMe;
+import function_Paint.Paint_showSelectedTool;
+import function_Shape.Shape_Mover;
 import shape_Stuff.AShape;
 import shape_Stuff.eShape;
+import zFunction_Stuff.AFunction;
 
 
 public class ShapeSelectItems {

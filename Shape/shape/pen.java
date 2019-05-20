@@ -1,7 +1,6 @@
 package shape;
 
 
-import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
@@ -9,11 +8,10 @@ import java.awt.geom.Point2D.Float;
 import java.util.Vector;
 
 import component_Stuff.GraphicComponent;
+import function_Stuff.ATool;
+import function_Stuff.eTool;
 import global.Calculator;
-import moveAndZoom.DrawingPanelMoveAndZoom;
 import shape_Stuff.APDRShape;
-import tool_Stuff.ATool;
-import tool_Stuff.eTool;
 
 public class pen extends APDRShape{
 	private static final long serialVersionUID = -1035475723319493551L;

@@ -4,7 +4,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="Stuffs"/>
 	<classpathentry kind="src" path="Shape"/>
-	<classpathentry kind="src" path="Tools"/>
+	<classpathentry kind="src" path="Function"/>
 	<classpathentry kind="src" path="GraphicComponent"/>
 	<classpathentry kind="src" path="GraphicComponent_Container"/>
 	<classpathentry kind="src" path="GraphicComponent_Function"/>

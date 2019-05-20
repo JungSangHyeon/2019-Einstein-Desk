@@ -1,8 +1,8 @@
 package shape;
 
 
-import tool_Stuff.ATool;
-import tool_Stuff.eTool;
+import function_Stuff.ATool;
+import function_Stuff.eTool;
 
 public class HighlightShape extends pen{
 	private static final long serialVersionUID = -1035475723319493551L;

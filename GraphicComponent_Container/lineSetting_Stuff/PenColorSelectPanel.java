@@ -4,8 +4,8 @@ import java.awt.Color;
 
 import component_Stuff.GraphicComponent;
 import container_Stuff.AContainer;
-import function.Data_ColorCircle_Pen;
-import function.Shape_Mover;
+import function_Data.Data_ColorCircle_Pen;
+import function_Shape.Shape_Mover;
 import global.ColorConstant;
 
 @SuppressWarnings("serial")
