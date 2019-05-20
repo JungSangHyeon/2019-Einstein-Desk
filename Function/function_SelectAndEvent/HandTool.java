@@ -59,7 +59,7 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 	}
 	
 	public void mouseClicked(MouseEvent e) {basicAction(e);}
-	public void mouseMoved(MouseEvent e) {basicAction(e);}//need?
+	public void mouseMoved(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
 }

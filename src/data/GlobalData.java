@@ -18,7 +18,6 @@ public class GlobalData {
 	private static AShape nowShapeMaker = eShape.rect.getShape();//btn누르면 쉐잎이 버튼대로 맞춰지고, 쉐입을 통해 툴도 맞추낟.
 	public static AShape getNowShapeMaker() {return nowShapeMaker;}
 	public static void setNowShapeMaker(AShape shapeMaker) {GlobalData.nowShapeMaker = shapeMaker;}
-	
 
 	//Pen
 	public static Color penColor = Color.BLACK;

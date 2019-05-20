@@ -56,8 +56,8 @@ public class CMCShapeDrawTool extends ATool{
 		shapeData.setShape(GlobalData.getNowShapeMaker().newShape(shapeData.getPoints()));
 	}
 	
-	public void mousePressed(MouseEvent e) {}
 	public void mouseReleased(MouseEvent e) {GlobalData.setNowTool(eTool.eHandTool.getTool());}
+	public void mousePressed(MouseEvent e) {}
 	public void mouseDragged(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}

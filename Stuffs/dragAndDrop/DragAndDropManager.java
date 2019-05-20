@@ -18,6 +18,10 @@ public class DragAndDropManager {
 	private static JPanel nowMouseOnPanel, componentMasterPanel;
 	private static GraphicComponent draggingComponent=null;
 	
+	private static boolean DADOn = false;
+	public static boolean isDADOn() {return DADOn;}
+	public static void setDADOn(boolean dADOn) {DADOn = dADOn;}
+
 	public static void drop() {
 		if (componentMasterPanel != nowMouseOnPanel && draggingComponent != null && nowMouseOnPanel != null && componentMasterPanel != null) {
 			if (nowMouseOnPanel instanceof DrawingPanel) {// AContainer -> Drawing Panel
