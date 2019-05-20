@@ -190,6 +190,7 @@ public abstract class AContainer extends AffineScrollPanel {//호호 드럽다.
 			img_g.setColor(seatColor);
 			img_g.fill(currentItem.getRect());
 		}
+		if(copyCurrentItem!=null) {copyCurrentItem.paint(img_g);}
 		
 		return myImg;
 	}
@@ -197,9 +198,17 @@ public abstract class AContainer extends AffineScrollPanel {//호호 드럽다.
 	public JPanel getContainerPanel() {return this;}
 	
 	public class MouseHandler implements MouseListener, MouseMotionListener{//TODO
-		public void mousePressed(MouseEvent e) {findCurrentShape(e);basicAction(e);}
+		public void mousePressed(MouseEvent e) {
+			if(e.getButton() == MouseEvent.BUTTON2) {
+				DragAndDropManager.setDADOn(true);
+			}
+				findCurrentShape(e);basicAction(e);
+			}
 		public void mouseReleased(MouseEvent e) {
-			DragAndDropManager.drop();
+			if(DragAndDropManager.isDADOn()) {
+				DragAndDropManager.drop();
+			}
+			DragAndDropManager.setDADOn(false);
 			basicAction(e);
 			reset();
 		}
@@ -263,10 +272,9 @@ public abstract class AContainer extends AffineScrollPanel {//호호 드럽다.
 	
 	public void dragStartAction() {
 		if(atDragStart) {
-			
+			copyCurrentItem.loadShape();
 			DragAndDropManager.setDraggingComponent(copyCurrentItem.getGraphicComponent());
 			DragAndDropManager.setComponentMasterPanel(this);
-			
 			atDragStart = false;
 			darkOn = true;
 		}

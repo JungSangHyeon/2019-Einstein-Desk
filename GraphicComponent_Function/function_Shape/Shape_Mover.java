@@ -23,7 +23,6 @@ public class Shape_Mover extends AFunction implements Serializable{//伎泛飘 等局
 	
 	Color rectColor = new Color(150, 150, 150);
 	int rectBorderThick =2;
-	float minWH = 100;
 	
 	Point2D.Float dragStart;
 	boolean moveOn = false;
@@ -95,7 +94,7 @@ public class Shape_Mover extends AFunction implements Serializable{//伎泛飘 等局
 	public void mouseReleased(MouseEvent e) {moveOn = false;}
 	public void mouseClicked(MouseEvent e) {}
 	public void mouseMoved(MouseEvent e) {
-		if(master.getShape().contains(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {//mouse On this
+		if(master.isSelected()&&master.getShape().contains(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {//mouse On this
 			boolean onlyOnShape = true;
 			for(Shape s : master.getFunctionShape()) {
 				if(s.contains(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {onlyOnShape = false;}

@@ -11,7 +11,7 @@ public class ToolSelectContainer extends AContainer {
 
 	public ToolSelectContainer() {
 		super(48, 48, 9, 1, 0, 0);
-		this.setItemDraggable(false);
+//		this.setItemDraggable(false);
 
 		this.addItem(ShapeSelectItems.getLineItem(eShapeSelectItem.eFreeLineItem));
 		this.addItem(ShapeSelectItems.getLineItem(eShapeSelectItem.eFreeHighlightItem));

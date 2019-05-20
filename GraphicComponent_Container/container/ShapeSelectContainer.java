@@ -8,8 +8,9 @@ import container_Stuff.AContainer;
 public class ShapeSelectContainer extends AContainer {
 
 	public ShapeSelectContainer() {
-		super(48, 48, 5, 8, 0, 0);
+		super(48, 48, 5, 8, 10,10);
 //		 this.setItemDraggable(false);
+		this.setAutoChangeSeat(false);
 		 
 		 this.addItem(ShapeSelectItems.getGCItem(eShapeSelectItem.eRectItem));
 		 this.addItem(ShapeSelectItems.getGCItem(eShapeSelectItem.eEllipseItem));

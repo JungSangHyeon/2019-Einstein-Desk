@@ -10,6 +10,10 @@ import javax.swing.JPanel;
 import component_Stuff.GraphicComponent;
 import container_Stuff.AContainer;
 import data.GCStorage;
+import function_Shape.Shape_Mover;
+import function_Shape.Shape_MoverWeak;
+import function_Shape.Shape_Resizer;
+import function_Shape.Shape_Rotator;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import view.DrawingPanel;
 
@@ -27,11 +31,19 @@ public class DragAndDropManager {
 			if (nowMouseOnPanel instanceof DrawingPanel) {// AContainer -> Drawing Panel
 				applyTransformToDraggingComponent();
 				GCStorage.addNewGC(draggingComponent);
+				draggingComponent.addFunction(new Shape_Mover());
+				draggingComponent.addFunction(new Shape_Rotator());
+				draggingComponent.addFunction(new Shape_Resizer());
+				draggingComponent.setSelected(false);
 			} else {// Drawing Panel -> AContainer
 				if(GCStorage.getSelectedGCVector().size()<2) {//accept only one drag
 					((AContainer) nowMouseOnPanel).addItem(draggingComponent);
 					GCStorage.removeGC(draggingComponent);// 이건 상황에 따라 다르게 해야 겠는데.
 					GCStorage.removeSelectedGC(draggingComponent);
+					draggingComponent.removeFunction(new Shape_Mover());
+					draggingComponent.removeFunction(new Shape_Rotator());
+					draggingComponent.removeFunction(new Shape_Resizer());
+					draggingComponent.addFunction(new Shape_MoverWeak());
 				}
 			}
 		}

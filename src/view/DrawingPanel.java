@@ -85,27 +85,22 @@ public class DrawingPanel extends JPanel {
 		psp.paint(g2d);
 		hsp.paint(g2d);
 		
-		drawDrawingPanelToContainer(g2d);
-		drawContainerToDrawingPanel(g2d);
+		if(DragAndDropManager.isDADOn()) {
+			drawDrawingPanelToContainer(g2d);
+			drawContainerToDrawingPanel(g2d);
+		}
 	}
 
 	private void paintGC(Graphics2D g2d) {
 		g2d.setTransform(DrawingPanelMoveAndZoom.getAT());
-		
 		for(GraphicComponent gc : GCStorage.getGCVector()) {
-			if(!(gc.getAShape() instanceof pen)) {
-				gc.paint(g2d);
-			}
+			if(!(gc.getAShape() instanceof pen)) {gc.paint(g2d);}//shape
 		}
 		for(GraphicComponent gc : GCStorage.getGCVector()) {
-			if(gc.getAShape() instanceof HighlightShape) {
-				gc.paint(g2d);
-			}
+			if(gc.getAShape() instanceof HighlightShape) {gc.paint(g2d);}//highlight
 		}
 		for(GraphicComponent gc : GCStorage.getGCVector()) {
-			if(!(gc.getAShape() instanceof HighlightShape)&&gc.getAShape() instanceof pen) {
-				gc.paint(g2d);
-			}
+			if(!(gc.getAShape() instanceof HighlightShape)&&gc.getAShape() instanceof pen) {gc.paint(g2d);}//pen
 		}
 		g2d.setTransform(new AffineTransform());		
 	}
@@ -134,6 +129,5 @@ public class DrawingPanel extends JPanel {
 		public void componentMoved(ComponentEvent e) {}
 		public void componentShown(ComponentEvent e) {}
 	}
-
 
 }

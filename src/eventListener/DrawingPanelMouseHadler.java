@@ -28,18 +28,18 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 
 	public void mousePressed(MouseEvent e) {//event to tool, Canvas Move
 		pressedBTN = e.getButton();
-		if(leftBTNPressed()){GlobalData.getNowTool().processEvent(e);}
+		if(leftBTNPressed()||wheelBTNPressed()){GlobalData.getNowTool().processEvent(e);}
 		else if(rightBTNPressed()) {DrawingPanelMoveAndZoom.setDragStartPoint(e.getPoint());}
 		drawingPanel.repaint();
 	}
 
 	public void mouseReleased(MouseEvent e) {//event to tool
-		if(leftBTNPressed()){GlobalData.getNowTool().processEvent(e);}
+		if(leftBTNPressed()||wheelBTNPressed()){GlobalData.getNowTool().processEvent(e);}
 		drawingPanel.repaint();
 	}
 	
 	public void mouseDragged(MouseEvent e) {//event to tool, D&D panel Check, Canvas Move
-		if(leftBTNPressed()){
+		if(leftBTNPressed()||wheelBTNPressed()){
 			DragAndDropManager.setComponentMasterPanel(drawingPanel);
 			GlobalData.getNowTool().processEvent(e);
 		} else if (rightBTNPressed()) {DrawingPanelMoveAndZoom.moveCamera(e);}

@@ -102,7 +102,7 @@ public class Shape_Rotator extends AFunction implements Serializable{
 	}
 	
 	public void mouseMoved(MouseEvent e) {
-		if(anchor.contains(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {//mouse On this
+		if(master.isSelected()&&anchor.contains(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {//mouse On this
 			((JPanel) e.getSource()).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		}
 	}

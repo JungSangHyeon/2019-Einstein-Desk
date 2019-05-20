@@ -24,6 +24,11 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 			GCStorage.clearSelected();
 			GCStorage.addSelectedGC(master);
 		}//else {} -> press on selected GC -> NO CHANGE
+		
+		if(e.getButton() == MouseEvent.BUTTON2) {
+			DragAndDropManager.setDADOn(true);
+		}
+		
 		basicAction(e);
 	}
 
@@ -37,7 +42,10 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 	
 	public void mouseReleased(MouseEvent e) {
 		basicAction(e);
-		DragAndDropManager.drop();
+		if(DragAndDropManager.isDADOn()) {
+			DragAndDropManager.drop();
+		}
+		DragAndDropManager.setDADOn(false);
 		areaSelect = false;
 		firstDrag = true;
 		master=null;

@@ -249,42 +249,46 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 	
 	Vector<Shape> changeAnchors = new Vector<Shape>();
 	public void mouseReleased(MouseEvent e) {
-		resizeON = false;
-		changeAnchors.clear();
-		changeAnchors.add(anchors.get(0));//HAHAHA
-		changeAnchors.add(anchors.get(1));
-		changeAnchors.add(anchors.get(2));
-		changeAnchors.add(anchors.get(4));
-		changeAnchors.add(anchors.get(7));
-		changeAnchors.add(anchors.get(6));
-		changeAnchors.add(anchors.get(5));
-		changeAnchors.add(anchors.get(3));
+		if(resizeON) {
+			changeAnchors.clear();
+			changeAnchors.add(anchors.get(0));//HAHAHA
+			changeAnchors.add(anchors.get(1));
+			changeAnchors.add(anchors.get(2));
+			changeAnchors.add(anchors.get(4));
+			changeAnchors.add(anchors.get(7));
+			changeAnchors.add(anchors.get(6));
+			changeAnchors.add(anchors.get(5));
+			changeAnchors.add(anchors.get(3));
+			resizeON = false;
+		}
 	}
 	public void mouseMoved(MouseEvent e) {
-		for(Shape a : changeAnchors) {
-			if(a.contains(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
-				int nowAngleFactor;
-				int calee = (int)master.getAngle()/22;
-				if(calee<1) {nowAngleFactor = 0;}
-				else if(calee<3) {nowAngleFactor = 1;}
-				else if(calee<5) {nowAngleFactor = 2;}
-				else if(calee<7) {nowAngleFactor = 3;}
-				else if(calee<9) {nowAngleFactor = 4;}
-				else if(calee<11) {nowAngleFactor = 5;}
-				else if(calee<13) {nowAngleFactor = 6;}
-				else if(calee<15) {nowAngleFactor = 7;}
-				else {nowAngleFactor = 0;}
-				
-				switch ((changeAnchors.indexOf(a)+nowAngleFactor)%8) {//+ now angle num %8
-				case 0: ((JPanel) e.getSource()).setCursor(new Cursor(Cursor.NW_RESIZE_CURSOR)); break;
-				case 1: ((JPanel) e.getSource()).setCursor(new Cursor(Cursor.N_RESIZE_CURSOR)); break;
-				case 2: ((JPanel) e.getSource()).setCursor(new Cursor(Cursor.NE_RESIZE_CURSOR)); break;
-				case 3: ((JPanel) e.getSource()).setCursor(new Cursor(Cursor.E_RESIZE_CURSOR)); break;
-				case 4: ((JPanel) e.getSource()).setCursor(new Cursor(Cursor.SE_RESIZE_CURSOR)); break;
-				case 5: ((JPanel) e.getSource()).setCursor(new Cursor(Cursor.S_RESIZE_CURSOR)); break;
-				case 6: ((JPanel) e.getSource()).setCursor(new Cursor(Cursor.SW_RESIZE_CURSOR)); break;
-				case 7: ((JPanel) e.getSource()).setCursor(new Cursor(Cursor.W_RESIZE_CURSOR)); break;
-				default: break;
+		if(master.isSelected()) {
+			for(Shape a : changeAnchors) {
+				if(a.contains(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
+					int nowAngleFactor;
+					int calee = (int)master.getAngle()/22;
+					if(calee<1) {nowAngleFactor = 0;}
+					else if(calee<3) {nowAngleFactor = 1;}
+					else if(calee<5) {nowAngleFactor = 2;}
+					else if(calee<7) {nowAngleFactor = 3;}
+					else if(calee<9) {nowAngleFactor = 4;}
+					else if(calee<11) {nowAngleFactor = 5;}
+					else if(calee<13) {nowAngleFactor = 6;}
+					else if(calee<15) {nowAngleFactor = 7;}
+					else {nowAngleFactor = 0;}
+					
+					switch ((changeAnchors.indexOf(a)+nowAngleFactor)%8) {
+					case 0: ((JPanel) e.getSource()).setCursor(new Cursor(Cursor.NW_RESIZE_CURSOR)); break;
+					case 1: ((JPanel) e.getSource()).setCursor(new Cursor(Cursor.N_RESIZE_CURSOR)); break;
+					case 2: ((JPanel) e.getSource()).setCursor(new Cursor(Cursor.NE_RESIZE_CURSOR)); break;
+					case 3: ((JPanel) e.getSource()).setCursor(new Cursor(Cursor.E_RESIZE_CURSOR)); break;
+					case 4: ((JPanel) e.getSource()).setCursor(new Cursor(Cursor.SE_RESIZE_CURSOR)); break;
+					case 5: ((JPanel) e.getSource()).setCursor(new Cursor(Cursor.S_RESIZE_CURSOR)); break;
+					case 6: ((JPanel) e.getSource()).setCursor(new Cursor(Cursor.SW_RESIZE_CURSOR)); break;
+					case 7: ((JPanel) e.getSource()).setCursor(new Cursor(Cursor.W_RESIZE_CURSOR)); break;
+					default: break;
+					}
 				}
 			}
 		}

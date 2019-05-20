@@ -8,6 +8,7 @@ import function_Paint.Paint_penColorBGPaint;
 import function_Paint.Paint_showMouseOnMe;
 import function_Paint.Paint_showSelectedTool;
 import function_Shape.Shape_Mover;
+import function_Shape.Shape_MoverWeak;
 import shape_Stuff.AShape;
 import shape_Stuff.eShape;
 import zFunction_Stuff.AFunction;
@@ -47,7 +48,7 @@ public class ShapeSelectItems {
 		GC.addFunction(item.getPainter());
 		GC.setAShape(eShape.rect.getShape());
 		GC.addFunction(new Paint_showMouseOnMe());
-		GC.addFunction(new Shape_Mover());
+		GC.addFunction(new Shape_MoverWeak());
 		return GC;
 	}
 	

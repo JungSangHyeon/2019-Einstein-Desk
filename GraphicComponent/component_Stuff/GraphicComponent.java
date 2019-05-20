@@ -53,16 +53,16 @@ public class GraphicComponent  implements Serializable{
 		if(paintBorder) {g.setColor(borderColor); g.draw(shape);}
 		for(AFunction lump : functions) {lump.paintComponent(g,shape);}
 		
-		//아래는 테스트용
-//		if (points.size() > 0) {
-//			g.setColor(Color.RED);// 디버깅?
-//			GeneralPath p = new GeneralPath();
-//			p.moveTo(points.get(0).x, points.get(0).y);
-//			for (Point2D.Float pp : points) {
-//				p.lineTo(pp.x, pp.y);
-//			}
-//			g.draw(p);
-//		}
+//		아래는 테스트용
+		if (points.size() > 0) {
+			g.setColor(Color.RED);// 디버깅?
+			GeneralPath p = new GeneralPath();
+			p.moveTo(points.get(0).x, points.get(0).y);
+			for (Point2D.Float pp : points) {
+				p.lineTo(pp.x, pp.y);
+			}
+			g.draw(p);
+		}
 		
 	}
 	
@@ -74,7 +74,14 @@ public class GraphicComponent  implements Serializable{
 	//Function
 	public Vector<AFunction> getFunctions() {return functions;}
 	public void addFunction(AFunction f) {f.setMaster(this);functions.add(f);}
-		
+	public void removeFunction(AFunction function) {
+		for(AFunction f : functions) {
+			if(f.getClass().equals(function.getClass())) {
+				functions.remove(f);break;
+			}
+		}
+	}
+	
 	//Shape
 	public Shape getShape() {return shape;}
 	public void setShape(Shape shape) {this.shape = shape;}

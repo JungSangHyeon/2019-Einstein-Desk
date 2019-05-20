@@ -7,7 +7,7 @@ import view.PaintMainFrame;
 public class PaintMain {
 
 	public static void main(String[] args) {
-		System.out.println("ULTRA-PAINT_(UP)");
+		System.out.println("ULTRA-PAINT");
 		
 		new GlobalTimer();//Time Starts Moving
 		
@@ -30,9 +30,6 @@ public class PaintMain {
 
 //로테이트 가운데에 각도 출력 되게 하자. 그림으로!
 //스케쥴러를 사용하여 통신하기 생각.
-//이벤트를 최 상단의 것만 주는걸로 하자.
-//핸드일 때 셀렉트 아닌놈도 이벤트를 받을 필요가 있음. 고려 할 것.
-//툴바 만드는 중.... 휠 누르면 드래그 드랍 되게 하자.
 
 //이미지는 하나씩만 저장하고 아이디로 불러오게 하기.
 //부분 페인트, 이벤트, 그래픽 플로우 정리.

@@ -36,4 +36,8 @@ public class Item  implements Serializable{
 		this.w=w;
 		this.h=h;
 	}
+
+	public void loadShape() {
+		gc.setShape(gc.getAShape().newShape(gc.getPoints()));
+	}
 }
