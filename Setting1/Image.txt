@@ -1,2 +1,2 @@
-LoadingPageImageAddress(Image/loadingIMG.png);
+LoadingPageImageAddress(Image/TitleImg.png);
 MainFrameIconImageAddress(Image/loadingIMG.png);

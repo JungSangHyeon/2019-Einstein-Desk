@@ -250,6 +250,7 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 	Vector<Shape> changeAnchors = new Vector<Shape>();
 	public void mouseReleased(MouseEvent e) {
 		resizeON = false;
+		changeAnchors.clear();
 		changeAnchors.add(anchors.get(0));//HAHAHA
 		changeAnchors.add(anchors.get(1));
 		changeAnchors.add(anchors.get(2));
@@ -259,7 +260,6 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 		changeAnchors.add(anchors.get(5));
 		changeAnchors.add(anchors.get(3));
 	}
-	public void mouseClicked(MouseEvent e) {}
 	public void mouseMoved(MouseEvent e) {
 		for(Shape a : changeAnchors) {
 			if(a.contains(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
@@ -286,10 +286,10 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 				case 7: ((JPanel) e.getSource()).setCursor(new Cursor(Cursor.W_RESIZE_CURSOR)); break;
 				default: break;
 				}
-//				((JPanel) e.getSource()).setCursor(new Cursor(Cursor.));
 			}
 		}
 	}
+	public void mouseClicked(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
 }

@@ -1,7 +1,10 @@
 package loadingPage;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -18,6 +21,11 @@ public class LoadingPage extends JFrame{
 		this.setAlwaysOnTop(true);
 		this.setExtendedState(MAXIMIZED_BOTH);
 		this.getContentPane().setBackground(backGroundColor);
+		
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		Cursor invisCursor = tk.createCustomCursor(tk.createImage(""),new Point(), null);
+		this.setCursor(invisCursor);
+		
 		try {this.img = ImageIO.read(new File(imgAddr));}
 		catch (Exception e) {/*DO NOTHING*/}
 		this.setVisible(true);
