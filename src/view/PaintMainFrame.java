@@ -2,12 +2,14 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.KeyboardFocusManager;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+import eventListener.KeyDispatcher;
 import global.InjectEnums.eInt;
 import global.InjectEnums.eString;
 
@@ -32,6 +34,9 @@ public class PaintMainFrame extends JFrame {
 		
 		drawingPanel = new DrawingPanel();
 		this.add(drawingPanel, BorderLayout.CENTER);
+		
+		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+	    manager.addKeyEventDispatcher(new KeyDispatcher());
 	}
 
 	public void initialize() {

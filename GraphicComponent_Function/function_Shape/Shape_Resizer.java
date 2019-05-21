@@ -52,9 +52,10 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 			
 			Point2D.Float nowPoint = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());//µå·¡±× ½ÃÀÛÁ¡.
 			Point2D.Float normalDragStart = new Point2D.Float(nowPoint.x, nowPoint.y);//´ÙÀ½ µå·¡±×¸¦ À§ÇÔ.
-			
 			Point2D resizeFactor = this.computeResizeFactor(getBeforeRotatePoint(master, dragStart), getBeforeRotatePoint(master, nowPoint));//µ¹¸° °ÍÀ¸·Î ¸®»çÀÌÁî ÆÑÅÍ ¸¸µë.
+			
 			for(GraphicComponent gc : GCStorage.getSelectedGCVector()) {
+				if(resizeFactor.getY()<0) {gc.reverseUpsideDown();}//TODO
 				Point2D.Double beforeCenter = new Point2D.Double(gc.getCenter().x, gc.getCenter().y);//ÇöÀç Áß½ÉÀúÀå.
 				
 				Rectangle2D sr = getBeforeRotateAnchorBorder(gc);//¾ÞÄ¿¸¦ µ¹¸®±â ÀüÀ¸·Î ÇÔ
@@ -93,50 +94,6 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 			dragStart = normalDragStart;
 		}
 		
-		
-//		if (resizeON) {
-//			Point2D.Double beforeCenter = new Point2D.Double(master.getCenter().x, master.getCenter().y);//ÇöÀç Áß½ÉÀúÀå.
-//			
-//			Point2D.Float nowPoint = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());//µå·¡±× ½ÃÀÛÁ¡.
-//			Point2D.Float normalDragStart = new Point2D.Float(nowPoint.x, nowPoint.y);//´ÙÀ½ µå·¡±×¸¦ À§ÇÔ.
-//			
-//			nowPoint = getBeforeRotatePoint(nowPoint);//Á¡À» È¸Àü ÀüÀ¸·Î ¹Ù²Þ
-//			dragStart = getBeforeRotatePoint(dragStart);
-//			Point2D resizeFactor = this.computeResizeFactor(this.dragStart, nowPoint);//µ¹¸° °ÍÀ¸·Î ¸®»çÀÌÁî ÆÑÅÍ ¸¸µë.
-//			
-//			Rectangle2D sr = getBeforeRotateAnchorBorder();//¾ÞÄ¿¸¦ µ¹¸®±â ÀüÀ¸·Î ÇÔ
-//			
-//			AffineTransform at = new AffineTransform();
-//			at.setToTranslation(sr.getCenterX(), sr.getCenterY());
-//			at.scale(resizeFactor.getX(), resizeFactor.getY());
-//			at.translate(-sr.getCenterX(), -sr.getCenterY());//¿ø·¡ µÇ´Â AT¿Ï¼º?
-//			
-//			Point2D.Float changeCenter = new Point2D.Float(master.getCenter().x, master.getCenter().y);//ÇöÀç Áß½ÉÀúÀå.
-//			changeCenter = transformPoint(at, changeCenter);//Áß½É ÀÌµ¿½ÃÅ´.
-//			
-//			Vector<Point2D.Float> beforePoint = getBeforeRotatePoints();//È¸Àü ÀüÀÇ Æ÷ÀÎÆ®µé
-//			for (Point2D.Float point : beforePoint) {
-//				Point2D.Float cpoint = transformPoint(at, point);//ÀÌµ¿ ½ÃÅ´
-//				point.setLocation(cpoint.x, cpoint.y);
-//			}
-//			Shape beforeShape = master.getAShape().newShape(beforePoint);//ÀÌµ¿½ÃÅ²°É·Î ½¦ÀÔ ¸¸µë
-//			
-//			master.setPoints(beforePoint);//
-//			master.setShape(beforeShape);
-//			
-//			AffineTransform at2 = new AffineTransform();
-//			at2.setToRotation(Math.toRadians(master.getAngle()), beforeCenter.getX(), beforeCenter.getY());//ÀÌµ¿ ÀüÀÇ Áß½ÉÀ¸·Î È¸Àü at¸¸µë
-//			master.setShape(at2.createTransformedShape(master.getShape()));//ÀÌµ¿µÈ µµÇü? È¸Àü½ÃÅ´
-//			changeCenter = transformPoint(at2, changeCenter);//Áß½É È¸Àü½ÃÅ´
-//			master.setCenter(changeCenter);
-//			
-//			for (Point2D.Float point : master.getPoints()) {//Á¡µé È¸Àü½ÃÅ´
-//				Point2D.Float cpoint = transformPoint(at2, point);
-//				point.setLocation(cpoint.x, cpoint.y);
-//			}
-//			
-//			dragStart = normalDragStart;
-//		}
 	}
 	
 	
@@ -148,10 +105,9 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 		return pointBeforeRotate;
 	}
 	
-	private Rectangle2D getBeforeRotateAnchorBorder(GraphicComponent gc) {//TODO
+	private Rectangle2D getBeforeRotateAnchorBorder(GraphicComponent gc) {
 		AffineTransform at = new AffineTransform();
 		at.setToRotation(-Math.toRadians(gc.getAngle()), gc.getCenter().x, gc.getCenter().y);
-		
 		return at.createTransformedShape(makeAnchorForOther(gc, 7-n)).getBounds();
 	}
 	
@@ -202,11 +158,7 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 		if (master.isSelected()) {
 			for(Shape s : anchors) {master.removeFunctionShape(s);}
 			anchors.clear();
-			
 			g.setColor(anchorColor);
-			
-			
-			
 			Rectangle2D masterBorder = getBeforeRotateBorder(master);
 			
 			float factor = master.getBorderThick()*2;
@@ -318,10 +270,9 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 			case 1:  n=6; break;
 			case 6:  n=1; break;
 			case 5:  n=0; break;
-			case 7:  n=2; break;
+			case 7:  n=2; break;//TODO
 			default: break;
 			}
-			master.reverseUpsideDown();
 			return new Point2D.Double(1,-factor);
 		}
 		
