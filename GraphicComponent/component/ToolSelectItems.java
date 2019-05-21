@@ -7,6 +7,7 @@ import function_Paint.Paint_showMouseOnMe;
 import function_Paint.Paint_showSelectedTool;
 import function_Shape.Shape_Mover;
 import function_Stuff.eTool;
+import function_System.System_Die;
 import shape_Stuff.eShape;
 import zFunction_Stuff.AFunction;
 
@@ -19,7 +20,7 @@ public class ToolSelectItems {
 		eBackItem(new Data_ToolSelector(eTool.eHandTool.getTool()), new Paint_IMG("", "ToolBarImgs/back.png")),
 		eFrontItem(new Data_ToolSelector(eTool.eHandTool.getTool()), new Paint_IMG("", "ToolBarImgs/front.png")),
 		eNewSlideItem(new Data_ToolSelector(eTool.eHandTool.getTool()), new Paint_IMG("", "ToolBarImgs/newSlide.png")),
-		eOffItem(new Data_ToolSelector(eTool.eHandTool.getTool()), new Paint_IMG("", "ToolBarImgs/off1.png")),
+		eOffItem(new System_Die(), new Paint_IMG("", "ToolBarImgs/off1.png")),
 		;
 		private AFunction tool; private AFunction painter;
 		private eToolSelectItem(AFunction tool, AFunction painter) {

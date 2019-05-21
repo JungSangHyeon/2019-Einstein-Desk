@@ -16,8 +16,12 @@ public class Item  implements Serializable{
 
 	public Item(GraphicComponent gc) {this.gc=gc;}
 	
-	public void paint(Graphics2D g2) {gc.paint(g2);}
-	public void processEvent(MouseEvent e) {gc.processEvent(e);}
+	public void paint(Graphics2D g2) {
+		gc.paint(g2);
+	}
+	public void processEvent(MouseEvent e) {
+		gc.processEvent(e);
+	}
 	
 	public GraphicComponent getGraphicComponent() {return gc;}
 	public void setRect(Rectangle rect) {gc.setShape(rect);}

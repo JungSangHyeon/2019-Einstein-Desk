@@ -49,7 +49,7 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 	public void mouseMoved(MouseEvent e) {//event to tool & on Shape <-- 다른건 죄다 Select후 tool이 전달함.
 		GlobalData.getNowTool().processEvent(e);
 		boolean onNothing = true;//for cursor control
-		Vector<GraphicComponent> Components = GCStorage.getGCVector();
+		Vector<GraphicComponent> Components = GCStorage.getSelectedGCVector();
 		for(int i=Components.size()-1; i>-1; i--) {
 			if(Components.get(i).getAShape().isSelected(Components.get(i), DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
 				onNothing = false;

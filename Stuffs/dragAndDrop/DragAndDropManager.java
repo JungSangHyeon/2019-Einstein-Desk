@@ -37,19 +37,27 @@ public class DragAndDropManager {
 				draggingComponent.setSelected(false);
 			} else {// Drawing Panel -> AContainer
 				if(GCStorage.getSelectedGCVector().size()<2) {//accept only one drag
-					((AContainer) nowMouseOnPanel).addItem(draggingComponent);
 					GCStorage.removeGC(draggingComponent);// 이건 상황에 따라 다르게 해야 겠는데.
 					GCStorage.removeSelectedGC(draggingComponent);
-					draggingComponent.removeFunction(new Shape_Mover());
-					draggingComponent.removeFunction(new Shape_Rotator());
-					draggingComponent.removeFunction(new Shape_Resizer());
-					draggingComponent.addFunction(new Shape_MoverWeak());
+					
+					((AContainer) nowMouseOnPanel).addItem(GCToItem(draggingComponent));
 				}
 			}
 		}
 		reset();
 	}
 
+	private static GraphicComponent GCToItem(GraphicComponent draggingComponent) {
+		draggingComponent.removeFunction(new Shape_Mover());
+		draggingComponent.removeFunction(new Shape_Rotator());
+		draggingComponent.removeFunction(new Shape_Resizer());
+		draggingComponent.addAngle(-draggingComponent.getAngle());//angle -> 0
+		if(draggingComponent.getUpsideDown()) {draggingComponent.reverseUpsideDown();}
+		
+		draggingComponent.addFunction(new Shape_MoverWeak());
+		return draggingComponent;
+	}
+	
 	public static void reset() {
 		componentMasterPanel=null;//reset
 		draggingComponent=null;
@@ -62,6 +70,12 @@ public class DragAndDropManager {
 		Point2D.Float point = DrawingPanelMoveAndZoom.transformPoint(new Point(r.x+masterPoint.x, r.y+masterPoint.y+((AContainer)componentMasterPanel).getNowDeep()));
 		float scale = DrawingPanelMoveAndZoom.getScale();
 		draggingComponent.setShape(new Rectangle2D.Float(point.x, point.y, r.width/scale, r.height/scale));//넣은 도형을 꺼내게 바꾸자.
+		
+//		Rectangle r = draggingComponent.getShape().getBounds();
+//		Point masterPoint = componentMasterPanel.getLocation();
+//		Point2D.Float point = DrawingPanelMoveAndZoom.transformPoint(new Point(r.x+masterPoint.x, r.y+masterPoint.y+((AContainer)componentMasterPanel).getNowDeep()));
+//		float scale = DrawingPanelMoveAndZoom.getScale();
+//		draggingComponent.setShape(new Rectangle2D.Float(point.x, point.y, r.width/scale, r.height/scale));//넣은 도형을 꺼내게 바꾸자.
 	}
 
 	public static void setComponentMasterPanel(JPanel p) {if(draggingComponent!=null) {componentMasterPanel=p;}}

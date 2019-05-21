@@ -15,6 +15,7 @@ import java.io.Serializable;
 
 import javax.swing.JPanel;
 
+import component_Stuff.GraphicComponent;
 import data.GCStorage;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import zFunction_Stuff.AFunction;
@@ -83,22 +84,40 @@ public class Shape_Rotator extends AFunction implements Serializable{
 	public void mouseDragged(MouseEvent e) {//하나로 다같이 하는건 이걸 스태틱으로 만들면 할 수 있겠다.
 		if(rotateOn) {
 			Point2D.Float nowPoint = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());//get Angle
-			Point2D.Float center = master.getCenter();
+			Point2D.Float center = master.getCenter();//모드로 나눌 수 있겠다. 각자의 센터 || 하나의 센터.
 			double rotationAngle = computeRotationAngle(center, dragStart, nowPoint);
 			
-			AffineTransform at = new AffineTransform();//get AT
-			at.setToRotation(Math.toRadians(rotationAngle), center.getX(), center.getY());
-			
-			master.setShape(at.createTransformedShape(master.getShape()));//Rotate Shape
-			
-			for(Point2D.Float point : master.getPoints()) {//Rotate Points
-				Point2D.Float cpoint = transformPoint(at,point);
-				point.setLocation(cpoint.x, cpoint.y);
+			for(GraphicComponent gc : GCStorage.getSelectedGCVector()) {
+				AffineTransform at = new AffineTransform();//get AT
+				at.setToRotation(Math.toRadians(rotationAngle), gc.getCenter().getX(), gc.getCenter().getY());
+				gc.setShape(at.createTransformedShape(gc.getShape()));//Rotate Shape
+				for(Point2D.Float point : gc.getPoints()) {//Rotate Points
+					Point2D.Float cpoint = transformPoint(at,point);
+					point.setLocation(cpoint.x, cpoint.y);
+				}
+				gc.addAngle(rotationAngle);//add Angle
 			}
-			
-			master.addAngle(rotationAngle);//add Angle
 			dragStart = nowPoint;
 		}
+		
+//		if(rotateOn) {
+//			Point2D.Float nowPoint = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());//get Angle
+//			Point2D.Float center = master.getCenter();
+//			double rotationAngle = computeRotationAngle(center, dragStart, nowPoint);
+//			
+//			AffineTransform at = new AffineTransform();//get AT
+//			at.setToRotation(Math.toRadians(rotationAngle), center.getX(), center.getY());
+//			
+//			master.setShape(at.createTransformedShape(master.getShape()));//Rotate Shape
+//			
+//			for(Point2D.Float point : master.getPoints()) {//Rotate Points
+//				Point2D.Float cpoint = transformPoint(at,point);
+//				point.setLocation(cpoint.x, cpoint.y);
+//			}
+//			
+//			master.addAngle(rotationAngle);//add Angle
+//			dragStart = nowPoint;
+//		}
 	}
 	
 	public void mouseMoved(MouseEvent e) {

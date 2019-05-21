@@ -16,14 +16,17 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 	boolean firstDrag=true, areaSelect = false;
 	
 	public void mousePressed(MouseEvent e) {
-		findMaster(e);
+		findMaster(e);//set master
 		if(master==null) {//press on back ground
 			GCStorage.clearSelected();
 			areaSelect = true;
 		}else if(!GCStorage.isSelected(master)) {//press on new GC
 			GCStorage.clearSelected();
 			GCStorage.addSelectedGC(master);
-		}//else {} -> press on selected GC -> NO CHANGE
+		}else {//press on selected GC
+			GCStorage.removeSelectedGC(master);
+			GCStorage.addSelectedGC(master);
+		}
 		
 		if(e.getButton() == MouseEvent.BUTTON2) {
 			DragAndDropManager.setDADOn(true);
@@ -62,7 +65,11 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 	}
 	
 	private void basicAction(MouseEvent e) {
-		if(!areaSelect) {for(GraphicComponent gc : GCStorage.getSelectedGCVector()) {gc.processEvent(e);}}
+		if(!areaSelect) {
+			if(GCStorage.getSelectedGCVector().size()>0) {
+				GCStorage.getSelectedGCVector().lastElement().processEvent(e);
+			}
+		}
 		else {areaSelectRect.processEvent(e);}
 	}
 	
