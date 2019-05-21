@@ -56,10 +56,18 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 		boolean onNothing = true;//for cursor control
 		Vector<GraphicComponent> Components = GCStorage.getSelectedGCVector();
 		for(int i=Components.size()-1; i>-1; i--) {
-			if(Components.get(i).getAShape().isSelected(Components.get(i), DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
+			if(Components.get(i).isTopSelected(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
 				onNothing = false;
 				Components.get(i).processEvent(e);//HMMMMMMMMMMMMMMMM
-				break;
+			}
+		}
+		if(onNothing) {
+			for(int i=Components.size()-1; i>-1; i--) {
+				if(Components.get(i).getAShape().isSelected(Components.get(i), DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
+					onNothing = false;
+					Components.get(i).processEvent(e);//HMMMMMMMMMMMMMMMM
+					break;
+				}
 			}
 		}
 		if(onNothing) {((JPanel) e.getSource()).setCursor(new Cursor(Cursor.DEFAULT_CURSOR));}

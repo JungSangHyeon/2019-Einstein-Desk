@@ -53,16 +53,18 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 
 	public void mouseDragged(MouseEvent e) {//WOW LONGLONG
 		if (resizeON) {
-			
 			Point2D.Float nowPoint = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());//µå·¡±× ½ÃÀÛÁ¡.
 			Point2D.Float normalDragStart = new Point2D.Float(nowPoint.x, nowPoint.y);//´ÙÀ½ µå·¡±×¸¦ À§ÇÔ.
 			Point2D resizeFactor = this.computeResizeFactor(getBeforeRotatePoint(master, dragStart), getBeforeRotatePoint(master, nowPoint));//µ¹¸° °ÍÀ¸·Î ¸®»çÀÌÁî ÆÑÅÍ ¸¸µë.
 			
 			for(GraphicComponent gc : GCStorage.getSelectedGCVector()) {
+				int thick = gc.getBorderThick();
+				gc.setborderThick(0);
 				if(resizeFactor.getY()<0) {gc.reverseUpsideDown();}//TODO
 				Point2D.Double beforeCenter = new Point2D.Double(gc.getCenter().x, gc.getCenter().y);//ÇöÀç Áß½ÉÀúÀå.
 				
-				Rectangle2D sr = getBeforeRotateAnchorBorder(gc);//¾ÞÄ¿¸¦ µ¹¸®±â ÀüÀ¸·Î ÇÔ
+				Rectangle2D sr = getBeforeRotateAnchorBorder(gc, n);//¾ÞÄ¿¸¦ µ¹¸®±â ÀüÀ¸·Î ÇÔ
+//				if(resizeFactor.getX()<0) {sr = getBeforeRotateAnchorBorder(gc, 2);}
 				
 				AffineTransform at = new AffineTransform();
 				at.setToTranslation(sr.getCenterX(), sr.getCenterY());
@@ -92,9 +94,8 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 					Point2D.Float cpoint = transformPoint(at2, point);
 					point.setLocation(cpoint.x, cpoint.y);
 				}
+				gc.setborderThick(thick);
 			}
-			
-				
 			dragStart = normalDragStart;
 		}
 		
@@ -109,10 +110,10 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 		return pointBeforeRotate;
 	}
 	
-	private Rectangle2D getBeforeRotateAnchorBorder(GraphicComponent gc) {
+	private Rectangle2D getBeforeRotateAnchorBorder(GraphicComponent gc, int i) {
 		AffineTransform at = new AffineTransform();
 		at.setToRotation(-Math.toRadians(gc.getAngle()), gc.getCenter().x, gc.getCenter().y);
-		return at.createTransformedShape(makeAnchorForOther(gc, 7-n)).getBounds();
+		return at.createTransformedShape(makeAnchorForOther(gc, 7-i)).getBounds2D();
 	}
 	
 	
@@ -258,9 +259,9 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 
 		double xFactor = deltaW / width + 1.0;
 		double yFactor = deltaH / height + 1.0;
-		double factor = 1.1;
+		double factor = 1.01;
 		
-		float limit = 10/DrawingPanelMoveAndZoom.getScale();
+		float limit = 1/DrawingPanelMoveAndZoom.getScale();
 		if(width + deltaW < limit&&height + deltaH < limit) {
 			n= 7-n;
 			return new Point2D.Double(-factor,-factor);

@@ -36,7 +36,7 @@ public class Shape_Mover extends AFunction implements Serializable{//셀렉트 된애
 		if(GCStorage.have(master)) {dragStart = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());}//패널은 이거.
 		else {dragStart = new Point2D.Float(e.getXOnScreen(), e.getYOnScreen());}//acontainer는 이거.
 		
-		if(master.getAShape().isSelected(master, dragStart)&&master.getShape().contains(dragStart)) {
+		if(master.getAShape().isSelected(master, dragStart)) {//&&master.getShape().contains(dragStart)
 			moveOn = true;
 			for(Shape s : master.getFunctionShape()) {
 				if(s.contains(dragStart)) {moveOn = false;}

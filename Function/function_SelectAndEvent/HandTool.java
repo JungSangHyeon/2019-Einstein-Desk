@@ -36,11 +36,11 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		basicAction(e);
 		if (firstDrag) {
 			DragAndDropManager.setDraggingComponent(master);
 			firstDrag = false;
 		}
+		basicAction(e);
 	}
 	
 	public void mouseReleased(MouseEvent e) {

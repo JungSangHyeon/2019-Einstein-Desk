@@ -28,11 +28,12 @@ public class PaintMain {
 }
 //work
 
+//커서 안바뀜, 곂친거.리사이즈 좀 이쁘게
+
 //로테이트 가운데에 각도 출력 되게 하자. 그림으로!
 //스케쥴러를 사용하여 통신하기 생각.
 
 //이미지는 하나씩만 저장하고 아이디로 불러오게 하기.
-//부분 페인트, 이벤트, 그래픽 플로우 정리.
 
 //finish tool Bar & Shape Bar //consider use pre made Toolbar 
 
