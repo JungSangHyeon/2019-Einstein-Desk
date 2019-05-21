@@ -31,6 +31,10 @@ public class Shape_Rotator extends AFunction implements Serializable{
 	Shape anchor;
 	boolean rotateOn = false;
 	
+	public Shape_Rotator() {//나중엔 라이브로,...
+		topPaint = true;
+	}
+	
 	public void mousePressed(MouseEvent e) {//아래 if제거 생각.
 		if(GCStorage.have(master)) {dragStart = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());}//패널은 이거.
 		else {dragStart = new Point2D.Float(e.getXOnScreen(), e.getYOnScreen());}//acontainer는 이거.
@@ -39,6 +43,7 @@ public class Shape_Rotator extends AFunction implements Serializable{
 
 	public void paintComponent(Graphics2D g, Shape shape) {
 		if(master.isSelected()) {
+			master.removeTopFunctionShape(anchor);
 			master.removeFunctionShape(anchor);
 			Rectangle2D beforeRotateBorder = getBeforeRotateBorder();
 			AffineTransform at = new AffineTransform();
@@ -47,18 +52,12 @@ public class Shape_Rotator extends AFunction implements Serializable{
 			if(master.getUpsideDown()) {angle+=180;}
 			at.setToRotation(Math.toRadians(angle), beforeRotateBorder.getCenterX(), beforeRotateBorder.getCenterY());
 			
-			float scaleLineThick = lineThick;
-			float scaleAnchorDistance = anchorDistance;
-			float scaleAnchorSize = anchorSize;
-			float scaleGap = gap;
-			float scaleMasterBorderThick = master.getBorderThick()*2;
 			float scale = DrawingPanelMoveAndZoom.getScale();
-			if(DrawingPanelMoveAndZoom.getScale()>1) {
-				scaleLineThick/=scale;
-				scaleAnchorDistance/=scale;
-				scaleAnchorSize/=scale;
-				scaleGap/=scale;
-			}
+			float scaleLineThick = lineThick/scale;
+			float scaleAnchorDistance = anchorDistance/scale;
+			float scaleAnchorSize = anchorSize/scale;
+			float scaleGap = gap/scale;
+			float scaleMasterBorderThick = master.getBorderThick()*2;
 			
 			//HAHAHAHAH
 			Rectangle2D.Double beforeRotateBar = new Rectangle2D.Double(beforeRotateBorder.getCenterX()-scaleLineThick/2, beforeRotateBorder.getY()-scaleAnchorDistance-scaleMasterBorderThick/2, scaleLineThick, scaleAnchorDistance);
@@ -66,6 +65,7 @@ public class Shape_Rotator extends AFunction implements Serializable{
 			Rectangle2D rect = beforeRotateAnchor.getBounds2D();
 			Ellipse2D.Double beforeRotateInsideAnchor = new Ellipse2D.Double(rect.getX()+scaleGap, rect.getY()+scaleGap, rect.getWidth()-scaleGap*2, rect.getHeight()-scaleGap*2);
 			anchor = at.createTransformedShape(beforeRotateAnchor);
+			master.addTopFunctionShape(anchor);
 			master.addFunctionShape(anchor);
 			
 			g.setColor(anchorColor);
@@ -100,24 +100,6 @@ public class Shape_Rotator extends AFunction implements Serializable{
 			dragStart = nowPoint;
 		}
 		
-//		if(rotateOn) {
-//			Point2D.Float nowPoint = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());//get Angle
-//			Point2D.Float center = master.getCenter();
-//			double rotationAngle = computeRotationAngle(center, dragStart, nowPoint);
-//			
-//			AffineTransform at = new AffineTransform();//get AT
-//			at.setToRotation(Math.toRadians(rotationAngle), center.getX(), center.getY());
-//			
-//			master.setShape(at.createTransformedShape(master.getShape()));//Rotate Shape
-//			
-//			for(Point2D.Float point : master.getPoints()) {//Rotate Points
-//				Point2D.Float cpoint = transformPoint(at,point);
-//				point.setLocation(cpoint.x, cpoint.y);
-//			}
-//			
-//			master.addAngle(rotationAngle);//add Angle
-//			dragStart = nowPoint;
-//		}
 	}
 	
 	public void mouseMoved(MouseEvent e) {

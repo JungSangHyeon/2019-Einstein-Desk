@@ -93,15 +93,13 @@ public class DrawingPanel extends JPanel {
 
 	private void paintGC(Graphics2D g2d) {
 		g2d.setTransform(DrawingPanelMoveAndZoom.getAT());
-		for(GraphicComponent gc : GCStorage.getGCVector()) {
-			if(!(gc.getAShape() instanceof pen)) {gc.paint(g2d);}//shape
-		}
-		for(GraphicComponent gc : GCStorage.getGCVector()) {
-			if(gc.getAShape() instanceof HighlightShape) {gc.paint(g2d);}//highlight
-		}
-		for(GraphicComponent gc : GCStorage.getGCVector()) {
-			if(!(gc.getAShape() instanceof HighlightShape)&&gc.getAShape() instanceof pen) {gc.paint(g2d);}//pen
-		}
+		for(GraphicComponent gc : GCStorage.getGCVector()) {if(!(gc.getAShape() instanceof pen)) {gc.paint(g2d);}}//shape
+		for(GraphicComponent gc : GCStorage.getGCVector()) {if(gc.getAShape() instanceof HighlightShape) {gc.paint(g2d);}}//highlight
+		for(GraphicComponent gc : GCStorage.getGCVector()) {if(!(gc.getAShape() instanceof HighlightShape)&&gc.getAShape() instanceof pen) {gc.paint(g2d);}}//pen
+		
+		for(GraphicComponent gc : GCStorage.getGCVector()) {if(!(gc.getAShape() instanceof pen)) {gc.topPaint(g2d);}}//shape
+		for(GraphicComponent gc : GCStorage.getGCVector()) {if(gc.getAShape() instanceof HighlightShape) {gc.topPaint(g2d);}}//highlight
+		for(GraphicComponent gc : GCStorage.getGCVector()) {if(!(gc.getAShape() instanceof HighlightShape)&&gc.getAShape() instanceof pen) {gc.topPaint(g2d);}}//pen
 		g2d.setTransform(new AffineTransform());		
 	}
 

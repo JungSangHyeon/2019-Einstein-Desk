@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
-import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.Vector;
@@ -19,7 +18,7 @@ public class GraphicComponent  implements Serializable{
 	private static final long serialVersionUID = 2228665649817385320L;
 	
 	private Shape shape;
-	private Vector<Shape> functionShape;
+	private Vector<Shape> functionShape, topFunctionShape;
 	private AShape ashape;
 	private Vector<AFunction> functions;
 	private Vector <Point2D.Float> points;
@@ -44,31 +43,40 @@ public class GraphicComponent  implements Serializable{
 		points = new Vector <Point2D.Float>();
 		functions = new Vector <AFunction>();
 		functionShape = new Vector <Shape>();
+		topFunctionShape = new Vector <Shape>();
 	}
 	
 	//paint
+	public void topPaint(Graphics2D g) {
+		for(AFunction function : functions) {if(function.isTopPaint()) {function.paintComponent(g,shape);}}
+	}
 	public void paint(Graphics2D g) {
 		g.setStroke(new BasicStroke(borderThick, strokeCap, strokeJoin));
 		if(paintFill) {g.setColor(fillColor); g.fill(shape);}
 		if(paintBorder) {g.setColor(borderColor); g.draw(shape);}
-		for(AFunction lump : functions) {lump.paintComponent(g,shape);}
-		
+		for(AFunction function : functions) {if(!function.isTopPaint()) {function.paintComponent(g,shape);}}
 //		아래는 테스트용
-		if (points.size() > 0) {
-			g.setColor(Color.RED);// 디버깅?
-			GeneralPath p = new GeneralPath();
-			p.moveTo(points.get(0).x, points.get(0).y);
-			for (Point2D.Float pp : points) {
-				p.lineTo(pp.x, pp.y);
-			}
-			g.draw(p);
-		}
+//		if (points.size() > 0) {
+//			g.setColor(Color.RED);// 디버깅?
+//			GeneralPath p = new GeneralPath();
+//			p.moveTo(points.get(0).x, points.get(0).y);
+//			for (Point2D.Float pp : points) {
+//				p.lineTo(pp.x, pp.y);
+//			}
+//			g.draw(p);
+//		}
 		
 	}
 	
+	
 	//Process
+//	public void processTopEvent(MouseEvent e) {
+//		for(AFunction lump : functions) {if(lump.isTopAction()) {lump.processEvent(e);}}
+//	}
+	
 	public void processEvent(MouseEvent e) {
 		for(AFunction lump : functions) {lump.processEvent(e);}
+//		for(AFunction lump : functions) {if(!lump.isTopAction()) {lump.processEvent(e);}}
 	}
 	
 	//Function
@@ -114,5 +122,19 @@ public class GraphicComponent  implements Serializable{
 	public void addFunctionShape(Shape s) {this.functionShape.add(s);}
 	public void removeFunctionShape(Shape s) {this.functionShape.remove(s);}
 	public Vector<Shape> getFunctionShape() {return this.functionShape;}
+	
+	public void addTopFunctionShape(Shape s) {this.topFunctionShape.add(s);}
+	public void removeTopFunctionShape(Shape s) {this.topFunctionShape.remove(s);}
+	public Vector<Shape> getTopFunctionShape() {return this.topFunctionShape;}
+	
+	public boolean isTopSelected(Point2D.Float point) {
+		for(Shape s : topFunctionShape) {
+			if(s.contains(point)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	
 }

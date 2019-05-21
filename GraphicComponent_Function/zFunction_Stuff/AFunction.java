@@ -13,6 +13,22 @@ public abstract class AFunction  implements Serializable{
 	protected GraphicComponent master;
 	public void setMaster(GraphicComponent graphicComponent) {this.master=graphicComponent;}
 	
+//	boolean paintOn = true;
+//	public abstract boolean isPaintOn();
+//	public abstract void setPaintOn(boolean boo);
+//	
+//	boolean actionOn = true;
+//	public abstract boolean isActionOn();
+//	public abstract void setActionOn(boolean boo);
+	
+	protected boolean topPaint = false;
+	public boolean isTopPaint() {return topPaint;}
+//	public abstract void setTopPaint(boolean boo);
+	
+//	protected boolean topAction = false;//나중에 라이브로 설정하게 만듬
+//	public boolean isTopAction() {return topAction;}
+//	public abstract void setTopAction(boolean boo);
+	
 	public void processEvent(MouseEvent e) {//그냥 processEvent만 쓰려고 만듬.
 		int eID = e.getID();
 		if(eID == MouseEvent.MOUSE_PRESSED) {this.mousePressed(e);}

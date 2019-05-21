@@ -19,6 +19,9 @@ public class PDRShapeDrawTool extends ATool{
 	
 	GraphicComponent GCData;
 	
+	public enum state{ready, drawing} 
+	state nowState = state.ready;
+	
 	public void mousePressed(MouseEvent e) {
 		if(e.getButton()==MouseEvent.BUTTON1) {//우클릭으로 화면 이동하면서 그릴 수 있게 함.
 			GCStorage.clearSelected();
@@ -44,9 +47,11 @@ public class PDRShapeDrawTool extends ATool{
 	}
 	
 	public void mouseReleased(MouseEvent e) {
-		Rectangle rect = GCStorage.getLastGC().getShape().getBounds();
-		GCStorage.getLastGC().setCenter(new Point2D.Float(rect.x+rect.width/2, rect.y+rect.height/2));
-		GlobalData.setNowTool(eTool.eHandTool.getTool());
+		if(e.getButton()==MouseEvent.BUTTON1) {
+			Rectangle rect = GCStorage.getLastGC().getShape().getBounds();
+			GCStorage.getLastGC().setCenter(new Point2D.Float(rect.x+rect.width/2, rect.y+rect.height/2));
+			GlobalData.setNowTool(eTool.eHandTool.getTool());
+		}
 	}
 	public void mouseClicked(MouseEvent e) {}
 	public void mouseMoved(MouseEvent e) {}

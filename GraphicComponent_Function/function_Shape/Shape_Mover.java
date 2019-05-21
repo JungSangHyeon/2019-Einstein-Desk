@@ -28,6 +28,10 @@ public class Shape_Mover extends AFunction implements Serializable{//셀렉트 된애
 	Point2D.Float dragStart;
 	boolean moveOn = false;
 	
+	public Shape_Mover() {
+		topPaint = true;
+	}
+	
 	public void mousePressed(MouseEvent e) {//if 제거?
 		if(GCStorage.have(master)) {dragStart = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());}//패널은 이거.
 		else {dragStart = new Point2D.Float(e.getXOnScreen(), e.getYOnScreen());}//acontainer는 이거.
@@ -56,24 +60,6 @@ public class Shape_Mover extends AFunction implements Serializable{//셀렉트 된애
 			}
 			dragStart = nowPoint;
 		}
-		
-		
-//		if(moveOn) {
-//			Point2D.Float nowPoint;
-//			if(GCStorage.have(master)) {nowPoint = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());}
-//			else {nowPoint = new Point2D.Float(e.getXOnScreen(), e.getYOnScreen());}
-//			
-//			AffineTransform at = new AffineTransform();
-//			at.translate(nowPoint.x-dragStart.x, nowPoint.y-dragStart.y);
-//			master.setShape(at.createTransformedShape(master.getShape()));
-//			
-//			for(Point2D.Float point : master.getPoints()) {
-//				point.setLocation(point.x+nowPoint.x-dragStart.x, point.y+nowPoint.y-dragStart.y);
-//			}
-//			
-//			master.setCenter(new Point2D.Float(master.getCenter().x+nowPoint.x-dragStart.x, master.getCenter().y+nowPoint.y-dragStart.y));//이거 대체 방법 없냥.
-//			dragStart = nowPoint;
-//		}
 	}
 	
 	public void paintComponent(Graphics2D g, Shape shape) {
@@ -84,8 +70,9 @@ public class Shape_Mover extends AFunction implements Serializable{//셀렉트 된애
 			at.setToRotation(Math.toRadians(master.getAngle()), masterBorder.getCenterX(), masterBorder.getCenterY());
 			Rectangle2D.Double beforeRotateRect = new Rectangle2D.Double(masterBorder.getX()-factor/2, masterBorder.getY()-factor/2, masterBorder.getWidth()+factor, masterBorder.getHeight()+factor);
 			
-			float scaleRectBorderThick = rectBorderThick;
-			if(DrawingPanelMoveAndZoom.getScale()>1) {scaleRectBorderThick = rectBorderThick/DrawingPanelMoveAndZoom.getScale();}
+			float scaleRectBorderThick = rectBorderThick/DrawingPanelMoveAndZoom.getScale();
+//			float scaleRectBorderThick = rectBorderThick;
+//			if(DrawingPanelMoveAndZoom.getScale()>1) {scaleRectBorderThick = rectBorderThick/DrawingPanelMoveAndZoom.getScale();}
 			
 			g.setColor(rectColor);
 			Stroke temp = g.getStroke();

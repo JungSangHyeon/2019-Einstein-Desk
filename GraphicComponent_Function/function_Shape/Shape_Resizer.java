@@ -34,6 +34,10 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 	Vector<Shape> anchors = new Vector<Shape>();
 	int n = 0;
 	
+	public Shape_Resizer() {//³ªÁß¿£ ¶óÀÌºê·Î,...
+		topPaint = true;
+	}
+	
 	public void mousePressed(MouseEvent e) {
 		dragStart = DrawingPanelMoveAndZoom.transformPoint(new Point(e.getX(), e.getY()));
 		n=0;
@@ -119,8 +123,7 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 		float factor = gc.getBorderThick()*2;
 		Rectangle2D masterBorder = getBeforeRotateBorder(gc);
 		
-		float scaleAnchorSize = realAnchorSize;
-		if(DrawingPanelMoveAndZoom.getScale()>1) {scaleAnchorSize /=DrawingPanelMoveAndZoom.getScale();}
+		float scaleAnchorSize = realAnchorSize /DrawingPanelMoveAndZoom.getScale();
 		
 		AffineTransform at = new AffineTransform();
 		at.setToRotation(Math.toRadians(gc.getAngle()), masterBorder.getCenterX(), masterBorder.getCenterY());
@@ -156,7 +159,10 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 	
 	public void paintComponent(Graphics2D g, Shape shape) {
 		if (master.isSelected()) {
-			for(Shape s : anchors) {master.removeFunctionShape(s);}
+			for(Shape s : anchors) {
+				master.removeTopFunctionShape(s);
+				master.removeFunctionShape(s);
+			}
 			anchors.clear();
 			g.setColor(anchorColor);
 			Rectangle2D masterBorder = getBeforeRotateBorder(master);
@@ -167,14 +173,9 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 			AffineTransform at = new AffineTransform();
 			at.setToRotation(Math.toRadians(master.getAngle()), masterBorder.getCenterX(), masterBorder.getCenterY());
 			
-			float scaleAnchorSize = realAnchorSize;
-			float scaleGap = gap;
-			float scaleShowGap = showAnchorGap;
-			if(DrawingPanelMoveAndZoom.getScale()>1) {
-				scaleAnchorSize /=DrawingPanelMoveAndZoom.getScale();
-				scaleGap /=DrawingPanelMoveAndZoom.getScale();
-				scaleShowGap /=DrawingPanelMoveAndZoom.getScale();
-			}
+			float scaleAnchorSize = realAnchorSize/DrawingPanelMoveAndZoom.getScale();
+			float scaleGap = gap/DrawingPanelMoveAndZoom.getScale();
+			float scaleShowGap = showAnchorGap/DrawingPanelMoveAndZoom.getScale();
 			
 			double startX = masterBorder.getX() - scaleAnchorSize / 2;
 			double startY = masterBorder.getY() - scaleAnchorSize / 2;
@@ -197,8 +198,19 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 			
 			
 			for(Shape s : anchors) {
+				master.addTopFunctionShape(s);
 				master.addFunctionShape(s);
 			}
+			
+			changeAnchors.clear();
+			changeAnchors.add(anchors.get(0));//HAHAHA
+			changeAnchors.add(anchors.get(1));
+			changeAnchors.add(anchors.get(2));
+			changeAnchors.add(anchors.get(4));
+			changeAnchors.add(anchors.get(7));
+			changeAnchors.add(anchors.get(6));
+			changeAnchors.add(anchors.get(5));
+			changeAnchors.add(anchors.get(3));
 			
 			for(Shape s : beforeanchors) {
 				Rectangle2D rect = s.getBounds2D();
@@ -284,17 +296,9 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 	Vector<Shape> changeAnchors = new Vector<Shape>();
 	
 	public void mouseReleased(MouseEvent e) {
-			changeAnchors.clear();
-			changeAnchors.add(anchors.get(0));//HAHAHA
-			changeAnchors.add(anchors.get(1));
-			changeAnchors.add(anchors.get(2));
-			changeAnchors.add(anchors.get(4));
-			changeAnchors.add(anchors.get(7));
-			changeAnchors.add(anchors.get(6));
-			changeAnchors.add(anchors.get(5));
-			changeAnchors.add(anchors.get(3));
-			resizeON = false;
+		resizeON = false;
 	}
+	
 	public void mouseMoved(MouseEvent e) {
 		if(master.isSelected()) {
 			for(Shape a : changeAnchors) {

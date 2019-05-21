@@ -20,22 +20,27 @@ import view.DrawingPanel;
 public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListener, MouseWheelListener{//manage all event except AContainer
 
 	DrawingPanel drawingPanel;//Master Panel
-	int pressedBTN;//for identify dragging BTN   
+	int pressedBTN = -1;//for identify dragging BTN   
 	//Left BTN = modify Data
 	//Right BTN = Move & Zoom
 	
 	public DrawingPanelMouseHadler(DrawingPanel drawingPanel) {this.drawingPanel=drawingPanel;}
 
 	public void mousePressed(MouseEvent e) {//event to tool, Canvas Move
-		pressedBTN = e.getButton();
-		if(leftBTNPressed()||wheelBTNPressed()){GlobalData.getNowTool().processEvent(e);}
-		else if(rightBTNPressed()) {DrawingPanelMoveAndZoom.setDragStartPoint(e.getPoint());}
-		drawingPanel.repaint();
+		if(pressedBTN==-1) {//null
+			pressedBTN = e.getButton();
+			if(leftBTNPressed()||wheelBTNPressed()){GlobalData.getNowTool().processEvent(e);}
+			else if(rightBTNPressed()) {DrawingPanelMoveAndZoom.setDragStartPoint(e.getPoint());}
+			drawingPanel.repaint();
+		}
 	}
 
 	public void mouseReleased(MouseEvent e) {//event to tool
 		if(leftBTNPressed()||wheelBTNPressed()){GlobalData.getNowTool().processEvent(e);}
 		drawingPanel.repaint();
+		if(e.getButton() == pressedBTN) {
+			pressedBTN = -1;//null
+		}
 	}
 	
 	public void mouseDragged(MouseEvent e) {//event to tool, D&D panel Check, Canvas Move

@@ -54,12 +54,18 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 		master=null;
 	}
 	
-	private void findMaster(MouseEvent e) {
+	private void findMaster(MouseEvent e) {//TODO
 		Vector<GraphicComponent> Components = GCStorage.getGCVector();
+		for(int i=Components.size()-1; i>-1; i--) {
+			if(Components.get(i).isTopSelected(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
+				master = Components.get(i);
+				return;
+			}
+		}
 		for(int i=Components.size()-1; i>-1; i--) {
 			if(Components.get(i).getAShape().isSelected(Components.get(i), DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
 				master = Components.get(i);
-				break;
+				return;
 			}
 		}
 	}

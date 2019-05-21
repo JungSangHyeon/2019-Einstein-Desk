@@ -15,4 +15,8 @@ public abstract class AShape implements Serializable {
 	public abstract ATool getDrawer();
 	public abstract boolean isSelected(GraphicComponent gc, Point2D.Float point);
 	
+	public boolean isTopSelected(GraphicComponent gc, Point2D.Float point) {
+		return false;
+	}
+	
 }
