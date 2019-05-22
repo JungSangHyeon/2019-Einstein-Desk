@@ -2,7 +2,7 @@ package data;
 
 import java.awt.Color;
 
-import function_Creat.PDRShapeDrawTool;
+import function_SelectAndEvent.HandTool;
 import function_Stuff.ATool;
 import shape_Stuff.AShape;
 import shape_Stuff.eShape;
@@ -10,7 +10,7 @@ import shape_Stuff.eShape;
 public class GlobalData {
 
 	//Tool
-	private static ATool nowTool = new PDRShapeDrawTool();
+	private static ATool nowTool = new HandTool();
 	public static ATool getNowTool() {return nowTool;}
 	public static void setNowTool(ATool nowTool) {GlobalData.nowTool = nowTool;}
 	

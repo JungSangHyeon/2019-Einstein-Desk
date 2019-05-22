@@ -27,7 +27,7 @@ public class PaintMain {
 	
 }
 //work
-//part paint, / img add / 앵커가 보여졌을 때만 작동하게 하자.
+//part paint, / img add / 앵커가 보여졌을 때만 작동하게 하자. / cmc>?
 
 //로테이트 가운데에 각도 출력 되게 하자. 그림으로!
 //스케쥴러를 사용하여 통신하기 생각.

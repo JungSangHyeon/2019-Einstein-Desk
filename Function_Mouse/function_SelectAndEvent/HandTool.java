@@ -1,7 +1,6 @@
 package function_SelectAndEvent;
 
 import java.awt.event.MouseEvent;
-import java.awt.geom.Point2D;
 import java.util.Vector;
 
 import component_Stuff.GraphicComponent;
@@ -9,6 +8,7 @@ import data.GCStorage;
 import dragAndDrop.DragAndDropManager;
 import function_Stuff.ATool;
 import moveAndZoom.DrawingPanelMoveAndZoom;
+import onOff.Ctrl;
 
 public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected GC & Drag Drop
 	private static final long serialVersionUID = -7463646428712999248L;
@@ -18,7 +18,9 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 	
 	public void mousePressed(MouseEvent e) {
 		findMaster(e);//set master
-		if(master==null) {//press on back ground
+		if(Ctrl.isOn()&&master!=null) {
+			GCStorage.addSelectedGC(master);
+		}else if(master==null) {//press on back ground
 			GCStorage.clearSelected();
 			areaSelect = true;
 		}else if(!GCStorage.isSelected(master)) {//press on new GC
@@ -32,15 +34,6 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 		if(e.getButton() == MouseEvent.BUTTON2) {
 			DragAndDropManager.setDADOn(true);
 		}
-		
-		Point2D.Float fp = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());
-		
-//		GraphicComponent gc = new GraphicComponent();
-//		gc.setShape(new Rectangle2D.Float(fp.x, fp.y, 3,3));
-//		gc.setborderThick(0);
-//		gc.setAShape(eShape.rect.getShape());
-//		gc.setFillColor(Color.CYAN);
-//		GCStorage.addNewGC(gc);
 		
 		basicAction(e);
 	}
@@ -82,7 +75,7 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 	
 	private void basicAction(MouseEvent e) {
 		if(!areaSelect) {
-			if(GCStorage.getSelectedGCVector().size()>0) {
+			if(GCStorage.getSelectedGCVector().size()>0) {//이거 지금 선택된 애가 맨뒤로 들어가게 해놨음.
 				GCStorage.getSelectedGCVector().lastElement().processEvent(e);
 			}
 		}

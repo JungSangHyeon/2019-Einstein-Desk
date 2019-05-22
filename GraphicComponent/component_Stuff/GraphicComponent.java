@@ -12,6 +12,8 @@ import java.util.Vector;
 
 import global.InjectEnums.eColor;
 import global.InjectEnums.eInt;
+import moveAndZoom.DrawingPanelMoveAndZoom;
+import onOff.ThickFollowScale;
 import shape_Stuff.AShape;
 import zFunction_Stuff.AFunction;
 
@@ -113,7 +115,15 @@ public class GraphicComponent  implements Serializable{
 	public void setFillPaint(boolean boo) {this.paintFill = boo;}
 	public void setBorderPaint(boolean boo) {this.paintBorder = boo;}
 	
-	public int getBorderThick() {return borderThick;}
+	public int getBorderThick() {
+		if (ThickFollowScale.isOn()) {
+//			return (int) (borderThick/DrawingPanelMoveAndZoom.getScale());
+			return borderThick;
+		} else {
+			return borderThick;
+		}
+	}
+	
 
 	//Selected
 	public void setSelected(boolean boo) {this.selected = boo;}

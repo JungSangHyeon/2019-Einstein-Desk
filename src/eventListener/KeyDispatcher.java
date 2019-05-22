@@ -6,7 +6,9 @@ import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
 
 import copyAndPaste.CopyAndPaste;
+import delete.Delete;
 import onOff.Ctrl;
+import onOff.ThickFollowScale;
 
 public class KeyDispatcher implements KeyEventDispatcher {// 키이벤트가 포커스에 상관이 없게 해주는 것?
 	
@@ -27,14 +29,14 @@ public class KeyDispatcher implements KeyEventDispatcher {// 키이벤트가 포커스에
 	
 	private void pressAction() {
 		if (keyIs(KeyEvent.VK_CONTROL)) {Ctrl.on();}
-		if (keyIs(KeyEvent.VK_DELETE)) {}
+		if (keyIs(KeyEvent.VK_DELETE)) {Delete.delete();master.repaint();}
 		if (keyIs(KeyEvent.VK_ESCAPE)) {}
 		if(Ctrl.isOn()) {
 			if (keyIs(KeyEvent.VK_C)) {CopyAndPaste.copy();}
 			else if (keyIs(KeyEvent.VK_V)) {CopyAndPaste.paste(); master.repaint();}
-			else if (keyIs(KeyEvent.VK_D)) {}
 			else if (keyIs(KeyEvent.VK_Z)) {}
-			else if (keyIs(KeyEvent.VK_Y)) {}
+			else if (keyIs(KeyEvent.VK_D)) {}
+			else if (keyIs(KeyEvent.VK_T)) {ThickFollowScale.onOff();}
 			else if (keyIs(KeyEvent.VK_UP)) {}
 			else if (keyIs(KeyEvent.VK_DOWN)) {}
 		}

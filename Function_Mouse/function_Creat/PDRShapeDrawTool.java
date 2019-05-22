@@ -13,6 +13,7 @@ import function_Shape.Shape_Rotator;
 import function_Stuff.ATool;
 import function_Stuff.eTool;
 import moveAndZoom.DrawingPanelMoveAndZoom;
+import onOff.AnchorPaint;
 
 public class PDRShapeDrawTool extends ATool{
 	private static final long serialVersionUID = -2451691127621671062L;
@@ -50,6 +51,8 @@ public class PDRShapeDrawTool extends ATool{
 		if(e.getButton()==MouseEvent.BUTTON1) {
 			Rectangle rect = GCStorage.getLastGC().getShape().getBounds();
 			GCStorage.getLastGC().setCenter(new Point2D.Float(rect.x+rect.width/2, rect.y+rect.height/2));
+			GCStorage.addSelectedGC(GCStorage.getLastGC());
+			AnchorPaint.on();
 			GlobalData.setNowTool(eTool.eHandTool.getTool());
 		}
 	}

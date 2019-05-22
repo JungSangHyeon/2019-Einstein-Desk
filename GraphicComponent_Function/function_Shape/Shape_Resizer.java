@@ -67,13 +67,25 @@ public class Shape_Resizer extends AFunction implements Serializable {//히야 길�
 				if(resizeFactor.getY()<0) {gc.reverseUpsideDown();}//TODO
 				Point2D.Double beforeCenter = new Point2D.Double(gc.getCenter().x, gc.getCenter().y);//현재 중심저장.
 				
-				Rectangle2D sr = getBeforeRotateAnchorBorder(gc, n);//앵커를 돌리기 전으로 함
-//				if(resizeFactor.getX()<0) {sr = getBeforeRotateAnchorBorder(gc, 2);}
 				
-				AffineTransform at = new AffineTransform();
-				at.setToTranslation(sr.getCenterX(), sr.getCenterY());
-				at.scale(resizeFactor.getX(), resizeFactor.getY());
-				at.translate(-sr.getCenterX(), -sr.getCenterY());//원래 되는 AT완성?
+				AffineTransform at;
+				if(resizeFactor.getX()<0||resizeFactor.getY()<0) {
+					Rectangle2D sr = getBeforeRotateAnchorBorder(gc, 7-n);//앵커를 돌리기 전으로 함
+					at = new AffineTransform();
+					at.setToTranslation(sr.getCenterX(), sr.getCenterY());
+					at.scale(resizeFactor.getX(), resizeFactor.getY());
+					at.translate(-sr.getCenterX(), -sr.getCenterY());//원래 되는 AT완성?
+				}else {
+					Rectangle2D sr = getBeforeRotateAnchorBorder(gc, n);//앵커를 돌리기 전으로 함
+					at = new AffineTransform();
+					at.setToTranslation(sr.getCenterX(), sr.getCenterY());
+					at.scale(resizeFactor.getX(), resizeFactor.getY());
+					at.translate(-sr.getCenterX(), -sr.getCenterY());//원래 되는 AT완성?
+				}
+				
+				
+				
+				
 				
 				Point2D.Float changeCenter = new Point2D.Float(gc.getCenter().x, gc.getCenter().y);//현재 중심저장.
 				changeCenter = transformPoint(at, changeCenter);//중심 이동시킴.
@@ -269,7 +281,7 @@ public class Shape_Resizer extends AFunction implements Serializable {//히야 길�
 		if(width + deltaW < limit&&height + deltaH < limit) {
 			n= 7-n;
 			return new Point2D.Double(-factor,-factor);
-		}else if(width + deltaW < limit) {
+		}else if(width + deltaW < limit) {//TODO
 			switch (n) {
 			case 0:  n=2; break;
 			case 2:  n=0; break;
