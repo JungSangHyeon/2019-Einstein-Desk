@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import component_Stuff.GraphicComponent;
 import data.GCStorage;
 import moveAndZoom.DrawingPanelMoveAndZoom;
+import onOff.AnchorPaint;
 import zFunction_Stuff.AFunction;
 
 public class Shape_Rotator extends AFunction implements Serializable{
@@ -72,16 +73,24 @@ public class Shape_Rotator extends AFunction implements Serializable{
 			
 			Stroke temp = g.getStroke();
 			g.setStroke(new BasicStroke(lineThick/DrawingPanelMoveAndZoom.getScale(), BasicStroke.CAP_ROUND, BasicStroke.CAP_ROUND));
+			
+			if(AnchorPaint.isOn()) {
 			g.fill(at.createTransformedShape(beforeRotateBar));//rotate Bar
 			g.fill(anchor);
+			}
 			
 			g.setColor(insideAnchorColor);
+			if(AnchorPaint.isOn()) {
 			g.fill(at.createTransformedShape(beforeRotateInsideAnchor));//rotate Bar
+			}
 			g.setStroke(temp);
 		}
 	}
 	
 	public void mouseDragged(MouseEvent e) {//하나로 다같이 하는건 이걸 스태틱으로 만들면 할 수 있겠다.
+		if(AnchorPaint.isOn()) {
+			AnchorPaint.off();
+		}
 		if(rotateOn) {
 			Point2D.Float nowPoint = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());//get Angle
 			Point2D.Float center = master.getCenter();//모드로 나눌 수 있겠다. 각자의 센터 || 하나의 센터.
@@ -128,7 +137,9 @@ public class Shape_Rotator extends AFunction implements Serializable{
 		return p2;
 	}
 	
-	public void mouseReleased(MouseEvent e) {rotateOn = false;}
+	public void mouseReleased(MouseEvent e) {
+		rotateOn = false;
+		AnchorPaint.on();}
 	public void mouseClicked(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}

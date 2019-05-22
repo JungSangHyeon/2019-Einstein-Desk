@@ -1,9 +1,7 @@
 package function_SelectAndEvent;
 
-import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.util.Vector;
 
 import component_Stuff.GraphicComponent;
@@ -11,7 +9,6 @@ import data.GCStorage;
 import dragAndDrop.DragAndDropManager;
 import function_Stuff.ATool;
 import moveAndZoom.DrawingPanelMoveAndZoom;
-import shape_Stuff.eShape;
 
 public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected GC & Drag Drop
 	private static final long serialVersionUID = -7463646428712999248L;
@@ -70,7 +67,7 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 	private void findMaster(MouseEvent e) {//TODO
 		Vector<GraphicComponent> Components = GCStorage.getGCVector();
 		for(int i=Components.size()-1; i>-1; i--) {
-			if(Components.get(i).isTopSelected(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
+			if(Components.get(i).isSelected()&&Components.get(i).isTopSelected(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
 				master = Components.get(i);
 				return;
 			}

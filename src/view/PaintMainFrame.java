@@ -34,9 +34,6 @@ public class PaintMainFrame extends JFrame {
 		
 		drawingPanel = new DrawingPanel();
 		this.add(drawingPanel, BorderLayout.CENTER);
-		
-		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-	    manager.addKeyEventDispatcher(new KeyDispatcher());
 	}
 
 	public void initialize() {

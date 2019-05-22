@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.KeyboardFocusManager;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.event.ComponentEvent;
@@ -21,6 +22,7 @@ import data.GCStorage;
 import deepClone.DeepClone;
 import dragAndDrop.DragAndDropManager;
 import eventListener.DrawingPanelMouseHadler;
+import eventListener.KeyDispatcher;
 import global.InjectEnums.eColor;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import shape.HighlightShape;
@@ -37,6 +39,9 @@ public class DrawingPanel extends JPanel {
 		this.setBackground(eColor.DrawingPanelBackGroundColor.getVal());
 		this.setLayout(null);
 		
+		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+	    manager.addKeyEventDispatcher(new KeyDispatcher(this));
+	    
 		this.addComponentListener(new componentHandler());
 		DrawingPanelMouseHadler mouseHandler = new DrawingPanelMouseHadler(this);
 		this.addMouseMotionListener(mouseHandler);

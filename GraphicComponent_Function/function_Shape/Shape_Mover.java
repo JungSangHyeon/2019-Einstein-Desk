@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import component_Stuff.GraphicComponent;
 import data.GCStorage;
 import moveAndZoom.DrawingPanelMoveAndZoom;
+import onOff.AnchorPaint;
 import zFunction_Stuff.AFunction;
 
 public class Shape_Mover extends AFunction implements Serializable{//셀렉트 된애의 것만 실행하고, 여기서 셀렉트된 애들 전부를 바꾸는 것로
@@ -47,6 +48,9 @@ public class Shape_Mover extends AFunction implements Serializable{//셀렉트 된애
 	}
 
 	public void mouseDragged(MouseEvent e) {
+		if(AnchorPaint.isOn()) {
+			AnchorPaint.off();
+		}
 		if(moveOn) {
 			Point2D.Float nowPoint = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());
 			AffineTransform at = new AffineTransform();
@@ -77,7 +81,9 @@ public class Shape_Mover extends AFunction implements Serializable{//셀렉트 된애
 			g.setColor(rectColor);
 			Stroke temp = g.getStroke();
 			g.setStroke(new BasicStroke(scaleRectBorderThick, BasicStroke.CAP_ROUND, BasicStroke.CAP_ROUND));
-			g.draw(at.createTransformedShape(beforeRotateRect));
+			if(AnchorPaint.isOn()) {
+				g.draw(at.createTransformedShape(beforeRotateRect));
+			}
 			g.setStroke(temp);
 		}
 	}
@@ -94,7 +100,7 @@ public class Shape_Mover extends AFunction implements Serializable{//셀렉트 된애
 		return p2;
 	}
 	
-	public void mouseReleased(MouseEvent e) {moveOn = false;}
+	public void mouseReleased(MouseEvent e) {moveOn = false;AnchorPaint.on();}
 	public void mouseClicked(MouseEvent e) {}
 	public void mouseMoved(MouseEvent e) {
 		if(master.isSelected()&&master.getShape().contains(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {//mouse On this

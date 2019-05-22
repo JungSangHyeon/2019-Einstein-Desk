@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import component_Stuff.GraphicComponent;
 import data.GCStorage;
 import moveAndZoom.DrawingPanelMoveAndZoom;
+import onOff.AnchorPaint;
 import zFunction_Stuff.AFunction;
 
 public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´Ù.
@@ -52,6 +53,9 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 	}
 
 	public void mouseDragged(MouseEvent e) {//WOW LONGLONG
+		if(AnchorPaint.isOn()) {
+			AnchorPaint.off();
+		}
 		if (resizeON) {
 			Point2D.Float nowPoint = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());//µå·¡±× ½ÃÀÛÁ¡.
 			Point2D.Float normalDragStart = new Point2D.Float(nowPoint.x, nowPoint.y);//´ÙÀ½ µå·¡±×¸¦ À§ÇÔ.
@@ -216,14 +220,14 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 			for(Shape s : beforeanchors) {
 				Rectangle2D rect = s.getBounds2D();
 				Ellipse2D.Double beforeRotateInsideAnchor = new Ellipse2D.Double(rect.getX()+scaleShowGap, rect.getY()+scaleShowGap, rect.getWidth()-scaleShowGap*2, rect.getHeight()-scaleShowGap*2);
-				g.fill(at.createTransformedShape(beforeRotateInsideAnchor));
+				if(AnchorPaint.isOn()){g.fill(at.createTransformedShape(beforeRotateInsideAnchor));}
 			}
 			
 			g.setColor(insideAnchorColor);
 			for(Shape s : beforeanchors) {
 				Rectangle2D rect = s.getBounds2D();
 				Ellipse2D.Double beforeRotateInsideAnchor = new Ellipse2D.Double(rect.getX()+scaleGap, rect.getY()+scaleGap, rect.getWidth()-scaleGap*2, rect.getHeight()-scaleGap*2);
-				g.fill(at.createTransformedShape(beforeRotateInsideAnchor));
+				if(AnchorPaint.isOn()){g.fill(at.createTransformedShape(beforeRotateInsideAnchor));}
 			}
 			
 		}
@@ -297,6 +301,7 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 	Vector<Shape> changeAnchors = new Vector<Shape>();
 	
 	public void mouseReleased(MouseEvent e) {
+		AnchorPaint.on();
 		resizeON = false;
 	}
 	
