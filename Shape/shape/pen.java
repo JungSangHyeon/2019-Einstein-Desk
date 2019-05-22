@@ -35,7 +35,9 @@ public class pen extends APDRShape{
 	public boolean isSelected(GraphicComponent gc, Point2D.Float point) {
 		if(gc.getPoints().get(0).distance(point)<gc.getBorderThick()/2) {return true;}//Á¡®G
 		for(int i=0; i<gc.getPoints().size()-1; i++) {
-			if(Calculator.distanceLineNPoint(gc.getPoints().get(i), gc.getPoints().get(i+1), point)<gc.getBorderThick()/2) {return true;}
+			float thick = gc.getBorderThick();
+			if(thick<2) {thick=2;}
+			if(Calculator.distanceLineNPoint(gc.getPoints().get(i), gc.getPoints().get(i+1), point)<thick/2) {return true;}
 		}
 		for(Shape s : gc.getFunctionShape()) {
 			if(s.contains(point)) {

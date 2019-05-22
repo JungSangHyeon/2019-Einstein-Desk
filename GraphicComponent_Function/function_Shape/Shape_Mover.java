@@ -103,7 +103,7 @@ public class Shape_Mover extends AFunction implements Serializable{//¼¿·ºÆ® µÈ¾Ö
 				if(s.contains(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {onlyOnShape = false;}
 			}
 			if(onlyOnShape) {
-				((JPanel) e.getSource()).setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				((JPanel) e.getSource()).setCursor(new Cursor(Cursor.MOVE_CURSOR));
 			}
 		}
 	}
