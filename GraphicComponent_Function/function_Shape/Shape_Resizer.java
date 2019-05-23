@@ -137,7 +137,7 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 		Vector<Shape> returnAnchors = new Vector<Shape>();
 		
 		Shape beforeRotateAnchor;
-		float factor = gc.getBorderThick()*2;
+		float factor = gc.getBorderThick();
 		Rectangle2D masterBorder = getBeforeRotateBorder(gc);
 		
 		float scaleAnchorSize = realAnchorSize /DrawingPanelMoveAndZoom.getScale();
@@ -184,7 +184,7 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 			g.setColor(anchorColor);
 			Rectangle2D masterBorder = getBeforeRotateBorder(master);
 			
-			float factor = master.getBorderThick()*2;
+			float factor = master.getBorderThick();
 			Shape anchor;
 			Shape beforeRotateAnchor;
 			AffineTransform at = new AffineTransform();

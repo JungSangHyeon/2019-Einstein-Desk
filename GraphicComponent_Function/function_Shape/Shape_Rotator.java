@@ -58,7 +58,7 @@ public class Shape_Rotator extends AFunction implements Serializable{
 			float scaleAnchorDistance = anchorDistance/scale;
 			float scaleAnchorSize = anchorSize/scale;
 			float scaleGap = gap/scale;
-			float scaleMasterBorderThick = master.getBorderThick()*2;
+			float scaleMasterBorderThick = master.getBorderThick();
 			
 			//HAHAHAHAH
 			Rectangle2D.Double beforeRotateBar = new Rectangle2D.Double(beforeRotateBorder.getCenterX()-scaleLineThick/2, beforeRotateBorder.getY()-scaleAnchorDistance-scaleMasterBorderThick/2, scaleLineThick, scaleAnchorDistance);

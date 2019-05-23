@@ -69,7 +69,7 @@ public class Shape_Mover extends AFunction implements Serializable{//¼¿·ºÆ® µÈ¾Ö
 	public void paintComponent(Graphics2D g, Shape shape) {
 		if(master.isSelected()) {
 			Rectangle2D masterBorder = getBeforeRotateBorder();
-			float factor = master.getBorderThick()*2;
+			float factor = master.getBorderThick();
 			AffineTransform at = new AffineTransform();
 			at.setToRotation(Math.toRadians(master.getAngle()), masterBorder.getCenterX(), masterBorder.getCenterY());
 			Rectangle2D.Double beforeRotateRect = new Rectangle2D.Double(masterBorder.getX()-factor/2, masterBorder.getY()-factor/2, masterBorder.getWidth()+factor, masterBorder.getHeight()+factor);
