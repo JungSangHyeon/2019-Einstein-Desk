@@ -1,13 +1,18 @@
 package main;
 
+import doUndo.RedoUndo;
 import global.InjectEnums;
 import globalTimer.GlobalTimer;
 import view.PaintMainFrame;
+import z_order.Z_Order;
+import z_order.Z_Order.SendTo;
 
 public class PaintMain {
 
 	public static void main(String[] args) {
 		System.out.println("ULTRA-PAINT");
+		
+		Z_Order.changeZOrder(SendTo.Top);
 		
 		new GlobalTimer();//Time Starts Moving
 		
@@ -23,10 +28,13 @@ public class PaintMain {
 		
 //		GlobalTimer.waitTimeOut(id);
 //		loadingPage.LoadingPageOff();
+		
+		RedoUndo.setFirst();
 	}
 	
 }
-//work
+//work 
+
 //part paint, / img add / 앵커가 보여졌을 때만 작동하게 하자. / cmc>?
 
 //로테이트 가운데에 각도 출력 되게 하자. 그림으로!
@@ -38,8 +46,6 @@ public class PaintMain {
 
 //D&D get Same Component
 //Add On Animation in A Container -> processor와 painter, time action(force)을 합쳐버리자. 아이작 템처럼 만들어버리자. 
-
-//그릴 부분만 다시 그리게 하기.
 
 //log -> branch. like a tree
 //Use System Clip Board 

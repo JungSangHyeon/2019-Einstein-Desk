@@ -59,6 +59,7 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 			if(Components.get(i).isTopSelected(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
 				onNothing = false;
 				Components.get(i).processEvent(e);//HMMMMMMMMMMMMMMMM
+				break;
 			}
 		}
 		if(onNothing) {

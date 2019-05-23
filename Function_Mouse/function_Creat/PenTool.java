@@ -7,6 +7,7 @@ import java.awt.geom.Point2D;
 
 import data.GCStorage;
 import data.GlobalData;
+import doUndo.RedoUndo;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 
 public class PenTool extends PDRShapeDrawTool{
@@ -33,5 +34,6 @@ public class PenTool extends PDRShapeDrawTool{
 	public void mouseReleased(MouseEvent e) {
 		Rectangle rect = GCStorage.getLastGC().getShape().getBounds();
 		GCStorage.getLastGC().setCenter(new Point2D.Float(rect.x+rect.width/2, rect.y+rect.height/2));
+		RedoUndo.saveNowInHistory();
 	}
 }

@@ -59,27 +59,22 @@ public class GraphicComponent  implements Serializable{
 		if(paintBorder) {g.setColor(borderColor); g.draw(shape);}
 		for(AFunction function : functions) {if(!function.isTopPaint()) {function.paintComponent(g,shape);}}
 //		아래는 테스트용
-		if (points.size() > 0) {
-			g.setColor(Color.RED);// 디버깅?
-			GeneralPath p = new GeneralPath();
-			p.moveTo(points.get(0).x, points.get(0).y);
-			for (Point2D.Float pp : points) {
-				p.lineTo(pp.x, pp.y);
-			}
-			g.draw(p);
-		}
+//		if (points.size() > 0) {
+//			g.setColor(Color.RED);// 디버깅?
+//			GeneralPath p = new GeneralPath();
+//			p.moveTo(points.get(0).x, points.get(0).y);
+//			for (Point2D.Float pp : points) {
+//				p.lineTo(pp.x, pp.y);
+//			}
+//			g.draw(p);
+//		}
 		
 	}
 	
 	
 	//Process
-//	public void processTopEvent(MouseEvent e) {
-//		for(AFunction lump : functions) {if(lump.isTopAction()) {lump.processEvent(e);}}
-//	}
-	
 	public void processEvent(MouseEvent e) {
 		for(AFunction lump : functions) {lump.processEvent(e);}
-//		for(AFunction lump : functions) {if(!lump.isTopAction()) {lump.processEvent(e);}}
 	}
 	
 	//Function
@@ -115,14 +110,7 @@ public class GraphicComponent  implements Serializable{
 	public void setFillPaint(boolean boo) {this.paintFill = boo;}
 	public void setBorderPaint(boolean boo) {this.paintBorder = boo;}
 	
-	public int getBorderThick() {
-		if (ThickFollowScale.isOn()) {
-//			return (int) (borderThick/DrawingPanelMoveAndZoom.getScale());
-			return borderThick;
-		} else {
-			return borderThick;
-		}
-	}
+	public int getBorderThick() {return borderThick;}
 	
 
 	//Selected

@@ -4,10 +4,10 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="Stuffs"/>
 	<classpathentry kind="src" path="Shape"/>
+	<classpathentry kind="src" path="Function_key"/>
 	<classpathentry kind="src" path="Function_Mouse"/>
 	<classpathentry kind="src" path="GraphicComponent"/>
-	<classpathentry kind="src" path="GraphicComponent_Container"/>
 	<classpathentry kind="src" path="GraphicComponent_Function"/>
-	<classpathentry kind="src" path="Function_key"/>
+	<classpathentry kind="src" path="GraphicComponent_Container"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

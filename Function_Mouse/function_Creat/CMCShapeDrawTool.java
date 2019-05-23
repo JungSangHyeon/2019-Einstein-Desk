@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import component_Stuff.GraphicComponent;
 import data.GCStorage;
 import data.GlobalData;
+import doUndo.RedoUndo;
 import function_Shape.Shape_Mover;
 import function_Stuff.ATool;
 import function_Stuff.eTool;
@@ -50,6 +51,7 @@ public class CMCShapeDrawTool extends ATool{
 		firstClick = true;
 		GCData = null;
 		GlobalData.setNowTool(eTool.eHandTool.getTool());
+		RedoUndo.saveNowInHistory();
 	}
 
 	private void setShape(GraphicComponent shapeData) {

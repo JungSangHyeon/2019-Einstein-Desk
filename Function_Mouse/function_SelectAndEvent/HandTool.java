@@ -18,12 +18,18 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 	
 	public void mousePressed(MouseEvent e) {
 		findMaster(e);//set master
-		if(Ctrl.isOn()&&master!=null) {
-			GCStorage.addSelectedGC(master);
+		if(Ctrl.isOn()) {
+			if(master!=null) {
+				if(master.isSelected()) {
+					GCStorage.removeSelectedGC(master);
+				}else {
+					GCStorage.addSelectedGC(master);
+				}
+			}
 		}else if(master==null) {//press on back ground
 			GCStorage.clearSelected();
 			areaSelect = true;
-		}else if(!GCStorage.isSelected(master)) {//press on new GC
+		}else if(!master.isSelected()) {//press on new GC
 			GCStorage.clearSelected();
 			GCStorage.addSelectedGC(master);
 		}else {//press on selected GC

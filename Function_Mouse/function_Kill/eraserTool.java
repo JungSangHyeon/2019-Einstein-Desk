@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import component_Stuff.GraphicComponent;
 import data.GCStorage;
+import doUndo.RedoUndo;
 import function_Stuff.ATool;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 
@@ -23,7 +24,7 @@ public class eraserTool extends ATool{
 		}
 	}
 	
-	public void mouseReleased(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {RedoUndo.saveNowInHistory();}
 	public void mouseClicked(MouseEvent e) {}
 	public void mouseMoved(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}

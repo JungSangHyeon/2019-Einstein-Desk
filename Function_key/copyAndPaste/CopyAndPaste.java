@@ -8,6 +8,7 @@ import java.util.Vector;
 import component_Stuff.GraphicComponent;
 import data.GCStorage;
 import deepClone.DeepClone;
+import doUndo.RedoUndo;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 
 public class CopyAndPaste {
@@ -41,6 +42,7 @@ public class CopyAndPaste {
 			GCStorage.addSelectedGC(copyItem);
 			copyItem.setSelected(true);
 		}
+		RedoUndo.saveNowInHistory();
 	}
 
 }
