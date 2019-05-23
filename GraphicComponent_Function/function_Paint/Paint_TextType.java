@@ -8,16 +8,17 @@ import java.awt.event.MouseEvent;
 import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
+import java.util.Vector;
 
-import moveAndZoom.DrawingPanelMoveAndZoom;
+import global.TA;
 import zFunction_Stuff.AFunction;
 
 public class Paint_TextType extends AFunction{
 	private static final long serialVersionUID = -1587056258171782344L;
 	
-	String text = "ででででででで";
+	String text = "拍稽拍稽\n蟹什透耕透";
 	Shape textShape;
-	double textSize = 50;
+	double textSize = 50;// 50拭 4, 40 / 
 	
 	private Rectangle2D getBeforeRotateBorder() {
 		AffineTransform at = new AffineTransform();
@@ -27,37 +28,48 @@ public class Paint_TextType extends AFunction{
 	
 	public void paintComponent(Graphics2D g, Shape shape) {
 		try {
-			double scale = DrawingPanelMoveAndZoom.getScale();
-			double size = (int) (textSize/scale), hori = size, verti = size*2;
-			for(String w : text.split("")) {//廃越切梢 級嬢姶.
-				if(32==w.charAt(0)) {hori+=size*0.4;}//0.4 = space factor
-				if(10==w.charAt(0)) {verti+=size; hori = size; }//匝角沿
-				else {
-					Rectangle2D masterBorder = getBeforeRotateBorder();
-					if(masterBorder.getWidth()<hori+10/scale+size) {verti+=size; hori = size;}//10 = 角嬢亜澗暗 森雌馬澗 葵
-					
-					g.setFont(new Font(null, Font.BOLD, (int)size));
-					
-					GlyphVector gv = g.getFont().createGlyphVector(g.getFontRenderContext(), w);
-					
-					AffineTransform at = new AffineTransform();
-					at.translate(masterBorder.getX() + hori, masterBorder.getY() + verti);
-					
-					Shape s1 = at.createTransformedShape(gv.getOutline());
-					
-					AffineTransform at2 = new AffineTransform();
-					at2.setToRotation(Math.toRadians(master.getAngle()), masterBorder.getCenterX(), masterBorder.getCenterY());
-					
-					Shape s2 = at2.createTransformedShape(s1);
-					
-					
-					
-					g.setColor(Color.WHITE);
-					g.fill(s2);
-					
-					if(124!=w.charAt(0)) {hori+=at.createTransformedShape(gv.getOutline()).getBounds2D().getWidth()+4/scale;}//textGapLevel = 4//carlet 焼艦檎 砧臆 希敗.
-				}
+			//"asd asdasdasd enter asdasd dddd"
+			//殖斗 舘是稽 蟹勧陥. //text.split((char)10+"")
+			//唖唖 革乞稽 幻級嬢 困斗拭 煽舌廃陥.
+			//革乞原陥 w研 域至馬食 原什斗税 掻宿 w稽 壕帖廃陥,
+			//乞窮 革乞税 株戚研 希背辞, 原什斗 馬戚闘研 搭背, 穿端税 什展闘 人戚研 姥廃陥.
+			// 固 是採斗, 益軒澗汽, 什展闘人戚, 益陥製精 什展闘人戚 + 株戚1 ... 戚係惟 馬食 益鍵陥.
+			
+			g.setFont(new Font(null, Font.BOLD, (int)textSize));
+			
+			Vector<Shape> textShape = new Vector<Shape>();
+			
+			for(String txtDivideByEndter : TA.ta.getText().split((char)10+"")) {
+				GlyphVector gv = g.getFont().createGlyphVector(g.getFontRenderContext(), txtDivideByEndter);
+				textShape.add(gv.getOutline());
 			}
+			
+			Rectangle2D masterBorder = getBeforeRotateBorder();
+			
+			double sumH = 0;
+			for(Shape nowTextShape : textShape) {
+				sumH+=nowTextShape.getBounds2D().getHeight();
+			}
+			double startY = masterBorder.getY() + (masterBorder.getHeight() - sumH)/2;
+			double myY = startY;
+			for(Shape nowTextShape : textShape) {
+				Rectangle2D nowBound = nowTextShape.getBounds2D();
+				double transX = masterBorder.getX() + (masterBorder.getWidth() - nowBound.getWidth())/2;
+				double transY = myY;
+				AffineTransform at = new AffineTransform();
+				at.translate(transX-textSize*4/50, transY+textSize/5*4);
+				nowTextShape = at.createTransformedShape(nowTextShape);
+				
+				at = new AffineTransform();
+				at.setToRotation(Math.toRadians(master.getAngle()), masterBorder.getCenterX(), masterBorder.getCenterY());
+				nowTextShape = at.createTransformedShape(nowTextShape);
+				
+				myY+=nowBound.getHeight();//1.1精 娃維 覚備奄研 是敗.
+				
+				g.setColor(Color.white);
+				g.fill(nowTextShape);
+			}
+			
 		}catch(Exception e) {System.out.println("text error");}
 	}
 	

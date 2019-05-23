@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.KeyboardFocusManager;
@@ -11,6 +12,7 @@ import java.awt.geom.AffineTransform;
 import java.util.Vector;
 
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import component_Stuff.GraphicComponent;
 import container.HighlightSettingPanel;
@@ -24,6 +26,7 @@ import dragAndDrop.DragAndDropManager;
 import eventListener.DrawingPanelMouseHadler;
 import eventListener.KeyDispatcher;
 import global.InjectEnums.eColor;
+import global.TA;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import shape.HighlightShape;
 import shape.pen;
@@ -63,6 +66,12 @@ public class DrawingPanel extends JPanel {
 		hsp = new HighlightSettingPanel();
 		hsp.setLocation(1399,50);//ȣȣȣ
 		this.add(hsp);
+		
+	
+		TA.ta = new JTextArea();
+		TA.ta.setBackground(Color.gray);
+		TA.ta.setBounds(500,500,200,200);
+		this.add(TA.ta);
 		
 	}
 	

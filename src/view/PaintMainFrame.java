@@ -2,14 +2,12 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.KeyboardFocusManager;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-import eventListener.KeyDispatcher;
 import global.InjectEnums.eInt;
 import global.InjectEnums.eString;
 
