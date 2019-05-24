@@ -23,23 +23,26 @@ import zFunction_Stuff.AFunction;
 public class Paint_TextType extends AFunction{
 	private static final long serialVersionUID = -1587056258171782344L;
 	
-//	String text = "";
+	Color textColor = Color.white;
+	String myCaret = "|";
+	double textSize = 50;
+	double textYIntervalFactor = 1.1;
+	
 	Shape textShape;
-	double textSize = 50;// 50에 4, 40 / 
+	static boolean textEditing = false;
+	
 	
 	private static JTextArea textEditArea = new JTextArea(), focusArea = new JTextArea();
 	public static JTextArea getTextEditArea() {return textEditArea;}
 	public static JTextArea getFocusArea() {return focusArea;}
+	
 	public static boolean isTextEditAreaFocusOwner() {return textEditArea.isFocusOwner();}
 	public static void giveFocusToTextEditArea() {textEditArea.requestFocus();}
 	public static void removeFocusTextEditArea() {focusArea.requestFocus();}
 	public static void setTextForTextEdit(String text) {textEditArea.setText(text);}
 	
 	public Paint_TextType() {
-		int size = 200;
-		focusArea.setBackground(Color.cyan);
-		textEditArea.setBackground(Color.green);
-		
+		int size = 100;
 		focusArea.setBounds(1920-size*2,1080-size,size,size);
 		textEditArea.setBounds(1920-size,1080-size,size,size);
 		textEditArea.addCaretListener(new CaretHadler());
@@ -47,17 +50,11 @@ public class Paint_TextType extends AFunction{
 	}
 	
 	public class focusHandler implements FocusListener{
-		@Override
-		public void focusGained(FocusEvent e) {
-			
-		}
-		@Override
-		public void focusLost(FocusEvent e) {
-			textEditing = false;
-		}
+		public void focusGained(FocusEvent e) {}
+		public void focusLost(FocusEvent e) {textEditing = false;}
 	}
+	
 	public class CaretHadler implements CaretListener{
-		@Override
 		public void caretUpdate(CaretEvent e) {
 			for(GraphicComponent gc : GCStorage.getSelectedGCVector()) {
 				gc.setText(Paint_TextType.getTextEditArea().getText());
@@ -71,36 +68,28 @@ public class Paint_TextType extends AFunction{
 		return at.createTransformedShape(master.getShape()).getBounds2D();
 	}
 	
-	double textYIntervalFactor = 1.1;
-	
 	public void paintComponent(Graphics2D g, Shape shape) {
 		try {
 			g.setFont(new Font(null, Font.BOLD, (int)textSize));
-			
 			Vector<Shape> textShape = new Vector<Shape>();
-			
 			String rawText = master.getText();
 			if(master.isSelected()) {
 				if(textEditing) {
-					if(rawText.equals("")) {
-						rawText = "|";
-					}else {
-						rawText = rawText.replace("|", "");
+					if(rawText.equals("")) {rawText = myCaret;}
+					else {
+						rawText = rawText.replace(myCaret, "");
 						String backSide = rawText.substring(textEditArea.getCaretPosition());
 						String frontSide = rawText.substring(0, textEditArea.getCaretPosition());
-						String cookText = frontSide + "|" + backSide;
+						String cookText = frontSide + myCaret + backSide;
 						rawText = cookText;
 					}
 				}
 			}
-			
-			for(String txtDivideByEndter : rawText.split((char)10+"")) {
+			for(String txtDivideByEndter : rawText.split((char)10+"")) {//ENTER
 				GlyphVector gv = g.getFont().createGlyphVector(g.getFontRenderContext(), txtDivideByEndter);
 				textShape.add(gv.getOutline());
 			}
-			
 			Rectangle2D masterBorder = getBeforeRotateBorder();
-			
 			double sumH = 0;
 			for(Shape nowTextShape : textShape) {
 				sumH+=nowTextShape.getBounds2D().getHeight();
@@ -112,32 +101,32 @@ public class Paint_TextType extends AFunction{
 				double transX = masterBorder.getX() + (masterBorder.getWidth() - nowBound.getWidth())/2;
 				double transY = myY;
 				AffineTransform at = new AffineTransform();
-				at.translate(transX-textSize*4/50, transY+textSize/5*4);
+				at.translate(transX-textSize*4/50, transY+textSize/5*4);//MY radio. 왜 이런지는 모르겠음. 텍스트가 원래 이상하게 그려지긴 했음...
 				nowTextShape = at.createTransformedShape(nowTextShape);
 				
 				at = new AffineTransform();
 				at.setToRotation(Math.toRadians(master.getAngle()), masterBorder.getCenterX(), masterBorder.getCenterY());
 				nowTextShape = at.createTransformedShape(nowTextShape);
 				
-				myY+=nowBound.getHeight()*textYIntervalFactor;//1.1은 간격 넓히기를 위함.
+				myY+=nowBound.getHeight()*textYIntervalFactor;
 				
-				g.setColor(Color.white);
+				g.setColor(textColor);
 				g.fill(nowTextShape);
 			}
-		}catch(Exception e) {System.out.println("text error");}
+		}catch(Exception e) {e.printStackTrace();}
+	}
+	
+	public void mouseClicked(MouseEvent e) {
+		if(e.getClickCount()==2) {
+			setTextForTextEdit(master.getText());
+			giveFocusToTextEditArea();
+			textEditing = true;
+		}
 	}
 	
 	public void mouseMoved(MouseEvent e) {}
 	public void mouseReleased(MouseEvent e) {}
 	public void mousePressed(MouseEvent e) {}
-	public void mouseClicked(MouseEvent e) {
-		if(e.getClickCount()==2) {
-			setTextForTextEdit(master.getText());// |=caret
-			giveFocusToTextEditArea();
-			textEditing = true;
-		}
-	}
-	boolean textEditing = false;
 	public void mouseDragged(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
