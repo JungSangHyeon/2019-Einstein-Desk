@@ -4,21 +4,66 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Shape;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.util.Vector;
 
-import global.TA;
+import javax.swing.JTextArea;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
+
+import component_Stuff.GraphicComponent;
+import data.GCStorage;
 import zFunction_Stuff.AFunction;
 
 public class Paint_TextType extends AFunction{
 	private static final long serialVersionUID = -1587056258171782344L;
 	
-	String text = "헬로헬로\n나스튜미튜";
+//	String text = "";
 	Shape textShape;
 	double textSize = 50;// 50에 4, 40 / 
+	
+	private static JTextArea textEditArea = new JTextArea(), focusArea = new JTextArea();
+	public static JTextArea getTextEditArea() {return textEditArea;}
+	public static JTextArea getFocusArea() {return focusArea;}
+	public static boolean isTextEditAreaFocusOwner() {return textEditArea.isFocusOwner();}
+	public static void giveFocusToTextEditArea() {textEditArea.requestFocus();}
+	public static void removeFocusTextEditArea() {focusArea.requestFocus();}
+	public static void setTextForTextEdit(String text) {textEditArea.setText(text);}
+	
+	public Paint_TextType() {
+		int size = 200;
+		focusArea.setBackground(Color.cyan);
+		textEditArea.setBackground(Color.green);
+		
+		focusArea.setBounds(1920-size*2,1080-size,size,size);
+		textEditArea.setBounds(1920-size,1080-size,size,size);
+		textEditArea.addCaretListener(new CaretHadler());
+		textEditArea.addFocusListener(new focusHandler());
+	}
+	
+	public class focusHandler implements FocusListener{
+		@Override
+		public void focusGained(FocusEvent e) {
+			
+		}
+		@Override
+		public void focusLost(FocusEvent e) {
+			textEditing = false;
+		}
+	}
+	public class CaretHadler implements CaretListener{
+		@Override
+		public void caretUpdate(CaretEvent e) {
+			for(GraphicComponent gc : GCStorage.getSelectedGCVector()) {
+				gc.setText(Paint_TextType.getTextEditArea().getText());
+			}
+		}
+	}
 	
 	private Rectangle2D getBeforeRotateBorder() {
 		AffineTransform at = new AffineTransform();
@@ -26,20 +71,30 @@ public class Paint_TextType extends AFunction{
 		return at.createTransformedShape(master.getShape()).getBounds2D();
 	}
 	
+	double textYIntervalFactor = 1.1;
+	
 	public void paintComponent(Graphics2D g, Shape shape) {
 		try {
-			//"asd asdasdasd enter asdasd dddd"
-			//엔터 단위로 나눈다. //text.split((char)10+"")
-			//각각 네모로 만들어 벡터에 저장한다.
-			//네모마다 w를 계산하여 마스터의 중심 w로 배치한다,
-			//모든 네모의 높이를 더해서, 마스터 하이트를 통해, 전체의 스타트 와이를 구한다.
-			// 맨 위부터, 그리는데, 스타트와이, 그다음은 스타트와이 + 높이1 ... 이렇게 하여 그린다.
-			
 			g.setFont(new Font(null, Font.BOLD, (int)textSize));
 			
 			Vector<Shape> textShape = new Vector<Shape>();
 			
-			for(String txtDivideByEndter : TA.ta.getText().split((char)10+"")) {
+			String rawText = master.getText();
+			if(master.isSelected()) {
+				if(textEditing) {
+					if(rawText.equals("")) {
+						rawText = "|";
+					}else {
+						rawText = rawText.replace("|", "");
+						String backSide = rawText.substring(textEditArea.getCaretPosition());
+						String frontSide = rawText.substring(0, textEditArea.getCaretPosition());
+						String cookText = frontSide + "|" + backSide;
+						rawText = cookText;
+					}
+				}
+			}
+			
+			for(String txtDivideByEndter : rawText.split((char)10+"")) {
 				GlyphVector gv = g.getFont().createGlyphVector(g.getFontRenderContext(), txtDivideByEndter);
 				textShape.add(gv.getOutline());
 			}
@@ -50,7 +105,7 @@ public class Paint_TextType extends AFunction{
 			for(Shape nowTextShape : textShape) {
 				sumH+=nowTextShape.getBounds2D().getHeight();
 			}
-			double startY = masterBorder.getY() + (masterBorder.getHeight() - sumH)/2;
+			double startY = masterBorder.getY() + (masterBorder.getHeight() - sumH*textYIntervalFactor)/2;
 			double myY = startY;
 			for(Shape nowTextShape : textShape) {
 				Rectangle2D nowBound = nowTextShape.getBounds2D();
@@ -64,19 +119,25 @@ public class Paint_TextType extends AFunction{
 				at.setToRotation(Math.toRadians(master.getAngle()), masterBorder.getCenterX(), masterBorder.getCenterY());
 				nowTextShape = at.createTransformedShape(nowTextShape);
 				
-				myY+=nowBound.getHeight();//1.1은 간격 넓히기를 위함.
+				myY+=nowBound.getHeight()*textYIntervalFactor;//1.1은 간격 넓히기를 위함.
 				
 				g.setColor(Color.white);
 				g.fill(nowTextShape);
 			}
-			
 		}catch(Exception e) {System.out.println("text error");}
 	}
 	
 	public void mouseMoved(MouseEvent e) {}
 	public void mouseReleased(MouseEvent e) {}
 	public void mousePressed(MouseEvent e) {}
-	public void mouseClicked(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e) {
+		if(e.getClickCount()==2) {
+			setTextForTextEdit(master.getText());// |=caret
+			giveFocusToTextEditArea();
+			textEditing = true;
+		}
+	}
+	boolean textEditing = false;
 	public void mouseDragged(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}

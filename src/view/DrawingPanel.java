@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.KeyboardFocusManager;
@@ -12,7 +11,6 @@ import java.awt.geom.AffineTransform;
 import java.util.Vector;
 
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 
 import component_Stuff.GraphicComponent;
 import container.HighlightSettingPanel;
@@ -25,8 +23,8 @@ import deepClone.DeepClone;
 import dragAndDrop.DragAndDropManager;
 import eventListener.DrawingPanelMouseHadler;
 import eventListener.KeyDispatcher;
+import function_Paint.Paint_TextType;
 import global.InjectEnums.eColor;
-import global.TA;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import shape.HighlightShape;
 import shape.pen;
@@ -67,12 +65,8 @@ public class DrawingPanel extends JPanel {
 		hsp.setLocation(1399,50);//ȣȣȣ
 		this.add(hsp);
 		
-	
-		TA.ta = new JTextArea();
-		TA.ta.setBackground(Color.gray);
-		TA.ta.setBounds(500,500,200,200);
-		this.add(TA.ta);
-		
+		this.add(Paint_TextType.getFocusArea());
+		this.add(Paint_TextType.getTextEditArea());
 	}
 	
 	PenSettingPanel psp;
