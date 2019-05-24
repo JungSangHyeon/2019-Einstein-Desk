@@ -23,6 +23,9 @@ public abstract class AFunction  implements Serializable{
 	
 	protected boolean topPaint = false;
 	public boolean isTopPaint() {return topPaint;}
+	
+	protected boolean buttomPaint = false;
+	public boolean isButtomPaint() {return buttomPaint;}
 //	public abstract void setTopPaint(boolean boo);
 	
 //	protected boolean topAction = false;//나중에 라이브로 설정하게 만듬

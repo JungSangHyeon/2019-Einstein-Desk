@@ -8,7 +8,7 @@ import component_Stuff.GraphicComponent;
 import data.GCStorage;
 import data.GlobalData;
 import doUndo.RedoUndo;
-import function_Paint.Paint_TextType;
+import function_Paint.Paint_TextWrite;
 import function_Shape.Shape_Mover;
 import function_Shape.Shape_Resizer;
 import function_Shape.Shape_Rotator;
@@ -35,7 +35,7 @@ public class PDRShapeDrawTool extends ATool{
 			GCData.addFunction(new Shape_Mover());
 			GCData.addFunction(new Shape_Rotator());
 			GCData.addFunction(new Shape_Resizer());
-			GCData.addFunction(new Paint_TextType());
+			GCData.addFunction(new Paint_TextWrite());
 			setShape(GCData);
 			GCStorage.addNewGC(GCData);
 		}

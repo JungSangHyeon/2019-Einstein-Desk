@@ -17,16 +17,16 @@ import zFunction_Stuff.AFunction;
 public class ShapeSelectItems {
 
 	public enum eShapeSelectItem{
-		eRectItem(eShape.rect.getShape(), new Paint_IMG("rect", "Icons/jake_22X22.txt")),
-		eEllipseItem(eShape.ellipse.getShape(), new Paint_IMG("ellipse", "Icons/jake_22X22.txt")),
-		eSpeechItem(eShape.speech.getShape(), new Paint_IMG("", "Icons/jake_22X22.txt")),
-		eStar4Item(eShape.star4.getShape(), new Paint_IMG("", "Icons/jake_22X22.txt")),
-		eTriangleItem(eShape.triangle.getShape(), new Paint_IMG("", "Icons/jake_22X22.txt")),
-		eStraightLineItem(eShape.straightLine.getShape(), new Paint_IMG("straightLine", "Icons/jake_22X22.txt")),
-		ePolygonItem(eShape.polygon.getShape(), new Paint_IMG("polygon", "Icons/jake_22X22.txt")),
+		eRectItem(eShape.rect.getAShape(), new Paint_IMG("rect", "Icons/jake_22X22.txt")),
+		eEllipseItem(eShape.ellipse.getAShape(), new Paint_IMG("ellipse", "Icons/jake_22X22.txt")),
+		eSpeechItem(eShape.speech.getAShape(), new Paint_IMG("", "Icons/jake_22X22.txt")),
+		eStar4Item(eShape.star4.getAShape(), new Paint_IMG("", "Icons/jake_22X22.txt")),
+		eTriangleItem(eShape.triangle.getAShape(), new Paint_IMG("", "Icons/jake_22X22.txt")),
+		eStraightLineItem(eShape.straightLine.getAShape(), new Paint_IMG("straightLine", "Icons/jake_22X22.txt")),
+		ePolygonItem(eShape.polygon.getAShape(), new Paint_IMG("polygon", "Icons/jake_22X22.txt")),
 		
-		eFreeLineItem(eShape.pen.getShape(), new Paint_IMG("", "ToolBarImgs/pen.png")),
-		eFreeHighlightItem(eShape.highlight.getShape(), new Paint_IMG("", "ToolBarImgs/highlight.png")),
+		eFreeLineItem(eShape.pen.getAShape(), new Paint_IMG("", "ToolBarImgs/pen.png")),
+		eFreeHighlightItem(eShape.highlight.getAShape(), new Paint_IMG("", "ToolBarImgs/highlight.png")),
 		;
 		
 		private AShape shape;  private AFunction function;
@@ -46,7 +46,7 @@ public class ShapeSelectItems {
 		GC.addFunction(new Data_ToolSelector(item.getSelectShape().getDrawer()));//순서 중요함. 페인트의 경우 덧 그려짐
 		GC.addFunction(new Data_ShapeSelect(item.getSelectShape()));
 		GC.addFunction(item.getPainter());
-		GC.setAShape(eShape.rect.getShape());
+		GC.setAShape(eShape.rect.getAShape());
 		GC.addFunction(new Paint_showMouseOnMe());
 		GC.addFunction(new Shape_MoverWeak());
 		return GC;
@@ -61,7 +61,7 @@ public class ShapeSelectItems {
 		GC.addFunction(new Data_ShapeSelect(item.getSelectShape()));
 		GC.addFunction(new Paint_penColorBGPaint());
 		GC.addFunction(item.getPainter());
-		GC.setAShape(eShape.rect.getShape());
+		GC.setAShape(eShape.rect.getAShape());
 		GC.addFunction(new Paint_showSelectedTool());
 		GC.addFunction(new Paint_showMouseOnMe());
 		GC.addFunction(new Shape_Mover());

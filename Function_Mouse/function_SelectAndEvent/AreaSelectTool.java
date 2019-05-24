@@ -21,7 +21,7 @@ public class AreaSelectTool extends ATool{//extends TwoPointShapeTool 할까나. 아
 	
 	public void mousePressed(MouseEvent e) {
 		before2PShape = GlobalData.getNowShapeMaker();
-		GlobalData.setNowShapeMaker(eShape.rect.getShape());
+		GlobalData.setNowShapeMaker(eShape.rect.getAShape());
 		
 		GraphicComponent GCData = new GraphicComponent();
 		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));

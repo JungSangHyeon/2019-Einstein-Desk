@@ -14,7 +14,7 @@ import component_Stuff.GraphicComponent;
 import data.GCStorage;
 import data.GlobalData;
 import dragAndDrop.DragAndDropManager;
-import function_Paint.Paint_TextType;
+import function_Paint.Paint_TextWrite_Stuff;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import view.DrawingPanel;
 
@@ -28,8 +28,8 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 	public DrawingPanelMouseHadler(DrawingPanel drawingPanel) {this.drawingPanel=drawingPanel;}
 
 	public void mousePressed(MouseEvent e) {//event to tool, Canvas Move
-		if(Paint_TextType.isTextEditAreaFocusOwner()) {
-			Paint_TextType.removeFocusTextEditArea();
+		if(Paint_TextWrite_Stuff.isTextEditAreaFocusOwner()) {
+			Paint_TextWrite_Stuff.removeFocusTextEditArea();
 		}
 		if(pressedBTN==-1) {//null
 			pressedBTN = e.getButton();

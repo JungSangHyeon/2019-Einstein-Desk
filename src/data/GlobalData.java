@@ -17,7 +17,7 @@ public class GlobalData {
 	public static void setNowTool(ATool nowTool) {GlobalData.nowTool = nowTool;}
 	
 	//Shape
-	private static AShape nowShapeMaker = eShape.rect.getShape();//btn누르면 쉐잎이 버튼대로 맞춰지고, 쉐입을 통해 툴도 맞추낟.
+	private static AShape nowShapeMaker = eShape.rect.getAShape();//btn누르면 쉐잎이 버튼대로 맞춰지고, 쉐입을 통해 툴도 맞추낟.
 	public static AShape getNowShapeMaker() {return nowShapeMaker;}
 	public static void setNowShapeMaker(AShape shapeMaker) {GlobalData.nowShapeMaker = shapeMaker;}
 

@@ -4,7 +4,8 @@ import function_Creat.CMCShapeDrawTool;
 import function_Creat.HighlightTool;
 import function_Creat.PDRShapeDrawTool;
 import function_Creat.PenTool;
-import function_Kill.eraserTool;
+import function_Kill.ConnectTool;
+import function_Kill.EraserTool;
 import function_SelectAndEvent.HandTool;
 
 public enum eTool {
@@ -14,7 +15,9 @@ public enum eTool {
 	eHandTool(new HandTool()),
 	ePenDrawTool(new PenTool()),
 	eHighlightDrawTool(new HighlightTool()),
-	eEraserTool(new eraserTool()),
+	eEraserTool(new EraserTool()),
+	
+	eConnectTool(new ConnectTool()),
 	;
 	
 	private ATool tool;

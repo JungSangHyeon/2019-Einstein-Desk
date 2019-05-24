@@ -25,6 +25,6 @@ public enum eShape{
 	
 	AShape shape;
 	private eShape(AShape shape) {this.shape = shape;}
-	public AShape getShape() {return shape;}
+	public AShape getAShape() {return shape;}
 }
 

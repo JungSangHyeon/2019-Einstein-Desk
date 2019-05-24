@@ -28,7 +28,7 @@ public class HighlightColorSelectPanel extends AContainer {
 		GC.setBorderPaint(false);
 		GC.setFillPaint(false);
 		
-		GC.setAShape(eShape.rect.getShape());
+		GC.setAShape(eShape.rect.getAShape());
 		GC.addFunction(new Data_ColorCircle_Highlight(c, pixelWH));
 		GC.addFunction(new Shape_Mover());
 		return GC;

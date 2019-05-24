@@ -9,7 +9,7 @@ import doUndo.RedoUndo;
 import function_Stuff.ATool;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 
-public class eraserTool extends ATool{
+public class EraserTool extends ATool{
 	private static final long serialVersionUID = 1746179459505183985L;
 
 	public void mousePressed(MouseEvent e) {eraseSelected(e);}

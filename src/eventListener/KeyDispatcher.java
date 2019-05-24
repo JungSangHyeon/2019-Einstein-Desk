@@ -10,7 +10,7 @@ import copyAndPaste.CopyAndPaste;
 import data.GCStorage;
 import delete.Delete;
 import doUndo.RedoUndo;
-import function_Paint.Paint_TextType;
+import function_Paint.Paint_TextWrite;
 import onOff.Ctrl;
 import onOff.ThickFollowScale;
 import z_order.Z_Order;

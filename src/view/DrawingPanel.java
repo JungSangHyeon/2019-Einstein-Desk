@@ -23,7 +23,7 @@ import deepClone.DeepClone;
 import dragAndDrop.DragAndDropManager;
 import eventListener.DrawingPanelMouseHadler;
 import eventListener.KeyDispatcher;
-import function_Paint.Paint_TextType;
+import function_Paint.Paint_TextWrite_Stuff;
 import global.InjectEnums.eColor;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import shape.HighlightShape;
@@ -65,8 +65,9 @@ public class DrawingPanel extends JPanel {
 		hsp.setLocation(1399,50);//ȣȣȣ
 		this.add(hsp);
 		
-		this.add(Paint_TextType.getFocusArea());
-		this.add(Paint_TextType.getTextEditArea());
+		Paint_TextWrite_Stuff.setting();
+		this.add(Paint_TextWrite_Stuff.getFocusArea());
+		this.add(Paint_TextWrite_Stuff.getTextEditArea());
 	}
 	
 	PenSettingPanel psp;
@@ -101,6 +102,10 @@ public class DrawingPanel extends JPanel {
 
 	private void paintGC(Graphics2D g2d) {
 		g2d.setTransform(DrawingPanelMoveAndZoom.getAT());
+		for(GraphicComponent gc : GCStorage.getGCVector()) {if(!(gc.getAShape() instanceof pen)) {gc.bottumPaint(g2d);}}//shape
+		for(GraphicComponent gc : GCStorage.getGCVector()) {if(gc.getAShape() instanceof HighlightShape) {gc.bottumPaint(g2d);}}//highlight
+		for(GraphicComponent gc : GCStorage.getGCVector()) {if(!(gc.getAShape() instanceof HighlightShape)&&gc.getAShape() instanceof pen) {gc.bottumPaint(g2d);}}//pen
+		
 		for(GraphicComponent gc : GCStorage.getGCVector()) {if(!(gc.getAShape() instanceof pen)) {gc.paint(g2d);}}//shape
 		for(GraphicComponent gc : GCStorage.getGCVector()) {if(gc.getAShape() instanceof HighlightShape) {gc.paint(g2d);}}//highlight
 		for(GraphicComponent gc : GCStorage.getGCVector()) {if(!(gc.getAShape() instanceof HighlightShape)&&gc.getAShape() instanceof pen) {gc.paint(g2d);}}//pen

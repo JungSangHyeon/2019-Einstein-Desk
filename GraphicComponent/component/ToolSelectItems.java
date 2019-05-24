@@ -16,7 +16,7 @@ public class ToolSelectItems {
 	public enum eToolSelectItem{
 		eHandToolItem(new Data_ToolSelector(eTool.eHandTool.getTool()), new Paint_IMG("", "ToolBarImgs/hand.png")),//new Data_ToolSelector(item.getTool()) -> function
 		eEraserToolItem(new Data_ToolSelector(eTool.eEraserTool.getTool()), new Paint_IMG("", "ToolBarImgs/eraser.png")),
-		eShapeToolItem(new Data_ToolSelector(eTool.eHandTool.getTool()), new Paint_IMG("", "ToolBarImgs/shape.png")),
+		eShapeToolItem(new Data_ToolSelector(eTool.eConnectTool.getTool()), new Paint_IMG("", "ToolBarImgs/shape.png")),
 		eBackItem(new Data_ToolSelector(eTool.eHandTool.getTool()), new Paint_IMG("", "ToolBarImgs/back.png")),
 		eFrontItem(new Data_ToolSelector(eTool.eHandTool.getTool()), new Paint_IMG("", "ToolBarImgs/front.png")),
 		eNewSlideItem(new Data_ToolSelector(eTool.eHandTool.getTool()), new Paint_IMG("", "ToolBarImgs/newSlide.png")),
@@ -38,7 +38,7 @@ public class ToolSelectItems {
 		
 		GC.addFunction(item.getFunction());//순서 중요함. 페인트의 경우 덧 그려짐
 		GC.addFunction(item.getPainter());
-		GC.setAShape(eShape.rect.getShape());
+		GC.setAShape(eShape.rect.getAShape());
 		GC.addFunction(new Paint_showSelectedTool());
 		GC.addFunction(new Paint_showMouseOnMe());
 		GC.addFunction(new Shape_Mover());

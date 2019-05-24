@@ -53,11 +53,14 @@ public class GraphicComponent  implements Serializable{
 	public void topPaint(Graphics2D g) {
 		for(AFunction function : functions) {if(function.isTopPaint()) {function.paintComponent(g,shape);}}
 	}
+	public void bottumPaint(Graphics2D g) {
+		for(AFunction function : functions) {if(function.isButtomPaint()) {function.paintComponent(g,shape);}}
+	}
 	public void paint(Graphics2D g) {
 		g.setStroke(new BasicStroke(borderThick, strokeCap, strokeJoin));
 		if(paintFill) {g.setColor(fillColor); g.fill(shape);}
 		if(paintBorder) {g.setColor(borderColor); g.draw(shape);}
-		for(AFunction function : functions) {if(!function.isTopPaint()) {function.paintComponent(g,shape);}}
+		for(AFunction function : functions) {if(!function.isTopPaint()&&!function.isButtomPaint()) {function.paintComponent(g,shape);}}
 //		아래는 테스트용
 //		if (points.size() > 0) {
 //			g.setColor(Color.RED);// 디버깅?
@@ -142,5 +145,7 @@ public class GraphicComponent  implements Serializable{
 	public String getText() {
 		return this.text;
 	}
+	
+	
 	
 }
