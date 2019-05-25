@@ -64,4 +64,5 @@ public class PDRShapeDrawTool extends ATool{
 	public void mouseMoved(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
+	public void mouseWheelMoved(MouseEvent e) {}
 }

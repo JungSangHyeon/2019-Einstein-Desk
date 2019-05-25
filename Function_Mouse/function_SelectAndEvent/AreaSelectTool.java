@@ -57,4 +57,5 @@ public class AreaSelectTool extends ATool{//extends TwoPointShapeTool 할까나. 아
 	public void mouseMoved(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
+	public void mouseWheelMoved(MouseEvent e) {}
 }

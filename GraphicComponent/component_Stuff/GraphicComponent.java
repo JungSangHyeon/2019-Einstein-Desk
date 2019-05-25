@@ -69,9 +69,7 @@ public class GraphicComponent  implements Serializable{
 //			}
 //			g.draw(p);
 //		}
-		
 	}
-	
 	
 	//Process
 	public void processEvent(MouseEvent e) {

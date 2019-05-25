@@ -20,6 +20,7 @@ public abstract class ATool  implements Serializable{//AFUnction하고 똑같음. 따�
 		else if(eID == MouseEvent.MOUSE_MOVED) {this.mouseMoved(e);}
 		else if(eID == MouseEvent.MOUSE_ENTERED) {this.mouseEntered(e);}
 		else if(eID == MouseEvent.MOUSE_EXITED) {this.mouseExited(e);}
+		else if(eID == MouseEvent.MOUSE_WHEEL) {this.mouseWheelMoved(e);}
 	}
 	
 	public abstract void mousePressed(MouseEvent e);
@@ -29,4 +30,5 @@ public abstract class ATool  implements Serializable{//AFUnction하고 똑같음. 따�
 	public abstract void mouseMoved(MouseEvent e);
 	public abstract void mouseEntered(MouseEvent e);
 	public abstract void mouseExited(MouseEvent e);
+	public abstract void mouseWheelMoved(MouseEvent e);
 }

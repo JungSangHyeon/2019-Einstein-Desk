@@ -43,8 +43,8 @@ public class ShapeSelectItems {
 		GC.setBorderPaint(false);
 		GC.setFillPaint(false);
 		
-		GC.addFunction(new Data_ToolSelector(item.getSelectShape().getDrawer()));//순서 중요함. 페인트의 경우 덧 그려짐
-		GC.addFunction(new Data_ShapeSelect(item.getSelectShape()));
+//		GC.addFunction(new Data_ToolSelector(item.getSelectShape().getDrawer()));//순서 중요함. 페인트의 경우 덧 그려짐
+//		GC.addFunction(new Data_ShapeSelect(item.getSelectShape()));
 		GC.addFunction(item.getPainter());
 		GC.setAShape(eShape.rect.getAShape());
 		GC.addFunction(new Paint_showMouseOnMe());

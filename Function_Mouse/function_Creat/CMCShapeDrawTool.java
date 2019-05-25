@@ -63,4 +63,5 @@ public class CMCShapeDrawTool extends ATool{
 	public void mouseDragged(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
+	public void mouseWheelMoved(MouseEvent e) {}
 }

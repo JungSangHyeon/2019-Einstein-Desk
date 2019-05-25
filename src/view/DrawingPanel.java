@@ -18,7 +18,10 @@ import container.PenSettingPanel;
 import container.ShapeSelectContainer;
 import container.ToolSelectContainer;
 import container_Stuff.AContainer;
+import data.GCPanel;
+import data.GCPanelStorage;
 import data.GCStorage;
+import data.testContainer1;
 import deepClone.DeepClone;
 import dragAndDrop.DragAndDropManager;
 import eventListener.DrawingPanelMouseHadler;
@@ -68,6 +71,10 @@ public class DrawingPanel extends JPanel {
 		Paint_TextWrite_Stuff.setting();
 		this.add(Paint_TextWrite_Stuff.getFocusArea());
 		this.add(Paint_TextWrite_Stuff.getTextEditArea());
+		
+		testContainer1 c1 = new testContainer1();
+		GCPanelStorage.add(c1);
+		GCStorage.addNewGC(c1);
 	}
 	
 	PenSettingPanel psp;
@@ -86,6 +93,7 @@ public class DrawingPanel extends JPanel {
 	public void paint(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+		g2d.setClip(new Rectangle(0,0,1000,1000));
 		
 		super.paint(g2d);
 		paintGC(g2d);
@@ -93,6 +101,10 @@ public class DrawingPanel extends JPanel {
 		for(AContainer container : containers) {container.paintImg(g2d);}
 		psp.paint(g2d);
 		hsp.paint(g2d);
+		
+		for(GCPanel p : GCPanelStorage.getGCPanelVector()) {
+			p.paint(g2d);
+		}
 		
 		if(DragAndDropManager.isDADOn()) {
 			drawDrawingPanelToContainer(g2d);

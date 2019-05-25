@@ -21,10 +21,10 @@ public class Paint_IMG extends ANameAndImagePainter {// D&D함
 		this.setImg(fileAddress);
 	}
 
-	public void paintComponent(Graphics2D g, Shape shape) {
-		Graphics2D g2d = (Graphics2D)g;
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-		g2d.setClip(shape);
+	public void paintComponent(Graphics2D g2d, Shape shape) {
+//		Graphics2D g2d = (Graphics2D)g;
+//		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+		
 		Rectangle2D rect = shape.getBounds2D();
 		g2d.fill(rect);
 		double rectX = rect.getX(), rectY= rect.getY(), rectW = rect.getWidth(), rectH = rect.getHeight();
@@ -47,7 +47,6 @@ public class Paint_IMG extends ANameAndImagePainter {// D&D함
 			g2d.setFont(new Font(null, Font.PLAIN, (int)nameSize));
 			g2d.drawString(name, (float)(rectX+rectW/textLocationXFactor), (float)(rectY+rectH-rectH/textLocationYFactor));//scale에 맞춰서 보일지 말지 해야겠는디.
 		}
-		g2d.setClip(null);
 	}
 	
 }

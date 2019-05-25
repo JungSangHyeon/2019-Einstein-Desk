@@ -13,17 +13,12 @@ public class Shape_MoverWeak extends AFunction implements Serializable{//¼¿·ºÆ® 
 	private static final long serialVersionUID = 2509847208800494236L;
 	
 	Point2D.Float dragStart;
-	boolean moveOn = false;
 	
 	public void mousePressed(MouseEvent e) {//if Á¦°Å?
-		if(master.getAShape().isSelected(master, new Point2D.Float(e.getX(), e.getY()))) {
 			dragStart = new Point2D.Float(e.getX(), e.getY());
-			moveOn = true;
-		}
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		if(moveOn) {
 			Point2D.Float nowPoint = new Point2D.Float(e.getX(), e.getY());
 			
 			AffineTransform at = new AffineTransform();
@@ -34,10 +29,9 @@ public class Shape_MoverWeak extends AFunction implements Serializable{//¼¿·ºÆ® 
 				point.setLocation(point.x+nowPoint.x-dragStart.x, point.y+nowPoint.y-dragStart.y);
 			}
 			dragStart = nowPoint;
-		}
 	}
 	
-	public void mouseReleased(MouseEvent e) {moveOn = false;}
+	public void mouseReleased(MouseEvent e) {}
 	
 	public void paintComponent(Graphics2D g, Shape shape) {}
 	public void mouseClicked(MouseEvent e) {}

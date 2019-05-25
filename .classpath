@@ -9,5 +9,6 @@
 	<classpathentry kind="src" path="GraphicComponent"/>
 	<classpathentry kind="src" path="GraphicComponent_Function"/>
 	<classpathentry kind="src" path="GraphicComponent_Container"/>
+	<classpathentry kind="src" path="GCContainerMake"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

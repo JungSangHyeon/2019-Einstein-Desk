@@ -6,6 +6,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.awt.geom.Point2D;
 import java.util.Vector;
 
 import javax.swing.JPanel;
@@ -85,7 +86,20 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 	}
 	
 	public void mouseEntered(MouseEvent e) {DragAndDropManager.setNowMouseOnPanel(drawingPanel);}//only D&D
-	public void mouseWheelMoved(MouseWheelEvent e) {DrawingPanelMoveAndZoom.zoomCamera(e);drawingPanel.repaint();}//only zoom
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		GlobalData.getNowTool().processEvent(e);
+		
+		Vector<GraphicComponent> Components = GCStorage.getGCVector();
+		Point2D.Float nowPoint = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());
+		for(int i=Components.size()-1; i>-1; i--) {
+			if(Components.get(i).getAShape().isSelected(Components.get(i), nowPoint)) {
+				Components.get(i).processEvent(e);
+				break;
+			}
+		}
+		
+//		DrawingPanelMoveAndZoom.zoomCamera(e);
+		drawingPanel.repaint();}//only zoom
 	
 	private boolean leftBTNPressed() {return pressedBTN == MouseEvent.BUTTON1;}
 	private boolean wheelBTNPressed() {return pressedBTN == MouseEvent.BUTTON2;}

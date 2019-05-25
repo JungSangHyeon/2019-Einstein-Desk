@@ -10,13 +10,16 @@ public class GCStorage {
 	private static Vector<GraphicComponent> GCVector = new Vector<GraphicComponent>();
 	
 	public static void addNewGC(GraphicComponent shapeData) {GCVector.add(shapeData);}
+	
 	public static void removeGC(GraphicComponent gc) {GCVector.remove(gc);}
 	public static void removeLastGC() {GCVector.remove(GCVector.size()-1);}
 	public static void clearGC() {GCVector.clear();}
-	public static boolean have(GraphicComponent gc) {return GCVector.contains(gc);}
+	
+	public static Vector<GraphicComponent> getGCVector() {return GCVector;}
 	public static GraphicComponent getLastGC() {return GCVector.lastElement();}
 	public static GraphicComponent getGC(int i) {return GCVector.get(i);}
-	public static Vector<GraphicComponent> getGCVector() {return GCVector;}
+	
+	public static boolean have(GraphicComponent gc) {return GCVector.contains(gc);}
 	
 	//Selected GC
 	private static Vector<GraphicComponent> selectedComponents = new Vector <GraphicComponent>();
@@ -29,7 +32,6 @@ public class GCStorage {
 		}
 		selectedComponents.clear();
 	}
-//	public static boolean isSelected(GraphicComponent gc) {return selectedComponents.contains(gc);}
 	public static Vector<GraphicComponent> getSelectedGCVector() {return selectedComponents;}
 	public static void addAllToGC(Vector<GraphicComponent> vector) {
 		GCVector.addAll(vector);

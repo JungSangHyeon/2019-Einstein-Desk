@@ -301,6 +301,7 @@ public abstract class AContainer extends AffineScrollPanel {//호호 드럽다.
 			Point currentItemPoint = new Point(currentItem.getX(), currentItem.getY());
 			
 			pixelOccupied(currentItem.getX(), currentItem.getY(), currentItem.getW(), currentItem.getH(), false,currentItem);
+			
 			currentItem.setPoint(p.x, p.y);
 			refreshRect(currentItem);
 			pixelOccupied(currentItem.getX(), currentItem.getY(), currentItem.getW(), currentItem.getH(), true,currentItem);
