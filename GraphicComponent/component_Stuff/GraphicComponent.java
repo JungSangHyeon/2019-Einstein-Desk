@@ -5,15 +5,13 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
-import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.Vector;
 
+import data.GCStorage;
 import global.InjectEnums.eColor;
 import global.InjectEnums.eInt;
-import moveAndZoom.DrawingPanelMoveAndZoom;
-import onOff.ThickFollowScale;
 import shape_Stuff.AShape;
 import zFunction_Stuff.AFunction;
 
@@ -144,6 +142,9 @@ public class GraphicComponent  implements Serializable{
 	}
 	public String getText() {
 		return this.text;
+	}
+	public void suicide() {
+		GCStorage.removeGC(this);
 	}
 	
 	

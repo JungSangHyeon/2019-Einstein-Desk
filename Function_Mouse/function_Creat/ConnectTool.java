@@ -1,4 +1,4 @@
-package function_Kill;
+package function_Creat;
 
 import java.awt.event.MouseEvent;
 
@@ -62,9 +62,8 @@ public class ConnectTool extends ATool{
 			
 			//add Function to StartGC & remove Line
 			if(haveEndGC) {
-				System.out.println("added");
-				startGC.addFunction(new Paint_ConnectLine(endGC));
-				GCStorage.removeGC(GCStorage.getLastGC());
+				GCStorage.getLastGC().addFunction(new connectLineShapeSetter(startGC, endGC));
+//				startGC.addFunction(new Paint_ConnectLine(endGC));
 			}
 			
 			//Reset
@@ -79,6 +78,7 @@ public class ConnectTool extends ATool{
 	protected void setShape(GraphicComponent shapeData) {
 		shapeData.setShape(GlobalData.getNowShapeMaker().newShape(shapeData.getPoints()));
 	}
+	
 	public void mouseClicked(MouseEvent e) {}
 	public void mouseMoved(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}

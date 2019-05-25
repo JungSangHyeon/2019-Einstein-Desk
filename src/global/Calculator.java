@@ -4,17 +4,15 @@ import java.awt.geom.Point2D;
 
 public class Calculator {
 
-	public static double distanceLineNPoint(Point2D.Float sp, Point2D.Float ep, Point2D.Float p) {
-		double xDelta = ep.x - sp.x;
-		double yDelta = ep.y - sp.y;
-		double u = ((p.x - sp.x) * xDelta + (p.y - sp.y) * yDelta) / (xDelta * xDelta + yDelta * yDelta);
-		Point2D.Float closestPoint;
-		if (u < 0) {closestPoint = new Point2D.Float(sp.x, sp.y);}
-		else if (u > 1) {closestPoint = new Point2D.Float(ep.x, ep.y);}
-		else {closestPoint = new Point2D.Float(Math.round(sp.x + u * xDelta), Math.round(sp.y + u * yDelta));}
-		return Point2D.distance(closestPoint.x, closestPoint.y, p.x, p.y);
+	public static double distanceLineNPoint(Point2D sp, Point2D ep, Point2D p) {
+		double xDelta = ep.getX() - sp.getX();
+		double yDelta = ep.getY() - sp.getY();
+		double u = ((p.getX() - sp.getX()) * xDelta + (p.getY() - sp.getY()) * yDelta) / (xDelta * xDelta + yDelta * yDelta);
+		Point2D.Double closestPoint;
+		if (u < 0) {closestPoint = new Point2D.Double(sp.getX(), sp.getY());}
+		else if (u > 1) {closestPoint = new Point2D.Double(ep.getX(), ep.getY());}
+		else {closestPoint = new Point2D.Double(Math.round(sp.getX() + u * xDelta), Math.round(sp.getY() + u * yDelta));}
+		return Point2D.distance(closestPoint.x, closestPoint.y, p.getX(), p.getY());
 	}
-
-
 	
 }

@@ -29,7 +29,7 @@ public class pen extends APDRShape{
 	public Shape newTwoPointShape(Float p1, Float p2) {return null;}//¾È¾¸.
 
 	@Override
-	public ATool getDrawer() {return eTool.ePenDrawTool.getTool();}
+	public ATool getDrawer() {return eTool.ePenDrawTool.getATool();}
 	
 	@Override
 	public boolean isSelected(GraphicComponent gc, Point2D.Float point) {

@@ -56,7 +56,7 @@ public class PDRShapeDrawTool extends ATool{
 			GCStorage.getLastGC().setCenter(new Point2D.Float(rect.x+rect.width/2, rect.y+rect.height/2));
 			GCStorage.addSelectedGC(GCStorage.getLastGC());
 			AnchorPaint.on();
-			GlobalData.setNowTool(eTool.eHandTool.getTool());
+			GlobalData.setNowTool(eTool.eHandTool.getATool());
 			RedoUndo.saveNowInHistory();
 		}
 	}

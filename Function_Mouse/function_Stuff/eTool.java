@@ -1,10 +1,10 @@
 package function_Stuff;
 
 import function_Creat.CMCShapeDrawTool;
+import function_Creat.ConnectTool;
 import function_Creat.HighlightTool;
 import function_Creat.PDRShapeDrawTool;
 import function_Creat.PenTool;
-import function_Kill.ConnectTool;
 import function_Kill.EraserTool;
 import function_SelectAndEvent.HandTool;
 
@@ -22,5 +22,5 @@ public enum eTool {
 	
 	private ATool tool;
 	private eTool(ATool tool) {this.tool=tool;}
-	public ATool getTool() {return this.tool;}
+	public ATool getATool() {return this.tool;}
 }

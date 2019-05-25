@@ -14,12 +14,12 @@ import zFunction_Stuff.AFunction;
 public class ToolSelectItems {
 
 	public enum eToolSelectItem{
-		eHandToolItem(new Data_ToolSelector(eTool.eHandTool.getTool()), new Paint_IMG("", "ToolBarImgs/hand.png")),//new Data_ToolSelector(item.getTool()) -> function
-		eEraserToolItem(new Data_ToolSelector(eTool.eEraserTool.getTool()), new Paint_IMG("", "ToolBarImgs/eraser.png")),
-		eShapeToolItem(new Data_ToolSelector(eTool.eConnectTool.getTool()), new Paint_IMG("", "ToolBarImgs/shape.png")),
-		eBackItem(new Data_ToolSelector(eTool.eHandTool.getTool()), new Paint_IMG("", "ToolBarImgs/back.png")),
-		eFrontItem(new Data_ToolSelector(eTool.eHandTool.getTool()), new Paint_IMG("", "ToolBarImgs/front.png")),
-		eNewSlideItem(new Data_ToolSelector(eTool.eHandTool.getTool()), new Paint_IMG("", "ToolBarImgs/newSlide.png")),
+		eHandToolItem(new Data_ToolSelector(eTool.eHandTool.getATool()), new Paint_IMG("", "ToolBarImgs/hand.png")),//new Data_ToolSelector(item.getTool()) -> function
+		eEraserToolItem(new Data_ToolSelector(eTool.eEraserTool.getATool()), new Paint_IMG("", "ToolBarImgs/eraser.png")),
+		eShapeToolItem(new Data_ToolSelector(eTool.eConnectTool.getATool()), new Paint_IMG("", "ToolBarImgs/shape.png")),
+		eBackItem(new Data_ToolSelector(eTool.eHandTool.getATool()), new Paint_IMG("", "ToolBarImgs/back.png")),
+		eFrontItem(new Data_ToolSelector(eTool.eHandTool.getATool()), new Paint_IMG("", "ToolBarImgs/front.png")),
+		eNewSlideItem(new Data_ToolSelector(eTool.eHandTool.getATool()), new Paint_IMG("", "ToolBarImgs/newSlide.png")),
 		eOffItem(new System_Die(), new Paint_IMG("", "ToolBarImgs/off1.png")),
 		;
 		private AFunction tool; private AFunction painter;

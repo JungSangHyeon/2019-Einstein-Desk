@@ -17,7 +17,7 @@ public abstract class APDRShape extends AShape {
 	
 	public abstract Shape newTwoPointShape(Point2D.Float p1, Point2D.Float p2);
 	
-	public ATool getDrawer() {return eTool.ePDRShapeDrawTool.getTool();}
+	public ATool getDrawer() {return eTool.ePDRShapeDrawTool.getATool();}
 	
 	public boolean isSelected(GraphicComponent gc, Point2D.Float point) {
 		if(gc.getShape().contains(point)) {return true;}

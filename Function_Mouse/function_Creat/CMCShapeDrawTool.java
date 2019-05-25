@@ -50,7 +50,7 @@ public class CMCShapeDrawTool extends ATool{
 	private void finishDrawing(MouseEvent e) {
 		firstClick = true;
 		GCData = null;
-		GlobalData.setNowTool(eTool.eHandTool.getTool());
+		GlobalData.setNowTool(eTool.eHandTool.getATool());
 		RedoUndo.saveNowInHistory();
 	}
 
@@ -58,7 +58,7 @@ public class CMCShapeDrawTool extends ATool{
 		shapeData.setShape(GlobalData.getNowShapeMaker().newShape(shapeData.getPoints()));
 	}
 	
-	public void mouseReleased(MouseEvent e) {GlobalData.setNowTool(eTool.eHandTool.getTool());}
+	public void mouseReleased(MouseEvent e) {GlobalData.setNowTool(eTool.eHandTool.getATool());}
 	public void mousePressed(MouseEvent e) {}
 	public void mouseDragged(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}

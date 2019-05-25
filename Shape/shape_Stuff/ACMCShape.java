@@ -12,5 +12,5 @@ public abstract class ACMCShape extends AShape{
 
 	public abstract Shape newShape(Vector<Point2D.Float> points);
 	
-	public ATool getDrawer() {return eTool.eCMCShapeDrawTool.getTool();}
+	public ATool getDrawer() {return eTool.eCMCShapeDrawTool.getATool();}
 }
