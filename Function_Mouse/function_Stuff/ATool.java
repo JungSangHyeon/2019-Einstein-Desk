@@ -23,6 +23,7 @@ public abstract class ATool  implements Serializable{//AFUnction하고 똑같음. 따�
 		else if(eID == MouseEvent.MOUSE_WHEEL) {this.mouseWheelMoved(e);}
 	}
 	
+	public GraphicComponent getMaster() {return master;}
 	public abstract void mousePressed(MouseEvent e);
 	public abstract void mouseReleased(MouseEvent e);
 	public abstract void mouseClicked(MouseEvent e);

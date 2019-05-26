@@ -2,30 +2,31 @@ package function_Paint;
 
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
+import javax.swing.SwingUtilities;
+
 import zFunction_Stuff.ANameAndImagePainter;
 import zFunction_Stuff.ImgStorage;
 
-public class Paint_IMG extends ANameAndImagePainter {// D&D함
+public class Paint_RadioChangeIMG extends ANameAndImagePainter {// D&D함
 	private static final long serialVersionUID = -7941746680321916676L;
 	
 	final static int textWRadio = 8, textHRadio = 4, textLocationXFactor = 40, textLocationYFactor = 20;
 	
-	public Paint_IMG(String name, String fileAddress) {
+	public Paint_RadioChangeIMG(String name, String fileAddress) {
 		this.setName(name);
 		this.setImg(fileAddress);
 	}
 
 	public void paintComponent(Graphics2D g2d, Shape shape) {
-//		Graphics2D g2d = (Graphics2D)g;
-//		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-		
+		Shape startClip  = g2d.getClip();
 		Rectangle2D rect = shape.getBounds2D();
+		g2d.setClip(master.getShape());
 		g2d.fill(rect);
 		double rectX = rect.getX(), rectY= rect.getY(), rectW = rect.getWidth(), rectH = rect.getHeight();
 		if(backGroundNeed) {g2d.setColor(backGroundColor); g2d.fill(rect);}//투명 이미지 활용을 위함
@@ -47,6 +48,7 @@ public class Paint_IMG extends ANameAndImagePainter {// D&D함
 			g2d.setFont(new Font(null, Font.PLAIN, (int)nameSize));
 			g2d.drawString(name, (float)(rectX+rectW/textLocationXFactor), (float)(rectY+rectH-rectH/textLocationYFactor));//scale에 맞춰서 보일지 말지 해야겠는디.
 		}
+		g2d.setClip(startClip);
 	}
 	
 }

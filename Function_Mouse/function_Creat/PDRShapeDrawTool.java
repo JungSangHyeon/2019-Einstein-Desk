@@ -8,6 +8,7 @@ import component_Stuff.GraphicComponent;
 import data.GCStorage;
 import data.GlobalData;
 import doUndo.RedoUndo;
+import function_Paint.Paint_NormalIMG;
 import function_Paint.Paint_TextWrite;
 import function_Shape.Shape_Mover;
 import function_Shape.Shape_Resizer;

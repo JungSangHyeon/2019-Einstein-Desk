@@ -3,7 +3,7 @@ package component;
 import component_Stuff.GraphicComponent;
 import function_Data.Data_ShapeSelect;
 import function_Data.Data_ToolSelector;
-import function_Paint.Paint_IMG;
+import function_Paint.Paint_NormalIMG;
 import function_Paint.Paint_penColorBGPaint;
 import function_Paint.Paint_showMouseOnMe;
 import function_Paint.Paint_showSelectedTool;
@@ -17,16 +17,16 @@ import zFunction_Stuff.AFunction;
 public class ShapeSelectItems {
 
 	public enum eShapeSelectItem{
-		eRectItem(eShape.rect.getAShape(), new Paint_IMG("rect", "Icons/jake_22X22.txt")),
-		eEllipseItem(eShape.ellipse.getAShape(), new Paint_IMG("ellipse", "Icons/jake_22X22.txt")),
-		eSpeechItem(eShape.speech.getAShape(), new Paint_IMG("", "Icons/jake_22X22.txt")),
-		eStar4Item(eShape.star4.getAShape(), new Paint_IMG("", "Icons/jake_22X22.txt")),
-		eTriangleItem(eShape.triangle.getAShape(), new Paint_IMG("", "Icons/jake_22X22.txt")),
-		eStraightLineItem(eShape.straightLine.getAShape(), new Paint_IMG("straightLine", "Icons/jake_22X22.txt")),
-		ePolygonItem(eShape.polygon.getAShape(), new Paint_IMG("polygon", "Icons/jake_22X22.txt")),
+		eRectItem(eShape.rect.getAShape(), new Paint_NormalIMG("rect", "Icons/jake_22X22.txt")),
+		eEllipseItem(eShape.ellipse.getAShape(), new Paint_NormalIMG("ellipse", "Icons/jake_22X22.txt")),
+		eSpeechItem(eShape.speech.getAShape(), new Paint_NormalIMG("", "Icons/jake_22X22.txt")),
+		eStar4Item(eShape.star4.getAShape(), new Paint_NormalIMG("", "Icons/jake_22X22.txt")),
+		eTriangleItem(eShape.triangle.getAShape(), new Paint_NormalIMG("", "Icons/jake_22X22.txt")),
+		eStraightLineItem(eShape.straightLine.getAShape(), new Paint_NormalIMG("straightLine", "Icons/jake_22X22.txt")),
+		ePolygonItem(eShape.polygon.getAShape(), new Paint_NormalIMG("polygon", "Icons/jake_22X22.txt")),
 		
-		eFreeLineItem(eShape.pen.getAShape(), new Paint_IMG("", "ToolBarImgs/pen.png")),
-		eFreeHighlightItem(eShape.highlight.getAShape(), new Paint_IMG("", "ToolBarImgs/highlight.png")),
+		eFreeLineItem(eShape.pen.getAShape(), new Paint_NormalIMG("", "ToolBarImgs/pen.png")),
+		eFreeHighlightItem(eShape.highlight.getAShape(), new Paint_NormalIMG("", "ToolBarImgs/highlight.png")),
 		;
 		
 		private AShape shape;  private AFunction function;
@@ -43,8 +43,8 @@ public class ShapeSelectItems {
 		GC.setBorderPaint(false);
 		GC.setFillPaint(false);
 		
-//		GC.addFunction(new Data_ToolSelector(item.getSelectShape().getDrawer()));//순서 중요함. 페인트의 경우 덧 그려짐
-//		GC.addFunction(new Data_ShapeSelect(item.getSelectShape()));
+		GC.addFunction(new Data_ToolSelector(item.getSelectShape().getDrawer()));//순서 중요함. 페인트의 경우 덧 그려짐
+		GC.addFunction(new Data_ShapeSelect(item.getSelectShape()));
 		GC.addFunction(item.getPainter());
 		GC.setAShape(eShape.rect.getAShape());
 		GC.addFunction(new Paint_showMouseOnMe());

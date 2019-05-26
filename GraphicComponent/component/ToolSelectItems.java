@@ -2,7 +2,7 @@ package component;
 
 import component_Stuff.GraphicComponent;
 import function_Data.Data_ToolSelector;
-import function_Paint.Paint_IMG;
+import function_Paint.Paint_NormalIMG;
 import function_Paint.Paint_showMouseOnMe;
 import function_Paint.Paint_showSelectedTool;
 import function_Shape.Shape_Mover;
@@ -14,13 +14,13 @@ import zFunction_Stuff.AFunction;
 public class ToolSelectItems {
 
 	public enum eToolSelectItem{
-		eHandToolItem(new Data_ToolSelector(eTool.eHandTool.getATool()), new Paint_IMG("", "ToolBarImgs/hand.png")),//new Data_ToolSelector(item.getTool()) -> function
-		eEraserToolItem(new Data_ToolSelector(eTool.eEraserTool.getATool()), new Paint_IMG("", "ToolBarImgs/eraser.png")),
-		eShapeToolItem(new Data_ToolSelector(eTool.eConnectTool.getATool()), new Paint_IMG("", "ToolBarImgs/shape.png")),
-		eBackItem(new Data_ToolSelector(eTool.eHandTool.getATool()), new Paint_IMG("", "ToolBarImgs/back.png")),
-		eFrontItem(new Data_ToolSelector(eTool.eHandTool.getATool()), new Paint_IMG("", "ToolBarImgs/front.png")),
-		eNewSlideItem(new Data_ToolSelector(eTool.eHandTool.getATool()), new Paint_IMG("", "ToolBarImgs/newSlide.png")),
-		eOffItem(new System_Die(), new Paint_IMG("", "ToolBarImgs/off1.png")),
+		eHandToolItem(new Data_ToolSelector(eTool.eHandTool.getATool()), new Paint_NormalIMG("", "ToolBarImgs/hand.png")),//new Data_ToolSelector(item.getTool()) -> function
+		eEraserToolItem(new Data_ToolSelector(eTool.eEraserTool.getATool()), new Paint_NormalIMG("", "ToolBarImgs/eraser.png")),
+		eShapeToolItem(new Data_ToolSelector(eTool.eConnectTool.getATool()), new Paint_NormalIMG("", "ToolBarImgs/shape.png")),
+		eBackItem(new Data_ToolSelector(eTool.eHandTool.getATool()), new Paint_NormalIMG("", "ToolBarImgs/back.png")),
+		eFrontItem(new Data_ToolSelector(eTool.eHandTool.getATool()), new Paint_NormalIMG("", "ToolBarImgs/front.png")),
+		eNewSlideItem(new Data_ToolSelector(eTool.eHandTool.getATool()), new Paint_NormalIMG("", "ToolBarImgs/newSlide.png")),
+		eOffItem(new System_Die(), new Paint_NormalIMG("", "ToolBarImgs/off1.png")),
 		;
 		private AFunction tool; private AFunction painter;
 		private eToolSelectItem(AFunction tool, AFunction painter) {

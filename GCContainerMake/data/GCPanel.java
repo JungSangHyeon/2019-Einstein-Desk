@@ -182,9 +182,11 @@ public abstract class GCPanel extends GraphicComponent implements Serializable{/
 			g2d.setColor(seatNoticeColor);
 			g2d.fill(currentItem.getRect());
 		}
+		g2d.setClip(null);
 		
 		if(copyCurrentItem!=null) {copyCurrentItem.paint(g2d);}
 		g2d.translate(0, scrollSpeed*-nowDeep);
+		
 	}
 	
 	@Override
@@ -206,7 +208,12 @@ public abstract class GCPanel extends GraphicComponent implements Serializable{/
 		findCurrentShape(e); 
 		basicAction(e);
 	}
-	public void mouseReleased(MouseEvent e) {actionReset(); basicAction(e);}
+	
+	public void mouseReleased(MouseEvent e) {//TODO
+		actionReset(); basicAction(e);
+		System.out.println("release");
+		//if mouse not in this, drop.
+	}
 	
 	public void mouseDragged(MouseEvent e) {
 		if(copyCurrentItem!=null&&itemDraggable) {
@@ -225,8 +232,7 @@ public abstract class GCPanel extends GraphicComponent implements Serializable{/
 		else if(e.getWheelRotation() < 0){wheelUpAction();}
 	}
 	
-	//int scrollSpeed, nowDeep=0, deepLimit=0;
-	public void wheelDownAction() {//TODO
+	public void wheelDownAction() {
 		if(nowDeep>deepLimit) {
 			nowDeep--;
 			if(copyCurrentItem!=null) {

@@ -73,10 +73,11 @@ public class DrawingPanel extends JPanel {
 		this.add(Paint_TextWrite_Stuff.getTextEditArea());
 		
 		testContainer1 c1 = new testContainer1();
-		GCPanelStorage.add(c1);
-		GCStorage.addNewGC(c1);
+		this.add(c1);
 	}
 	
+	private void add(GCPanel c1) {GCPanelStorage.add(c1);}
+
 	PenSettingPanel psp;
 	HighlightSettingPanel hsp;
 	
@@ -93,7 +94,6 @@ public class DrawingPanel extends JPanel {
 	public void paint(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-		g2d.setClip(new Rectangle(0,0,1000,1000));
 		
 		super.paint(g2d);
 		paintGC(g2d);

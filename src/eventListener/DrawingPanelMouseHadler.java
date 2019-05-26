@@ -16,6 +16,7 @@ import data.GCStorage;
 import data.GlobalData;
 import dragAndDrop.DragAndDropManager;
 import function_Paint.Paint_TextWrite_Stuff;
+import function_SelectAndEvent.GCPanelGiveActionTool;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import view.DrawingPanel;
 
@@ -26,22 +27,36 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 	//Left BTN = modify Data
 	//Right BTN = Move & Zoom
 	
-	public DrawingPanelMouseHadler(DrawingPanel drawingPanel) {this.drawingPanel=drawingPanel;}
+	GCPanelGiveActionTool gCPanelGiveActionTool;
+	public DrawingPanelMouseHadler(DrawingPanel drawingPanel) {
+		this.drawingPanel=drawingPanel;
+		gCPanelGiveActionTool = new GCPanelGiveActionTool();
+	}
 
 	public void mousePressed(MouseEvent e) {//event to tool, Canvas Move
+		gCPanelGiveActionTool.processEvent(e);
+		
 		if(Paint_TextWrite_Stuff.isTextEditAreaFocusOwner()) {
 			Paint_TextWrite_Stuff.removeFocusTextEditArea();
 		}
 		if(pressedBTN==-1) {//null
 			pressedBTN = e.getButton();
-			if(leftBTNPressed()||wheelBTNPressed()){GlobalData.getNowTool().processEvent(e);}
+			if(leftBTNPressed()||wheelBTNPressed()){
+				if(gCPanelGiveActionTool.getMaster()==null) {
+					GlobalData.getNowTool().processEvent(e);
+				}
+			}
 			else if(rightBTNPressed()) {DrawingPanelMoveAndZoom.setDragStartPoint(e.getPoint());}
 			drawingPanel.repaint();
 		}
 	}
 
 	public void mouseReleased(MouseEvent e) {//event to tool
-		if(leftBTNPressed()||wheelBTNPressed()){GlobalData.getNowTool().processEvent(e);}
+		gCPanelGiveActionTool.processEvent(e);
+		if(leftBTNPressed()||wheelBTNPressed()){
+			if(gCPanelGiveActionTool.getMaster()==null) {
+			GlobalData.getNowTool().processEvent(e);
+		}}
 		drawingPanel.repaint();
 		if(e.getButton() == pressedBTN) {
 			pressedBTN = -1;//null
@@ -49,57 +64,70 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 	}
 	
 	public void mouseDragged(MouseEvent e) {//event to tool, D&D panel Check, Canvas Move
+		gCPanelGiveActionTool.processEvent(e);
 		if(leftBTNPressed()||wheelBTNPressed()){
 			DragAndDropManager.setComponentMasterPanel(drawingPanel);
-			GlobalData.getNowTool().processEvent(e);
+			if(gCPanelGiveActionTool.getMaster()==null) {
+				GlobalData.getNowTool().processEvent(e);
+			}
 		} else if (rightBTNPressed()) {DrawingPanelMoveAndZoom.moveCamera(e);}
 		drawingPanel.repaint();
 	}
 	
 	public void mouseMoved(MouseEvent e) {//event to tool & on Shape <-- 다른건 죄다 Select후 tool이 전달함.
-		GlobalData.getNowTool().processEvent(e);
-		boolean onNothing = true;//for cursor control
-		Vector<GraphicComponent> Components = GCStorage.getSelectedGCVector();
-		for(int i=Components.size()-1; i>-1; i--) {
-			if(Components.get(i).isTopSelected(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
-				onNothing = false;
-				Components.get(i).processEvent(e);//HMMMMMMMMMMMMMMMM
-				break;
-			}
-		}
-		if(onNothing) {
+		gCPanelGiveActionTool.processEvent(e);
+		if(gCPanelGiveActionTool.getMaster()==null) {
+			GlobalData.getNowTool().processEvent(e);
+			boolean onNothing = true;//for cursor control
+			Vector<GraphicComponent> Components = GCStorage.getSelectedGCVector();
 			for(int i=Components.size()-1; i>-1; i--) {
-				if(Components.get(i).getAShape().isSelected(Components.get(i), DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
+				if(Components.get(i).isTopSelected(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
 					onNothing = false;
 					Components.get(i).processEvent(e);//HMMMMMMMMMMMMMMMM
 					break;
 				}
 			}
+			if(onNothing) {
+				for(int i=Components.size()-1; i>-1; i--) {
+					if(Components.get(i).getAShape().isSelected(Components.get(i), DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
+						onNothing = false;
+						Components.get(i).processEvent(e);//HMMMMMMMMMMMMMMMM
+						break;
+					}
+				}
+			}
+			if(onNothing) {((JPanel) e.getSource()).setCursor(new Cursor(Cursor.DEFAULT_CURSOR));}
 		}
-		if(onNothing) {((JPanel) e.getSource()).setCursor(new Cursor(Cursor.DEFAULT_CURSOR));}
 		drawingPanel.repaint();
 	}
 	
 	public void mouseClicked(MouseEvent e) {//event to tool
-		GlobalData.getNowTool().processEvent(e);
+		gCPanelGiveActionTool.processEvent(e);
+		if(gCPanelGiveActionTool.getMaster()==null) {
+			GlobalData.getNowTool().processEvent(e);
+		}
 		drawingPanel.repaint();
 	}
 	
 	public void mouseEntered(MouseEvent e) {DragAndDropManager.setNowMouseOnPanel(drawingPanel);}//only D&D
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		GlobalData.getNowTool().processEvent(e);
-		
-		Vector<GraphicComponent> Components = GCStorage.getGCVector();
-		Point2D.Float nowPoint = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());
-		for(int i=Components.size()-1; i>-1; i--) {
-			if(Components.get(i).getAShape().isSelected(Components.get(i), nowPoint)) {
-				Components.get(i).processEvent(e);
-				break;
+		gCPanelGiveActionTool.processEvent(e);
+		if(gCPanelGiveActionTool.getMaster()==null) {
+			GlobalData.getNowTool().processEvent(e);
+			Vector<GraphicComponent> Components = GCStorage.getGCVector();
+			Point2D.Float nowPoint = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());
+			for(int i=Components.size()-1; i>-1; i--) {
+				if(Components.get(i).getAShape().isSelected(Components.get(i), nowPoint)) {
+					Components.get(i).processEvent(e);
+					break;
+				}
 			}
+			
+			DrawingPanelMoveAndZoom.zoomCamera(e);
 		}
+		drawingPanel.repaint();
 		
-//		DrawingPanelMoveAndZoom.zoomCamera(e);
-		drawingPanel.repaint();}//only zoom
+		}//only zoom
 	
 	private boolean leftBTNPressed() {return pressedBTN == MouseEvent.BUTTON1;}
 	private boolean wheelBTNPressed() {return pressedBTN == MouseEvent.BUTTON2;}

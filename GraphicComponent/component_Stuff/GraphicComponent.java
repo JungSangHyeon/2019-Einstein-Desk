@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.Vector;
@@ -60,15 +61,15 @@ public class GraphicComponent  implements Serializable{
 		if(paintBorder) {g.setColor(borderColor); g.draw(shape);}
 		for(AFunction function : functions) {if(!function.isTopPaint()&&!function.isButtomPaint()) {function.paintComponent(g,shape);}}
 //		아래는 테스트용
-//		if (points.size() > 0) {
-//			g.setColor(Color.RED);// 디버깅?
-//			GeneralPath p = new GeneralPath();
-//			p.moveTo(points.get(0).x, points.get(0).y);
-//			for (Point2D.Float pp : points) {
-//				p.lineTo(pp.x, pp.y);
-//			}
-//			g.draw(p);
-//		}
+		if (points.size() > 0) {
+			g.setColor(Color.RED);// 디버깅?
+			GeneralPath p = new GeneralPath();
+			p.moveTo(points.get(0).x, points.get(0).y);
+			for (Point2D.Float pp : points) {
+				p.lineTo(pp.x, pp.y);
+			}
+			g.draw(p);
+		}
 	}
 	
 	//Process
