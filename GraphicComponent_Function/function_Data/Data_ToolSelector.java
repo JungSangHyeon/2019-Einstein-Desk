@@ -5,7 +5,7 @@ import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
 
-import data.GlobalData;
+import data.ToolData;
 import function_Stuff.ATool;
 import zFunction_Stuff.AFunction;
 
@@ -15,7 +15,7 @@ public class Data_ToolSelector extends AFunction implements Serializable{
 	ATool tool;
 	
 	public Data_ToolSelector(ATool tool) {this.tool=tool;}
-	public void mouseReleased(MouseEvent e) {GlobalData.setNowTool(tool);}
+	public void mouseReleased(MouseEvent e) {ToolData.setNowTool(tool);}
 	public void mouseClicked(MouseEvent e) {}
 	
 	public void mouseEntered(MouseEvent e) {}

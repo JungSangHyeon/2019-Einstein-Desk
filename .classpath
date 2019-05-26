@@ -2,10 +2,10 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="Stuffs"/>
 	<classpathentry kind="src" path="Shape"/>
 	<classpathentry kind="src" path="Function_key"/>
 	<classpathentry kind="src" path="Function_Mouse"/>
+	<classpathentry kind="src" path="Function_Stuffs"/>
 	<classpathentry kind="src" path="GraphicComponent"/>
 	<classpathentry kind="src" path="GraphicComponent_Function"/>
 	<classpathentry kind="src" path="GraphicComponent_GCPanel"/>

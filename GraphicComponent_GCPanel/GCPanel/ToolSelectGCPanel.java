@@ -14,6 +14,8 @@ public class ToolSelectGCPanel extends GCPanel_LayoutPixel {
 		this.setPixelGap(0, 0);
 		this.setSize(9, 1);
 		
+		this.setLocation(1920 - this.getWidth(), 0);
+		
 		this.setItemDraggable(false);
 
 		this.add(ShapeSelectItems.getLineItem(eShapeSelectItem.eFreeLineItem));
@@ -26,5 +28,4 @@ public class ToolSelectGCPanel extends GCPanel_LayoutPixel {
 		this.add(ToolSelectItems.getGCItem(eToolSelectItem.eNewSlideItem));
 		this.add(ToolSelectItems.getGCItem(eToolSelectItem.eOffItem));
 	}
-
 }

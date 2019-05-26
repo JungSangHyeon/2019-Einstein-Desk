@@ -9,17 +9,7 @@ import onOff.ThickFollowScale;
 import shape_Stuff.AShape;
 import shape_Stuff.eShape;
 
-public class GlobalData {
-
-	//Tool
-	private static ATool nowTool = new HandTool();
-	public static ATool getNowTool() {return nowTool;}
-	public static void setNowTool(ATool nowTool) {GlobalData.nowTool = nowTool;}
-	
-	//Shape
-	private static AShape nowShapeMaker = eShape.rect.getAShape();//btn누르면 쉐잎이 버튼대로 맞춰지고, 쉐입을 통해 툴도 맞추낟.
-	public static AShape getNowShapeMaker() {return nowShapeMaker;}
-	public static void setNowShapeMaker(AShape shapeMaker) {GlobalData.nowShapeMaker = shapeMaker;}
+public class LineData {
 
 	//Pen
 	public static Color penColor = Color.BLACK;

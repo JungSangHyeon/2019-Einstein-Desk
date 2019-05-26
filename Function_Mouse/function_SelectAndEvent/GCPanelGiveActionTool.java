@@ -3,8 +3,8 @@ package function_SelectAndEvent;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
 
-import GCPanel_Storage.GCPanelStorage;
 import component_Stuff.GraphicComponent;
+import data.GCPanelStorage;
 import function_Stuff.ATool;
 
 public class GCPanelGiveActionTool extends ATool{

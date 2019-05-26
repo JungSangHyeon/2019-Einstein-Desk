@@ -2,12 +2,12 @@ package dragAndDrop;
 
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.geom.Rectangle2D;
 
 import javax.swing.JPanel;
 
 import component_Stuff.GraphicComponent;
-import data.GCStorage;
+import data.GCStorage_Normal;
+import data.GCStorage_Selected;
 import function_Shape.Shape_Mover;
 import function_Shape.Shape_MoverWeak;
 import function_Shape.Shape_Resizer;
@@ -28,15 +28,15 @@ public class DragAndDropManager {
 		if (componentMasterPanel != nowMouseOnPanel && draggingComponent != null && nowMouseOnPanel != null && componentMasterPanel != null) {
 			if (nowMouseOnPanel instanceof DrawingPanel) {// AContainer -> Drawing Panel
 				applyTransformToDraggingComponent();
-				GCStorage.addNewGC(draggingComponent);
+				GCStorage_Normal.addNewGC(draggingComponent);
 				draggingComponent.addFunction(new Shape_Mover());
 				draggingComponent.addFunction(new Shape_Rotator());
 				draggingComponent.addFunction(new Shape_Resizer());
 				draggingComponent.setSelected(false);
 			} else {// Drawing Panel -> AContainer
-				if(GCStorage.getSelectedGCVector().size()<2) {//accept only one drag
-					GCStorage.removeGC(draggingComponent);// 이건 상황에 따라 다르게 해야 겠는데.
-					GCStorage.removeSelectedGC(draggingComponent);
+				if(GCStorage_Selected.getSelectedGCVector().size()<2) {//accept only one drag
+					GCStorage_Normal.removeGC(draggingComponent);// 이건 상황에 따라 다르게 해야 겠는데.
+					GCStorage_Selected.removeSelectedGC(draggingComponent);
 					
 //					((AContainer) nowMouseOnPanel).addItem(GCToItem(draggingComponent));
 				}

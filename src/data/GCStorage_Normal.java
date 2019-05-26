@@ -4,37 +4,24 @@ import java.util.Vector;
 
 import component_Stuff.GraphicComponent;
 
-public class GCStorage {
-
-	//GC
+public class GCStorage_Normal {
+	
 	private static Vector<GraphicComponent> GCVector = new Vector<GraphicComponent>();
 	
+	//Add
 	public static void addNewGC(GraphicComponent shapeData) {GCVector.add(shapeData);}
+	public static void addAllToGC(Vector<GraphicComponent> vector) {GCVector.addAll(vector);}
 	
+	//Remove
 	public static void removeGC(GraphicComponent gc) {GCVector.remove(gc);}
 	public static void removeLastGC() {GCVector.remove(GCVector.size()-1);}
 	public static void clearGC() {GCVector.clear();}
 	
+	//Get
 	public static Vector<GraphicComponent> getGCVector() {return GCVector;}
 	public static GraphicComponent getLastGC() {return GCVector.lastElement();}
 	public static GraphicComponent getGC(int i) {return GCVector.get(i);}
 	
+	//Ask?
 	public static boolean have(GraphicComponent gc) {return GCVector.contains(gc);}
-	
-	//Selected GC
-	private static Vector<GraphicComponent> selectedComponents = new Vector <GraphicComponent>();
-	
-	public static void addSelectedGC(GraphicComponent shapeData) {shapeData.setSelected(true);selectedComponents.add(shapeData);}
-	public static void removeSelectedGC(GraphicComponent gc) {gc.setSelected(false);selectedComponents.remove(gc);}
-	public static void clearSelected() {
-		for(GraphicComponent gc : selectedComponents) {
-			gc.setSelected(false);
-		}
-		selectedComponents.clear();
-	}
-	public static Vector<GraphicComponent> getSelectedGCVector() {return selectedComponents;}
-	public static void addAllToGC(Vector<GraphicComponent> vector) {
-		GCVector.addAll(vector);
-	}
-	
 }

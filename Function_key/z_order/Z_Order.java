@@ -3,7 +3,7 @@ package z_order;
 import java.util.Vector;
 
 import component_Stuff.GraphicComponent;
-import data.GCStorage;
+import data.GCStorage_Normal;
 
 public class Z_Order {
 	
@@ -17,7 +17,7 @@ public class Z_Order {
 	}
 	
 	private static void sendSelectedToTop() {
-		Vector<GraphicComponent> gcStorage = GCStorage.getGCVector();
+		Vector<GraphicComponent> gcStorage = GCStorage_Normal.getGCVector();
 		Vector<GraphicComponent> temp = new Vector<GraphicComponent>();
 		for(int i = gcStorage.size()-1; i>-1; i--) {
 			GraphicComponent nowGC = gcStorage.get(i);
@@ -30,7 +30,7 @@ public class Z_Order {
 	}
 
 	private static void sendSelectedToHell() {
-		Vector<GraphicComponent> gcStorage = GCStorage.getGCVector();
+		Vector<GraphicComponent> gcStorage = GCStorage_Normal.getGCVector();
 		Vector<GraphicComponent> temp = new Vector<GraphicComponent>();
 		for(int i = gcStorage.size()-1; i>-1; i--) {
 			GraphicComponent nowGC = gcStorage.get(i);
@@ -45,7 +45,7 @@ public class Z_Order {
 	}
 
 	private static void sendSelectedOneUp() {
-		Vector<GraphicComponent> gcStorage = GCStorage.getGCVector();
+		Vector<GraphicComponent> gcStorage = GCStorage_Normal.getGCVector();
 		for(int i = gcStorage.size()-1; i>-1; i--) {
 			GraphicComponent nowGC = gcStorage.get(i);
 			if(nowGC.isSelected()) {
@@ -58,7 +58,7 @@ public class Z_Order {
 	}
 
 	private static void sendSelectedOneDown() {
-		Vector<GraphicComponent> gcStorage = GCStorage.getGCVector();
+		Vector<GraphicComponent> gcStorage = GCStorage_Normal.getGCVector();
 		for(int i=0; i<gcStorage.size(); i++) {
 			GraphicComponent nowGC = gcStorage.get(i);
 			if(nowGC.isSelected()) {

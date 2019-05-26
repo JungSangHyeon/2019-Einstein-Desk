@@ -1,12 +1,18 @@
 package function_Creat;
 
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
 
 import component_Stuff.GraphicComponent;
-import data.GCStorage;
-import data.GlobalData;
+import data.GCStorage_Normal;
+import data.GCStorage_Selected;
+import data.ShapeData;
+import data.ToolData;
 import doUndo.RedoUndo;
 import function_Shape.Shape_Mover;
+import function_Shape.Shape_Resizer;
+import function_Shape.Shape_Rotator;
 import function_Stuff.ATool;
 import function_Stuff.eTool;
 import moveAndZoom.DrawingPanelMoveAndZoom;
@@ -27,18 +33,20 @@ public class CMCShapeDrawTool extends ATool{
 	
 	public void mouseMoved(MouseEvent e) {
 		if(GCData!=null) {
-			setShape(GCStorage.getLastGC());
+			setShape(GCStorage_Normal.getLastGC());
 			GCData.setLastPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 		}
 	}
 	
 	private void initDrawing(MouseEvent e) {
-		GCStorage.clearSelected();
+		GCStorage_Selected.clearSelected();
 		GCData = new GraphicComponent();
 		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 		GCData.addFunction(new Shape_Mover());
-		GCData.setAShape(GlobalData.getNowShapeMaker());
-		GCStorage.addNewGC(GCData);
+		GCData.addFunction(new Shape_Rotator());
+		GCData.addFunction(new Shape_Resizer());
+		GCData.setAShape(ShapeData.getNowShapeMaker());
+		GCStorage_Normal.addNewGC(GCData);
 		firstClick=false;
 	}
 
@@ -50,15 +58,18 @@ public class CMCShapeDrawTool extends ATool{
 	private void finishDrawing(MouseEvent e) {
 		firstClick = true;
 		GCData = null;
-		GlobalData.setNowTool(eTool.eHandTool.getATool());
+		Rectangle rect = GCStorage_Normal.getLastGC().getShape().getBounds();
+		GCStorage_Normal.getLastGC().setCenter(new Point2D.Float(rect.x+rect.width/2, rect.y+rect.height/2));
+		GCStorage_Selected.addSelectedGC(GCStorage_Normal.getLastGC());
+		ToolData.setNowTool(eTool.eHandTool.getATool());
 		RedoUndo.saveNowInHistory();
 	}
 
 	private void setShape(GraphicComponent shapeData) {
-		shapeData.setShape(GlobalData.getNowShapeMaker().newShape(shapeData.getPoints()));
+		shapeData.setShape(ShapeData.getNowShapeMaker().newShape(shapeData.getPoints()));
 	}
 	
-	public void mouseReleased(MouseEvent e) {GlobalData.setNowTool(eTool.eHandTool.getATool());}
+	public void mouseReleased(MouseEvent e) {}
 	public void mousePressed(MouseEvent e) {}
 	public void mouseDragged(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}

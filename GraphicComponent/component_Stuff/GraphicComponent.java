@@ -9,7 +9,7 @@ import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.Vector;
 
-import data.GCStorage;
+import data.GCStorage_Normal;
 import global.InjectEnums.eColor;
 import global.InjectEnums.eInt;
 import shape_Stuff.AShape;
@@ -142,7 +142,7 @@ public class GraphicComponent  implements Serializable{
 		return this.text;
 	}
 	public void suicide() {
-		GCStorage.removeGC(this);
+		GCStorage_Normal.removeGC(this);
 	}
 	
 }

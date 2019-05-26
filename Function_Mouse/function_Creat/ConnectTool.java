@@ -3,9 +3,9 @@ package function_Creat;
 import java.awt.event.MouseEvent;
 
 import component_Stuff.GraphicComponent;
-import data.GCStorage;
-import data.GlobalData;
-import function_Paint.Paint_ConnectLine;
+import data.GCStorage_Normal;
+import data.GCStorage_Selected;
+import data.ShapeData;
 import function_Stuff.ATool;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import shape_Stuff.eShape;
@@ -20,7 +20,7 @@ public class ConnectTool extends ATool{
 	public void mousePressed(MouseEvent e) {
 		if(e.getButton()==MouseEvent.BUTTON1) {
 			//Find Start GC
-			for(GraphicComponent gc : GCStorage.getGCVector()) {
+			for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {
 				if(gc.getAShape().isSelected(gc, DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
 					startGC = gc;
 					haveStartGC = true;
@@ -30,13 +30,13 @@ public class ConnectTool extends ATool{
 			
 			//Create Connect Line
 			if(haveStartGC) {
-				GCStorage.clearSelected();
+				GCStorage_Selected.clearSelected();
 				GCData = new GraphicComponent();
 				GCData.addPoint(startGC.getCenter());
 				GCData.addPoint(startGC.getCenter());
 				GCData.setAShape(eShape.straightLine.getAShape());
 				setShape(GCData);
-				GCStorage.addNewGC(GCData);
+				GCStorage_Normal.addNewGC(GCData);
 			}
 		}
 	}
@@ -44,15 +44,15 @@ public class ConnectTool extends ATool{
 	public void mouseDragged(MouseEvent e) {
 		//Dragging End Of Line
 		if(haveStartGC) {
-			GCStorage.getLastGC().setLastPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
-			setShape(GCStorage.getLastGC());
+			GCStorage_Normal.getLastGC().setLastPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
+			setShape(GCStorage_Normal.getLastGC());
 		}
 	}
 	
 	public void mouseReleased(MouseEvent e) {
 		if(e.getButton()==MouseEvent.BUTTON1&&haveStartGC) {
 			//Find End GC
-			for(GraphicComponent gc : GCStorage.getGCVector()) {
+			for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {
 				if(gc.getAShape().isSelected(gc, DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
 					endGC = gc;
 					haveEndGC = true;
@@ -62,7 +62,7 @@ public class ConnectTool extends ATool{
 			
 			//add Function to StartGC & remove Line
 			if(haveEndGC) {
-				GCStorage.getLastGC().addFunction(new connectLineShapeSetter(startGC, endGC));
+				GCStorage_Normal.getLastGC().addFunction(new connectLineShapeSetter(startGC, endGC));
 //				startGC.addFunction(new Paint_ConnectLine(endGC));
 			}
 			
@@ -76,7 +76,7 @@ public class ConnectTool extends ATool{
 	}
 	
 	protected void setShape(GraphicComponent shapeData) {
-		shapeData.setShape(GlobalData.getNowShapeMaker().newShape(shapeData.getPoints()));
+		shapeData.setShape(ShapeData.getNowShapeMaker().newShape(shapeData.getPoints()));
 	}
 	
 	public void mouseClicked(MouseEvent e) {}

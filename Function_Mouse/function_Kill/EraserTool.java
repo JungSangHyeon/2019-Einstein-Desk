@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import java.util.Vector;
 
 import component_Stuff.GraphicComponent;
-import data.GCStorage;
+import data.GCStorage_Normal;
 import doUndo.RedoUndo;
 import function_Stuff.ATool;
 import moveAndZoom.DrawingPanelMoveAndZoom;
@@ -16,10 +16,10 @@ public class EraserTool extends ATool{
 	public void mouseDragged(MouseEvent e) {eraseSelected(e);}
 	
 	private void eraseSelected(MouseEvent e) {
-		Vector<GraphicComponent> Components = GCStorage.getGCVector();
+		Vector<GraphicComponent> Components = GCStorage_Normal.getGCVector();
 		for(int i=Components.size()-1; i>-1; i--) {
 			if(Components.get(i).getAShape().isSelected(Components.get(i), DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
-				GCStorage.removeGC(Components.get(i));
+				GCStorage_Normal.removeGC(Components.get(i));
 			}
 		}
 	}

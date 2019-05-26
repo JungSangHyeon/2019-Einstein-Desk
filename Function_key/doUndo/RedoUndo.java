@@ -1,9 +1,10 @@
 package doUndo;
 
-import java.util.Vector; 
+import java.util.Vector;
 
 import component_Stuff.GraphicComponent;
-import data.GCStorage;
+import data.GCStorage_Normal;
+import data.GCStorage_Selected;
 import deepClone.DeepClone;
 
 public class RedoUndo {
@@ -22,18 +23,18 @@ public class RedoUndo {
 	
 	private static void addCopySaveInHistory() {
 		temp = new Vector<GraphicComponent>();
-		for(GraphicComponent c : GCStorage.getGCVector()) {temp.add((GraphicComponent)DeepClone.clone(c));}
+		for(GraphicComponent c : GCStorage_Normal.getGCVector()) {temp.add((GraphicComponent)DeepClone.clone(c));}
 		history.add(temp);
 	}
 	
-	public static void undo() {if(nowHistoryNum>0) {nowHistoryNum--;changeNow();}System.out.println(nowHistoryNum);}
-	public static void redo() {if(nowHistoryNum<history.size()-1) {nowHistoryNum++;changeNow();}System.out.println(nowHistoryNum);}
-	private static void changeNow() {GCStorage.clearGC(); GCStorage.addAllToGC(history.get(nowHistoryNum)); GCStorage.clearSelected();}
+	public static void undo() {if(nowHistoryNum>0) {nowHistoryNum--;changeNow();}}
+	public static void redo() {if(nowHistoryNum<history.size()-1) {nowHistoryNum++;changeNow();}}
+	private static void changeNow() {GCStorage_Normal.clearGC(); GCStorage_Normal.addAllToGC(history.get(nowHistoryNum)); GCStorage_Selected.clearSelected();}
 	
 	public static void historyClear() {history.clear();}
 	public static void clearAll() {
 		temp.clear();
 		history.clear();
-		GCStorage.clearGC();
+		GCStorage_Normal.clearGC();
 	}	
 }

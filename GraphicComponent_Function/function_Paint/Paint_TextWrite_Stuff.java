@@ -8,7 +8,7 @@ import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 
 import component_Stuff.GraphicComponent;
-import data.GCStorage;
+import data.GCStorage_Selected;
 
 public class Paint_TextWrite_Stuff {
 
@@ -41,7 +41,7 @@ static boolean textEditing = false;
 	
 	public static class CaretHadler implements CaretListener{
 		public void caretUpdate(CaretEvent e) {
-			for(GraphicComponent gc : GCStorage.getSelectedGCVector()) {
+			for(GraphicComponent gc : GCStorage_Selected.getSelectedGCVector()) {
 				gc.setText(textEditArea.getText());
 			}
 		}

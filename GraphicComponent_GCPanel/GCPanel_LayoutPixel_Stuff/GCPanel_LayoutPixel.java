@@ -33,6 +33,8 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 	
 	//Bound
 	int x=0, y=0, width, height;
+	public int getWidth() {return wGap+(pixelW+wGap)*wPixelNum;}
+	public int getHeight() {return hGap+(pixelH+hGap)*hPixelNum;}
 	
 	//Color
 	Color draggingShadeColor = new Color(100,100,100,150);
@@ -49,7 +51,7 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 	public void setItemDraggable(boolean boo) {this.itemDraggable = boo;}
 	
 	//Pixel
-	private Pixel getPixel(int x, int y) {	return pixelVector.get(x+y*wPixelNum);}
+	private Pixel getPixel(int x, int y) {return pixelVector.get(x+y*wPixelNum);}
 	
 	//Item
 	private void refreshRect(Item item) {item.setRect(getRealRectangle(item.getOwnPixel().getLocation()));}
@@ -196,7 +198,8 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 	}
 	
 	public void mouseReleased(MouseEvent e) {//TODO
-		actionReset(); basicAction(e);
+		basicAction(e);
+		actionReset(); 
 		//if mouse not in this, drop.
 	}
 	
@@ -232,7 +235,7 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 	}
 
 	public void findCurrentShape(MouseEvent e) {
-		Point2D nowPoint = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());
+		Point2D nowPoint = e.getPoint();
 		nowPoint.setLocation(nowPoint.getX(), nowPoint.getY()-scrollSpeed*nowDeep);
 		
 		for(int i=itemVector.size()-1; i>-1; i--) {

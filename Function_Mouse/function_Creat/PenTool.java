@@ -5,8 +5,8 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 
-import data.GCStorage;
-import data.GlobalData;
+import data.GCStorage_Normal;
+import data.LineData;
 import doUndo.RedoUndo;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 
@@ -20,20 +20,20 @@ public class PenTool extends PDRShapeDrawTool{
 	public void mousePressed(MouseEvent e) {
 		super.mousePressed(e);
 		GCData.setFillPaint(false);
-		GCData.setborderThick(GlobalData.getPenThick());
-		GCData.setBorderColor(GlobalData.getPenColor());
+		GCData.setborderThick(LineData.getPenThick());
+		GCData.setBorderColor(LineData.getPenColor());
 	}
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		GCStorage.getLastGC().addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
-		setShape(GCStorage.getLastGC());
+		GCStorage_Normal.getLastGC().addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
+		setShape(GCStorage_Normal.getLastGC());
 	}
 	
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		Rectangle rect = GCStorage.getLastGC().getShape().getBounds();
-		GCStorage.getLastGC().setCenter(new Point2D.Float(rect.x+rect.width/2, rect.y+rect.height/2));
+		Rectangle rect = GCStorage_Normal.getLastGC().getShape().getBounds();
+		GCStorage_Normal.getLastGC().setCenter(new Point2D.Float(rect.x+rect.width/2, rect.y+rect.height/2));
 		RedoUndo.saveNowInHistory();
 	}
 }

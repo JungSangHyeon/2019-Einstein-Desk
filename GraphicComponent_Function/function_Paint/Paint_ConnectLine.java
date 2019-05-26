@@ -10,8 +10,8 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
 import component_Stuff.GraphicComponent;
-import data.GCStorage;
-import data.GlobalData;
+import data.GCStorage_Normal;
+import data.ToolData;
 import function_Stuff.eTool;
 import global.Calculator;
 import moveAndZoom.DrawingPanelMoveAndZoom;
@@ -31,7 +31,7 @@ public class Paint_ConnectLine extends AFunction{
 	}
 
 	public void paintComponent(Graphics2D g, Shape shape) {
-		if(GCStorage.have(connectTarget)) {
+		if(GCStorage_Normal.have(connectTarget)) {
 			Stroke startStroke = g.getStroke();
 			g.setStroke(new BasicStroke(thick));
 			g.setColor(new Color(255, 192, 0));
@@ -57,7 +57,7 @@ public class Paint_ConnectLine extends AFunction{
 	public void mouseDragged(MouseEvent e) {if(isTimeToDie(e)){suicide();}System.out.println(123);}
 	
 	private boolean isTimeToDie(MouseEvent e) {
-		if(GlobalData.getNowTool().equals(eTool.eEraserTool.getATool())) {
+		if(ToolData.getNowTool().equals(eTool.eEraserTool.getATool())) {
 			Point2D nowPoint = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());
 			if(Calculator.distanceLineNPoint(getStartPointOf(line), getEndPointOf(line), nowPoint)<thick/2) {return true;}
 		}
@@ -67,7 +67,7 @@ public class Paint_ConnectLine extends AFunction{
 	private void suicide() {
 		master.removeFunction(this);
 	}
-
+	
 	private Point2D getStartPointOf(Line2D line) {return new Point2D.Double(line.getX1(), line.getY1());}
 	private Point2D getEndPointOf(Line2D line) {return new Point2D.Double(line.getX2(), line.getY2());}
 	

@@ -5,12 +5,10 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JPanel;
 
-import component_Stuff.GraphicComponent;
 import copyAndPaste.CopyAndPaste;
-import data.GCStorage;
 import delete.Delete;
 import doUndo.RedoUndo;
-import function_Paint.Paint_TextWrite;
+import function_Paint.Paint_TextWrite_Stuff;
 import onOff.Ctrl;
 import onOff.ThickFollowScale;
 import z_order.Z_Order;
@@ -28,17 +26,15 @@ public class KeyDispatcher implements KeyEventDispatcher {// 키이벤트가 포커스에
 	
 	public boolean dispatchKeyEvent(KeyEvent e) {
 		keyCode = e.getKeyCode();
-		if (e.getID() == KeyEvent.KEY_PRESSED) {pressAction();}
-		else if (e.getID() == KeyEvent.KEY_RELEASED) {releaseAction();}
+		if(!Paint_TextWrite_Stuff.isTextEditAreaFocusOwner()) {
+			if (e.getID() == KeyEvent.KEY_PRESSED) {pressAction();}
+			else if (e.getID() == KeyEvent.KEY_RELEASED) {releaseAction();}
+		}
+		master.repaint();
 		return false;
 	}
 	
 	private void pressAction() {
-//		if(Paint_TextType.isTextEditAreaFocusOwner()) {
-//			for(GraphicComponent gc : GCStorage.getSelectedGCVector()) {
-//				gc.setText(Paint_TextType.getTextEditArea().getText());
-//			}
-//		}
 		if (keyIs(KeyEvent.VK_CONTROL)) {Ctrl.on();}
 		if (keyIs(KeyEvent.VK_DELETE)) {Delete.delete();master.repaint();}
 		if (keyIs(KeyEvent.VK_ESCAPE)) {}
@@ -55,7 +51,6 @@ public class KeyDispatcher implements KeyEventDispatcher {// 키이벤트가 포커스에
 			else if (keyIs(KeyEvent.VK_UP)) {}
 			else if (keyIs(KeyEvent.VK_DOWN)) {}
 		}
-		master.repaint();
 	}
 
 	private void releaseAction() {

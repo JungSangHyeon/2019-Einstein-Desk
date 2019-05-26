@@ -16,7 +16,7 @@ import java.util.Vector;
 import javax.swing.JPanel;
 
 import component_Stuff.GraphicComponent;
-import data.GCStorage;
+import data.GCStorage_Selected;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import onOff.AnchorPaint;
 import zFunction_Stuff.AFunction;
@@ -61,7 +61,7 @@ public class Shape_Resizer extends AFunction implements Serializable {//히야 길�
 			Point2D.Float normalDragStart = new Point2D.Float(nowPoint.x, nowPoint.y);//다음 드래그를 위함.
 			Point2D resizeFactor = this.computeResizeFactor(getBeforeRotatePoint(master, dragStart), getBeforeRotatePoint(master, nowPoint));//돌린 것으로 리사이즈 팩터 만듬.
 			
-			for(GraphicComponent gc : GCStorage.getSelectedGCVector()) {
+			for(GraphicComponent gc : GCStorage_Selected.getSelectedGCVector()) {
 				int thick = gc.getBorderThick();
 				gc.setborderThick(0);
 				if(resizeFactor.getY()<0) {gc.reverseUpsideDown();}//TODO

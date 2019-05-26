@@ -12,8 +12,9 @@ import java.util.Vector;
 import javax.swing.JPanel;
 
 import component_Stuff.GraphicComponent;
-import data.GCStorage;
-import data.GlobalData;
+import data.GCStorage_Normal;
+import data.GCStorage_Selected;
+import data.ToolData;
 import dragAndDrop.DragAndDropManager;
 import function_Paint.Paint_TextWrite_Stuff;
 import function_SelectAndEvent.GCPanelGiveActionTool;
@@ -43,7 +44,7 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 			pressedBTN = e.getButton();
 			if(leftBTNPressed()||wheelBTNPressed()){
 				if(gCPanelGiveActionTool.getMaster()==null) {
-					GlobalData.getNowTool().processEvent(e);
+					ToolData.getNowTool().processEvent(e);
 				}
 			}
 			else if(rightBTNPressed()) {DrawingPanelMoveAndZoom.setDragStartPoint(e.getPoint());}
@@ -55,7 +56,7 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 		gCPanelGiveActionTool.processEvent(e);
 		if(leftBTNPressed()||wheelBTNPressed()){
 			if(gCPanelGiveActionTool.getMaster()==null) {
-			GlobalData.getNowTool().processEvent(e);
+				ToolData.getNowTool().processEvent(e);
 		}}
 		drawingPanel.repaint();
 		if(e.getButton() == pressedBTN) {
@@ -68,7 +69,7 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 		if(leftBTNPressed()||wheelBTNPressed()){
 			DragAndDropManager.setComponentMasterPanel(drawingPanel);
 			if(gCPanelGiveActionTool.getMaster()==null) {
-				GlobalData.getNowTool().processEvent(e);
+				ToolData.getNowTool().processEvent(e);
 			}
 		} else if (rightBTNPressed()) {DrawingPanelMoveAndZoom.moveCamera(e);}
 		drawingPanel.repaint();
@@ -77,9 +78,9 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 	public void mouseMoved(MouseEvent e) {//event to tool & on Shape <-- 다른건 죄다 Select후 tool이 전달함.
 		gCPanelGiveActionTool.processEvent(e);
 		if(gCPanelGiveActionTool.getMaster()==null) {
-			GlobalData.getNowTool().processEvent(e);
+			ToolData.getNowTool().processEvent(e);
 			boolean onNothing = true;//for cursor control
-			Vector<GraphicComponent> Components = GCStorage.getSelectedGCVector();
+			Vector<GraphicComponent> Components = GCStorage_Selected.getSelectedGCVector();
 			for(int i=Components.size()-1; i>-1; i--) {
 				if(Components.get(i).isTopSelected(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
 					onNothing = false;
@@ -104,7 +105,7 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 	public void mouseClicked(MouseEvent e) {//event to tool
 		gCPanelGiveActionTool.processEvent(e);
 		if(gCPanelGiveActionTool.getMaster()==null) {
-			GlobalData.getNowTool().processEvent(e);
+			ToolData.getNowTool().processEvent(e);
 		}
 		drawingPanel.repaint();
 	}
@@ -113,8 +114,8 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		gCPanelGiveActionTool.processEvent(e);
 		if(gCPanelGiveActionTool.getMaster()==null) {
-			GlobalData.getNowTool().processEvent(e);
-			Vector<GraphicComponent> Components = GCStorage.getGCVector();
+			ToolData.getNowTool().processEvent(e);
+			Vector<GraphicComponent> Components = GCStorage_Normal.getGCVector();
 			Point2D.Float nowPoint = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());
 			for(int i=Components.size()-1; i>-1; i--) {
 				if(Components.get(i).getAShape().isSelected(Components.get(i), nowPoint)) {

@@ -5,10 +5,11 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 
 import component_Stuff.GraphicComponent;
-import data.GCStorage;
-import data.GlobalData;
+import data.GCStorage_Normal;
+import data.GCStorage_Selected;
+import data.ShapeData;
+import data.ToolData;
 import doUndo.RedoUndo;
-import function_Paint.Paint_NormalIMG;
 import function_Paint.Paint_TextWrite;
 import function_Shape.Shape_Mover;
 import function_Shape.Shape_Resizer;
@@ -28,36 +29,36 @@ public class PDRShapeDrawTool extends ATool{
 	
 	public void mousePressed(MouseEvent e) {
 		if(e.getButton()==MouseEvent.BUTTON1) {//우클릭으로 화면 이동하면서 그릴 수 있게 함.
-			GCStorage.clearSelected();
+			GCStorage_Selected.clearSelected();
 			GCData = new GraphicComponent();
 			GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 			GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
-			GCData.setAShape(GlobalData.getNowShapeMaker());
+			GCData.setAShape(ShapeData.getNowShapeMaker());
 			GCData.addFunction(new Shape_Mover());
 			GCData.addFunction(new Shape_Rotator());
 			GCData.addFunction(new Shape_Resizer());
 			GCData.addFunction(new Paint_TextWrite());
 			setShape(GCData);
-			GCStorage.addNewGC(GCData);
+			GCStorage_Normal.addNewGC(GCData);
 		}
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		GCStorage.getLastGC().setLastPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
-		setShape(GCStorage.getLastGC());
+		GCStorage_Normal.getLastGC().setLastPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
+		setShape(GCStorage_Normal.getLastGC());
 	}
 
 	protected void setShape(GraphicComponent shapeData) {
-		shapeData.setShape(GlobalData.getNowShapeMaker().newShape(shapeData.getPoints()));
+		shapeData.setShape(ShapeData.getNowShapeMaker().newShape(shapeData.getPoints()));
 	}
 	
 	public void mouseReleased(MouseEvent e) {
 		if(e.getButton()==MouseEvent.BUTTON1) {
-			Rectangle rect = GCStorage.getLastGC().getShape().getBounds();
-			GCStorage.getLastGC().setCenter(new Point2D.Float(rect.x+rect.width/2, rect.y+rect.height/2));
-			GCStorage.addSelectedGC(GCStorage.getLastGC());
+			Rectangle rect = GCStorage_Normal.getLastGC().getShape().getBounds();
+			GCStorage_Normal.getLastGC().setCenter(new Point2D.Float(rect.x+rect.width/2, rect.y+rect.height/2));
+			GCStorage_Selected.addSelectedGC(GCStorage_Normal.getLastGC());
 			AnchorPaint.on();
-			GlobalData.setNowTool(eTool.eHandTool.getATool());
+			ToolData.setNowTool(eTool.eHandTool.getATool());
 			RedoUndo.saveNowInHistory();
 		}
 	}

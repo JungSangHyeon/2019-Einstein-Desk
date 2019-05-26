@@ -4,7 +4,8 @@ import java.awt.event.MouseEvent;
 import java.util.Vector;
 
 import component_Stuff.GraphicComponent;
-import data.GCStorage;
+import data.GCStorage_Normal;
+import data.GCStorage_Selected;
 import dragAndDrop.DragAndDropManager;
 import function_Stuff.ATool;
 import moveAndZoom.DrawingPanelMoveAndZoom;
@@ -20,18 +21,18 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 		findMaster(e);//set master
 		if(Ctrl.isOn()) {
 			if(master!=null) {
-				if(master.isSelected()) {GCStorage.removeSelectedGC(master);}
-				else {GCStorage.addSelectedGC(master);}
+				if(master.isSelected()) {GCStorage_Selected.removeSelectedGC(master);}
+				else {GCStorage_Selected.addSelectedGC(master);}
 			}
 		}else if(master==null) {//press on back ground
-			GCStorage.clearSelected();
+			GCStorage_Selected.clearSelected();
 			areaSelect = true;
 		}else if(!master.isSelected()) {//press on new GC
-			GCStorage.clearSelected();
-			GCStorage.addSelectedGC(master);
+			GCStorage_Selected.clearSelected();
+			GCStorage_Selected.addSelectedGC(master);
 		}else {//press on selected GC
-			GCStorage.removeSelectedGC(master);
-			GCStorage.addSelectedGC(master);
+			GCStorage_Selected.removeSelectedGC(master);
+			GCStorage_Selected.addSelectedGC(master);
 		}
 		
 		if(e.getButton() == MouseEvent.BUTTON2) {
@@ -61,7 +62,7 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 	}
 	
 	private void findMaster(MouseEvent e) {//TODO
-		Vector<GraphicComponent> Components = GCStorage.getGCVector();
+		Vector<GraphicComponent> Components = GCStorage_Normal.getGCVector();
 		for(int i=Components.size()-1; i>-1; i--) {
 			if(Components.get(i).isSelected()&&Components.get(i).isTopSelected(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
 				master = Components.get(i);
@@ -78,8 +79,8 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 	
 	private void basicAction(MouseEvent e) {
 		if(!areaSelect) {
-			if(GCStorage.getSelectedGCVector().size()>0) {//이거 지금 선택된 애가 맨뒤로 들어가게 해놨음.
-				GCStorage.getSelectedGCVector().lastElement().processEvent(e);
+			if(GCStorage_Selected.getSelectedGCVector().size()>0) {//이거 지금 선택된 애가 맨뒤로 들어가게 해놨음.
+				GCStorage_Selected.getSelectedGCVector().lastElement().processEvent(e);
 			}
 		}
 		else {areaSelectRect.processEvent(e);}

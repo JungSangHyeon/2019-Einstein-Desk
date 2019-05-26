@@ -16,7 +16,8 @@ import java.io.Serializable;
 import javax.swing.JPanel;
 
 import component_Stuff.GraphicComponent;
-import data.GCStorage;
+import data.GCStorage_Normal;
+import data.GCStorage_Selected;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import onOff.AnchorPaint;
 import zFunction_Stuff.AFunction;
@@ -37,7 +38,7 @@ public class Shape_Rotator extends AFunction implements Serializable{
 	}
 	
 	public void mousePressed(MouseEvent e) {//아래 if제거 생각.
-		if(GCStorage.have(master)) {dragStart = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());}//패널은 이거.
+		if(GCStorage_Normal.have(master)) {dragStart = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());}//패널은 이거.
 		else {dragStart = new Point2D.Float(e.getXOnScreen(), e.getYOnScreen());}//acontainer는 이거.
 		if(anchor!=null&&anchor.contains(dragStart)) {rotateOn = true;}
 	}
@@ -96,7 +97,7 @@ public class Shape_Rotator extends AFunction implements Serializable{
 			Point2D.Float center = master.getCenter();//모드로 나눌 수 있겠다. 각자의 센터 || 하나의 센터.
 			double rotationAngle = computeRotationAngle(center, dragStart, nowPoint);
 			
-			for(GraphicComponent gc : GCStorage.getSelectedGCVector()) {
+			for(GraphicComponent gc : GCStorage_Selected.getSelectedGCVector()) {
 				AffineTransform at = new AffineTransform();//get AT
 				at.setToRotation(Math.toRadians(rotationAngle), gc.getCenter().getX(), gc.getCenter().getY());
 				gc.setShape(at.createTransformedShape(gc.getShape()));//Rotate Shape

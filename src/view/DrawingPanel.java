@@ -1,21 +1,22 @@
 package view;
 
-import java.awt.Graphics; 
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.KeyboardFocusManager;
 import java.awt.RenderingHints;
+import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.awt.geom.AffineTransform;
 
 import javax.swing.JPanel;
 
 import GCPanel.HighlightSettingGCPanel;
 import GCPanel.PenSettingGCPanel;
-import GCPanel_Storage.GCPanelStorage;
+import GCPanel.ShapeSettingGCPanel;
+import GCPanel.ToolSelectGCPanel;
 import component_Stuff.GraphicComponent;
-import data.GCStorage;
-import dragAndDrop.DragAndDropManager;
+import data.GCPanelStorage;
+import data.GCStorage_Normal;
 import eventListener.DrawingPanelMouseHadler;
 import eventListener.KeyDispatcher;
 import function_Paint.Paint_TextWrite_Stuff;
@@ -26,10 +27,6 @@ import shape.pen;
 
 @SuppressWarnings("serial")
 public class DrawingPanel extends JPanel {
-	
-//	Vector<AContainer> containers;
-//	ToolSelectContainer toolSelector;
-//	ShapeSelectContainer shapeSelector;
 	
 	public DrawingPanel() {
 		this.setBackground(eColor.DrawingPanelBackGroundColor.getVal());
@@ -44,36 +41,20 @@ public class DrawingPanel extends JPanel {
 		this.addMouseWheelListener(mouseHandler);
 		this.addMouseListener(mouseHandler);
 		
-//		toolSelector = new ToolSelectContainer();
-//		shapeSelector = new ShapeSelectContainer();
-//		containers = new Vector<AContainer>();
-//		containers.add(toolSelector);
-//		containers.add(shapeSelector);
-//		
-//		for(AContainer container : containers) {this.add(container);}
-		
 		Paint_TextWrite_Stuff.setting();
 		this.add(Paint_TextWrite_Stuff.getFocusArea());
 		this.add(Paint_TextWrite_Stuff.getTextEditArea());
 		
-		HighlightSettingGCPanel c2 = new HighlightSettingGCPanel();
-		this.add(c2);
-		
-		PenSettingGCPanel c3 = new PenSettingGCPanel();
-		this.add(c3);
+		this.add(new ToolSelectGCPanel());
+		this.add(new ShapeSettingGCPanel());
+		this.add(new PenSettingGCPanel());
+		this.add(new HighlightSettingGCPanel());
 	}
 	
-	private void add(GraphicComponent c1) {GCPanelStorage.add(c1);}
-
-	
-	public void initialize() {
-//		for(AContainer container : containers) {container.addMaster(this);}
-	}
-	
+	public void initialize() {}
+	private void add(GraphicComponent gc) {GCPanelStorage.add(gc);}
 	public void ArrangeContainerLocation() {
-//		toolSelector.setLocation(this.getWidth()-toolSelector.getWidth(), 0);//R U
-//		shapeSelector.setLocation(0, 200);//L U
-//		repaint();
+		
 	}
 	
 	public void paint(Graphics g) {
@@ -82,58 +63,22 @@ public class DrawingPanel extends JPanel {
 		
 		super.paint(g2d);
 		paintGC(g2d);
+		paintGCPanel(g2d);
 		
-//		for(AContainer container : containers) {container.paintImg(g2d);}
-		
-		for(GraphicComponent p : GCPanelStorage.getGCPanelVector()) {
-			p.paint(g2d);
-		}
-		
-		if(DragAndDropManager.isDADOn()) {
-			drawDrawingPanelToContainer(g2d);
-			drawContainerToDrawingPanel(g2d);
-		}
 	}
 
+	private void paintGCPanel(Graphics2D g2d) {for(GraphicComponent GCPanel : GCPanelStorage.getGCPanelVector()) {GCPanel.paint(g2d);}}
 	private void paintGC(Graphics2D g2d) {
 		g2d.setTransform(DrawingPanelMoveAndZoom.getAT());
-		for(GraphicComponent gc : GCStorage.getGCVector()) {if(!(gc.getAShape() instanceof pen)) {gc.bottumPaint(g2d);}}//shape
-		for(GraphicComponent gc : GCStorage.getGCVector()) {if(gc.getAShape() instanceof HighlightShape) {gc.bottumPaint(g2d);}}//highlight
-		for(GraphicComponent gc : GCStorage.getGCVector()) {if(!(gc.getAShape() instanceof HighlightShape)&&gc.getAShape() instanceof pen) {gc.bottumPaint(g2d);}}//pen
-		
-		for(GraphicComponent gc : GCStorage.getGCVector()) {if(!(gc.getAShape() instanceof pen)) {gc.paint(g2d);}}//shape
-		for(GraphicComponent gc : GCStorage.getGCVector()) {if(gc.getAShape() instanceof HighlightShape) {gc.paint(g2d);}}//highlight
-		for(GraphicComponent gc : GCStorage.getGCVector()) {if(!(gc.getAShape() instanceof HighlightShape)&&gc.getAShape() instanceof pen) {gc.paint(g2d);}}//pen
-		
-		for(GraphicComponent gc : GCStorage.getGCVector()) {if(!(gc.getAShape() instanceof pen)) {gc.topPaint(g2d);}}//shape
-		for(GraphicComponent gc : GCStorage.getGCVector()) {if(gc.getAShape() instanceof HighlightShape) {gc.topPaint(g2d);}}//highlight
-		for(GraphicComponent gc : GCStorage.getGCVector()) {if(!(gc.getAShape() instanceof HighlightShape)&&gc.getAShape() instanceof pen) {gc.topPaint(g2d);}}//pen
+		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {gc.bottumPaint(g2d);}
+		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {if(!(gc.getAShape() instanceof pen)) {gc.paint(g2d);}}//shape
+		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {if(gc.getAShape() instanceof HighlightShape) {gc.paint(g2d);}}//highlight
+		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {if(!(gc.getAShape() instanceof HighlightShape)&&gc.getAShape() instanceof pen) {gc.paint(g2d);}}//pen
+		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {gc.topPaint(g2d);}
 		g2d.setTransform(new AffineTransform());		
 	}
-
-	private void drawDrawingPanelToContainer(Graphics2D g2d) {
-		if(DragAndDropManager.getComponentMasterPanel()==this&&DragAndDropManager.getDraggingComponent()!=null) {
-			g2d.setTransform(DrawingPanelMoveAndZoom.getAT());
-			DragAndDropManager.getDraggingComponent().paint(g2d);
-			g2d.setTransform(new AffineTransform());
-		}
-	}
-
-	private void drawContainerToDrawingPanel(Graphics2D g2d) {
-//		if(DragAndDropManager.getComponentMasterPanel()!=null&&DragAndDropManager.getComponentMasterPanel()!=this&&DragAndDropManager.getDraggingComponent()!=null) {
-////			AContainer nowDCM = (AContainer)DragAndDropManager.getComponentMasterPanel();
-//			GraphicComponent nowGC = (GraphicComponent) DeepClone.clone(DragAndDropManager.getDraggingComponent());
-//			Rectangle r = nowGC.getShape().getBounds();
-//			nowGC.setShape(new Rectangle(r.x+nowDCM.getLocation().x, r.y+nowDCM.getLocation().y+nowDCM.getNowDeep(), r.width, r.height));
-//			nowGC.paint(g2d);
-//		}
-	}
 	
-	public class componentHandler implements ComponentListener{
+	public class componentHandler extends ComponentAdapter{
 		public void componentResized(ComponentEvent e) {ArrangeContainerLocation();}
-		public void componentHidden(ComponentEvent e) {}
-		public void componentMoved(ComponentEvent e) {}
-		public void componentShown(ComponentEvent e) {}
 	}
-
 }

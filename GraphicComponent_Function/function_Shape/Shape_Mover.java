@@ -15,7 +15,8 @@ import java.io.Serializable;
 import javax.swing.JPanel;
 
 import component_Stuff.GraphicComponent;
-import data.GCStorage;
+import data.GCStorage_Normal;
+import data.GCStorage_Selected;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import onOff.AnchorPaint;
 import zFunction_Stuff.AFunction;
@@ -34,7 +35,7 @@ public class Shape_Mover extends AFunction implements Serializable{//셀렉트 된애
 	}
 	
 	public void mousePressed(MouseEvent e) {//if 제거?
-		if(GCStorage.have(master)) {dragStart = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());}//패널은 이거.
+		if(GCStorage_Normal.have(master)) {dragStart = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());}//패널은 이거.
 		else {dragStart = new Point2D.Float(e.getXOnScreen(), e.getYOnScreen());}//acontainer는 이거.
 		
 		if(master.getAShape().isSelected(master, dragStart)) {//&&master.getShape().contains(dragStart)
@@ -55,7 +56,7 @@ public class Shape_Mover extends AFunction implements Serializable{//셀렉트 된애
 			Point2D.Float nowPoint = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());
 			AffineTransform at = new AffineTransform();
 			at.translate(nowPoint.x-dragStart.x, nowPoint.y-dragStart.y);
-			for(GraphicComponent gc : GCStorage.getSelectedGCVector()) {
+			for(GraphicComponent gc : GCStorage_Selected.getSelectedGCVector()) {
 				gc.setShape(at.createTransformedShape(gc.getShape()));
 				for(Point2D.Float point : gc.getPoints()) {
 					point.setLocation(point.x+nowPoint.x-dragStart.x, point.y+nowPoint.y-dragStart.y);

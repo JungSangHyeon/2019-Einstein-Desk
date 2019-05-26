@@ -10,7 +10,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
 import component_Stuff.GraphicComponent;
-import data.GCStorage;
+import data.GCStorage_Normal;
 import zFunction_Stuff.AFunction;
 
 public class connectLineShapeSetter extends AFunction {
@@ -25,7 +25,7 @@ public class connectLineShapeSetter extends AFunction {
 	}
 
 	public void paintComponent(Graphics2D g, Shape shape) {
-		if(GCStorage.have(startGC)&&GCStorage.have(endGC)) {
+		if(GCStorage_Normal.have(startGC)&&GCStorage_Normal.have(endGC)) {
 			Stroke startStroke = g.getStroke();
 			g.setStroke(new BasicStroke(thick));
 			g.setColor(new Color(255, 192, 0));

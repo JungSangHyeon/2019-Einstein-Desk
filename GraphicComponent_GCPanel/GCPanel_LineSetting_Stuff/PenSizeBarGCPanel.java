@@ -4,14 +4,14 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Stroke;
 
-import data.GlobalData;
+import data.LineData;
 
 public class PenSizeBarGCPanel extends SizeBarAndLine{
 	private static final long serialVersionUID = -1788737516548534624L;
 
-	public void setThick(int thick) {GlobalData.setPenThick(thick/10);}
-	public Color getColor() {return GlobalData.getPenColor();}
+	public void setThick(int thick) {LineData.setPenThick(thick/10);}
+	public Color getColor() {return LineData.getPenColor();}
 	public Stroke getTargetStroke() {
-		return new BasicStroke(GlobalData.getPenThick(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+		return new BasicStroke(LineData.getPenThick(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 	}
 }

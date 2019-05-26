@@ -6,7 +6,8 @@ import java.awt.geom.Point2D;
 import java.util.Vector;
 
 import component_Stuff.GraphicComponent;
-import data.GCStorage;
+import data.GCStorage_Normal;
+import data.GCStorage_Selected;
 import deepClone.DeepClone;
 import doUndo.RedoUndo;
 import moveAndZoom.DrawingPanelMoveAndZoom;
@@ -18,7 +19,7 @@ public class CopyAndPaste {
 	
 	public static void copy() {
 		copyTemp.clear();
-		for (GraphicComponent c : GCStorage.getSelectedGCVector()) {
+		for (GraphicComponent c : GCStorage_Selected.getSelectedGCVector()) {
 			GraphicComponent copyItem = (GraphicComponent)DeepClone.clone(c);
 			copyItem.setSelected(false);
 			copyTemp.add(copyItem);
@@ -26,7 +27,7 @@ public class CopyAndPaste {
 	}
 
 	public static void paste() {
-		GCStorage.clearSelected();
+		GCStorage_Selected.clearSelected();
 		for (GraphicComponent c : copyTemp) {
 			float interval = copyInterval/ DrawingPanelMoveAndZoom.getScale();
 			
@@ -38,8 +39,8 @@ public class CopyAndPaste {
 			c.setShape(at.createTransformedShape(c.getShape()));
 			
 			GraphicComponent copyItem = (GraphicComponent)DeepClone.clone(c);
-			GCStorage.addNewGC(copyItem);
-			GCStorage.addSelectedGC(copyItem);
+			GCStorage_Normal.addNewGC(copyItem);
+			GCStorage_Selected.addSelectedGC(copyItem);
 			copyItem.setSelected(true);
 		}
 		RedoUndo.saveNowInHistory();
