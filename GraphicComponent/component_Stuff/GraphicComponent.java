@@ -3,8 +3,11 @@ package component_Stuff;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.Vector;
@@ -135,14 +138,9 @@ public class GraphicComponent  implements Serializable{
 	}
 	
 	String text = "";
-	public void setText(String text) {
-		this.text=text;
-	}
-	public String getText() {
-		return this.text;
-	}
-	public void suicide() {
-		GCStorage_Normal.removeGC(this);
-	}
+	public void setText(String text) {this.text=text;}
+	public String getText() {return this.text;}
+	
+	public void suicide() {GCStorage_Normal.removeGC(this);}
 	
 }

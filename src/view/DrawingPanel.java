@@ -47,8 +47,8 @@ public class DrawingPanel extends JPanel {
 		
 		this.add(new ToolSelectGCPanel());
 //		this.add(new ShapeSettingGCPanel());
-		this.add(new PenSettingGCPanel());
-		this.add(new HighlightSettingGCPanel());
+//		this.add(new PenSettingGCPanel());
+//		this.add(new HighlightSettingGCPanel());
 	}
 	
 	public void initialize() {}

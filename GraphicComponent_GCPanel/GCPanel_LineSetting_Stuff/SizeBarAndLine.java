@@ -41,7 +41,7 @@ public abstract class SizeBarAndLine extends GraphicComponent{
 	}
 	
 	public SizeBarAndLine() {this.setShape(new Rectangle(0, 0, width, height)); init();}
-	public void setLocation(int x, int y) {this.setShape(new Rectangle(x, y, width, height)); init();}
+	public void setGCLocation(int x, int y) {this.setShape(new Rectangle(x, y, width, height)); init();}
 	private double getX() {return this.getShape().getBounds().getX();}
 	private double getY() {return this.getShape().getBounds().getY();}
 	

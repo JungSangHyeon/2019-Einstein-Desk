@@ -68,7 +68,7 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 		resetView();
 	}
 
-	public void setLocation(int x, int y) {
+	public void setGCLocation(int x, int y) {
 		this.x = x;
 		this.y = y;
 		resetView();
@@ -194,10 +194,12 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 	
 	public void mousePressed(MouseEvent e) {
 		findCurrentShape(e); 
-		basicAction(e);
+//		basicAction(e);
+		if(currentItem!=null) {currentItem.processEvent(e);}
 	}
 	
 	public void mouseReleased(MouseEvent e) {//TODO
+//		basicAction(e);
 		basicAction(e);
 		actionReset(); 
 		//if mouse not in this, drop.
@@ -211,12 +213,12 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 		}
 	}
 	public void mouseMoved(MouseEvent e) {basicAction(e);}
-	public void mouseClicked(MouseEvent e) {basicAction(e);}
+	public void mouseClicked(MouseEvent e) {if(currentItem!=null) {currentItem.processEvent(e);}}
 	
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		if (e.getWheelRotation() > 0) {if(nowDeep>deepLimit) {wheelAction(-1);}}
 		else if(e.getWheelRotation() < 0){if(nowDeep<0) {wheelAction(1);}}
-		basicAction(e);
+		if(currentItem!=null) {currentItem.processEvent(e);}
 	}
 	
 	public void wheelAction(int i) {

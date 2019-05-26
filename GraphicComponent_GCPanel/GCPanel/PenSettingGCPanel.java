@@ -12,17 +12,17 @@ public class PenSettingGCPanel extends GCPanel_LayoutNull{
 	private static final long serialVersionUID = 3141453841486592808L;
 
 	public PenSettingGCPanel() {
-		this.setBounds(1200, 500, 322, 458);
+		this.setBounds(1351, 50, 322, 458);
 		this.setPanelBackgroundColor(new Color(242,242,242));
 		this.setPanelBorderColor(new Color(204,204,204));
 		this.setborderThick(1);
 		
 		PenColorSelectGCPanel colorSelectPanel = new PenColorSelectGCPanel();
-		colorSelectPanel.setLocation(this.getX() + 5, this.getY() + 40);
+		colorSelectPanel.setGCLocation(this.getX() + 5, this.getY() + 40);
 		this.add(colorSelectPanel);
 		
 		PenSizeBarGCPanel sizeBar = new PenSizeBarGCPanel();
-		sizeBar.setLocation(this.getX() + 5, this.getY() + 340);
+		sizeBar.setGCLocation(this.getX() + 5, this.getY() + 340);
 		this.add(sizeBar);
 	}
 	
