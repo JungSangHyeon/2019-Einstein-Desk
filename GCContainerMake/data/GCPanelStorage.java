@@ -2,13 +2,15 @@ package data;
 
 import java.util.Vector;
 
+import component_Stuff.GraphicComponent;
+
 public class GCPanelStorage {
 
-	private static Vector<GCPanel> GCPanelVector = new Vector<GCPanel>();
+	private static Vector<GraphicComponent> GCPanelVector = new Vector<GraphicComponent>();
 	
-	public static void add(GCPanel container) {GCPanelVector.add(container);}
+	public static void add(GraphicComponent container) {GCPanelVector.add(container);}
 	public static void get(int i) {GCPanelVector.get(i);}
 	
-	public static Vector<GCPanel> getGCPanelVector() {return GCPanelVector;}
+	public static Vector<GraphicComponent> getGCPanelVector() {return GCPanelVector;}
 	
 }

@@ -3,7 +3,7 @@ package function_SelectAndEvent;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
 
-import data.GCPanel;
+import component_Stuff.GraphicComponent;
 import data.GCPanelStorage;
 import function_Stuff.ATool;
 
@@ -24,7 +24,7 @@ public class GCPanelGiveActionTool extends ATool{
 	}
 	
 	private void findMaster(MouseEvent e) {
-		Vector<GCPanel> panelVector = GCPanelStorage.getGCPanelVector();
+		Vector<GraphicComponent> panelVector = GCPanelStorage.getGCPanelVector();
 		for(int i = panelVector.size()-1; i>-1; i--) {
 			if(panelVector.get(i).getShape().contains(e.getPoint())) {
 				master = panelVector.get(i);

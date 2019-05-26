@@ -18,16 +18,17 @@ import container.PenSettingPanel;
 import container.ShapeSelectContainer;
 import container.ToolSelectContainer;
 import container_Stuff.AContainer;
-import data.GCPanel;
 import data.GCPanelStorage;
 import data.GCStorage;
 import data.testContainer1;
+import data.testContainer2;
 import deepClone.DeepClone;
 import dragAndDrop.DragAndDropManager;
 import eventListener.DrawingPanelMouseHadler;
 import eventListener.KeyDispatcher;
 import function_Paint.Paint_TextWrite_Stuff;
 import global.InjectEnums.eColor;
+import lineSetting_Stuff.HighlightColorSelectPanelTESTTTTTT;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import shape.HighlightShape;
 import shape.pen;
@@ -74,9 +75,15 @@ public class DrawingPanel extends JPanel {
 		
 		testContainer1 c1 = new testContainer1();
 		this.add(c1);
+		
+		testContainer2 c2 = new testContainer2();
+		this.add(c2);
+		
+//		HighlightColorSelectPanelTESTTTTTT c3 = new HighlightColorSelectPanelTESTTTTTT();
+//		this.add(c3);
 	}
 	
-	private void add(GCPanel c1) {GCPanelStorage.add(c1);}
+	private void add(GraphicComponent c1) {GCPanelStorage.add(c1);}
 
 	PenSettingPanel psp;
 	HighlightSettingPanel hsp;
@@ -102,7 +109,7 @@ public class DrawingPanel extends JPanel {
 		psp.paint(g2d);
 		hsp.paint(g2d);
 		
-		for(GCPanel p : GCPanelStorage.getGCPanelVector()) {
+		for(GraphicComponent p : GCPanelStorage.getGCPanelVector()) {
 			p.paint(g2d);
 		}
 		

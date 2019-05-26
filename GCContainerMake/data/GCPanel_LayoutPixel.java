@@ -17,7 +17,7 @@ import deepClone.DeepClone;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import shape_Stuff.eShape;
 
-public abstract class GCPanel extends GraphicComponent implements Serializable{//호호 드럽다. 
+public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Serializable{//호호 드럽다. 
 	private static final long serialVersionUID = -9220238498788652662L;
 	
 	//System
@@ -61,7 +61,7 @@ public abstract class GCPanel extends GraphicComponent implements Serializable{/
 		return new Rectangle(x+wGap+(pixelW+wGap)*location.x, y+hGap+(pixelH+hGap)*location.y, pixelW, pixelH);
 	}
 	
-	public GCPanel() {
+	public GCPanel_LayoutPixel() {
 		this.setAShape(eShape.rect.getAShape());
 		this.setFillColor(backGroundColor);
 		this.scrollSpeed = (pixelH+hGap)/speedFactor;
@@ -111,6 +111,15 @@ public abstract class GCPanel extends GraphicComponent implements Serializable{/
 				pixelVector.lastElement().setRect(x+wGap+(pixelW+wGap)*v, y+hGap+(pixelH+hGap)*i, pixelW, pixelH);
 			}
 		}
+		
+		//Update Item
+		Vector <ItemTest> itemVectorTemp = new Vector <ItemTest>();
+		for(ItemTest item : itemVector) {
+			findSeatFor(item);
+			itemVectorTemp.add(item);
+		}
+		itemVector.clear();
+		itemVector.addAll(itemVectorTemp);
 	}
 	
 	public void add(GraphicComponent gc) {
@@ -211,7 +220,6 @@ public abstract class GCPanel extends GraphicComponent implements Serializable{/
 	
 	public void mouseReleased(MouseEvent e) {//TODO
 		actionReset(); basicAction(e);
-		System.out.println("release");
 		//if mouse not in this, drop.
 	}
 	
