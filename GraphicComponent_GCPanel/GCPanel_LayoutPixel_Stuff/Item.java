@@ -1,4 +1,4 @@
-package data;
+package GCPanel_LayoutPixel_Stuff;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -9,21 +9,21 @@ import java.io.Serializable;
 import component_Stuff.GraphicComponent;
 import deepClone.DeepClone;
 
-public class ItemTest  implements Serializable{
+public class Item  implements Serializable{
 	private static final long serialVersionUID = 6702642196441912004L;
 	
 	boolean bornInContainer = true;
 	GraphicComponent realGC, inContainerGC;
-	PixelTest ownPT;
+	Pixel ownPT;
 	
-	public ItemTest(GraphicComponent gc) {
+	public Item(GraphicComponent gc) {
 		this.realGC=gc;
 		this.inContainerGC = (GraphicComponent) DeepClone.clone(gc);
 		if(gc.getShape()!=null) {bornInContainer = false;}
 	}
 	
-	public void setOwnPixel(PixelTest pt) {ownPT = pt;}
-	public PixelTest getOwnPixel() {return ownPT;}
+	public void setOwnPixel(Pixel pt) {ownPT = pt;}
+	public Pixel getOwnPixel() {return ownPT;}
 	public void paint(Graphics2D g2) {
 		inContainerGC.paint(g2);
 	}

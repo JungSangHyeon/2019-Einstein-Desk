@@ -1,34 +1,25 @@
 package view;
 
-import java.awt.Graphics;
+import java.awt.Graphics; 
 import java.awt.Graphics2D;
 import java.awt.KeyboardFocusManager;
-import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.geom.AffineTransform;
-import java.util.Vector;
 
 import javax.swing.JPanel;
 
+import GCPanel.HighlightSettingGCPanel;
+import GCPanel.PenSettingGCPanel;
+import GCPanel_Storage.GCPanelStorage;
 import component_Stuff.GraphicComponent;
-import container.HighlightSettingPanel;
-import container.PenSettingPanel;
-import container.ShapeSelectContainer;
-import container.ToolSelectContainer;
-import container_Stuff.AContainer;
-import data.GCPanelStorage;
 import data.GCStorage;
-import data.testContainer1;
-import data.testContainer2;
-import deepClone.DeepClone;
 import dragAndDrop.DragAndDropManager;
 import eventListener.DrawingPanelMouseHadler;
 import eventListener.KeyDispatcher;
 import function_Paint.Paint_TextWrite_Stuff;
 import global.InjectEnums.eColor;
-import lineSetting_Stuff.HighlightColorSelectPanelTESTTTTTT;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import shape.HighlightShape;
 import shape.pen;
@@ -36,9 +27,9 @@ import shape.pen;
 @SuppressWarnings("serial")
 public class DrawingPanel extends JPanel {
 	
-	Vector<AContainer> containers;
-	ToolSelectContainer toolSelector;
-	ShapeSelectContainer shapeSelector;
+//	Vector<AContainer> containers;
+//	ToolSelectContainer toolSelector;
+//	ShapeSelectContainer shapeSelector;
 	
 	public DrawingPanel() {
 		this.setBackground(eColor.DrawingPanelBackGroundColor.getVal());
@@ -53,49 +44,36 @@ public class DrawingPanel extends JPanel {
 		this.addMouseWheelListener(mouseHandler);
 		this.addMouseListener(mouseHandler);
 		
-		toolSelector = new ToolSelectContainer();
-		shapeSelector = new ShapeSelectContainer();
-		containers = new Vector<AContainer>();
-		containers.add(toolSelector);
-		containers.add(shapeSelector);
-		
-		for(AContainer container : containers) {this.add(container);}
-		
-		psp = new PenSettingPanel();
-		psp.setLocation(1351,50);
-		this.add(psp);
-		
-		hsp = new HighlightSettingPanel();
-		hsp.setLocation(1399,50);//ȣȣȣ
-		this.add(hsp);
+//		toolSelector = new ToolSelectContainer();
+//		shapeSelector = new ShapeSelectContainer();
+//		containers = new Vector<AContainer>();
+//		containers.add(toolSelector);
+//		containers.add(shapeSelector);
+//		
+//		for(AContainer container : containers) {this.add(container);}
 		
 		Paint_TextWrite_Stuff.setting();
 		this.add(Paint_TextWrite_Stuff.getFocusArea());
 		this.add(Paint_TextWrite_Stuff.getTextEditArea());
 		
-		testContainer1 c1 = new testContainer1();
-		this.add(c1);
-		
-		testContainer2 c2 = new testContainer2();
+		HighlightSettingGCPanel c2 = new HighlightSettingGCPanel();
 		this.add(c2);
 		
-//		HighlightColorSelectPanelTESTTTTTT c3 = new HighlightColorSelectPanelTESTTTTTT();
-//		this.add(c3);
+		PenSettingGCPanel c3 = new PenSettingGCPanel();
+		this.add(c3);
 	}
 	
 	private void add(GraphicComponent c1) {GCPanelStorage.add(c1);}
 
-	PenSettingPanel psp;
-	HighlightSettingPanel hsp;
 	
 	public void initialize() {
-		for(AContainer container : containers) {container.addMaster(this);}
+//		for(AContainer container : containers) {container.addMaster(this);}
 	}
 	
 	public void ArrangeContainerLocation() {
-		toolSelector.setLocation(this.getWidth()-toolSelector.getWidth(), 0);//R U
-		shapeSelector.setLocation(0, 200);//L U
-		repaint();
+//		toolSelector.setLocation(this.getWidth()-toolSelector.getWidth(), 0);//R U
+//		shapeSelector.setLocation(0, 200);//L U
+//		repaint();
 	}
 	
 	public void paint(Graphics g) {
@@ -105,9 +83,7 @@ public class DrawingPanel extends JPanel {
 		super.paint(g2d);
 		paintGC(g2d);
 		
-		for(AContainer container : containers) {container.paintImg(g2d);}
-		psp.paint(g2d);
-		hsp.paint(g2d);
+//		for(AContainer container : containers) {container.paintImg(g2d);}
 		
 		for(GraphicComponent p : GCPanelStorage.getGCPanelVector()) {
 			p.paint(g2d);
@@ -144,13 +120,13 @@ public class DrawingPanel extends JPanel {
 	}
 
 	private void drawContainerToDrawingPanel(Graphics2D g2d) {
-		if(DragAndDropManager.getComponentMasterPanel()!=null&&DragAndDropManager.getComponentMasterPanel()!=this&&DragAndDropManager.getDraggingComponent()!=null) {
-			AContainer nowDCM = (AContainer)DragAndDropManager.getComponentMasterPanel();
-			GraphicComponent nowGC = (GraphicComponent) DeepClone.clone(DragAndDropManager.getDraggingComponent());
-			Rectangle r = nowGC.getShape().getBounds();
-			nowGC.setShape(new Rectangle(r.x+nowDCM.getLocation().x, r.y+nowDCM.getLocation().y+nowDCM.getNowDeep(), r.width, r.height));
-			nowGC.paint(g2d);
-		}
+//		if(DragAndDropManager.getComponentMasterPanel()!=null&&DragAndDropManager.getComponentMasterPanel()!=this&&DragAndDropManager.getDraggingComponent()!=null) {
+////			AContainer nowDCM = (AContainer)DragAndDropManager.getComponentMasterPanel();
+//			GraphicComponent nowGC = (GraphicComponent) DeepClone.clone(DragAndDropManager.getDraggingComponent());
+//			Rectangle r = nowGC.getShape().getBounds();
+//			nowGC.setShape(new Rectangle(r.x+nowDCM.getLocation().x, r.y+nowDCM.getLocation().y+nowDCM.getNowDeep(), r.width, r.height));
+//			nowGC.paint(g2d);
+//		}
 	}
 	
 	public class componentHandler implements ComponentListener{

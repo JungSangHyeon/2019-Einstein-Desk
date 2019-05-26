@@ -8,7 +8,6 @@
 	<classpathentry kind="src" path="Function_Mouse"/>
 	<classpathentry kind="src" path="GraphicComponent"/>
 	<classpathentry kind="src" path="GraphicComponent_Function"/>
-	<classpathentry kind="src" path="GraphicComponent_Container"/>
-	<classpathentry kind="src" path="GCContainerMake"/>
+	<classpathentry kind="src" path="GraphicComponent_GCPanel"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

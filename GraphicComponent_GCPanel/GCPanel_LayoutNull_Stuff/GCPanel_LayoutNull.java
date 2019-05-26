@@ -1,4 +1,4 @@
-package data;
+package GCPanel_LayoutNull_Stuff;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -49,9 +49,7 @@ public abstract class GCPanel_LayoutNull extends GraphicComponent implements Ser
 	@Override
 	public void paint(Graphics2D g2d) {
 		super.paint(g2d);
-		for(GraphicComponent gc : gcVector) {
-			gc.paint(g2d);
-		}
+		for(GraphicComponent gc : gcVector) {gc.paint(g2d);}
 	}
 	
 	public void mouseWheelMoved(MouseWheelEvent e) {findMasterAndGiveEvent(e);}
@@ -60,8 +58,6 @@ public abstract class GCPanel_LayoutNull extends GraphicComponent implements Ser
 	public void mouseMoved(MouseEvent e) {giveEventToAll(e);}
 	public void mouseDragged(MouseEvent e) {giveEventToMaster(e);}
 	public void mouseReleased(MouseEvent e) {giveEventToMaster(e);}
-	public void mouseEntered(MouseEvent e) {}
-	public void mouseExited(MouseEvent e) {}
 	
 	private void findMasterAndGiveEvent(MouseEvent e) {
 		findMaster(e);
@@ -92,4 +88,6 @@ public abstract class GCPanel_LayoutNull extends GraphicComponent implements Ser
 		default : break;
 		}
 	}
+	public void mouseEntered(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {}
 }

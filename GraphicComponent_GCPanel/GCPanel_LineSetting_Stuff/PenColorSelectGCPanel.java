@@ -1,24 +1,25 @@
-package lineSetting_Stuff;
+package GCPanel_LineSetting_Stuff;
 
 import java.awt.Color;
 
+import GCPanel_LayoutPixel_Stuff.GCPanel_LayoutPixel;
 import component_Stuff.GraphicComponent;
-import container_Stuff.AContainer;
 import function_Data.Data_ColorCircle_Pen;
 import function_Shape.Shape_Mover;
 import global.ColorConstant;
+import shape_Stuff.eShape;
 
 @SuppressWarnings("serial")
-public class PenColorSelectPanel extends AContainer {
+public class PenColorSelectGCPanel extends GCPanel_LayoutPixel {
 
-	static int pixelWH = 52; 
-	
-	public PenColorSelectPanel() {
-		super(pixelWH, pixelWH, 6, 5, 0, 0);
+	int pixelWH = 52; 
+	public PenColorSelectGCPanel() {
+		this.setPixelSize(pixelWH, pixelWH);
+		this.setPixelGap(0, 0);
+		this.setSize(6, 5);
 		this.setItemDraggable(false);
-
 		for(Color c : ColorConstant.penColors) {
-			this.addItem(makeColorSelectCircle(c));
+			this.add(makeColorSelectCircle(c));
 		}
 	}
 
@@ -27,9 +28,9 @@ public class PenColorSelectPanel extends AContainer {
 		GC.setBorderPaint(false);
 		GC.setFillPaint(false);
 		
+		GC.setAShape(eShape.rect.getAShape());
 		GC.addFunction(new Data_ColorCircle_Pen(c, pixelWH));
 		GC.addFunction(new Shape_Mover());
 		return GC;
 	}
-
 }

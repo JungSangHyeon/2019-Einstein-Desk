@@ -1,7 +1,5 @@
 package zFunction_Stuff;
 
-import function_Data.Data_ShapeSelect;
-
 public enum eFunction {
 	
 //	eData_ShapeSelect(new Data_ShapeSelect()),
