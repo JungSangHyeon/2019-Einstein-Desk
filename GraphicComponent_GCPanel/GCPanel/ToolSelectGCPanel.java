@@ -5,6 +5,8 @@ import component.ShapeSelectItems;
 import component.ShapeSelectItems.eShapeSelectItem;
 import component.ToolSelectItems;
 import component.ToolSelectItems.eToolSelectItem;
+import component_Stuff.GraphicComponent;
+import function_Paint.Paint_GCShowUp;
 
 @SuppressWarnings("serial")
 public class ToolSelectGCPanel extends GCPanel_LayoutPixel {
@@ -18,10 +20,16 @@ public class ToolSelectGCPanel extends GCPanel_LayoutPixel {
 		
 		this.setItemDraggable(false);
 
-		this.add(ShapeSelectItems.getLineItem(eShapeSelectItem.eFreeLineItem));
-		this.add(ShapeSelectItems.getLineItem(eShapeSelectItem.eFreeHighlightItem));
+		this.add(ShapeSelectItems.getPenItem(eShapeSelectItem.eFreeLineItem));
+		this.add(ShapeSelectItems.getHighlightItem(eShapeSelectItem.eFreeHighlightItem));
+		
 		this.add(ToolSelectItems.getGCItem(eToolSelectItem.eEraserToolItem));
-		this.add(ToolSelectItems.getGCItem(eToolSelectItem.eShapeToolItem));
+		
+		GraphicComponent gc = ToolSelectItems.getGCItem(eToolSelectItem.eShapeToolItem);
+		gc.addFunction(new Paint_GCShowUp(new ShapeSettingGCPanel()));
+		this.add(gc);
+		
+		
 		this.add(ToolSelectItems.getGCItem(eToolSelectItem.eHandToolItem));
 		this.add(ToolSelectItems.getGCItem(eToolSelectItem.eBackItem));
 		this.add(ToolSelectItems.getGCItem(eToolSelectItem.eFrontItem));

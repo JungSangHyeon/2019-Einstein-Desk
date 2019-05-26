@@ -46,16 +46,14 @@ public class DrawingPanel extends JPanel {
 		this.add(Paint_TextWrite_Stuff.getTextEditArea());
 		
 		this.add(new ToolSelectGCPanel());
-		this.add(new ShapeSettingGCPanel());
+//		this.add(new ShapeSettingGCPanel());
 		this.add(new PenSettingGCPanel());
 		this.add(new HighlightSettingGCPanel());
 	}
 	
 	public void initialize() {}
 	private void add(GraphicComponent gc) {GCPanelStorage.add(gc);}
-	public void ArrangeContainerLocation() {
-		
-	}
+	public void ArrangeContainerLocation() {}
 	
 	public void paint(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;
@@ -64,7 +62,6 @@ public class DrawingPanel extends JPanel {
 		super.paint(g2d);
 		paintGC(g2d);
 		paintGCPanel(g2d);
-		
 	}
 
 	private void paintGCPanel(Graphics2D g2d) {for(GraphicComponent GCPanel : GCPanelStorage.getGCPanelVector()) {GCPanel.paint(g2d);}}

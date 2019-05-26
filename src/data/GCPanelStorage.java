@@ -14,4 +14,7 @@ public class GCPanelStorage {
 	//Get
 	public static void get(int i) {GCPanelVector.get(i);}
 	public static Vector<GraphicComponent> getGCPanelVector() {return GCPanelVector;}
+
+	//Remove
+	public static void remove(GraphicComponent gc) {GCPanelVector.remove(gc);}
 }

@@ -3,11 +3,11 @@ package component;
 import component_Stuff.GraphicComponent;
 import function_Data.Data_ShapeSelect;
 import function_Data.Data_ToolSelector;
+import function_Paint.Paint_HighlightColorBGPaint;
 import function_Paint.Paint_NormalIMG;
 import function_Paint.Paint_penColorBGPaint;
 import function_Paint.Paint_showMouseOnMe;
 import function_Paint.Paint_showSelectedTool;
-import function_Shape.Shape_Mover;
 import function_Shape.Shape_MoverWeak;
 import shape_Stuff.AShape;
 import shape_Stuff.eShape;
@@ -52,7 +52,7 @@ public class ShapeSelectItems {
 		return GC;
 	}
 	
-	public static GraphicComponent getLineItem(eShapeSelectItem item) {
+	public static GraphicComponent getPenItem(eShapeSelectItem item) {
 		GraphicComponent GC = new GraphicComponent();
 		GC.setBorderPaint(false);
 		GC.setFillPaint(false);
@@ -64,7 +64,20 @@ public class ShapeSelectItems {
 		GC.setAShape(eShape.rect.getAShape());
 		GC.addFunction(new Paint_showSelectedTool());
 		GC.addFunction(new Paint_showMouseOnMe());
-		GC.addFunction(new Shape_Mover());
+		return GC;
+	}
+	public static GraphicComponent getHighlightItem(eShapeSelectItem item) {
+		GraphicComponent GC = new GraphicComponent();
+		GC.setBorderPaint(false);
+		GC.setFillPaint(false);
+		
+		GC.addFunction(new Data_ToolSelector(item.getSelectShape().getDrawer()));//순서 중요함. 페인트의 경우 덧 그려짐
+		GC.addFunction(new Data_ShapeSelect(item.getSelectShape()));
+		GC.addFunction(new Paint_HighlightColorBGPaint());
+		GC.addFunction(item.getPainter());
+		GC.setAShape(eShape.rect.getAShape());
+		GC.addFunction(new Paint_showSelectedTool());
+		GC.addFunction(new Paint_showMouseOnMe());
 		return GC;
 	}
 }

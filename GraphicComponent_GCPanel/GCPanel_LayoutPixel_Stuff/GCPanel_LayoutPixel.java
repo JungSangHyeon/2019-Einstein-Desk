@@ -229,7 +229,11 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 	}
 	
 	public void basicAction(MouseEvent e) {
-		for(Item i : itemVector) {i.processEvent(e);}
+		for(Item i : itemVector) {
+			if(i!=currentItem) {
+				i.processEvent(e);
+			}
+			}
 		if(currentItem!=null) {currentItem.processEvent(e);}
 		if(copyCurrentItem!=null) {copyCurrentItem.processEvent(e);}
 	}

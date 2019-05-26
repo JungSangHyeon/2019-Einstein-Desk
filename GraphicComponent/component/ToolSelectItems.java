@@ -41,7 +41,6 @@ public class ToolSelectItems {
 		GC.setAShape(eShape.rect.getAShape());
 		GC.addFunction(new Paint_showSelectedTool());
 		GC.addFunction(new Paint_showMouseOnMe());
-		GC.addFunction(new Shape_Mover());
 		return GC;
 	}
 	

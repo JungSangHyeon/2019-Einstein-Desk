@@ -90,22 +90,13 @@ public class ColorConstant {
 	};
 	
 	
-//	public static final Color[] highlightColors = {
-//			new Color(255, 230, 0)
-//			, new Color(38, 230, 0)
-//			, new Color(68, 200, 245)
-//			, new Color(236, 0, 140)
-//			, new Color(255, 85, 0)
-//			, new Color(102, 0, 204)
-//	};
-	static int f = 200;
 	public static final Color[] highlightColors = {
-			new Color(255, 230, 0, f)
-			, new Color(38, 230, 0, f)
-			, new Color(68, 200, 245, f)
-			, new Color(236, 0, 140, f)
-			, new Color(255, 85, 0, f)
-			, new Color(102, 0, 204, f)
+			new Color(255, 230, 0)
+			, new Color(38, 230, 0)
+			, new Color(68, 200, 245)
+			, new Color(236, 0, 140)
+			, new Color(255, 85, 0)
+			, new Color(102, 0, 204)
 	};
 			
 	public static final Color[] penColors = {

@@ -7,12 +7,12 @@ import java.awt.event.MouseEvent;
 import data.LineData;
 import zFunction_Stuff.AFunction;
 
-public class Paint_penColorBGPaint extends AFunction{
+public class Paint_HighlightColorBGPaint extends AFunction{
 	private static final long serialVersionUID = 5046938002818853280L;
 
 	public void paintComponent(Graphics2D g, Shape shape) {//¿Ã∞‘ πª±Ó?
 		Graphics2D g2d = (Graphics2D)g;
-		g2d.setColor(LineData.getPenColor());
+		g2d.setColor(LineData.getHighlightColor());
 		g2d.fill(shape);
 	}
 	
