@@ -10,9 +10,6 @@ import java.awt.geom.AffineTransform;
 
 import javax.swing.JPanel;
 
-import GCPanel.HighlightSettingGCPanel;
-import GCPanel.PenSettingGCPanel;
-import GCPanel.ShapeSettingGCPanel;
 import GCPanel.ToolSelectGCPanel;
 import component_Stuff.GraphicComponent;
 import data.GCPanelStorage;
@@ -46,9 +43,6 @@ public class DrawingPanel extends JPanel {
 		this.add(Paint_TextWrite_Stuff.getTextEditArea());
 		
 		this.add(new ToolSelectGCPanel());
-//		this.add(new ShapeSettingGCPanel());
-//		this.add(new PenSettingGCPanel());
-//		this.add(new HighlightSettingGCPanel());
 	}
 	
 	public void initialize() {}

@@ -21,7 +21,7 @@ public class ConnectTool extends ATool{
 		if(e.getButton()==MouseEvent.BUTTON1) {
 			//Find Start GC
 			for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {
-				if(gc.getAShape().isSelected(gc, DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
+				if(gc.getAShape().thisGCIsSelected(gc, DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
 					startGC = gc;
 					haveStartGC = true;
 					break;
@@ -53,7 +53,7 @@ public class ConnectTool extends ATool{
 		if(e.getButton()==MouseEvent.BUTTON1&&haveStartGC) {
 			//Find End GC
 			for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {
-				if(gc.getAShape().isSelected(gc, DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
+				if(gc.getAShape().thisGCIsSelected(gc, DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
 					endGC = gc;
 					haveEndGC = true;
 					break;

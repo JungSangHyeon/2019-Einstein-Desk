@@ -13,6 +13,6 @@ public abstract class AShape implements Serializable {
 	
 	public abstract Shape newShape(Vector<Point2D.Float> points);
 	public abstract ATool getDrawer();
-	public abstract boolean isSelected(GraphicComponent gc, Point2D.Float point);
+	public abstract boolean thisGCIsSelected(GraphicComponent gc, Point2D.Float point);
 	
 }

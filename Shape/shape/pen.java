@@ -32,7 +32,7 @@ public class pen extends APDRShape{
 	public ATool getDrawer() {return eTool.ePenDrawTool.getATool();}
 	
 	@Override
-	public boolean isSelected(GraphicComponent gc, Point2D.Float point) {
+	public boolean thisGCIsSelected(GraphicComponent gc, Point2D.Float point) {
 		if(gc.getPoints().get(0).distance(point)<gc.getBorderThick()/2) {return true;}//Á¡®G
 		for(int i=0; i<gc.getPoints().size()-1; i++) {
 			float thick = gc.getBorderThick();

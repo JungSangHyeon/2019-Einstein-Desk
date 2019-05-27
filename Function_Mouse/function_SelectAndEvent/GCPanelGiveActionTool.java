@@ -13,8 +13,8 @@ public class GCPanelGiveActionTool extends ATool{
 	public void mouseWheelMoved(MouseEvent e) {findMasterAndGiveEvent(e);}
 	public void mousePressed(MouseEvent e) {findMasterAndGiveEvent(e);}
 	public void mouseClicked(MouseEvent e) {findMasterAndGiveEvent(e);}
-	public void mouseMoved(MouseEvent e) {findMasterAndGiveEvent(e);}
 	
+	public void mouseMoved(MouseEvent e) {findMasterAndGiveEvent(e);}
 	public void mouseDragged(MouseEvent e) {giveEventToMaster(e);}
 	public void mouseReleased(MouseEvent e) {giveEventToMaster(e);}
 	
@@ -22,6 +22,8 @@ public class GCPanelGiveActionTool extends ATool{
 		findMaster(e);
 		giveEventToMaster(e);
 	}
+	
+	public boolean isTakeEvent() {return master!=null;}
 	
 	private void findMaster(MouseEvent e) {
 		Vector<GraphicComponent> panelVector = GCPanelStorage.getGCPanelVector();

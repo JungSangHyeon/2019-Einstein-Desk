@@ -18,7 +18,7 @@ public class StraightLineShape extends APDRShape{
 	}
 	
 	@Override
-	public boolean isSelected(GraphicComponent gc, Point2D.Float p) {
+	public boolean thisGCIsSelected(GraphicComponent gc, Point2D.Float p) {
 		if(gc.getPoints().get(0).distance(p)<gc.getBorderThick()/2) {return true;}
 		for(int i=0; i<gc.getPoints().size()-1; i++) {
 			if(Calculator.distanceLineNPoint(gc.getPoints().get(i), gc.getPoints().get(i+1), p)<gc.getBorderThick()/2) {return true;}

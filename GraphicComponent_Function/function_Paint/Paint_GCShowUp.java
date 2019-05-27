@@ -1,7 +1,6 @@
 package function_Paint;
 
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
 
@@ -18,15 +17,15 @@ public class Paint_GCShowUp extends AFunction{
 	public Paint_GCShowUp(GraphicComponent  gc) {this.gc = gc;}
 	
 	public void paintComponent(Graphics2D g, Shape shape) {
-		if(show) {
-			gc.paint(g);}
+		if(show) {gc.paint(g);}
 	}
 	
 	public void mouseMoved(MouseEvent e) {}
 	public void mouseReleased(MouseEvent e) {}
 	public void mousePressed(MouseEvent e) {
 		show = (!show);
-		if(show) {GCPanelStorage.add(gc);}
+		if(!master.getShape().contains(e.getPoint())) {show=false; GCPanelStorage.remove(gc);}
+		if(show) {GCPanelStorage.remove(gc); GCPanelStorage.add(gc);}
 		else {GCPanelStorage.remove(gc);}
 	}
 	public void mouseClicked(MouseEvent e) {}

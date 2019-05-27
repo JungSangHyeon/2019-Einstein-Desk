@@ -28,7 +28,7 @@ public class PolygonShape extends ACMCShape{
 	}
 	
 	@Override
-	public boolean isSelected(GraphicComponent gc, Point2D.Float point) {
+	public boolean thisGCIsSelected(GraphicComponent gc, Point2D.Float point) {
 		if(gc.getShape().contains(point)) {return true;}
 		if(gc.getPoints().get(0).distance(point)<gc.getBorderThick()/2) {return true;}
 		if(Calculator.distanceLineNPoint(gc.getPoints().get(gc.getPoints().size()-1), gc.getPoints().get(0), point)<gc.getBorderThick()/2) {return true;}

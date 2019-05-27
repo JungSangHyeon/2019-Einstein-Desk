@@ -1,12 +1,14 @@
 package function_SelectAndEvent;
 
+import java.awt.Cursor; 
 import java.awt.event.MouseEvent;
 import java.util.Vector;
+
+import javax.swing.JPanel;
 
 import component_Stuff.GraphicComponent;
 import data.GCStorage_Normal;
 import data.GCStorage_Selected;
-import dragAndDrop.DragAndDropManager;
 import function_Stuff.ATool;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import onOff.Ctrl;
@@ -15,7 +17,7 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 	private static final long serialVersionUID = -7463646428712999248L;
 	
 	AreaSelectTool areaSelectRect = new AreaSelectTool();
-	boolean firstDrag=true, areaSelect = false;
+	boolean areaSelect = false;
 	
 	public void mousePressed(MouseEvent e) {
 		findMaster(e);//set master
@@ -34,32 +36,19 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 			GCStorage_Selected.removeSelectedGC(master);
 			GCStorage_Selected.addSelectedGC(master);
 		}
-		
-		if(e.getButton() == MouseEvent.BUTTON2) {
-			DragAndDropManager.setDADOn(true);
-		}
-		
 		basicAction(e);
 	}
 
-	public void mouseDragged(MouseEvent e) {
-		if (firstDrag) {
-			DragAndDropManager.setDraggingComponent(master);
-			firstDrag = false;
-		}
-		basicAction(e);
-	}
-	
 	public void mouseReleased(MouseEvent e) {
 		basicAction(e);
-		if(DragAndDropManager.isDADOn()) {
-			DragAndDropManager.drop();
-		}
-		DragAndDropManager.setDADOn(false);
 		areaSelect = false;
-		firstDrag = true;
 		master=null;
 	}
+	
+	public void mouseDragged(MouseEvent e) {basicAction(e);}
+	public void mouseClicked(MouseEvent e) {basicAction(e);}
+	public void mouseMoved(MouseEvent e) {cursorControl(e);}
+	public void mouseWheelMoved(MouseEvent e) {basicAction(e);}
 	
 	private void findMaster(MouseEvent e) {//TODO
 		Vector<GraphicComponent> Components = GCStorage_Normal.getGCVector();
@@ -70,7 +59,7 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 			}
 		}
 		for(int i=Components.size()-1; i>-1; i--) {
-			if(Components.get(i).getAShape().isSelected(Components.get(i), DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
+			if(Components.get(i).getAShape().thisGCIsSelected(Components.get(i), DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
 				master = Components.get(i);
 				return;
 			}
@@ -86,9 +75,12 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 		else {areaSelectRect.processEvent(e);}
 	}
 	
-	public void mouseClicked(MouseEvent e) {basicAction(e);}
-	public void mouseMoved(MouseEvent e) {}
+	private void cursorControl(MouseEvent e) {
+		findMaster(e);
+		if(master==null) {((JPanel) e.getSource()).setCursor(new Cursor(Cursor.DEFAULT_CURSOR));}
+		else {master.processEvent(e);}
+	}
+	
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
-	public void mouseWheelMoved(MouseEvent e) {}
 }
