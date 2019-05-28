@@ -40,9 +40,7 @@ public class pen extends APDRShape{
 			if(Calculator.distanceLineNPoint(gc.getPoints().get(i), gc.getPoints().get(i+1), point)<thick/2) {return true;}
 		}
 		for(Shape s : gc.getFunctionShape()) {
-			if(s.contains(point)) {
-				return true;
-			}
+			if(s.contains(point)) {return true;}
 		}
 		return false;
 	}

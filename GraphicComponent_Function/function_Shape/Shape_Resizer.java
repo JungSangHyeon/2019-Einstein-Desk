@@ -104,7 +104,7 @@ public class Shape_Resizer extends AFunction implements Serializable {//히야 길�
 				at2.setToRotation(Math.toRadians(gc.getAngle()), beforeCenter.getX(), beforeCenter.getY());//이동 전의 중심으로 회전 at만듬
 				gc.setShape(at2.createTransformedShape(gc.getShape()));//이동된 도형? 회전시킴
 				changeCenter = transformPoint(at2, changeCenter);//중심 회전시킴
-				gc.setCenter(changeCenter);
+				gc.setMyCenter(changeCenter);
 				
 				for (Point2D.Float point : gc.getPoints()) {//점들 회전시킴
 					Point2D.Float cpoint = transformPoint(at2, point);

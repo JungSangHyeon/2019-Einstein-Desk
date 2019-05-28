@@ -35,8 +35,7 @@ public class Shape_Mover extends AFunction implements Serializable{//셀렉트 된애
 	}
 	
 	public void mousePressed(MouseEvent e) {//if 제거?
-		if(GCStorage_Normal.have(master)) {dragStart = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());}//패널은 이거.
-		else {dragStart = new Point2D.Float(e.getXOnScreen(), e.getYOnScreen());}//acontainer는 이거.
+		dragStart = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());//패널은 이거.
 		
 		if(master.getAShape().thisGCIsSelected(master, dragStart)) {//&&master.getShape().contains(dragStart)
 			moveOn = true;
@@ -61,7 +60,7 @@ public class Shape_Mover extends AFunction implements Serializable{//셀렉트 된애
 				for(Point2D.Float point : gc.getPoints()) {
 					point.setLocation(point.x+nowPoint.x-dragStart.x, point.y+nowPoint.y-dragStart.y);
 				}
-				gc.setCenter(new Point2D.Float(gc.getCenter().x+nowPoint.x-dragStart.x, gc.getCenter().y+nowPoint.y-dragStart.y));//이거 대체 방법 없냥.
+				gc.setMyCenter(new Point2D.Float(gc.getCenter().x+nowPoint.x-dragStart.x, gc.getCenter().y+nowPoint.y-dragStart.y));//이거 대체 방법 없냥.
 			}
 			dragStart = nowPoint;
 		}

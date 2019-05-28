@@ -26,7 +26,7 @@ static boolean textEditing = false;
 	public static void setTextForTextEdit(String text) {textEditArea.setText(text);}
 	
 	public static void setting() {
-		int size = 100;
+		int size = 1;
 		focusArea.setBounds(1920-size*2,1080-size,size,size);
 		textEditArea.setBounds(1920-size,1080-size,size,size);
 		textEditArea.addCaretListener(new CaretHadler());

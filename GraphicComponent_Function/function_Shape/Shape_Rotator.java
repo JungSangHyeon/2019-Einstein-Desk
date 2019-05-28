@@ -16,7 +16,6 @@ import java.io.Serializable;
 import javax.swing.JPanel;
 
 import component_Stuff.GraphicComponent;
-import data.GCStorage_Normal;
 import data.GCStorage_Selected;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import onOff.AnchorPaint;
@@ -38,8 +37,8 @@ public class Shape_Rotator extends AFunction implements Serializable{
 	}
 	
 	public void mousePressed(MouseEvent e) {//아래 if제거 생각.
-		if(GCStorage_Normal.have(master)) {dragStart = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());}//패널은 이거.
-		else {dragStart = new Point2D.Float(e.getXOnScreen(), e.getYOnScreen());}//acontainer는 이거.
+		dragStart = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());//패널은 이거.
+//		else {dragStart = new Point2D.Float(e.getXOnScreen(), e.getYOnScreen());}//acontainer는 이거.
 		if(anchor!=null&&anchor.contains(dragStart)) {rotateOn = true;}
 	}
 

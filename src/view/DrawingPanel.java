@@ -18,6 +18,7 @@ import data.GCStorage_Normal;
 import eventListener.DrawingPanelMouseHadler;
 import eventListener.KeyDispatcher;
 import function_Paint.Paint_TextWrite_Stuff;
+import global.GCCanvas;
 import global.InjectEnums.eColor;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import shape.HighlightShape;
@@ -25,6 +26,8 @@ import shape.pen;
 
 @SuppressWarnings("serial")
 public class DrawingPanel extends JPanel {
+	
+	GCCanvas canvas;
 	
 	public DrawingPanel() {
 		this.setBackground(eColor.DrawingPanelBackGroundColor.getVal());
@@ -42,6 +45,8 @@ public class DrawingPanel extends JPanel {
 		Paint_TextWrite_Stuff.setting();
 		this.add(Paint_TextWrite_Stuff.getFocusArea());
 		this.add(Paint_TextWrite_Stuff.getTextEditArea());
+		
+		canvas = new GCCanvas(); 
 		
 		this.add(new ToolSelectGCPanel());
 		this.add(new ToolBTNGCPanel());
@@ -63,6 +68,7 @@ public class DrawingPanel extends JPanel {
 	private void paintGCPanel(Graphics2D g2d) {for(GraphicComponent GCPanel : GCPanelStorage.getGCPanelVector()) {GCPanel.paint(g2d);}}
 	private void paintGC(Graphics2D g2d) {
 		g2d.setTransform(DrawingPanelMoveAndZoom.getAT());
+		GCCanvas.paint(g2d);
 		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {gc.bottumPaint(g2d);}
 		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {if(!(gc.getAShape() instanceof pen)) {gc.paint(g2d);}}//shape
 		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {if(gc.getAShape() instanceof HighlightShape) {gc.paint(g2d);}}//highlight

@@ -35,7 +35,7 @@ public class CopyAndPaste {
 			at.translate(interval, interval);
 			
 			for(Point2D.Float point : c.getPoints()) {point.setLocation(point.x+interval, point.y+interval);}
-			c.setCenter(new Point2D.Float(c.getCenter().x+interval, c.getCenter().y+interval));
+			c.setMyCenter(new Point2D.Float(c.getCenter().x+interval, c.getCenter().y+interval));
 			c.setShape(at.createTransformedShape(c.getShape()));
 			
 			GraphicComponent copyItem = (GraphicComponent)DeepClone.clone(c);

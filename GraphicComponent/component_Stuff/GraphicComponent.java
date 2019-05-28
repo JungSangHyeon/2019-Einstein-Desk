@@ -29,9 +29,17 @@ public class GraphicComponent  implements Serializable{
 	private boolean paintFill = true, paintBorder = true;
 	boolean selected = false;
 	
-	private Point2D.Float center = new Point2D.Float();//죽이고픈것 1. //모르겠음. 로테이트를 바꿔야 하긴 함.
+	private Point2D.Float myCenter, otherCenter, center = new Point2D.Float();//죽이고픈것 1. //모르겠음. 로테이트를 바꿔야 하긴 함.
+	
 	public Point2D.Float getCenter() {return center;}
-	public void setCenter(Point2D.Float p) {center=p;}
+	
+	public void setMyCenter(Point2D.Float p) {myCenter=p;  center.setLocation(myCenter);}
+	public void useMyCenter() {center.setLocation(myCenter);}
+	
+	public void setOtherCenter(Point2D.Float p) {otherCenter=p;}
+	public void useOtherCenter() {center.setLocation(otherCenter);}
+	
+	
 	
 	boolean upsideDown = false;//죽이고픈것 2 //펑션간 통신으로 죽일 수 있겠음.
 	public void reverseUpsideDown() {upsideDown = (!upsideDown);}
@@ -71,6 +79,9 @@ public class GraphicComponent  implements Serializable{
 //			}
 //			g.draw(p);
 //		}
+//		g.setColor(Color.cyan);
+//		g.draw(shape.getBounds());
+		
 	}
 	
 	//Process

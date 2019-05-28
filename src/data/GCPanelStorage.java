@@ -17,4 +17,7 @@ public class GCPanelStorage {
 
 	//Remove
 	public static void remove(GraphicComponent gc) {GCPanelVector.remove(gc);}
+
+	//Ask
+	public static boolean have(GraphicComponent gc) {return GCPanelVector.contains(gc);}
 }

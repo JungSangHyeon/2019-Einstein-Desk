@@ -55,7 +55,7 @@ public class PDRShapeDrawTool extends ATool{
 	public void mouseReleased(MouseEvent e) {
 		if(e.getButton()==MouseEvent.BUTTON1) {
 			Rectangle rect = GCStorage_Normal.getLastGC().getShape().getBounds();
-			GCStorage_Normal.getLastGC().setCenter(new Point2D.Float(rect.x+rect.width/2, rect.y+rect.height/2));
+			GCStorage_Normal.getLastGC().setMyCenter(new Point2D.Float(rect.x+rect.width/2, rect.y+rect.height/2));
 			GCStorage_Selected.addSelectedGC(GCStorage_Normal.getLastGC());
 			AnchorPaint.on();
 			ToolData.setNowTool(eTool.eHandTool.getATool());
