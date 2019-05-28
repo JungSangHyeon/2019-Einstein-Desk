@@ -10,6 +10,7 @@ import function_Paint.Paint_GCpeekaboo;
 import function_Paint.Paint_NormalIMG;
 import function_Paint.Paint_showMouseOnMe;
 import function_Paint.Paint_showSelectedTool;
+import function_Shape.Shape_MoverWeak;
 import function_Stuff.eTool;
 import function_System.System_Die;
 import shape_Stuff.eShape;
@@ -25,6 +26,7 @@ public class ToolSelectItems {
 		eFrontItem(new Data_Redo(), new Paint_NormalIMG("", "ToolBarImgs/front.png")),
 		eNewSlideItem(new Data_ToolSelector(eTool.eHandTool.getATool()), new Paint_NormalIMG("", "ToolBarImgs/newSlide.png")),
 		eOffItem(new System_Die(), new Paint_NormalIMG("", "ToolBarImgs/off1.png")),
+		eCanvasTool(new Data_ToolSelector(eTool.eCanvasTool.getATool()), new Paint_NormalIMG("", "ToolBarImgs/off1.png")),
 		;
 		private AFunction tool; private AFunction painter;
 		private eToolSelectItem(AFunction tool, AFunction painter) {

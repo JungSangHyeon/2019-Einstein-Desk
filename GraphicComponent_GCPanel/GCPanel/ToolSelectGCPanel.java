@@ -27,6 +27,7 @@ public class ToolSelectGCPanel extends GCPanel_LayoutPixel {
 		this.add(ToolSelectItems.getGCItem(eToolSelectItem.eEraserToolItem));
 		this.add(ToolSelectItems.getShapeSelectItem(eToolSelectItem.eShapeToolItem));
 		this.add(ToolSelectItems.getGCItem(eToolSelectItem.eHandToolItem));
+		this.add(ToolSelectItems.getGCItem(eToolSelectItem.eCanvasTool));
 		
 		for(Item item : this.getItems()) {
 			for(Item connectItem : this.getItems()) {
@@ -41,6 +42,6 @@ public class ToolSelectGCPanel extends GCPanel_LayoutPixel {
 	public void paint(Graphics2D g2d) {
 		super.paint(g2d);
 		g2d.setColor(new Color(138, 138, 138));
-		g2d.fillRect(this.getX()+this.getWidth(), this.getY(), 1, this.getHeight());
+		g2d.fillRect(this.getX()+this.getWidth(), this.getY(), 1, 48);
 	}
 }

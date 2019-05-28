@@ -22,11 +22,9 @@ public class Paint_showSelectedTool extends AFunction{
 	public void paintComponent(Graphics2D g, Shape shape) {
 		if(master.isSelected()) {
 			Graphics2D g2d = (Graphics2D)g;
-			g2d.setClip(shape);
 			g2d.setColor(selectColor);
 			Rectangle2D r = shape.getBounds2D();
 			g2d.fill(new Rectangle2D.Double(r.getX(), r.getY()+r.getHeight() - r.getHeight()/hRadio, r.getWidth(), r.getHeight()/hRadio));
-			g2d.setClip(null);
 		}
 	}
 	

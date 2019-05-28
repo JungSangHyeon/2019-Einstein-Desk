@@ -2,13 +2,10 @@ package function_Paint;
 
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-
-import javax.swing.SwingUtilities;
 
 import zFunction_Stuff.ANameAndImagePainter;
 import zFunction_Stuff.ImgStorage;

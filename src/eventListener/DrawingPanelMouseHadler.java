@@ -36,8 +36,8 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 	}
 	
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		if(!gCPanelGiveActionTool.isTakeEvent()) {DrawingPanelMoveAndZoom.zoomCamera(e);}//Canvas Zoom If GCPanel Not Take Event
 		processEvent(e);
+		if(!gCPanelGiveActionTool.isTakeEvent()) {DrawingPanelMoveAndZoom.zoomCamera(e);}//Canvas Zoom If GCPanel Not Take Event
 	}
 	
 	public void processEvent(MouseEvent e) {

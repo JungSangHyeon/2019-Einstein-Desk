@@ -7,7 +7,6 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.Vector;
 
@@ -15,7 +14,7 @@ import component_Stuff.GraphicComponent;
 import deepClone.DeepClone;
 import shape_Stuff.eShape;
 
-public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Serializable{//호호 드럽다. 
+public abstract class GCPanel_LayoutPixelTEMPPPPPPPPPP extends GraphicComponent implements Serializable{//호호 드럽다. 
 	private static final long serialVersionUID = -9220238498788652662L;
 	
 	//System
@@ -61,7 +60,7 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 		return new Rectangle(x+wGap+(pixelW+wGap)*location.x, y+hGap+(pixelH+hGap)*location.y, pixelW, pixelH);
 	}
 	
-	public GCPanel_LayoutPixel() {
+	public GCPanel_LayoutPixelTEMPPPPPPPPPP() {
 		this.setAShape(eShape.rect.getAShape());
 		this.setFillColor(backGroundColor);
 		this.scrollSpeed = (pixelH+hGap)/speedFactor;
@@ -168,8 +167,6 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 	public void paint(Graphics2D g2d) {//TODO
 		super.paint(g2d);
 		g2d.setClip(x,y, width, height);
-//		g2d.setClip(0,0,10,10);
-		System.out.println(g2d.getClip().getBounds());
 		
 		g2d.translate(0, scrollSpeed*nowDeep);
 		for(Item item : itemVector) {
@@ -183,14 +180,13 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 		}
 		
 		g2d.translate(0, scrollSpeed*nowDeep);
-		int gap = 20;//Pixel Occupied test
-		for(Pixel p : pixelVector) {
-			if(p.isOccupied()) {g2d.setColor(Color.green);}
-			else {g2d.setColor(Color.red);}
-			Rectangle rect = p.getRect();
-			g2d.fill(new Rectangle2D.Double(rect.getX()+gap, rect.getY()+gap, rect.getWidth()-gap*2, rect.getHeight()-gap*2));
-		}
-		
+//		int gap = 20;//Pixel Occupied test
+//		for(Pixel p : pixelVector) {
+//			if(p.isOccupied()) {g2d.setColor(Color.green);}
+//			else {g2d.setColor(Color.red);}
+//			Rectangle rect = p.getRect();
+//			g2d.fill(new Rectangle2D.Double(rect.getX()+gap, rect.getY()+gap, rect.getWidth()-gap*2, rect.getHeight()-gap*2));
+//		}
 		if(currentItem!=null&&itemDraggable) {//드래그 중인게 갈 자리 표시
 			g2d.setColor(seatNoticeColor);
 			g2d.fill(currentItem.getRect());
@@ -244,7 +240,7 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 			if(i!=currentItem) {
 				i.processEvent(e);
 			}
-		}
+			}
 		if(currentItem!=null) {currentItem.processEvent(e);}
 		if(copyCurrentItem!=null) {copyCurrentItem.processEvent(e);}
 	}

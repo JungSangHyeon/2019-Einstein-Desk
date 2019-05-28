@@ -81,7 +81,6 @@ public class GraphicComponent  implements Serializable{
 //		}
 //		g.setColor(Color.cyan);
 //		g.draw(shape.getBounds());
-		
 	}
 	
 	//Process
