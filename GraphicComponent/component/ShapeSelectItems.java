@@ -5,7 +5,7 @@ import GCPanel.PenSettingGCPanel;
 import component_Stuff.GraphicComponent;
 import function_Data.Data_ShapeSelect;
 import function_Data.Data_ToolSelector;
-import function_Paint.Paint_GCShowUp;
+import function_Paint.Paint_GCpeekaboo;
 import function_Paint.Paint_HighlightColorBGPaint;
 import function_Paint.Paint_NormalIMG;
 import function_Paint.Paint_penColorBGPaint;
@@ -67,7 +67,7 @@ public class ShapeSelectItems {
 		GC.setAShape(eShape.rect.getAShape());
 		GC.addFunction(new Paint_showSelectedTool());
 		GC.addFunction(new Paint_showMouseOnMe());
-		GC.addFunction(new Paint_GCShowUp(new PenSettingGCPanel()));
+		GC.addFunction(new Paint_GCpeekaboo(new PenSettingGCPanel()));
 		return GC;
 	}
 	public static GraphicComponent getHighlightItem(eShapeSelectItem item) {
@@ -82,7 +82,7 @@ public class ShapeSelectItems {
 		GC.setAShape(eShape.rect.getAShape());
 		GC.addFunction(new Paint_showSelectedTool());
 		GC.addFunction(new Paint_showMouseOnMe());
-		GC.addFunction(new Paint_GCShowUp(new HighlightSettingGCPanel()));
+		GC.addFunction(new Paint_GCpeekaboo(new HighlightSettingGCPanel()));
 		return GC;
 	}
 }

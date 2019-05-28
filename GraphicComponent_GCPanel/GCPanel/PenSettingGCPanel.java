@@ -3,12 +3,17 @@ package GCPanel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
 
 import GCPanel_LayoutNull_Stuff.GCPanel_LayoutNull;
 import GCPanel_LineSetting_Stuff.PenColorSelectGCPanel;
 import GCPanel_LineSetting_Stuff.PenSizeBarGCPanel;
+import GCPanel_Stuff.PeekabooPanel;
+import data.GCPanelStorage;
+import function_Paint.Paint_GCNotSelectedDie;
 
-public class PenSettingGCPanel extends GCPanel_LayoutNull{
+public class PenSettingGCPanel extends PeekabooPanel{
 	private static final long serialVersionUID = 3141453841486592808L;
 
 	public PenSettingGCPanel() {
@@ -24,6 +29,8 @@ public class PenSettingGCPanel extends GCPanel_LayoutNull{
 		PenSizeBarGCPanel sizeBar = new PenSizeBarGCPanel();
 		sizeBar.setGCLocation(this.getX() + 5, this.getY() + 340);
 		this.add(sizeBar);
+		
+		this.addFunction(new Paint_GCNotSelectedDie());
 	}
 	
 	@Override

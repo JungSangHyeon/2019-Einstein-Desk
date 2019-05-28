@@ -12,6 +12,8 @@ import data.GCStorage_Selected;
 import function_Stuff.ATool;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import onOff.Ctrl;
+import shape.HighlightShape;
+import shape.pen;
 
 public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected GC & Drag Drop
 	private static final long serialVersionUID = -7463646428712999248L;
@@ -52,20 +54,32 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 	
 	private void findMaster(MouseEvent e) {//TODO
 		Vector<GraphicComponent> Components = GCStorage_Normal.getGCVector();
-		for(int i=Components.size()-1; i>-1; i--) {
-			if(Components.get(i).isSelected()&&Components.get(i).isTopSelected(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
-				master = Components.get(i);
-				return;
+		for(int b = 0; b<3; b++) {
+			for(int i=Components.size()-1; i>-1; i--) {
+				if(aShapeBool(b, Components.get(i))&&Components.get(i).isSelected()&&Components.get(i).isTopSelected(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
+					master = Components.get(i);
+					return;
+				}
 			}
 		}
-		for(int i=Components.size()-1; i>-1; i--) {
-			if(Components.get(i).getAShape().thisGCIsSelected(Components.get(i), DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
-				master = Components.get(i);
-				return;
+		for(int b = 0; b<3; b++) {
+			for(int i=Components.size()-1; i>-1; i--) {
+				if(aShapeBool(b, Components.get(i))&&Components.get(i).getAShape().thisGCIsSelected(Components.get(i), DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
+					master = Components.get(i);
+					return;
+				}
 			}
 		}
+		master = null;
 	}
 	
+	private boolean aShapeBool(int b, GraphicComponent gc) {
+		if(b==0) {return !(gc.getAShape() instanceof HighlightShape)&&gc.getAShape() instanceof pen;}//pen
+		else if(b==1) {return gc.getAShape() instanceof HighlightShape;}//hi
+		else if(b==2) {return !(gc.getAShape() instanceof pen);}//shape
+		return false;
+	}
+
 	private void basicAction(MouseEvent e) {
 		if(!areaSelect) {
 			if(GCStorage_Selected.getSelectedGCVector().size()>0) {//이거 지금 선택된 애가 맨뒤로 들어가게 해놨음.

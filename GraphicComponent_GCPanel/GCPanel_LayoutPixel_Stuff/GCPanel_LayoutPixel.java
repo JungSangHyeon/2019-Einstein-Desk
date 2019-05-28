@@ -12,7 +12,6 @@ import java.util.Vector;
 
 import component_Stuff.GraphicComponent;
 import deepClone.DeepClone;
-import moveAndZoom.DrawingPanelMoveAndZoom;
 import shape_Stuff.eShape;
 
 public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Serializable{//호호 드럽다. 
@@ -33,6 +32,8 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 	
 	//Bound
 	int x=0, y=0, width, height;
+	public int getX() {return x;}
+	public int getY() {return y;}
 	public int getWidth() {return wGap+(pixelW+wGap)*wPixelNum;}
 	public int getHeight() {return hGap+(pixelH+hGap)*hPixelNum;}
 	
@@ -124,6 +125,10 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 		Item item = new Item(gc);
 		findSeatFor(item);
 		itemVector.add(item);
+	}
+	
+	public Vector<Item> getItems() {
+		return itemVector;
 	}
 	
 	public void findSeatFor(Item item) {

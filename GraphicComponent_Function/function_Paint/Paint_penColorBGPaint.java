@@ -23,4 +23,5 @@ public class Paint_penColorBGPaint extends AFunction{
 	public void mouseDragged(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
+	public void processSelectEvent(boolean selected) {}
 }

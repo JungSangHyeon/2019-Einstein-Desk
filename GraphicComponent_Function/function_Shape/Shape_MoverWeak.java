@@ -38,5 +38,5 @@ public class Shape_MoverWeak extends AFunction implements Serializable{//¼¿·ºÆ® 
 	public void mouseMoved(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
-	
+	public void processSelectEvent(boolean selected) {}
 }

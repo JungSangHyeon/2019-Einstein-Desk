@@ -40,18 +40,19 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 		processEvent(e);
 	}
 	
-	public void mouseMoved(MouseEvent e) {processEvent(e);}
-	public void mouseReleased(MouseEvent e) {processEvent(e);}
-	public void mouseClicked(MouseEvent e) {processEvent(e);}
 	public void processEvent(MouseEvent e) {
 		gCPanelGiveActionTool.processEvent(e);//Give Event To GCPanel
-		if(leftBTNPressed()||noBTNPressed()){if(!gCPanelGiveActionTool.isTakeEvent()) {ToolData.getNowTool().processEvent(e);}}//Give Event To Tool If GCPanel Not Take Event
+		if(!rightBTNPressed()){if(!gCPanelGiveActionTool.isTakeEvent()) {ToolData.getNowTool().processEvent(e);}}//Give Event To Tool If GCPanel Not Take Event
 		drawingPanel.repaint();
 	}
 	
-	private boolean leftBTNPressed() {return pressedBTN == MouseEvent.BUTTON1;}
+	public void mouseMoved(MouseEvent e) {processEvent(e);}
+	public void mouseClicked(MouseEvent e) {processEvent(e);}
+	public void mouseReleased(MouseEvent e) {processEvent(e);}
+	
+//	private boolean leftBTNPressed() {return pressedBTN == MouseEvent.BUTTON1;}
 	private boolean rightBTNPressed() {return pressedBTN == MouseEvent.BUTTON3;}
-	private boolean noBTNPressed() {return pressedBTN == MouseEvent.NOBUTTON;}
+//	private boolean noBTNPressed() {return pressedBTN == MouseEvent.NOBUTTON;}
 	
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}

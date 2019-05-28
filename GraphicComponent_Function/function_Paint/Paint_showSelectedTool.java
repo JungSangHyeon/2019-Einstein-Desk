@@ -6,6 +6,7 @@ import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 
+import component_Stuff.GraphicComponent;
 import zFunction_Stuff.AFunction;
 
 public class Paint_showSelectedTool extends AFunction{
@@ -16,12 +17,10 @@ public class Paint_showSelectedTool extends AFunction{
 	Color selectColor  = new Color(68, 114, 196);
 	
 	public void mouseReleased(MouseEvent e) {
-		if(master.getShape().contains(e.getPoint())) {masterSelected=true;}
-		else {masterSelected=false;}
 	}
 	
 	public void paintComponent(Graphics2D g, Shape shape) {
-		if(masterSelected) {
+		if(master.isSelected()) {
 			Graphics2D g2d = (Graphics2D)g;
 			g2d.setClip(shape);
 			g2d.setColor(selectColor);
@@ -31,11 +30,15 @@ public class Paint_showSelectedTool extends AFunction{
 		}
 	}
 	
-	public void mousePressed(MouseEvent e) {}
+	public void mousePressed(MouseEvent e) {
+		for(GraphicComponent gc : master.getConnectGCs()) {gc.setSelected(false);}
+		if(!master.isSelected()) {master.setSelected(true);}
+	}
+	
 	public void mouseClicked(MouseEvent e) {}
 	public void mouseDragged(MouseEvent e) {}
 	public void mouseMoved(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
-	
+	public void processSelectEvent(boolean selected) {}
 }

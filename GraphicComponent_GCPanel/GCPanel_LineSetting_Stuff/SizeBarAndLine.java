@@ -58,11 +58,11 @@ public abstract class SizeBarAndLine extends GraphicComponent{
 	public void mousePressed(MouseEvent e) {if(mouseIn) {mouseDragStart = e.getPoint();}}
 	public void mouseReleased(MouseEvent e) {handleColor = basicHandleC;}	
 	public void mouseDragged(MouseEvent e) {
-		if(mouseIn&&hadleX>0&&hadleX<barW+(int)getX()) {
+		if(mouseIn&&hadleX>0&&hadleX<barW+(int)getX()+handleW/2) {
 			handleColor = pressedHandleColor;
 			hadleX += e.getPoint().x - mouseDragStart.x;
 			if(hadleX<=5+(int)getX()) {hadleX=6+(int)getX();}
-			if(hadleX>=barW+(int)getX()-1) {hadleX=barW+(int)getX()-2;}
+		if(hadleX>=barW+(int)getX()+handleW/2) {hadleX=barW+(int)getX()+handleW/2-2;}
 			mouseDragStart = e.getPoint();
 			setThick(hadleX - (int)getX());
 		}

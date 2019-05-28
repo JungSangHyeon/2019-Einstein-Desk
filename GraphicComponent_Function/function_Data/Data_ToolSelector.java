@@ -15,13 +15,14 @@ public class Data_ToolSelector extends AFunction implements Serializable{
 	ATool tool;
 	
 	public Data_ToolSelector(ATool tool) {this.tool=tool;}
-	public void mouseReleased(MouseEvent e) {ToolData.setNowTool(tool);}
+	public void mouseReleased(MouseEvent e) {}
 	public void mouseClicked(MouseEvent e) {}
 	
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
-	public void mousePressed(MouseEvent e) {}
+	public void mousePressed(MouseEvent e) {ToolData.setNowTool(tool);}
 	public void mouseDragged(MouseEvent e) {}
 	public void mouseMoved(MouseEvent e) {}
 	public void paintComponent(Graphics2D g, Shape shape) {}
+	public void processSelectEvent(boolean selected) {}
 }

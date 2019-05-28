@@ -116,5 +116,5 @@ public class Shape_Mover extends AFunction implements Serializable{//¼¿·ºÆ® µÈ¾Ö
 	}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
-	
+	public void processSelectEvent(boolean selected) {}
 }

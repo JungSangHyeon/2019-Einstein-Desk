@@ -76,5 +76,5 @@ public class Paint_ConnectLine extends AFunction{
 	public void mouseClicked(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
-	
+	public void processSelectEvent(boolean selected) {}
 }

@@ -352,4 +352,5 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 	public void mouseClicked(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
+	public void processSelectEvent(boolean selected) {}
 }

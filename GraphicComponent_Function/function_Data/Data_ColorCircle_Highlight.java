@@ -13,4 +13,5 @@ public class Data_ColorCircle_Highlight extends Data_ColorCircle_A{
 	public void setLineColor() {
 		LineData.setHighlightColor(this.circleColor);
 	}
+
 }

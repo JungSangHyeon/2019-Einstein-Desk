@@ -29,6 +29,7 @@ public class Item  implements Serializable{
 	}
 	public void processEvent(MouseEvent e) {inContainerGC.processEvent(e);}
 	public GraphicComponent getRealGC() {return realGC;}
+	public GraphicComponent getInContainerGC() {return inContainerGC;}
 	public Shape getRect() {return inContainerGC.getShape();}
 	public void setRect(Rectangle rect) {
 		if(bornInContainer) {realGC.setShape(rect);}

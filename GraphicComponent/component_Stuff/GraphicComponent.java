@@ -3,11 +3,8 @@ package component_Stuff;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.Vector;
@@ -26,6 +23,7 @@ public class GraphicComponent  implements Serializable{
 	private AShape ashape;
 	private Vector<AFunction> functions;
 	private Vector <Point2D.Float> points;
+	private Vector <GraphicComponent> connectGC;
 	private Color fillColor = eColor.ShapeBasicFillColor.getVal(), borderColor = eColor.ShapeBasicBorderColor.getVal();
 	private int borderThick = eInt.ShapeBasicBorderThick.getVal(), strokeCap = BasicStroke.CAP_ROUND, strokeJoin = BasicStroke.JOIN_ROUND;
 	private boolean paintFill = true, paintBorder = true;
@@ -46,6 +44,7 @@ public class GraphicComponent  implements Serializable{
 	public GraphicComponent() {
 		points = new Vector <Point2D.Float>();
 		functions = new Vector <AFunction>();
+		connectGC = new Vector <GraphicComponent>();
 		functionShape = new Vector <Shape>();
 		topFunctionShape = new Vector <Shape>();
 	}
@@ -116,7 +115,13 @@ public class GraphicComponent  implements Serializable{
 	
 
 	//Selected
-	public void setSelected(boolean boo) {this.selected = boo;}
+	public void setSelected(boolean boo) {
+		this.selected = boo;
+		for (AFunction f : functions) {
+			f.processSelectEvent(selected);
+		}
+	}
+	
 	public boolean isSelected() {return this.selected;}
 	
 	//Function Shape
@@ -142,5 +147,9 @@ public class GraphicComponent  implements Serializable{
 	public String getText() {return this.text;}
 	
 	public void suicide() {GCStorage_Normal.removeGC(this);}
+	
+	public void addConnectGC(GraphicComponent gc) {connectGC.add(gc);}
+	public void removeConnectGC(GraphicComponent gc) {connectGC.remove(gc);}
+	public Vector<GraphicComponent> getConnectGCs() {return connectGC;}
 	
 }

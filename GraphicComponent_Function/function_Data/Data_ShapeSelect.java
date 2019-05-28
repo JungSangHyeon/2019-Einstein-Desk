@@ -28,6 +28,7 @@ public class Data_ShapeSelect extends AFunction implements Serializable{
 	public void mouseExited(MouseEvent e) {}
 	public void mousePressed(MouseEvent e) {}
 	public void mouseDragged(MouseEvent e) {}
+	public void processSelectEvent(boolean selected) {}
 	public void mouseMoved(MouseEvent e) {
 		if(master.getShape().contains(e.getPoint())) {
 			gap = 8;

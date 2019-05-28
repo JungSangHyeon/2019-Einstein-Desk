@@ -1,8 +1,13 @@
 package main;
 
+import java.awt.Color;
+
 import doUndo.RedoUndo;
 import global.InjectEnums;
+import global.InjectEnums.eInt;
+import global.InjectEnums.eString;
 import globalTimer.GlobalTimer;
+import loadingPage.LoadingPage;
 import view.PaintMainFrame;
 import z_order.Z_Order;
 import z_order.Z_Order.SendTo;

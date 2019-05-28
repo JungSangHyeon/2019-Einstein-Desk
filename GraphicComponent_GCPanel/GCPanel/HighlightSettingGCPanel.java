@@ -4,11 +4,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
-import GCPanel_LayoutNull_Stuff.GCPanel_LayoutNull;
 import GCPanel_LineSetting_Stuff.HighlightColorSelectGCPanel;
 import GCPanel_LineSetting_Stuff.HighlightSizeBarGCPanel;
+import GCPanel_Stuff.PeekabooPanel;
+import function_Paint.Paint_GCNotSelectedDie;
 
-public class HighlightSettingGCPanel extends GCPanel_LayoutNull{
+public class HighlightSettingGCPanel extends PeekabooPanel{
 	private static final long serialVersionUID = 3141453841486592808L;
 
 	public HighlightSettingGCPanel() {
@@ -24,6 +25,8 @@ public class HighlightSettingGCPanel extends GCPanel_LayoutNull{
 		HighlightSizeBarGCPanel sizeBarPanel = new HighlightSizeBarGCPanel();
 		sizeBarPanel.setGCLocation(this.getX() + 5, this.getY() + 132);
 		this.add(sizeBarPanel);
+		
+		this.addFunction(new Paint_GCNotSelectedDie());
 	}
 	
 	@Override

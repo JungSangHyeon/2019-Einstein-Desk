@@ -92,4 +92,5 @@ public class Paint_TextWrite extends AFunction{
 	public void mouseDragged(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
+	public void processSelectEvent(boolean selected) {}
 }
