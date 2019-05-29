@@ -22,7 +22,7 @@ public class PaintMainFrame extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		
-		this.setUndecorated(true);
+//		this.setUndecorated(true);
 		
 		try {this.setIconImage(ImageIO.read(new File(eString.MainFrameIconImageAddress.getVal())));} 
 		catch (IOException e) {/*DO NOTHING*/}

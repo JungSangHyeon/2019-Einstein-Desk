@@ -169,7 +169,6 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 		super.paint(g2d);
 		g2d.setClip(x,y, width, height);
 //		g2d.setClip(0,0,10,10);
-		System.out.println(g2d.getClip().getBounds());
 		
 		g2d.translate(0, scrollSpeed*nowDeep);
 		for(Item item : itemVector) {
@@ -183,13 +182,13 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 		}
 		
 		g2d.translate(0, scrollSpeed*nowDeep);
-		int gap = 20;//Pixel Occupied test
-		for(Pixel p : pixelVector) {
-			if(p.isOccupied()) {g2d.setColor(Color.green);}
-			else {g2d.setColor(Color.red);}
-			Rectangle rect = p.getRect();
-			g2d.fill(new Rectangle2D.Double(rect.getX()+gap, rect.getY()+gap, rect.getWidth()-gap*2, rect.getHeight()-gap*2));
-		}
+//		int gap = 20;//Pixel Occupied test
+//		for(Pixel p : pixelVector) {
+//			if(p.isOccupied()) {g2d.setColor(Color.green);}
+//			else {g2d.setColor(Color.red);}
+//			Rectangle rect = p.getRect();
+//			g2d.fill(new Rectangle2D.Double(rect.getX()+gap, rect.getY()+gap, rect.getWidth()-gap*2, rect.getHeight()-gap*2));
+//		}
 		
 		if(currentItem!=null&&itemDraggable) {//드래그 중인게 갈 자리 표시
 			g2d.setColor(seatNoticeColor);
