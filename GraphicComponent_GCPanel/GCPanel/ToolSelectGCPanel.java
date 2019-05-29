@@ -28,6 +28,7 @@ public class ToolSelectGCPanel extends GCPanel_LayoutPixel {
 		this.add(ToolSelectItems.getShapeSelectItem(eToolSelectItem.eShapeToolItem));
 		this.add(ToolSelectItems.getGCItem(eToolSelectItem.eHandToolItem));
 		this.add(ToolSelectItems.getGCItem(eToolSelectItem.eCanvasTool));
+		this.add(ToolSelectItems.getGCItem(eToolSelectItem.eConnectTool));
 		
 		for(Item item : this.getItems()) {
 			for(Item connectItem : this.getItems()) {

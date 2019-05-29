@@ -26,8 +26,10 @@ public class ToolSelectItems {
 		eFrontItem(new Data_Redo(), new Paint_NormalIMG("", "ToolBarImgs/front.png")),
 		eNewSlideItem(new ImgLoad(), new Paint_NormalIMG("", "ToolBarImgs/newSlide.png")),
 //		eNewSlideItem(new Data_ToolSelector(eTool.eHandTool.getATool()), new Paint_NormalIMG("", "ToolBarImgs/newSlide.png")),
+		eImageItem(new ImgLoad(), new Paint_NormalIMG("", "ToolBarImgs/Image.png")),
 		eOffItem(new System_Die(), new Paint_NormalIMG("", "ToolBarImgs/off1.png")),
 		eCanvasTool(new Data_ToolSelector(eTool.eCanvasTool.getATool()), new Paint_NormalIMG("", "ToolBarImgs/Canvas.png")),
+		eConnectTool(new Data_ToolSelector(eTool.eConnectTool.getATool()), new Paint_NormalIMG("", "ToolBarImgs/Connect.png")),
 		;
 		private AFunction tool; private AFunction painter;
 		private eToolSelectItem(AFunction tool, AFunction painter) {

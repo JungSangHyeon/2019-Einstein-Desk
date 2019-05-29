@@ -37,10 +37,8 @@ public class GCCanvas {
 		canvas.setMyCenter(new Point2D.Float(rect.x+rect.width/2, rect.y+rect.height/2));
 	}
 
-	public static void paint(Graphics2D g2d) {
-		canvas.paint(g2d);
-		canvas.topPaint(g2d);
-	}
+	public static void paint(Graphics2D g2d) {canvas.paint(g2d);}
+	public static void topPaint(Graphics2D g2d) {canvas.topPaint(g2d);}
 	
 	public static GraphicComponent getCanvas() {return canvas;}
 
@@ -48,5 +46,4 @@ public class GCCanvas {
 		canvas.setSelected(true);
 		canvas.processEvent(e);
 	}
-	
 }

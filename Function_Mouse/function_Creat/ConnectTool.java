@@ -1,5 +1,6 @@
 package function_Creat;
 
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 
 import component_Stuff.GraphicComponent;
@@ -34,7 +35,10 @@ public class ConnectTool extends ATool{
 				GCData = new GraphicComponent();
 				GCData.addPoint(startGC.getCenter());
 				GCData.addPoint(startGC.getCenter());
+				GCData.setborderThick(10);
+				GCData.setBorderColor(new Color(255, 192, 0));
 				GCData.setAShape(eShape.straightLine.getAShape());
+				GCData.setTakeEvent(false);
 				setShape(GCData);
 				GCStorage_Normal.addNewGC(GCData);
 			}
@@ -53,17 +57,20 @@ public class ConnectTool extends ATool{
 		if(e.getButton()==MouseEvent.BUTTON1&&haveStartGC) {
 			//Find End GC
 			for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {
-				if(gc.getAShape().thisGCIsSelected(gc, DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
+				if(gc!=GCData&&gc.getAShape().thisGCIsSelected(gc, DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
 					endGC = gc;
 					haveEndGC = true;
 					break;
 				}
 			}
-			
 			//add Function to StartGC & remove Line
 			if(haveEndGC) {
 				GCStorage_Normal.getLastGC().addFunction(new connectLineShapeSetter(startGC, endGC));
+				GCData.setFillPaint(false);
+				GCData.setBorderPaint(false);
 //				startGC.addFunction(new Paint_ConnectLine(endGC));
+			}else {
+				GCStorage_Normal.removeLastGC();
 			}
 			
 			//Reset
@@ -76,7 +83,7 @@ public class ConnectTool extends ATool{
 	}
 	
 	protected void setShape(GraphicComponent shapeData) {
-		shapeData.setShape(ShapeData.getNowShapeMaker().newShape(shapeData.getPoints()));
+		shapeData.setShape(shapeData.getAShape().newShape(shapeData.getPoints()));
 	}
 	
 	public void mouseClicked(MouseEvent e) {}

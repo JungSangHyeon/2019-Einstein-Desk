@@ -10,6 +10,7 @@ import java.awt.geom.AffineTransform;
 
 import javax.swing.JPanel;
 
+import GCPanel.OffGCPanel;
 import GCPanel.ToolBTNGCPanel;
 import GCPanel.ToolSelectGCPanel;
 import component_Stuff.GraphicComponent;
@@ -50,6 +51,7 @@ public class DrawingPanel extends JPanel {
 		
 		this.add(new ToolSelectGCPanel());
 		this.add(new ToolBTNGCPanel());
+		this.add(new OffGCPanel());
 	}
 	
 	public void initialize() {}
@@ -57,6 +59,8 @@ public class DrawingPanel extends JPanel {
 	public void ArrangeContainerLocation() {}
 	
 	public void paint(Graphics g) {
+		GCStorage_Normal.killTargets();
+		
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 		
@@ -74,6 +78,7 @@ public class DrawingPanel extends JPanel {
 		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {if(gc.getAShape() instanceof HighlightShape) {gc.paint(g2d);}}//highlight
 		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {if(!(gc.getAShape() instanceof HighlightShape)&&gc.getAShape() instanceof pen) {gc.paint(g2d);}}//pen
 		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {gc.topPaint(g2d);}
+		GCCanvas.topPaint(g2d);
 		g2d.setTransform(new AffineTransform());		
 	}
 	

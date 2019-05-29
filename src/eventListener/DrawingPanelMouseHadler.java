@@ -1,5 +1,6 @@
 package eventListener;
 
+import java.awt.Cursor;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -9,6 +10,7 @@ import java.awt.event.MouseWheelListener;
 import data.ToolData;
 import function_Paint.Paint_TextWrite_Stuff;
 import function_SelectAndEvent.GCPanelGiveActionTool;
+import function_SelectAndEvent.HandTool;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import view.DrawingPanel;
 
@@ -46,7 +48,11 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 		drawingPanel.repaint();
 	}
 	
-	public void mouseMoved(MouseEvent e) {processEvent(e);}
+	public void mouseMoved(MouseEvent e) {
+		processEvent(e);
+		if(!(ToolData.getNowTool() instanceof HandTool)) {drawingPanel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));}
+	}
+	
 	public void mouseClicked(MouseEvent e) {processEvent(e);}
 	public void mouseReleased(MouseEvent e) {processEvent(e);}
 	

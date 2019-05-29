@@ -24,4 +24,12 @@ public class GCStorage_Normal {
 	
 	//Ask?
 	public static boolean have(GraphicComponent gc) {return GCVector.contains(gc);}
+	
+	private static Vector<GraphicComponent> killGCVector = new Vector<GraphicComponent>();
+	public static void killGCAtNextPaint(GraphicComponent target) {killGCVector.add(target);}
+	public static void killTargets() {
+		for(GraphicComponent target : killGCVector) {
+			GCVector.remove(target);
+		}
+	}
 }

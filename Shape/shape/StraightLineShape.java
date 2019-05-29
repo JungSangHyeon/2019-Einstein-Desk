@@ -1,13 +1,11 @@
 package shape;
 
-import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
 import component_Stuff.GraphicComponent;
 import global.Calculator;
-import moveAndZoom.DrawingPanelMoveAndZoom;
 import shape_Stuff.APDRShape;
 
 public class StraightLineShape extends APDRShape{

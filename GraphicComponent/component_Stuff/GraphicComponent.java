@@ -26,7 +26,8 @@ public class GraphicComponent  implements Serializable{
 	private Vector <GraphicComponent> connectGC;
 	private Color fillColor = eColor.ShapeBasicFillColor.getVal(), borderColor = eColor.ShapeBasicBorderColor.getVal();
 	private int borderThick = eInt.ShapeBasicBorderThick.getVal(), strokeCap = BasicStroke.CAP_ROUND, strokeJoin = BasicStroke.JOIN_ROUND;
-	private boolean paintFill = true, paintBorder = true;
+	private boolean paintFill = true, paintBorder = true, takeEvent = true;
+	
 	boolean selected = false;
 	
 	private Point2D.Float myCenter, otherCenter, center = new Point2D.Float();//죽이고픈것 1. //모르겠음. 로테이트를 바꿔야 하긴 함.
@@ -156,10 +157,13 @@ public class GraphicComponent  implements Serializable{
 	public void setText(String text) {this.text=text;}
 	public String getText() {return this.text;}
 	
-	public void suicide() {GCStorage_Normal.removeGC(this);}
+//	public void suicide() {GCStorage_Normal.removeGC(this);}
 	
 	public void addConnectGC(GraphicComponent gc) {connectGC.add(gc);}
 	public void removeConnectGC(GraphicComponent gc) {connectGC.remove(gc);}
 	public Vector<GraphicComponent> getConnectGCs() {return connectGC;}
+	
+	public boolean isTakeEvent() {return takeEvent;}
+	public void setTakeEvent(boolean takeEvent) {this.takeEvent = takeEvent;}
 	
 }

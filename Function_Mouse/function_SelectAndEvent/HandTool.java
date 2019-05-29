@@ -56,7 +56,7 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 		Vector<GraphicComponent> Components = GCStorage_Normal.getGCVector();
 		for(int b = 0; b<3; b++) {
 			for(int i=Components.size()-1; i>-1; i--) {
-				if(aShapeBool(b, Components.get(i))&&Components.get(i).isSelected()&&Components.get(i).isTopSelected(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
+				if(Components.get(i).isTakeEvent()&&aShapeBool(b, Components.get(i))&&Components.get(i).isSelected()&&Components.get(i).isTopSelected(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
 					master = Components.get(i);
 					return;
 				}
@@ -64,7 +64,7 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 		}
 		for(int b = 0; b<3; b++) {
 			for(int i=Components.size()-1; i>-1; i--) {
-				if(aShapeBool(b, Components.get(i))&&Components.get(i).getAShape().thisGCIsSelected(Components.get(i), DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
+				if(Components.get(i).isTakeEvent()&&aShapeBool(b, Components.get(i))&&Components.get(i).getAShape().thisGCIsSelected(Components.get(i), DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
 					master = Components.get(i);
 					return;
 				}
