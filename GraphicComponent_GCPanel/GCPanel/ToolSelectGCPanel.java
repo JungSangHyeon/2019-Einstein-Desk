@@ -33,7 +33,7 @@ public class ToolSelectGCPanel extends GCPanel_LayoutPixel {
 		for(Item item : this.getItems()) {
 			for(Item connectItem : this.getItems()) {
 				if(connectItem.getInContainerGC()!=item.getInContainerGC()) {
-					item.getInContainerGC().addConnectGC(connectItem.getInContainerGC());
+					item.getInContainerGC().addAssociateGC(connectItem.getInContainerGC());
 				}
 			}
 		}

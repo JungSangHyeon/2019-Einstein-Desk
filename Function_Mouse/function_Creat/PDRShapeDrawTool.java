@@ -38,6 +38,10 @@ public class PDRShapeDrawTool extends ATool{
 			GCData.addFunction(new Shape_Rotator());
 			GCData.addFunction(new Shape_Resizer());
 			GCData.addFunction(new Paint_TextWrite());
+			
+//			GCData.setOtherCenter(new Point2D.Float(0, 0));
+//			GCData.useOtherCenter();
+			
 			setShape(GCData);
 			GCStorage_Normal.addNewGC(GCData);
 		}

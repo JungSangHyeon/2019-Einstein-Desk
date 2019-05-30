@@ -9,6 +9,7 @@ import copyAndPaste.CopyAndPaste;
 import delete.Delete;
 import doUndo.RedoUndo;
 import function_Paint.Paint_TextWrite_Stuff;
+import group.GroupTool;
 import onOff.Ctrl;
 import onOff.ThickFollowScale;
 import z_order.Z_Order;
@@ -48,6 +49,7 @@ public class KeyDispatcher implements KeyEventDispatcher {// 키이벤트가 포커스에
 			else if (keyIs(KeyEvent.VK_Z)) {RedoUndo.undo();}
 			else if (keyIs(KeyEvent.VK_Y)) {RedoUndo.redo();}
 			else if (keyIs(KeyEvent.VK_T)) {ThickFollowScale.onOff();}
+			else if (keyIs(KeyEvent.VK_G)) {GroupTool.grouping();}
 			else if (keyIs(KeyEvent.VK_UP)) {}
 			else if (keyIs(KeyEvent.VK_DOWN)) {}
 		}

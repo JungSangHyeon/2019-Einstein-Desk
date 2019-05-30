@@ -47,11 +47,13 @@ public class Shape_Rotator extends AFunction implements Serializable{
 			master.removeTopFunctionShape(anchor);
 			master.removeFunctionShape(anchor);
 			Rectangle2D beforeRotateBorder = getBeforeRotateBorder();
+			
 			AffineTransform at = new AffineTransform();
 			
 			double angle = master.getAngle();
 			if(master.getUpsideDown()) {angle+=180;}
-			at.setToRotation(Math.toRadians(angle), beforeRotateBorder.getCenterX(), beforeRotateBorder.getCenterY());
+			at.setToRotation(Math.toRadians(angle), master.getCenter().x, master.getCenter().y);
+//			at.setToRotation(Math.toRadians(angle), beforeRotateBorder.getCenterX(), beforeRotateBorder.getCenterY());
 			
 			float scale = DrawingPanelMoveAndZoom.getScale();
 			float scaleLineThick = lineThick/scale;
@@ -100,6 +102,18 @@ public class Shape_Rotator extends AFunction implements Serializable{
 				AffineTransform at = new AffineTransform();//get AT
 				at.setToRotation(Math.toRadians(rotationAngle), gc.getCenter().getX(), gc.getCenter().getY());
 				gc.setShape(at.createTransformedShape(gc.getShape()));//Rotate Shape
+				gc.setMyCenter(transformPoint(at, gc.getCenter()));
+				for(Point2D.Float point : gc.getPoints()) {//Rotate Points
+					Point2D.Float cpoint = transformPoint(at,point);
+					point.setLocation(cpoint.x, cpoint.y);
+				}
+				gc.addAngle(rotationAngle);//add Angle
+			}
+			for(GraphicComponent gc : master.getAggregateGCs()) {
+				AffineTransform at = new AffineTransform();//get AT
+				at.setToRotation(Math.toRadians(rotationAngle), master.getCenter().getX(), master.getCenter().getY());
+				gc.setShape(at.createTransformedShape(gc.getShape()));//Rotate Shape
+				gc.setMyCenter(transformPoint(at, gc.getCenter()));
 				for(Point2D.Float point : gc.getPoints()) {//Rotate Points
 					Point2D.Float cpoint = transformPoint(at,point);
 					point.setLocation(cpoint.x, cpoint.y);
@@ -112,7 +126,8 @@ public class Shape_Rotator extends AFunction implements Serializable{
 	}
 	
 	public void mouseMoved(MouseEvent e) {
-		if(master.isSelected()&&anchor.contains(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {//mouse On this
+		if(master.isSelected()&&
+				anchor.contains(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {//mouse On this
 			((JPanel) e.getSource()).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		}
 	}

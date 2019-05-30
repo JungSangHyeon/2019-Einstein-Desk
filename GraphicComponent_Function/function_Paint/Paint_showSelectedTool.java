@@ -29,7 +29,7 @@ public class Paint_showSelectedTool extends AFunction{
 	}
 	
 	public void mousePressed(MouseEvent e) {
-		for(GraphicComponent gc : master.getConnectGCs()) {gc.setSelected(false);}
+		for(GraphicComponent gc : master.getAssociateGCs()) {gc.setSelected(false);}
 		if(!master.isSelected()) {master.setSelected(true);}
 	}
 	

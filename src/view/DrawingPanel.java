@@ -3,10 +3,15 @@ package view;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.KeyboardFocusManager;
+import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.Shape;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
+import java.awt.geom.Path2D;
+import java.util.Vector;
 
 import javax.swing.JPanel;
 
@@ -67,6 +72,19 @@ public class DrawingPanel extends JPanel {
 		super.paint(g2d);
 		paintGC(g2d);
 		paintGCPanel(g2d);
+		
+		int vla =100;
+		Vector<Shape> shapes = new Vector<Shape>();
+		for(int i=0; i<3; i++) {
+			shapes.add(new Rectangle(vla*i, vla*i, vla, vla));
+		}
+		Path2D path = new Path2D.Float();
+		for (Shape gc : shapes) {
+			path.append(gc, false);
+		}
+		Area compound = new Area(path);
+		g2d.fill(compound);
+		g2d.draw(compound.getBounds());
 	}
 
 	private void paintGCPanel(Graphics2D g2d) {for(GraphicComponent GCPanel : GCPanelStorage.getGCPanelVector()) {GCPanel.paint(g2d);}}

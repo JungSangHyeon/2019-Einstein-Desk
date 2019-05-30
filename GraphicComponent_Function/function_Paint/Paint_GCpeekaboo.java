@@ -17,7 +17,7 @@ public class Paint_GCpeekaboo extends AFunction{
 	public Paint_GCpeekaboo(GraphicComponent  gc) {this.gc = gc; }
 	
 	public void mousePressed(MouseEvent e) {
-		for(GraphicComponent gc : master.getConnectGCs()) {gc.setSelected(false);}
+		for(GraphicComponent gc : master.getAssociateGCs()) {gc.setSelected(false);}
 		master.setSelected(true);
 		doubleSelected = (!doubleSelected);
 	}

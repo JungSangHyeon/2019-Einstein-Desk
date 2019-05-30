@@ -49,9 +49,7 @@ public class AreaSelectTool extends ATool{//extends TwoPointShapeTool 할까나. 아
 		GCStorage_Normal.removeGC(GCStorage_Normal.getLastGC());
 		ShapeData.setNowShapeMaker(before2PShape);
 		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {
-			System.out.println("1");
 			if(area.contains(gc.getShape().getBounds2D())) {
-				System.out.println("2");
 				GCStorage_Selected.addSelectedGC(gc);
 			}
 		}

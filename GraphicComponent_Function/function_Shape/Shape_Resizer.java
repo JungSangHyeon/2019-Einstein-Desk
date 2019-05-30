@@ -67,7 +67,6 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 				if(resizeFactor.getY()<0) {gc.reverseUpsideDown();}//TODO
 				Point2D.Double beforeCenter = new Point2D.Double(gc.getCenter().x, gc.getCenter().y);//ÇöÀç Áß½ÉÀúÀå.
 				
-				
 				AffineTransform at;
 				if(resizeFactor.getX()<0||resizeFactor.getY()<0) {
 					Rectangle2D sr = getBeforeRotateAnchorBorder(gc, 7-n);//¾ÞÄ¿¸¦ µ¹¸®±â ÀüÀ¸·Î ÇÔ
@@ -83,10 +82,6 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 					at.translate(-sr.getCenterX(), -sr.getCenterY());//¿ø·¡ µÇ´Â AT¿Ï¼º?
 				}
 				
-				
-				
-				
-				
 				Point2D.Float changeCenter = new Point2D.Float(gc.getCenter().x, gc.getCenter().y);//ÇöÀç Áß½ÉÀúÀå.
 				changeCenter = transformPoint(at, changeCenter);//Áß½É ÀÌµ¿½ÃÅ´.
 				
@@ -95,7 +90,8 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 					Point2D.Float cpoint = transformPoint(at, point);//ÀÌµ¿ ½ÃÅ´
 					point.setLocation(cpoint.x, cpoint.y);
 				}
-				Shape beforeShape = gc.getAShape().newShape(beforePoint);//ÀÌµ¿½ÃÅ²°É·Î ½¦ÀÔ ¸¸µë
+//				Shape beforeShape = gc.getAShape().newShape(beforePoint);//ÀÌµ¿½ÃÅ²°É·Î ½¦ÀÔ ¸¸µë
+				Shape beforeShape = at.createTransformedShape(getBeforeRotateShape(gc));//ÀÌµ¿½ÃÅ²°É·Î ½¦ÀÔ ¸¸µë
 				
 				gc.setPoints(beforePoint);//
 				gc.setShape(beforeShape);
@@ -112,12 +108,72 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 				}
 				gc.setborderThick(thick);
 			}
+			
+			for(GraphicComponent gc : master.getAggregateGCs()) {//TODO
+				gc.setOtherCenter(master.getCenter());
+				gc.useOtherCenter();
+				int thick = gc.getBorderThick();
+				gc.setborderThick(0);
+				if(resizeFactor.getY()<0) {gc.reverseUpsideDown();}//TODO
+				Point2D.Double beforeCenter = new Point2D.Double(gc.getCenter().x, gc.getCenter().y);//ÇöÀç Áß½ÉÀúÀå.
+				
+				AffineTransform at;
+				if(resizeFactor.getX()<0||resizeFactor.getY()<0) {
+					Rectangle2D sr = getBeforeRotateAnchorBorder(master, 7-n);//¾ÞÄ¿¸¦ µ¹¸®±â ÀüÀ¸·Î ÇÔ
+					
+					at = new AffineTransform();
+					at.setToTranslation(sr.getCenterX(), sr.getCenterY());
+					at.scale(resizeFactor.getX(), resizeFactor.getY());
+					at.translate(-sr.getCenterX(), -sr.getCenterY());//¿ø·¡ µÇ´Â AT¿Ï¼º?
+				}else {
+					Rectangle2D sr = getBeforeRotateAnchorBorder(master, n);//¾ÞÄ¿¸¦ µ¹¸®±â ÀüÀ¸·Î ÇÔ
+					
+					at = new AffineTransform();
+					at.setToTranslation(sr.getCenterX(), sr.getCenterY());
+					at.scale(resizeFactor.getX(), resizeFactor.getY());
+					at.translate(-sr.getCenterX(), -sr.getCenterY());//¿ø·¡ µÇ´Â AT¿Ï¼º?
+				}
+				
+				gc.useMyCenter();
+				Point2D.Float changeCenter = new Point2D.Float(gc.getCenter().x, gc.getCenter().y);//ÇöÀç Áß½ÉÀúÀå.
+				changeCenter = transformPoint(at, changeCenter);//Áß½É ÀÌµ¿½ÃÅ´.
+				
+				Vector<Point2D.Float> beforePoint = getBeforeRotatePoints(gc);//È¸Àü ÀüÀÇ Æ÷ÀÎÆ®µé
+				for (Point2D.Float point : beforePoint) {
+					Point2D.Float cpoint = transformPoint(at, point);//ÀÌµ¿ ½ÃÅ´
+					point.setLocation(cpoint.x, cpoint.y);
+				}
+//				Shape beforeShape = gc.getAShape().newShape(beforePoint);//ÀÌµ¿½ÃÅ²°É·Î ½¦ÀÔ ¸¸µë
+				Shape beforeShape = at.createTransformedShape(getBeforeRotateShape(gc));//ÀÌµ¿½ÃÅ²°É·Î ½¦ÀÔ ¸¸µë
+				
+				gc.setPoints(beforePoint);//
+				gc.setShape(beforeShape);
+				
+				AffineTransform at2 = new AffineTransform();
+				at2.setToRotation(Math.toRadians(gc.getAngle()), beforeCenter.getX(), beforeCenter.getY());//ÀÌµ¿ ÀüÀÇ Áß½ÉÀ¸·Î È¸Àü at¸¸µë
+				gc.setShape(at2.createTransformedShape(gc.getShape()));//ÀÌµ¿µÈ µµÇü? È¸Àü½ÃÅ´
+				changeCenter = transformPoint(at2, changeCenter);//Áß½É È¸Àü½ÃÅ´
+				gc.setMyCenter(changeCenter);
+				
+				for (Point2D.Float point : gc.getPoints()) {//Á¡µé È¸Àü½ÃÅ´
+					Point2D.Float cpoint = transformPoint(at2, point);
+					point.setLocation(cpoint.x, cpoint.y);
+				}
+				gc.useMyCenter();
+				gc.setborderThick(thick);
+			}
+
 			dragStart = normalDragStart;
 		}
 		
 	}
 	
-	
+	private Shape getBeforeRotateShape(GraphicComponent gc) {
+		AffineTransform at = new AffineTransform();
+		at.setToRotation(-Math.toRadians(gc.getAngle()), gc.getCenter().x, gc.getCenter().y);
+		return at.createTransformedShape(gc.getShape());
+	}
+
 	private Vector<Point2D.Float> getBeforeRotatePoints(GraphicComponent gc) {
 		Vector<Point2D.Float> pointBeforeRotate =  new Vector<Point2D.Float>();
 		AffineTransform at = new AffineTransform();
@@ -131,19 +187,26 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 		at.setToRotation(-Math.toRadians(gc.getAngle()), gc.getCenter().x, gc.getCenter().y);
 		return at.createTransformedShape(makeAnchorForOther(gc, 7-i)).getBounds2D();
 	}
+//	private Rectangle2D getBeforeRotateAnchorBorder(GraphicComponent gc, int i) {
+//		AffineTransform at = new AffineTransform();
+//		at.setToRotation(-Math.toRadians(gc.getAngle()), gc.getCenter().x, gc.getCenter().y);
+//		return at.createTransformedShape(makeAnchorForOther(gc, 7-i)).getBounds2D();
+//	}
 	
 	
-	private Shape makeAnchorForOther(GraphicComponent gc, int n) {
+	private Shape makeAnchorForOther(GraphicComponent gc, int n) {//TODO
 		Vector<Shape> returnAnchors = new Vector<Shape>();
 		
 		Shape beforeRotateAnchor;
 		float factor = gc.getBorderThick();
-		Rectangle2D masterBorder = getBeforeRotateBorder(gc);
+//		Rectangle2D masterBorder = new  Rectangle2D.Double(0,0,1920,1080);
+		Rectangle2D masterBorder = getBeforeRotateBorder(gc);//¿©µû ±×·ì ¸¶½ºÅÍ ½¦ÀÔ ÁÖ¼îÀÓ.
 		
 		float scaleAnchorSize = realAnchorSize /DrawingPanelMoveAndZoom.getScale();
 		
 		AffineTransform at = new AffineTransform();
-		at.setToRotation(Math.toRadians(gc.getAngle()), masterBorder.getCenterX(), masterBorder.getCenterY());
+		at.setToRotation(Math.toRadians(gc.getAngle()), gc.getCenter().x, gc.getCenter().y);
+//		at.setToRotation(Math.toRadians(gc.getAngle()), masterBorder.getCenterX(), masterBorder.getCenterY());
 		
 		double startX = masterBorder.getX() - scaleAnchorSize / 2;
 		double startY = masterBorder.getY() - scaleAnchorSize / 2;
@@ -182,13 +245,17 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 			}
 			anchors.clear();
 			g.setColor(anchorColor);
+//			Rectangle2D masterBorder = new  Rectangle2D.Double(0,0,1920,1080);//TODO
+//			g.draw(masterBorder);
+			
 			Rectangle2D masterBorder = getBeforeRotateBorder(master);
 			
 			float factor = master.getBorderThick();
 			Shape anchor;
 			Shape beforeRotateAnchor;
 			AffineTransform at = new AffineTransform();
-			at.setToRotation(Math.toRadians(master.getAngle()), masterBorder.getCenterX(), masterBorder.getCenterY());
+			at.setToRotation(Math.toRadians(master.getAngle()), master.getCenter().x, master.getCenter().y);
+//			at.setToRotation(Math.toRadians(master.getAngle()), masterBorder.getCenterX(), masterBorder.getCenterY());
 			
 			float scaleAnchorSize = realAnchorSize/DrawingPanelMoveAndZoom.getScale();
 			float scaleGap = gap/DrawingPanelMoveAndZoom.getScale();
@@ -211,8 +278,6 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 			}
 			anchors.remove(4);//°¡¿îµ¥²¨´Â ¾È¾µ²¨¿©
 			beforeanchors.remove(4);//°¡¿îµ¥²¨´Â ¾È¾µ²¨¿©
-			
-			
 			
 			for(Shape s : anchors) {
 				master.addTopFunctionShape(s);

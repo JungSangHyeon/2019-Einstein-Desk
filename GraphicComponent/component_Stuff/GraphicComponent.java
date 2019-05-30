@@ -3,13 +3,15 @@ package component_Stuff;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.Vector;
 
-import data.GCStorage_Normal;
 import global.InjectEnums.eColor;
 import global.InjectEnums.eInt;
 import shape_Stuff.AShape;
@@ -23,22 +25,28 @@ public class GraphicComponent  implements Serializable{
 	private AShape ashape;
 	private Vector<AFunction> functions;
 	private Vector <Point2D.Float> points;
-	private Vector <GraphicComponent> connectGC;
+	private Vector <GraphicComponent> associateGC;
 	private Color fillColor = eColor.ShapeBasicFillColor.getVal(), borderColor = eColor.ShapeBasicBorderColor.getVal();
 	private int borderThick = eInt.ShapeBasicBorderThick.getVal(), strokeCap = BasicStroke.CAP_ROUND, strokeJoin = BasicStroke.JOIN_ROUND;
 	private boolean paintFill = true, paintBorder = true, takeEvent = true;
 	
 	boolean selected = false;
 	
-	private Point2D.Float myCenter, otherCenter, center = new Point2D.Float();//죽이고픈것 1. //모르겠음. 로테이트를 바꿔야 하긴 함.
+	private Point2D.Float myCenter= new Point2D.Float(), otherCenter, center = new Point2D.Float();//죽이고픈것 1. //모르겠음. 로테이트를 바꿔야 하긴 함.
 	
-	public Point2D.Float getCenter() {return center;}
+	boolean myCenterOn = true;
+	
+	public Point2D.Float getCenter() {
+		if(myCenterOn) {return myCenter;}
+		return otherCenter;
+	}
+//	public Point2D.Float getCenter() {return center;}
 	
 	public void setMyCenter(Point2D.Float p) {myCenter=p;  center.setLocation(myCenter);}
 	public void useMyCenter() {center.setLocation(myCenter);}
 	
 	public void setOtherCenter(Point2D.Float p) {otherCenter=p;}
-	public void useOtherCenter() {center.setLocation(otherCenter);}
+	public void useOtherCenter() {myCenterOn = false;}
 	
 	
 	
@@ -53,7 +61,8 @@ public class GraphicComponent  implements Serializable{
 	public GraphicComponent() {
 		points = new Vector <Point2D.Float>();
 		functions = new Vector <AFunction>();
-		connectGC = new Vector <GraphicComponent>();
+		associateGC = new Vector <GraphicComponent>();
+		aggregateGC = new Vector <GraphicComponent>();
 		functionShape = new Vector <Shape>();
 		topFunctionShape = new Vector <Shape>();
 	}
@@ -70,18 +79,24 @@ public class GraphicComponent  implements Serializable{
 		if(paintFill) {g.setColor(fillColor); g.fill(shape);}
 		if(paintBorder) {g.setColor(borderColor); g.draw(shape);}
 		for(AFunction function : functions) {if(!function.isTopPaint()&&!function.isButtomPaint()) {function.paintComponent(g,shape);}}
+		for(GraphicComponent gc : aggregateGC) {
+			gc.paint(g);
+		}
+		
 //		아래는 테스트용
-//		if (points.size() > 0) {
-//			g.setColor(Color.RED);// 디버깅?
-//			GeneralPath p = new GeneralPath();
-//			p.moveTo(points.get(0).x, points.get(0).y);
-//			for (Point2D.Float pp : points) {
-//				p.lineTo(pp.x, pp.y);
-//			}
-//			g.draw(p);
-//		}
-//		g.setColor(Color.cyan);
-//		g.draw(shape.getBounds());
+		if (points.size() > 0) {//points
+			g.setColor(Color.RED);// 디버깅?
+			GeneralPath p = new GeneralPath();
+			p.moveTo(points.get(0).x, points.get(0).y);
+			for (Point2D.Float pp : points) {
+				p.lineTo(pp.x, pp.y);
+			}
+			g.draw(p);
+		}
+		g.setColor(Color.cyan);//border
+		g.draw(shape.getBounds());
+		g.setColor(Color.green);//center
+		g.fill(new Rectangle2D.Float(center.x, center.y, 10,10));
 	}
 	
 	//Process
@@ -159,9 +174,26 @@ public class GraphicComponent  implements Serializable{
 	
 //	public void suicide() {GCStorage_Normal.removeGC(this);}
 	
-	public void addConnectGC(GraphicComponent gc) {connectGC.add(gc);}
-	public void removeConnectGC(GraphicComponent gc) {connectGC.remove(gc);}
-	public Vector<GraphicComponent> getConnectGCs() {return connectGC;}
+	public void addAssociateGC(GraphicComponent gc) {associateGC.add(gc);}
+	public void removeAssociateGC(GraphicComponent gc) {associateGC.remove(gc);}
+	public Vector<GraphicComponent> getAssociateGCs() {return associateGC;}
+	
+	private Vector <GraphicComponent> aggregateGC;
+	public void addAggregateGC(GraphicComponent gc) {aggregateGC.add(gc);}
+	public void addAllAggregateGC(Vector <GraphicComponent> gcs) {aggregateGC.addAll(gcs);}
+	public void removeAggregateGC(GraphicComponent gc) {aggregateGC.remove(gc);}
+	public int getAggregateGCSize() {return aggregateGC.size();}
+	
+	public Vector<GraphicComponent> getAggregateGCs() {
+		Vector<GraphicComponent> meAndChildAggreCom = new Vector<GraphicComponent>();
+		for(GraphicComponent gc : aggregateGC) {
+			meAndChildAggreCom.add(gc);
+			if(gc.getAggregateGCSize()>0) {
+				meAndChildAggreCom.addAll(gc.getAggregateGCs());
+			}
+		}
+		return meAndChildAggreCom;
+	}
 	
 	public boolean isTakeEvent() {return takeEvent;}
 	public void setTakeEvent(boolean takeEvent) {this.takeEvent = takeEvent;}

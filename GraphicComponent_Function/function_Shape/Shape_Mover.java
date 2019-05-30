@@ -15,7 +15,6 @@ import java.io.Serializable;
 import javax.swing.JPanel;
 
 import component_Stuff.GraphicComponent;
-import data.GCStorage_Normal;
 import data.GCStorage_Selected;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import onOff.AnchorPaint;
@@ -62,6 +61,13 @@ public class Shape_Mover extends AFunction implements Serializable{//셀렉트 된애
 				}
 				gc.setMyCenter(new Point2D.Float(gc.getCenter().x+nowPoint.x-dragStart.x, gc.getCenter().y+nowPoint.y-dragStart.y));//이거 대체 방법 없냥.
 			}
+			for(GraphicComponent gc : master.getAggregateGCs()) {
+				gc.setShape(at.createTransformedShape(gc.getShape()));
+				for(Point2D.Float point : gc.getPoints()) {
+					point.setLocation(point.x+nowPoint.x-dragStart.x, point.y+nowPoint.y-dragStart.y);
+				}
+				gc.setMyCenter(new Point2D.Float(gc.getCenter().x+nowPoint.x-dragStart.x, gc.getCenter().y+nowPoint.y-dragStart.y));//이거 대체 방법 없냥.
+			}
 			dragStart = nowPoint;
 		}
 	}
@@ -71,7 +77,8 @@ public class Shape_Mover extends AFunction implements Serializable{//셀렉트 된애
 			Rectangle2D masterBorder = getBeforeRotateBorder();
 			float factor = master.getBorderThick();
 			AffineTransform at = new AffineTransform();
-			at.setToRotation(Math.toRadians(master.getAngle()), masterBorder.getCenterX(), masterBorder.getCenterY());
+//			at.setToRotation(Math.toRadians(master.getAngle()), masterBorder.getCenterX(), masterBorder.getCenterY());
+			at.setToRotation(Math.toRadians(master.getAngle()), master.getCenter().x, master.getCenter().y);
 			Rectangle2D.Double beforeRotateRect = new Rectangle2D.Double(masterBorder.getX()-factor/2, masterBorder.getY()-factor/2, masterBorder.getWidth()+factor, masterBorder.getHeight()+factor);
 			
 			float scaleRectBorderThick = rectBorderThick/DrawingPanelMoveAndZoom.getScale();
