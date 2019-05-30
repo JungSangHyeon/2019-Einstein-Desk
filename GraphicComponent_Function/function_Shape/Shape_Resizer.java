@@ -109,10 +109,11 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 				gc.setborderThick(thick);
 			}
 			
+			
 			for(GraphicComponent gc : master.getAggregateGCs()) {//TODO
+				int thick = gc.getBorderThick();
 				gc.setOtherCenter(master.getCenter());
 				gc.useOtherCenter();
-				int thick = gc.getBorderThick();
 				gc.setborderThick(0);
 				if(resizeFactor.getY()<0) {gc.reverseUpsideDown();}//TODO
 				Point2D.Double beforeCenter = new Point2D.Double(gc.getCenter().x, gc.getCenter().y);//ÇöÀç Áß½ÉÀúÀå.
@@ -134,9 +135,6 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 					at.translate(-sr.getCenterX(), -sr.getCenterY());//¿ø·¡ µÇ´Â AT¿Ï¼º?
 				}
 				
-				gc.useMyCenter();
-				Point2D.Float changeCenter = new Point2D.Float(gc.getCenter().x, gc.getCenter().y);//ÇöÀç Áß½ÉÀúÀå.
-				changeCenter = transformPoint(at, changeCenter);//Áß½É ÀÌµ¿½ÃÅ´.
 				
 				Vector<Point2D.Float> beforePoint = getBeforeRotatePoints(gc);//È¸Àü ÀüÀÇ Æ÷ÀÎÆ®µé
 				for (Point2D.Float point : beforePoint) {
@@ -149,11 +147,17 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 				gc.setPoints(beforePoint);//
 				gc.setShape(beforeShape);
 				
-				AffineTransform at2 = new AffineTransform();
+				gc.useMyCenter();
+				Point2D.Float changeCenter = new Point2D.Float(gc.getCenter().x, gc.getCenter().y);//ÇöÀç Áß½ÉÀúÀå.//other
+				
+				changeCenter = transformPoint(at, changeCenter);//Áß½É ÀÌµ¿½ÃÅ´.
+				
+				AffineTransform at2 = new AffineTransform();//beforeCenter = before my center
 				at2.setToRotation(Math.toRadians(gc.getAngle()), beforeCenter.getX(), beforeCenter.getY());//ÀÌµ¿ ÀüÀÇ Áß½ÉÀ¸·Î È¸Àü at¸¸µë
 				gc.setShape(at2.createTransformedShape(gc.getShape()));//ÀÌµ¿µÈ µµÇü? È¸Àü½ÃÅ´
-				changeCenter = transformPoint(at2, changeCenter);//Áß½É È¸Àü½ÃÅ´
-				gc.setMyCenter(changeCenter);
+//				changeCenter = transformPoint(at2, changeCenter);//Áß½É È¸Àü½ÃÅ´
+				Point2D.Float newCenter = new Point2D.Float((float)gc.getShape().getBounds().getCenterX(), (float)gc.getShape().getBounds().getCenterY());
+				gc.setMyCenter(newCenter);
 				
 				for (Point2D.Float point : gc.getPoints()) {//Á¡µé È¸Àü½ÃÅ´
 					Point2D.Float cpoint = transformPoint(at2, point);
@@ -162,7 +166,6 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 				gc.useMyCenter();
 				gc.setborderThick(thick);
 			}
-
 			dragStart = normalDragStart;
 		}
 		

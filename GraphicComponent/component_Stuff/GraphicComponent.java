@@ -42,8 +42,8 @@ public class GraphicComponent  implements Serializable{
 	}
 //	public Point2D.Float getCenter() {return center;}
 	
-	public void setMyCenter(Point2D.Float p) {myCenter=p;  center.setLocation(myCenter);}
-	public void useMyCenter() {center.setLocation(myCenter);}
+	public void setMyCenter(Point2D.Float p) {myCenter=p;}
+	public void useMyCenter() {myCenterOn = true;}
 	
 	public void setOtherCenter(Point2D.Float p) {otherCenter=p;}
 	public void useOtherCenter() {myCenterOn = false;}
@@ -96,7 +96,7 @@ public class GraphicComponent  implements Serializable{
 		g.setColor(Color.cyan);//border
 		g.draw(shape.getBounds());
 		g.setColor(Color.green);//center
-		g.fill(new Rectangle2D.Float(center.x, center.y, 10,10));
+		g.fill(new Rectangle2D.Float(getCenter().x, getCenter().y, 10,10));
 	}
 	
 	//Process
