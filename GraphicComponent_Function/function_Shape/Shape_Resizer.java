@@ -61,16 +61,16 @@ public class Shape_Resizer extends AFunction implements Serializable {//히야 길�
 			Point2D.Float normalDragStart = new Point2D.Float(nowPoint.x, nowPoint.y);//다음 드래그를 위함.
 			Point2D resizeFactor = this.computeResizeFactor(getBeforeRotatePoint(master, dragStart), getBeforeRotatePoint(master, nowPoint));//돌린 것으로 리사이즈 팩터 만듬.
 			
-			Point2D.Float masterBeforeCenter = new Point2D.Float(master.getCenter().x, master.getCenter().y);
+//			Point2D.Float masterBeforeCenter = new Point2D.Float(master.getCenter().x, master.getCenter().y);
 			
-			AffineTransform at = null;//TODO
+//			AffineTransform at = null;//TODO
 			for(GraphicComponent gc : GCStorage_Selected.getSelectedGCVector()) {
 				int thick = gc.getBorderThick();
 				gc.setborderThick(0);
 				if(resizeFactor.getY()<0) {gc.reverseUpsideDown();}
-				Point2D.Double beforeCenter = new Point2D.Double(gc.getCenter().x, gc.getCenter().y);//현재 중심저장.
+				Point2D.Float beforeCenter = new Point2D.Float(gc.getCenter().x, gc.getCenter().y);//현재 중심저장.
 				
-//				AffineTransform at;
+				AffineTransform at;
 				if(resizeFactor.getX()<0||resizeFactor.getY()<0) {
 					Rectangle2D sr = getBeforeRotateAnchorBorder(gc, 7-n);//앵커를 돌리기 전으로 함
 					at = new AffineTransform();
@@ -110,50 +110,50 @@ public class Shape_Resizer extends AFunction implements Serializable {//히야 길�
 					point.setLocation(cpoint.x, cpoint.y);
 				}
 				gc.setborderThick(thick);
-			}
-			
-			
-			for(GraphicComponent gc : master.getAllAggregateGCs()) {//TODO ooooo
 				
-				gc.setOtherCenter(masterBeforeCenter);
+				for(GraphicComponent aggreGc : gc.getAllAggregateGCs()) {//TODO ooooo
+					aggreGc.setOtherCenter(beforeCenter);
 //				gc.setOtherCenter(masterBeforeCenter);
-				gc.useOtherCenter();
-				
-				int thick = gc.getBorderThick();
-				gc.setborderThick(0);
-				if(resizeFactor.getY()<0) {gc.reverseUpsideDown();}
-				Point2D.Double beforeCenter = new Point2D.Double(gc.getCenter().x, gc.getCenter().y);//현재 중심저장.
-				Point2D.Float changeCenter = new Point2D.Float(gc.getCenter().x, gc.getCenter().y);//현재 중심저장.
-				changeCenter = transformPoint(at, changeCenter);//중심 이동시킴.
-				
-				Vector<Point2D.Float> beforePoint = getBeforeRotatePoints(gc);//회전 전의 포인트들
-				for (Point2D.Float point : beforePoint) {
-					Point2D.Float cpoint = transformPoint(at, point);//이동 시킴
-					point.setLocation(cpoint.x, cpoint.y);
-				}
+					aggreGc.useOtherCenter();
+					
+					int aggrethick = aggreGc.getBorderThick();
+					aggreGc.setborderThick(0);
+					if(resizeFactor.getY()<0) {aggreGc.reverseUpsideDown();}
+					Point2D.Double aggrebeforeCenter = new Point2D.Double(aggreGc.getCenter().x, aggreGc.getCenter().y);//현재 중심저장.
+					Point2D.Float aggrechangeCenter = new Point2D.Float(aggreGc.getCenter().x, aggreGc.getCenter().y);//현재 중심저장.
+					aggrechangeCenter = transformPoint(at, aggrechangeCenter);//중심 이동시킴.
+					
+					Vector<Point2D.Float> aggrebeforePoint = getBeforeRotatePoints(aggreGc);//회전 전의 포인트들
+					for (Point2D.Float point : aggrebeforePoint) {
+						Point2D.Float cpoint = transformPoint(at, point);//이동 시킴
+						point.setLocation(cpoint.x, cpoint.y);
+					}
 //				Shape beforeShape = gc.getAShape().newShape(beforePoint);//이동시킨걸로 쉐입 만듬
-				Shape beforeShape = at.createTransformedShape(getBeforeRotateShape(gc));//이동시킨걸로 쉐입 만듬
-				
-				gc.setPoints(beforePoint);//
-				gc.setShape(beforeShape);
-				
-				gc.useMyCenter();
-				AffineTransform at2 = new AffineTransform();
-				at2.setToRotation(Math.toRadians(gc.getAngle()), beforeCenter.getX(), beforeCenter.getY());//이동 전의 중심으로 회전 at만듬
-				gc.setShape(at2.createTransformedShape(gc.getShape()));//이동된 도형? 회전시킴
-				
-				changeCenter = transformPoint(at2, gc.getCenter());//중심 회전시킴
-				
-				Point2D.Float newCenter = new Point2D.Float((float)gc.getShape().getBounds().getCenterX(), (float)gc.getShape().getBounds().getCenterY());
-				gc.setMyCenter(newCenter);
-				gc.useMyCenter();
-				
-				for (Point2D.Float point : gc.getPoints()) {//점들 회전시킴
-					Point2D.Float cpoint = transformPoint(at2, point);
-					point.setLocation(cpoint.x, cpoint.y);
+					Shape aggrebeforeShape = at.createTransformedShape(getBeforeRotateShape(aggreGc));//이동시킨걸로 쉐입 만듬
+					
+					aggreGc.setPoints(aggrebeforePoint);//
+					aggreGc.setShape(aggrebeforeShape);
+					
+					aggreGc.useMyCenter();
+					AffineTransform aggreat2 = new AffineTransform();
+					aggreat2.setToRotation(Math.toRadians(aggreGc.getAngle()), aggrebeforeCenter.getX(), aggrebeforeCenter.getY());//이동 전의 중심으로 회전 at만듬
+					aggreGc.setShape(aggreat2.createTransformedShape(aggreGc.getShape()));//이동된 도형? 회전시킴
+					
+					aggrechangeCenter = transformPoint(aggreat2, aggreGc.getCenter());//중심 회전시킴
+					
+					Point2D.Float newCenter = new Point2D.Float((float)aggreGc.getShape().getBounds().getCenterX(), (float)aggreGc.getShape().getBounds().getCenterY());
+					aggreGc.setMyCenter(newCenter);
+					aggreGc.useMyCenter();
+					
+					for (Point2D.Float point : aggreGc.getPoints()) {//점들 회전시킴
+						Point2D.Float cpoint = transformPoint(aggreat2, point);
+						point.setLocation(cpoint.x, cpoint.y);
+					}
+					aggreGc.setborderThick(aggrethick);
 				}
-				gc.setborderThick(thick);
 			}
+			
+			
 			
 			
 //			for(GraphicComponent gc : master.getAllAggregateGCs()) {//TODO

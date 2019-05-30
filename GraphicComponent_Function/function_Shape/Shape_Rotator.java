@@ -108,17 +108,18 @@ public class Shape_Rotator extends AFunction implements Serializable{
 					point.setLocation(cpoint.x, cpoint.y);
 				}
 				gc.addAngle(rotationAngle);//add Angle
-			}
-			for(GraphicComponent gc : master.getAllAggregateGCs()) {
-				AffineTransform at = new AffineTransform();//get AT
-				at.setToRotation(Math.toRadians(rotationAngle), master.getCenter().getX(), master.getCenter().getY());
-				gc.setShape(at.createTransformedShape(gc.getShape()));//Rotate Shape
-				gc.setMyCenter(transformPoint(at, gc.getCenter()));
-				for(Point2D.Float point : gc.getPoints()) {//Rotate Points
-					Point2D.Float cpoint = transformPoint(at,point);
-					point.setLocation(cpoint.x, cpoint.y);
+				
+				for(GraphicComponent aggreGC : gc.getAllAggregateGCs()) {
+					AffineTransform aggreAT = new AffineTransform();//get AT
+					aggreAT.setToRotation(Math.toRadians(rotationAngle), gc.getCenter().getX(), gc.getCenter().getY());
+					aggreGC.setShape(aggreAT.createTransformedShape(aggreGC.getShape()));//Rotate Shape
+					aggreGC.setMyCenter(transformPoint(aggreAT, aggreGC.getCenter()));
+					for(Point2D.Float point : aggreGC.getPoints()) {//Rotate Points
+						Point2D.Float cpoint = transformPoint(aggreAT,point);
+						point.setLocation(cpoint.x, cpoint.y);
+					}
+					aggreGC.addAngle(rotationAngle);//add Angle
 				}
-				gc.addAngle(rotationAngle);//add Angle
 			}
 			dragStart = nowPoint;
 		}

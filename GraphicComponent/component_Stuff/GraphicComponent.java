@@ -84,19 +84,19 @@ public class GraphicComponent  implements Serializable{
 		}
 		
 //		아래는 테스트용
-		if (points.size() > 0) {//points
-			g.setColor(Color.RED);// 디버깅?
-			GeneralPath p = new GeneralPath();
-			p.moveTo(points.get(0).x, points.get(0).y);
-			for (Point2D.Float pp : points) {
-				p.lineTo(pp.x, pp.y);
-			}
-			g.draw(p);
-		}
-		g.setColor(Color.cyan);//border
-		g.draw(shape.getBounds());
-		g.setColor(Color.green);//center
-		g.fill(new Rectangle2D.Float(getCenter().x, getCenter().y, 10,10));
+//		if (points.size() > 0) {//points
+//			g.setColor(Color.RED);// 디버깅?
+//			GeneralPath p = new GeneralPath();
+//			p.moveTo(points.get(0).x, points.get(0).y);
+//			for (Point2D.Float pp : points) {
+//				p.lineTo(pp.x, pp.y);
+//			}
+//			g.draw(p);
+//		}
+//		g.setColor(Color.cyan);//border
+//		g.draw(shape.getBounds());
+//		g.setColor(Color.green);//center
+//		g.fill(new Rectangle2D.Float(getCenter().x, getCenter().y, 10,10));
 	}
 	
 	//Process

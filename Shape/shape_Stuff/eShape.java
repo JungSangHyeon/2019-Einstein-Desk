@@ -1,7 +1,7 @@
 package shape_Stuff;
 
 import shape.EllipseShape;
-import shape.pen;
+import shape.GroupShape;
 import shape.HighlightShape;
 import shape.PolygonShape;
 import shape.RectShape;
@@ -9,6 +9,7 @@ import shape.SpeechShape;
 import shape.Star4Shape;
 import shape.StraightLineShape;
 import shape.TriangleShape;
+import shape.pen;
 
 public enum eShape{
 	rect(new RectShape()), 
@@ -21,6 +22,7 @@ public enum eShape{
 	polygon(new PolygonShape()), 
 	pen(new pen()), 
 	highlight(new HighlightShape()), 
+	group(new GroupShape()), 
 	;
 	
 	AShape shape;
