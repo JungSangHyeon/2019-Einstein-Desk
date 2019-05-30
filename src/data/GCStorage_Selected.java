@@ -10,6 +10,12 @@ public class GCStorage_Selected {
 	
 	//Add
 	public static void addSelectedGC(GraphicComponent shapeData) {shapeData.setSelected(true);selectedComponents.add(shapeData);}
+	public static void addAllSelectedGC(Vector<GraphicComponent> shapeDatas) {
+		for(GraphicComponent gc : shapeDatas) {
+			gc.setSelected(true);
+			selectedComponents.add(gc);
+		}
+	}
 	
 	//Remove
 	public static void removeSelectedGC(GraphicComponent gc) {gc.setSelected(false);selectedComponents.remove(gc);}

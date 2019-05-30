@@ -109,7 +109,7 @@ public class Shape_Rotator extends AFunction implements Serializable{
 				}
 				gc.addAngle(rotationAngle);//add Angle
 			}
-			for(GraphicComponent gc : master.getAggregateGCs()) {
+			for(GraphicComponent gc : master.getAllAggregateGCs()) {
 				AffineTransform at = new AffineTransform();//get AT
 				at.setToRotation(Math.toRadians(rotationAngle), master.getCenter().getX(), master.getCenter().getY());
 				gc.setShape(at.createTransformedShape(gc.getShape()));//Rotate Shape

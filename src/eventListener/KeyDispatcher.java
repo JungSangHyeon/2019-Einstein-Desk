@@ -50,6 +50,7 @@ public class KeyDispatcher implements KeyEventDispatcher {// 키이벤트가 포커스에
 			else if (keyIs(KeyEvent.VK_Y)) {RedoUndo.redo();}
 			else if (keyIs(KeyEvent.VK_T)) {ThickFollowScale.onOff();}
 			else if (keyIs(KeyEvent.VK_G)) {GroupTool.grouping();}
+			else if (keyIs(KeyEvent.VK_H)) {GroupTool.unGrouping();}
 			else if (keyIs(KeyEvent.VK_UP)) {}
 			else if (keyIs(KeyEvent.VK_DOWN)) {}
 		}

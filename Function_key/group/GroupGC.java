@@ -29,7 +29,7 @@ public class GroupGC extends GraphicComponent{
 		
 		//size
 		Path2D path = new Path2D.Float();
-		for (GraphicComponent gc : this.getAggregateGCs()) {
+		for (GraphicComponent gc : this.getAllAggregateGCs()) {
 			path.append(gc.getShape(), false);
 		}
 		Area compound = new Area(path);

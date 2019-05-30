@@ -60,13 +60,14 @@ public class Shape_Mover extends AFunction implements Serializable{//셀렉트 된애
 					point.setLocation(point.x+nowPoint.x-dragStart.x, point.y+nowPoint.y-dragStart.y);
 				}
 				gc.setMyCenter(new Point2D.Float(gc.getCenter().x+nowPoint.x-dragStart.x, gc.getCenter().y+nowPoint.y-dragStart.y));//이거 대체 방법 없냥.
-			}
-			for(GraphicComponent gc : master.getAggregateGCs()) {
-				gc.setShape(at.createTransformedShape(gc.getShape()));
-				for(Point2D.Float point : gc.getPoints()) {
-					point.setLocation(point.x+nowPoint.x-dragStart.x, point.y+nowPoint.y-dragStart.y);
+				
+				for(GraphicComponent aggreGC : gc.getAllAggregateGCs()) {
+					aggreGC.setShape(at.createTransformedShape(aggreGC.getShape()));
+					for(Point2D.Float point : aggreGC.getPoints()) {
+						point.setLocation(point.x+nowPoint.x-dragStart.x, point.y+nowPoint.y-dragStart.y);
+					}
+					aggreGC.setMyCenter(new Point2D.Float(aggreGC.getCenter().x+nowPoint.x-dragStart.x, aggreGC.getCenter().y+nowPoint.y-dragStart.y));//이거 대체 방법 없냥.
 				}
-				gc.setMyCenter(new Point2D.Float(gc.getCenter().x+nowPoint.x-dragStart.x, gc.getCenter().y+nowPoint.y-dragStart.y));//이거 대체 방법 없냥.
 			}
 			dragStart = nowPoint;
 		}

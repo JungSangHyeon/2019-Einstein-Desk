@@ -38,6 +38,12 @@ public class CopyAndPaste {
 			c.setMyCenter(new Point2D.Float(c.getCenter().x+interval, c.getCenter().y+interval));
 			c.setShape(at.createTransformedShape(c.getShape()));
 			
+			for(GraphicComponent gc : c.getAllAggregateGCs()) {
+				for(Point2D.Float point : gc.getPoints()) {point.setLocation(point.x+interval, point.y+interval);}
+				gc.setMyCenter(new Point2D.Float(gc.getCenter().x+interval, gc.getCenter().y+interval));
+				gc.setShape(at.createTransformedShape(gc.getShape()));
+			}
+			
 			GraphicComponent copyItem = (GraphicComponent)DeepClone.clone(c);
 			GCStorage_Normal.addNewGC(copyItem);
 			GCStorage_Selected.addSelectedGC(copyItem);

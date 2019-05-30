@@ -184,12 +184,13 @@ public class GraphicComponent  implements Serializable{
 	public void removeAggregateGC(GraphicComponent gc) {aggregateGC.remove(gc);}
 	public int getAggregateGCSize() {return aggregateGC.size();}
 	
-	public Vector<GraphicComponent> getAggregateGCs() {
+	public Vector<GraphicComponent> getMyAggregateGCs() {return aggregateGC;}
+	public Vector<GraphicComponent> getAllAggregateGCs() {
 		Vector<GraphicComponent> meAndChildAggreCom = new Vector<GraphicComponent>();
 		for(GraphicComponent gc : aggregateGC) {
 			meAndChildAggreCom.add(gc);
 			if(gc.getAggregateGCSize()>0) {
-				meAndChildAggreCom.addAll(gc.getAggregateGCs());
+				meAndChildAggreCom.addAll(gc.getAllAggregateGCs());
 			}
 		}
 		return meAndChildAggreCom;
