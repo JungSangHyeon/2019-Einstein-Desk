@@ -63,7 +63,9 @@ public class DrawingPanel extends JPanel implements Runnable {
 		}
 	}
 	
-	public void initialize() {Thread th = new Thread(this); th.start();}
+	public void initialize() {
+//		Thread th = new Thread(this); th.start();
+		}
 	private void add(GraphicComponent gc) {GCPanelStorage.add(gc);}
 	public void ArrangeContainerLocation() {}
 	

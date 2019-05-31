@@ -3,14 +3,14 @@ package component;
 import GCPanel.HighlightSettingGCPanel;
 import GCPanel.PenSettingGCPanel;
 import component_Stuff.GraphicComponent;
-import function_Data.Data_ShapeSelect;
-import function_Data.Data_ToolSelector;
-import function_Paint.Paint_GCpeekaboo;
-import function_Paint.Paint_HighlightColorBGPaint;
+import dataModifyFunction.FSetShape;
+import dataModifyFunction.FSetTool;
+import function_Paint.FGCpeekaboo;
+import function_Paint.FPaintMasterWithHighLightColor;
 import function_Paint.Paint_NormalIMG;
-import function_Paint.Paint_penColorBGPaint;
-import function_Paint.Paint_showMouseOnMe;
-import function_Paint.Paint_showSelectedTool;
+import function_Paint.FPaintMasterWithPenColor;
+import function_Paint.FPaintMasterIfMouseOn;
+import function_Paint.FShowSelected;
 import function_Shape.Shape_MoverWeak;
 import shape_Stuff.AShape;
 import shape_Stuff.eShape;
@@ -46,8 +46,8 @@ public class ShapeSelectItems {
 		GC.setBorderPaint(false);
 		GC.setFillPaint(false);
 		
-		GC.addFunction(new Data_ToolSelector(item.getSelectShape().getDrawer()));//순서 중요함. 페인트의 경우 덧 그려짐
-		GC.addFunction(new Data_ShapeSelect(item.getSelectShape()));
+		GC.addFunction(new FSetTool(item.getSelectShape().getDrawer()));//순서 중요함. 페인트의 경우 덧 그려짐
+		GC.addFunction(new FSetShape(item.getSelectShape()));
 //		GC.addFunction(item.getPainter());
 		GC.setAShape(eShape.rect.getAShape());
 //		GC.addFunction(new Paint_showMouseOnMe());
@@ -60,14 +60,14 @@ public class ShapeSelectItems {
 		GC.setBorderPaint(false);
 		GC.setFillPaint(false);
 		
-		GC.addFunction(new Data_ToolSelector(item.getSelectShape().getDrawer()));//순서 중요함. 페인트의 경우 덧 그려짐
-		GC.addFunction(new Data_ShapeSelect(item.getSelectShape()));
-		GC.addFunction(new Paint_penColorBGPaint());
+		GC.addFunction(new FSetTool(item.getSelectShape().getDrawer()));//순서 중요함. 페인트의 경우 덧 그려짐
+		GC.addFunction(new FSetShape(item.getSelectShape()));
+		GC.addFunction(new FPaintMasterWithPenColor());
 		GC.addFunction(item.getPainter());
 		GC.setAShape(eShape.rect.getAShape());
-		GC.addFunction(new Paint_showSelectedTool());
-		GC.addFunction(new Paint_showMouseOnMe());
-		GC.addFunction(new Paint_GCpeekaboo(new PenSettingGCPanel()));
+		GC.addFunction(new FShowSelected());
+		GC.addFunction(new FPaintMasterIfMouseOn());
+		GC.addFunction(new FGCpeekaboo(new PenSettingGCPanel()));
 		return GC;
 	}
 	public static GraphicComponent getHighlightItem(eShapeSelectItem item) {
@@ -75,14 +75,14 @@ public class ShapeSelectItems {
 		GC.setBorderPaint(false);
 		GC.setFillPaint(false);
 		
-		GC.addFunction(new Data_ToolSelector(item.getSelectShape().getDrawer()));//순서 중요함. 페인트의 경우 덧 그려짐
-		GC.addFunction(new Data_ShapeSelect(item.getSelectShape()));
-		GC.addFunction(new Paint_HighlightColorBGPaint());
+		GC.addFunction(new FSetTool(item.getSelectShape().getDrawer()));//순서 중요함. 페인트의 경우 덧 그려짐
+		GC.addFunction(new FSetShape(item.getSelectShape()));
+		GC.addFunction(new FPaintMasterWithHighLightColor());
 		GC.addFunction(item.getPainter());
 		GC.setAShape(eShape.rect.getAShape());
-		GC.addFunction(new Paint_showSelectedTool());
-		GC.addFunction(new Paint_showMouseOnMe());
-		GC.addFunction(new Paint_GCpeekaboo(new HighlightSettingGCPanel()));
+		GC.addFunction(new FShowSelected());
+		GC.addFunction(new FPaintMasterIfMouseOn());
+		GC.addFunction(new FGCpeekaboo(new HighlightSettingGCPanel()));
 		return GC;
 	}
 }

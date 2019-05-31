@@ -6,21 +6,20 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
+import calculation.AffineMath;
 import zFunction_Stuff.ANameAndImagePainter;
 import zFunction_Stuff.ImgStorage;
 
 public class Paint_NormalIMG extends ANameAndImagePainter {// D&D함
 	private static final long serialVersionUID = -7941746680321916676L;
 	
-	final static int textWRadio = 8, textHRadio = 4, textLocationXFactor = 40, textLocationYFactor = 20;
-	
 	public Paint_NormalIMG(String name, String fileAddress) {
 		this.setName(name);
-		this.setImg(fileAddress);
+		this.setImage(fileAddress);
 	}
 
-	public void paintComponent(Graphics2D g2d, Shape shape) {
-		Rectangle2D rect = getBeforeRotateBorder();
+	public void realPaint(Graphics2D g2d) {
+		Rectangle2D rect = AffineMath.getRotateShape(master.getShape(), master.getAngle(), master.getCenter()).getBounds2D();
 		double rectX = rect.getX(), rectY= rect.getY(), rectW = rect.getWidth(), rectH = rect.getHeight();
 		g2d.rotate(Math.toRadians(master.getAngle()), master.getCenter().getX(), master.getCenter().getY());//affine에 넣으면 안되네여
 		if(backGroundNeed) {g2d.setColor(backGroundColor); g2d.fill(rect);}//투명 이미지 활용을 위함
@@ -35,10 +34,10 @@ public class Paint_NormalIMG extends ANameAndImagePainter {// D&D함
 		g2d.rotate(-Math.toRadians(master.getAngle()), master.getCenter().getX(), master.getCenter().getY());
 	}
 	
-	private Rectangle2D getBeforeRotateBorder() {
-		AffineTransform at = new AffineTransform();
-		at.setToRotation(-Math.toRadians(master.getAngle()), master.getCenter().x, master.getCenter().y);
-		return at.createTransformedShape(master.getShape()).getBounds2D();
-	}
+//	private Rectangle2D getBeforeRotateBorder() {
+//		AffineTransform at = new AffineTransform();
+//		at.setToRotation(-Math.toRadians(master.getAngle()), master.getCenter().x, master.getCenter().y);
+//		return at.createTransformedShape(master.getShape()).getBounds2D();
+//	}
 	
 }

@@ -3,12 +3,9 @@ package component_Stuff;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
-import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.Vector;
 
@@ -69,16 +66,16 @@ public class GraphicComponent  implements Serializable{
 	
 	//paint
 	public void topPaint(Graphics2D g) {
-		for(AFunction function : functions) {if(function.isTopPaint()) {function.paintComponent(g,shape);}}
+		for(AFunction function : functions) {if(function.isTopPaint()) {function.paint(g);}}
 	}
 	public void bottumPaint(Graphics2D g) {
-		for(AFunction function : functions) {if(function.isButtomPaint()) {function.paintComponent(g,shape);}}
+		for(AFunction function : functions) {if(function.isButtomPaint()) {function.paint(g);}}
 	}
 	public void paint(Graphics2D g) {
 		g.setStroke(new BasicStroke(borderThick, strokeCap, strokeJoin));
 		if(paintFill) {g.setColor(fillColor); g.fill(shape);}
 		if(paintBorder) {g.setColor(borderColor); g.draw(shape);}
-		for(AFunction function : functions) {if(!function.isTopPaint()&&!function.isButtomPaint()) {function.paintComponent(g,shape);}}
+		for(AFunction function : functions) {if(!function.isTopPaint()&&!function.isButtomPaint()) {function.paint(g);}}
 		for(GraphicComponent gc : aggregateGC) {
 			gc.paint(g);
 		}
@@ -101,7 +98,7 @@ public class GraphicComponent  implements Serializable{
 	
 	//Process
 	public void processEvent(MouseEvent e) {
-		for(AFunction lump : functions) {lump.processEvent(e);}
+		for(AFunction function : functions) {function.processMouseEvent(e);}
 	}
 	
 	//Function

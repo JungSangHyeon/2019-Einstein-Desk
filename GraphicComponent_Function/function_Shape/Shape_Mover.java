@@ -73,7 +73,7 @@ public class Shape_Mover extends AFunction implements Serializable{//伎泛飘 等局
 		}
 	}
 	
-	public void paintComponent(Graphics2D g, Shape shape) {
+	public void realPaint(Graphics2D g) {
 		if(master.isSelected()) {
 			Rectangle2D masterBorder = getBeforeRotateBorder();
 			float factor = master.getBorderThick();
@@ -109,7 +109,6 @@ public class Shape_Mover extends AFunction implements Serializable{//伎泛飘 等局
 	}
 	
 	public void mouseReleased(MouseEvent e) {moveOn = false;AnchorPaint.on();}
-	public void mouseClicked(MouseEvent e) {}
 	public void mouseMoved(MouseEvent e) {
 		if(master.isSelected()&&master.getShape().contains(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {//mouse On this
 			boolean onlyOnShape = true;
@@ -121,8 +120,4 @@ public class Shape_Mover extends AFunction implements Serializable{//伎泛飘 等局
 			}
 		}
 	}
-	public void mouseEntered(MouseEvent e) {}
-	public void mouseExited(MouseEvent e) {}
-	public void processSelectEvent(boolean selected) {}
-	public void timeIsMove(boolean boo) {}
 }

@@ -77,7 +77,7 @@ public class ImgLoad extends AFunction{
 	public void mouseMoved(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
-	public void paintComponent(Graphics2D g, Shape shape) {}
+	public void realPaint(Graphics2D g) {}
 	public void processSelectEvent(boolean selected) {}
 	public void timeIsMove(boolean boo) {}
 }

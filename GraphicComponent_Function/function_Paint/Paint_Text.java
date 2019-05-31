@@ -18,14 +18,14 @@ public class Paint_Text extends ANameAndImagePainter {//D&D ¾ÈÇÔ
 
 	public Paint_Text(String name, String fileAddress) {
 		this.setName(name);
-		this.setImg(fileAddress);
+		this.setImage(fileAddress);
 	}
 
-	public void paintComponent(Graphics2D g, Shape shape) {
+	public void realPaint(Graphics2D g) {
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-		g2d.setClip(shape);
-		Rectangle rect = shape.getBounds();
+		g2d.setClip(master.getShape());
+		Rectangle rect = master.getShape().getBounds();
 		int rectX = rect.x, rectY= rect.y, rectW = rect.width, rectH = rect.height;
 		g2d.setColor(nameColor);
 		BufferedImage img = ImgStorage.getImage(imageIndex) ;

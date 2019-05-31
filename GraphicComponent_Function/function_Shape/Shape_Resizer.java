@@ -286,7 +286,7 @@ public class Shape_Resizer extends AFunction implements Serializable {//È÷¾ß ±æ´
 		return transformPoint(at, point);
 	}
 	
-	public void paintComponent(Graphics2D g, Shape shape) {
+	public void realPaint(Graphics2D g) {
 		if (master.isSelected()) {
 			for(Shape s : anchors) {
 				master.removeTopFunctionShape(s);

@@ -10,8 +10,8 @@ import component_Stuff.GraphicComponent;
 import function_Shape.Shape_Mover;
 import function_Shape.Shape_Resizer;
 import function_Shape.Shape_Rotator;
-import function_Time.Data_AutoRotate;
 import shape_Stuff.eShape;
+import time_Stuff.FTimeFunction;
 
 public class GroupGC extends GraphicComponent{
 	private static final long serialVersionUID = 4167132028348324648L;

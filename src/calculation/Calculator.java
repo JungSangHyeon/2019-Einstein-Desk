@@ -1,4 +1,4 @@
-package global;
+package calculation;
 
 import java.awt.geom.Point2D;
 

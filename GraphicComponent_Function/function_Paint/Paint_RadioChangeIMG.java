@@ -17,12 +17,12 @@ public class Paint_RadioChangeIMG extends ANameAndImagePainter {// D&DÇÔ
 	
 	public Paint_RadioChangeIMG(String name, String fileAddress) {
 		this.setName(name);
-		this.setImg(fileAddress);
+		this.setImage(fileAddress);
 	}
 
-	public void paintComponent(Graphics2D g2d, Shape shape) {
+	public void realPaint(Graphics2D g2d) {
 		Shape startClip  = g2d.getClip();
-		Rectangle2D rect = shape.getBounds2D();
+		Rectangle2D rect = master.getShape().getBounds2D();
 		g2d.setClip(master.getShape());
 		g2d.fill(rect);
 		double rectX = rect.getX(), rectY= rect.getY(), rectW = rect.getWidth(), rectH = rect.getHeight();

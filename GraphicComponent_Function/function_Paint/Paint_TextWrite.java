@@ -28,7 +28,7 @@ public class Paint_TextWrite extends AFunction{
 		return at.createTransformedShape(master.getShape()).getBounds2D();
 	}
 	
-	public void paintComponent(Graphics2D g, Shape shape) {
+	public void realPaint(Graphics2D g) {
 		try {
 			Font startFont = g.getFont();
 			g.setFont(new Font(null, Font.BOLD, (int)textSize));

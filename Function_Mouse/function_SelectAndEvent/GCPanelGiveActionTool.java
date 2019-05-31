@@ -27,14 +27,20 @@ public class GCPanelGiveActionTool extends ATool{
 	public boolean isTakeEvent() {return master!=null;}
 	
 	private void findMaster(MouseEvent e) {
+		master = null;
 		Vector<GraphicComponent> panelVector = GCPanelStorage.getGCPanelVector();
 		for(int i = panelVector.size()-1; i>-1; i--) {
-			if(panelVector.get(i).getShape().contains(e.getPoint())) {
-				master = panelVector.get(i);
-				return;
-			}else if(e.getID()==MouseEvent.MOUSE_PRESSED){panelVector.get(i).setSelected(false);}
+			if(master==null) {
+				if(panelVector.get(i).getShape().contains(e.getPoint())) {
+					master = panelVector.get(i);
+				}else if(e.getID()==MouseEvent.MOUSE_PRESSED){panelVector.get(i).setSelected(false);}
+			}else {panelVector.get(i).setSelected(false);}
 		}
-		master = null;
+		if(master==null) {
+			for(GraphicComponent gc : GCPanelStorage.getGCPanelVector()) {
+				gc.setSelected(false);
+			}
+		}
 	}
 	
 	private void giveEventToMaster(MouseEvent e) {

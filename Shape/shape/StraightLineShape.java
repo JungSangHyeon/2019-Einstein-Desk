@@ -4,8 +4,8 @@ import java.awt.Shape;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
+import calculation.Calculator;
 import component_Stuff.GraphicComponent;
-import global.Calculator;
 import shape_Stuff.APDRShape;
 
 public class StraightLineShape extends APDRShape{

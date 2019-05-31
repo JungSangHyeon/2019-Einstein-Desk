@@ -26,4 +26,7 @@ public class GCStorage_Selected {
 	
 	//Get
 	public static Vector<GraphicComponent> getSelectedGCVector() {return selectedComponents;}
+	public static boolean have(GraphicComponent master) {
+		return selectedComponents.contains(master);
+	}
 }

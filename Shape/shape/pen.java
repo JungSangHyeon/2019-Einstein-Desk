@@ -7,10 +7,10 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Float;
 import java.util.Vector;
 
+import calculation.Calculator;
 import component_Stuff.GraphicComponent;
 import function_Stuff.ATool;
 import function_Stuff.eTool;
-import global.Calculator;
 import shape_Stuff.APDRShape;
 
 public class pen extends APDRShape{

@@ -42,7 +42,7 @@ public class Shape_Rotator extends AFunction implements Serializable{
 		if(anchor!=null&&anchor.contains(dragStart)) {rotateOn = true;}
 	}
 
-	public void paintComponent(Graphics2D g, Shape shape) {
+	public void realPaint(Graphics2D g) {
 		if(master.isSelected()) {
 			master.removeTopFunctionShape(anchor);
 			master.removeFunctionShape(anchor);

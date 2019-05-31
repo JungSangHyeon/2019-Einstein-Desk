@@ -10,8 +10,8 @@ import data.GCStorage_Normal;
 import data.GCStorage_Selected;
 import deepClone.DeepClone;
 import doUndo.RedoUndo;
-import function_Time.Data_AutoRotate;
 import moveAndZoom.DrawingPanelMoveAndZoom;
+import time_Stuff.FTimeFunction;
 
 public class CopyAndPaste {
 

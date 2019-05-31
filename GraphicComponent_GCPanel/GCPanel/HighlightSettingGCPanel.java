@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
 import GCPanel_LineSetting_Stuff.HighlightColorSelectGCPanel;
 import GCPanel_LineSetting_Stuff.HighlightSizeBarGCPanel;
 import GCPanel_Stuff.PeekabooPanel;
-import function_Paint.Paint_GCNotSelectedDie;
+import function_Paint.FKillMasterIfNotSelected;
 
 public class HighlightSettingGCPanel extends PeekabooPanel{
 	private static final long serialVersionUID = 3141453841486592808L;
@@ -26,7 +26,7 @@ public class HighlightSettingGCPanel extends PeekabooPanel{
 		sizeBarPanel.setGCLocation(this.getX() + 5, this.getY() + 132);
 		this.add(sizeBarPanel);
 		
-		this.addFunction(new Paint_GCNotSelectedDie());
+		this.addFunction(new FKillMasterIfNotSelected());
 	}
 	
 	@Override

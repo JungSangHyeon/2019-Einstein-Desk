@@ -25,7 +25,7 @@ public class connectLineShapeSetter extends AFunction {
 		this.endGC=endGC;
 	}
 
-	public void paintComponent(Graphics2D g, Shape shape) {
+	public void realPaint(Graphics2D g) {
 		if(GCStorage_Normal.have(startGC)&&GCStorage_Normal.have(endGC)) {
 			Stroke startStroke = g.getStroke();
 			g.setStroke(new BasicStroke(thick, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));

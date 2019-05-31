@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import GCPanel_LayoutPixel_Stuff.GCPanel_LayoutPixel;
 import component_Stuff.GraphicComponent;
-import function_Data.Data_ColorCircle_Pen;
+import dataModifyFunction.FSetPenColorBTN;
 import function_Shape.Shape_Mover;
 import global.ColorConstant;
 import shape_Stuff.eShape;
@@ -29,7 +29,7 @@ public class PenColorSelectGCPanel extends GCPanel_LayoutPixel {
 		GC.setFillPaint(false);
 		
 		GC.setAShape(eShape.rect.getAShape());
-		GC.addFunction(new Data_ColorCircle_Pen(c, pixelWH));
+		GC.addFunction(new FSetPenColorBTN(c, pixelWH));
 		GC.addFunction(new Shape_Mover());
 		return GC;
 	}

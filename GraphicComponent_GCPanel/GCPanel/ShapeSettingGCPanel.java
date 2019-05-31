@@ -11,7 +11,7 @@ import GCPanel_ShapeSetting_Stuff.CMCShapeSelectGCPanel;
 import GCPanel_ShapeSetting_Stuff.PDRShapeSelectGCPanel;
 import GCPanel_Stuff.PeekabooPanel;
 import data.GCPanelStorage;
-import function_Paint.Paint_GCNotSelectedDie;
+import function_Paint.FKillMasterIfNotSelected;
 
 public class ShapeSettingGCPanel extends PeekabooPanel{
 	private static final long serialVersionUID = -4033921725411864658L;
@@ -30,7 +30,7 @@ public class ShapeSettingGCPanel extends PeekabooPanel{
 		sizeBar.setGCLocation(this.getX() + 5, this.getY() + 142);
 		this.add(sizeBar);
 		
-		this.addFunction(new Paint_GCNotSelectedDie());
+		this.addFunction(new FKillMasterIfNotSelected());
 	}
 	
 	@Override

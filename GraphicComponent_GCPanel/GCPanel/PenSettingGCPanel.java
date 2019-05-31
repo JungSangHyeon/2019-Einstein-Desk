@@ -11,7 +11,7 @@ import GCPanel_LineSetting_Stuff.PenColorSelectGCPanel;
 import GCPanel_LineSetting_Stuff.PenSizeBarGCPanel;
 import GCPanel_Stuff.PeekabooPanel;
 import data.GCPanelStorage;
-import function_Paint.Paint_GCNotSelectedDie;
+import function_Paint.FKillMasterIfNotSelected;
 
 public class PenSettingGCPanel extends PeekabooPanel{
 	private static final long serialVersionUID = 3141453841486592808L;
@@ -30,7 +30,7 @@ public class PenSettingGCPanel extends PeekabooPanel{
 		sizeBar.setGCLocation(this.getX() + 5, this.getY() + 340);
 		this.add(sizeBar);
 		
-		this.addFunction(new Paint_GCNotSelectedDie());
+		this.addFunction(new FKillMasterIfNotSelected());
 	}
 	
 	@Override
