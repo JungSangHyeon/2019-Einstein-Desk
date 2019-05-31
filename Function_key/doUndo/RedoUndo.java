@@ -23,7 +23,12 @@ public class RedoUndo {
 	
 	private static void addCopySaveInHistory() {
 		temp = new Vector<GraphicComponent>();
-		for(GraphicComponent c : GCStorage_Normal.getGCVector()) {temp.add((GraphicComponent)DeepClone.clone(c));}
+		for(GraphicComponent c : GCStorage_Normal.getGCVector()) {
+			boolean restartTime = false;
+			if(c.isTimeMoving()) {c.moveTime(false); restartTime = true;}
+			temp.add((GraphicComponent)DeepClone.clone(c));
+			if(restartTime) {c.moveTime(true);}
+		}
 		history.add(temp);
 	}
 	

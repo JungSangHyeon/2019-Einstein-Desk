@@ -33,4 +33,5 @@ public class Paint_showMouseOnMe extends AFunction{
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {mouseOnMe = false;}
 	public void processSelectEvent(boolean selected) {}
+	public void timeIsMove(boolean boo) {}
 }

@@ -10,7 +10,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 
 import component_Stuff.GraphicComponent;
 import data.GCStorage_Normal;
@@ -80,4 +79,5 @@ public class ImgLoad extends AFunction{
 	public void mouseExited(MouseEvent e) {}
 	public void paintComponent(Graphics2D g, Shape shape) {}
 	public void processSelectEvent(boolean selected) {}
+	public void timeIsMove(boolean boo) {}
 }

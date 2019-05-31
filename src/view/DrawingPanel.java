@@ -7,6 +7,7 @@ import java.awt.RenderingHints;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 
 import javax.swing.JPanel;
 
@@ -26,7 +27,7 @@ import shape.HighlightShape;
 import shape.pen;
 
 @SuppressWarnings("serial")
-public class DrawingPanel extends JPanel {
+public class DrawingPanel extends JPanel implements Runnable {
 	
 	GCCanvas canvas;
 	
@@ -54,7 +55,15 @@ public class DrawingPanel extends JPanel {
 		this.add(new OffGCPanel());
 	}
 	
-	public void initialize() {}
+	@Override
+	public void run() {
+		while(true) {
+			repaint();
+			try {Thread.sleep(20);}catch(Exception e) {}
+		}
+	}
+	
+	public void initialize() {Thread th = new Thread(this); th.start();}
 	private void add(GraphicComponent gc) {GCPanelStorage.add(gc);}
 	public void ArrangeContainerLocation() {}
 	
@@ -85,4 +94,5 @@ public class DrawingPanel extends JPanel {
 	public class componentHandler extends ComponentAdapter{
 		public void componentResized(ComponentEvent e) {ArrangeContainerLocation();}
 	}
+
 }

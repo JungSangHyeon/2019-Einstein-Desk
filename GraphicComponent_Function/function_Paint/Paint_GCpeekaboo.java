@@ -34,4 +34,5 @@ public class Paint_GCpeekaboo extends AFunction{
 	public void mouseClicked(MouseEvent e) {}
 	public void mouseMoved(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
+	public void timeIsMove(boolean boo) {}
 }

@@ -22,6 +22,7 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 	boolean areaSelect = false;
 	
 	public void mousePressed(MouseEvent e) {
+		master=null;
 		findMaster(e);//set master
 		if(Ctrl.isOn()) {
 			if(master!=null) {
@@ -44,11 +45,19 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 	public void mouseReleased(MouseEvent e) {
 		basicAction(e);
 		areaSelect = false;
-		master=null;
 	}
 	
 	public void mouseDragged(MouseEvent e) {basicAction(e);}
-	public void mouseClicked(MouseEvent e) {basicAction(e);}
+	public void mouseClicked(MouseEvent e) {
+		basicAction(e);
+		if(master!=null) {
+			if(e.getClickCount()==2) {
+				master.moveTime(true);
+			}else if(e.getClickCount()==1) {
+				master.moveTime(false);
+			}
+		}
+	}
 	public void mouseMoved(MouseEvent e) {cursorControl(e);}
 	public void mouseWheelMoved(MouseEvent e) {basicAction(e);}
 	

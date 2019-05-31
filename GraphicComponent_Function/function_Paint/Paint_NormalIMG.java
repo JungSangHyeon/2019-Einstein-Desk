@@ -40,4 +40,5 @@ public class Paint_NormalIMG extends ANameAndImagePainter {// D&DÇÔ
 		at.setToRotation(-Math.toRadians(master.getAngle()), master.getCenter().x, master.getCenter().y);
 		return at.createTransformedShape(master.getShape()).getBounds2D();
 	}
+	
 }

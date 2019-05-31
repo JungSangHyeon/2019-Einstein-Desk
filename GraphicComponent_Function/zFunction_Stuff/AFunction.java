@@ -54,4 +54,6 @@ public abstract class AFunction  implements Serializable{
 	public abstract void paintComponent(Graphics2D g, Shape shape);
 
 	public abstract void processSelectEvent(boolean selected);
+	
+	public abstract void timeIsMove(boolean boo);
 }

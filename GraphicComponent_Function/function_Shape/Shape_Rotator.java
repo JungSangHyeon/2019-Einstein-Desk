@@ -160,4 +160,5 @@ public class Shape_Rotator extends AFunction implements Serializable{
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
 	public void processSelectEvent(boolean selected) {}
+	public void timeIsMove(boolean boo) {}
 }

@@ -10,6 +10,7 @@ import data.GCStorage_Normal;
 import data.GCStorage_Selected;
 import deepClone.DeepClone;
 import doUndo.RedoUndo;
+import function_Time.Data_AutoRotate;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 
 public class CopyAndPaste {
@@ -20,9 +21,12 @@ public class CopyAndPaste {
 	public static void copy() {
 		copyTemp.clear();
 		for (GraphicComponent c : GCStorage_Selected.getSelectedGCVector()) {
+			boolean restartTime = false;
+			if(c.isTimeMoving()) {c.moveTime(false); restartTime = true;}
 			GraphicComponent copyItem = (GraphicComponent)DeepClone.clone(c);
 			copyItem.setSelected(false);
 			copyTemp.add(copyItem);
+			if(restartTime) {c.moveTime(true);}
 		}
 	}
 

@@ -199,4 +199,13 @@ public class GraphicComponent  implements Serializable{
 	public boolean isTakeEvent() {return takeEvent;}
 	public void setTakeEvent(boolean takeEvent) {this.takeEvent = takeEvent;}
 	
+	boolean timeMove = false;
+	public boolean isTimeMoving() {return timeMove;}
+	public void moveTime(boolean boo) {
+		timeMove = boo;
+		for (AFunction f : functions) {
+			f.timeIsMove(timeMove);
+		}
+	}
+	
 }

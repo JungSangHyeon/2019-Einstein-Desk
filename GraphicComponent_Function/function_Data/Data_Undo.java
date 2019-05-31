@@ -20,4 +20,5 @@ public class Data_Undo extends AFunction implements Serializable{
 	public void mouseMoved(MouseEvent e) {}
 	public void paintComponent(Graphics2D g, Shape shape) {}
 	public void processSelectEvent(boolean selected) {}
+	public void timeIsMove(boolean boo) {}
 }

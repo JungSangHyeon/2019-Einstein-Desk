@@ -49,4 +49,5 @@ public class Data_ShapeSelect extends AFunction implements Serializable{
 //		g.setColor(new Color(47,82,143));
 		g.draw(aShape.newShape(points));
 	}
+	public void timeIsMove(boolean boo) {}
 }

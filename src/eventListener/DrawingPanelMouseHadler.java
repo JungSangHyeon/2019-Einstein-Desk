@@ -45,7 +45,7 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 	public void processEvent(MouseEvent e) {
 		gCPanelGiveActionTool.processEvent(e);//Give Event To GCPanel
 		if(!rightBTNPressed()){if(!gCPanelGiveActionTool.isTakeEvent()) {ToolData.getNowTool().processEvent(e);}}//Give Event To Tool If GCPanel Not Take Event
-		drawingPanel.repaint();
+//		drawingPanel.repaint();
 	}
 	
 	public void mouseMoved(MouseEvent e) {
