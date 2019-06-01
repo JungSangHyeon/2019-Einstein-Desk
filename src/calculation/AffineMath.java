@@ -40,7 +40,7 @@ public class AffineMath {
 	}
 
 	public static void applyAffineTransformToGC(AffineTransform at, GraphicComponent gc) {
-		gc.setMyCenter(AffineMath.transformPoint(at, gc.getCenter()));
+		gc.setCenter(AffineMath.transformPoint(at, gc.getCenter()));
 		gc.setShape(at.createTransformedShape(gc.getShape()));
 		for(Point2D.Float point : gc.getPoints()) {
 			Point2D.Float cpoint = AffineMath.transformPoint(at,point);

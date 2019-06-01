@@ -39,12 +39,12 @@ public class CopyAndPaste {
 			at.translate(interval, interval);
 			
 			for(Point2D.Float point : c.getPoints()) {point.setLocation(point.x+interval, point.y+interval);}
-			c.setMyCenter(new Point2D.Float(c.getCenter().x+interval, c.getCenter().y+interval));
+			c.setCenter(new Point2D.Float(c.getCenter().x+interval, c.getCenter().y+interval));
 			c.setShape(at.createTransformedShape(c.getShape()));
 			
 			for(GraphicComponent gc : c.getAllAggregateGCs()) {
 				for(Point2D.Float point : gc.getPoints()) {point.setLocation(point.x+interval, point.y+interval);}
-				gc.setMyCenter(new Point2D.Float(gc.getCenter().x+interval, gc.getCenter().y+interval));
+				gc.setCenter(new Point2D.Float(gc.getCenter().x+interval, gc.getCenter().y+interval));
 				gc.setShape(at.createTransformedShape(gc.getShape()));
 			}
 			

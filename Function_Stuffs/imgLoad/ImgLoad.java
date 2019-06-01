@@ -51,7 +51,7 @@ public class ImgLoad extends AFunction{
 		GCStorage_Normal.addNewGC(GCData);
 		
 		Rectangle gcRect = GCStorage_Normal.getLastGC().getShape().getBounds();
-		GCStorage_Normal.getLastGC().setMyCenter(new Point2D.Float(gcRect.x+gcRect.width/2, gcRect.y+gcRect.height/2));
+		GCStorage_Normal.getLastGC().setCenter(new Point2D.Float(gcRect.x+gcRect.width/2, gcRect.y+gcRect.height/2));
 		GCStorage_Selected.clearSelected();
 		GCStorage_Selected.addSelectedGC(GCStorage_Normal.getLastGC());
 		AnchorPaint.on();

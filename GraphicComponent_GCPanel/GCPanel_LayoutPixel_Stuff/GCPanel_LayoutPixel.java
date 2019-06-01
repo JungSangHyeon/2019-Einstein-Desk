@@ -259,7 +259,7 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 			}
 		}
 		for(Item item : itemVector) {if(item!=currentItem) {item.getInContainerGC().setSelected(false);}}
-		currentItem.getInContainerGC().setSelected(true);
+		if(currentItem!=null) {currentItem.getInContainerGC().setSelected(true);}
 	}
 	
 	public void dragStartAction() {

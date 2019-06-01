@@ -3,8 +3,8 @@ package GCPanel_ShapeSetting_Stuff;
 import java.awt.Color;
 
 import GCPanel_LayoutPixel_Stuff.GCPanel_LayoutPixel;
-import component.ShapeSelectItems;
-import component.ShapeSelectItems.eShapeSelectItem;
+import component_Stuff.GCEnum;
+import component_Stuff.GCEnum.eGC;
 
 @SuppressWarnings("serial")
 public class PDRShapeSelectGCPanel extends GCPanel_LayoutPixel {
@@ -14,15 +14,16 @@ public class PDRShapeSelectGCPanel extends GCPanel_LayoutPixel {
 		this.setGCLocation(100, 100);
 		this.setPixelSize(52, 52);
 		this.setPixelGap(0, 0);
-		this.setSize(6, 1);
+		this.setSize(6, 2);
 		
 		this.setItemDraggable(false);
 		 
-		this.add(ShapeSelectItems.getGCItem(eShapeSelectItem.eRectItem));
-		this.add(ShapeSelectItems.getGCItem(eShapeSelectItem.eEllipseItem));
-		this.add(ShapeSelectItems.getGCItem(eShapeSelectItem.eSpeechItem));
-		this.add(ShapeSelectItems.getGCItem(eShapeSelectItem.eStar4Item));
-		this.add(ShapeSelectItems.getGCItem(eShapeSelectItem.eTriangleItem));
-		this.add(ShapeSelectItems.getGCItem(eShapeSelectItem.eStraightLineItem));
+		this.add(GCEnum.getGC(eGC.eRect));
+		this.add(GCEnum.getGC(eGC.eEllipse));
+		this.add(GCEnum.getGC(eGC.eSpeech));
+		this.add(GCEnum.getGC(eGC.eStar4));
+		this.add(GCEnum.getGC(eGC.eStarN));
+		this.add(GCEnum.getGC(eGC.eTriangle));
+		this.add(GCEnum.getGC(eGC.eStraightLine));
 	}
 }

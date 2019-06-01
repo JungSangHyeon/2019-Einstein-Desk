@@ -1,8 +1,8 @@
 package GCPanel;
 
 import GCPanel_LayoutPixel_Stuff.GCPanel_LayoutPixel;
-import component.ToolSelectItems;
-import component.ToolSelectItems.eToolSelectItem;
+import component_Stuff.GCEnum;
+import component_Stuff.GCEnum.eGC;
 
 @SuppressWarnings("serial")
 public class OffGCPanel extends GCPanel_LayoutPixel {
@@ -16,6 +16,6 @@ public class OffGCPanel extends GCPanel_LayoutPixel {
 		
 		this.setItemDraggable(false);
 
-		this.add(ToolSelectItems.getNoSelectGCItem(eToolSelectItem.eOffItem));
+		this.add(GCEnum.getGC(eGC.eOff));
 	}
 }

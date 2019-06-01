@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Float;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.Vector;
@@ -98,7 +99,7 @@ public class FResize extends AFunction implements Serializable {//얘는 망했어요.
 				at2.setToRotation(Math.toRadians(gc.getAngle()), beforeCenter.getX(), beforeCenter.getY());//이동 전의 중심으로 회전 at만듬
 				gc.setShape(at2.createTransformedShape(gc.getShape()));//이동된 도형? 회전시킴
 				changeCenter = transformPoint(at2, changeCenter);//중심 회전시킴
-				gc.setMyCenter(changeCenter);
+				gc.setCenter(changeCenter);
 				
 				for (Point2D.Float point : gc.getPoints()) {//점들 회전시킴
 					Point2D.Float cpoint = transformPoint(at2, point);
@@ -107,8 +108,8 @@ public class FResize extends AFunction implements Serializable {//얘는 망했어요.
 				gc.setborderThick(thick);
 				
 				for(GraphicComponent aggreGc : gc.getAllAggregateGCs()) {//TODO ooooo
-					aggreGc.setOtherCenter(beforeCenter);
-					aggreGc.useOtherCenter();
+					Point2D originalCenter = aggreGc.getCenter();
+					aggreGc.setCenter(beforeCenter);
 					
 					int aggrethick = aggreGc.getBorderThick();
 					aggreGc.setborderThick(0);
@@ -127,7 +128,7 @@ public class FResize extends AFunction implements Serializable {//얘는 망했어요.
 					aggreGc.setPoints(aggrebeforePoint);//
 					aggreGc.setShape(aggrebeforeShape);
 					
-					aggreGc.useMyCenter();
+					aggreGc.setCenter((Float) originalCenter);
 					AffineTransform aggreat2 = new AffineTransform();
 					aggreat2.setToRotation(Math.toRadians(aggreGc.getAngle()), aggrebeforeCenter.getX(), aggrebeforeCenter.getY());//이동 전의 중심으로 회전 at만듬
 					aggreGc.setShape(aggreat2.createTransformedShape(aggreGc.getShape()));//이동된 도형? 회전시킴
@@ -135,8 +136,7 @@ public class FResize extends AFunction implements Serializable {//얘는 망했어요.
 					aggrechangeCenter = transformPoint(aggreat2, aggreGc.getCenter());//중심 회전시킴
 					
 					Point2D.Float newCenter = new Point2D.Float((float)aggreGc.getShape().getBounds().getCenterX(), (float)aggreGc.getShape().getBounds().getCenterY());
-					aggreGc.setMyCenter(newCenter);
-					aggreGc.useMyCenter();
+					aggreGc.setCenter(newCenter);
 					
 					for (Point2D.Float point : aggreGc.getPoints()) {//점들 회전시킴
 						Point2D.Float cpoint = transformPoint(aggreat2, point);

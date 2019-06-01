@@ -1,8 +1,8 @@
 package GCPanel;
 
 import GCPanel_LayoutPixel_Stuff.GCPanel_LayoutPixel;
-import component.ToolSelectItems;
-import component.ToolSelectItems.eToolSelectItem;
+import component_Stuff.GCEnum;
+import component_Stuff.GCEnum.eGC;
 
 @SuppressWarnings("serial")
 public class ToolBTNGCPanel extends GCPanel_LayoutPixel {
@@ -16,10 +16,10 @@ public class ToolBTNGCPanel extends GCPanel_LayoutPixel {
 		
 		this.setItemDraggable(false);
 
-		this.add(ToolSelectItems.getNoSelectGCItem(eToolSelectItem.eBackItem));
-		this.add(ToolSelectItems.getNoSelectGCItem(eToolSelectItem.eFrontItem));
-		this.add(ToolSelectItems.getNoSelectGCItem(eToolSelectItem.eNewSlideItem));
+		this.add(GCEnum.getGC(eGC.eUndo));
+		this.add(GCEnum.getGC(eGC.eRedo));
+		this.add(GCEnum.getGC(eGC.eNewSlide));
 //		this.add(ToolSelectItems.getNoSelectGCItem(eToolSelectItem.eOffItem));
-		this.add(ToolSelectItems.getNoSelectGCItem(eToolSelectItem.eImageItem));
+		this.add(GCEnum.getGC(eGC.eImage));
 	}
 }

@@ -5,10 +5,8 @@ import java.awt.Graphics2D;
 
 import GCPanel_LayoutPixel_Stuff.GCPanel_LayoutPixel;
 import GCPanel_LayoutPixel_Stuff.Item;
-import component.ShapeSelectItems;
-import component.ShapeSelectItems.eShapeSelectItem;
-import component.ToolSelectItems;
-import component.ToolSelectItems.eToolSelectItem;
+import component_Stuff.GCEnum;
+import component_Stuff.GCEnum.eGC;
 
 @SuppressWarnings("serial")
 public class ToolSelectGCPanel extends GCPanel_LayoutPixel {
@@ -22,13 +20,13 @@ public class ToolSelectGCPanel extends GCPanel_LayoutPixel {
 		
 		this.setItemDraggable(false);
 
-		this.add(ShapeSelectItems.getPenItem(eShapeSelectItem.eFreeLineItem));
-		this.add(ShapeSelectItems.getHighlightItem(eShapeSelectItem.eFreeHighlightItem));
-		this.add(ToolSelectItems.getGCItem(eToolSelectItem.eEraserToolItem));
-		this.add(ToolSelectItems.getShapeSelectItem(eToolSelectItem.eShapeToolItem));
-		this.add(ToolSelectItems.getGCItem(eToolSelectItem.eHandToolItem));
-		this.add(ToolSelectItems.getGCItem(eToolSelectItem.eCanvasTool));
-		this.add(ToolSelectItems.getGCItem(eToolSelectItem.eConnectTool));
+		this.add(GCEnum.getGC(eGC.ePen));
+		this.add(GCEnum.getGC(eGC.eHighlight));
+		this.add(GCEnum.getGC(eGC.eEraserTool));
+		this.add(GCEnum.getGC(eGC.eShapeTool));
+		this.add(GCEnum.getGC(eGC.eHandTool));
+		this.add(GCEnum.getGC(eGC.eCanvasHandTool));
+		this.add(GCEnum.getGC(eGC.eConnectTool));
 		
 		for(Item item : this.getItems()) {
 			for(Item connectItem : this.getItems()) {

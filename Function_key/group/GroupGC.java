@@ -42,7 +42,7 @@ public class GroupGC extends GraphicComponent{
 		this.setShape(bound);
 		
 		//center
-		this.setMyCenter(new Point2D.Float((float)bound.getCenterX(), (float)bound.getCenterY()));
+		this.setCenter(new Point2D.Float((float)bound.getCenterX(), (float)bound.getCenterY()));
 	}
 	
 }

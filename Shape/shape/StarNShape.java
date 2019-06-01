@@ -9,7 +9,7 @@ import shape_Stuff.APDRShape;
 public class StarNShape extends APDRShape {
 	private static final long serialVersionUID = 6528960320070190886L;
 
-	private static final int nSpikes = 5,  smallFactor =2;
+	private static final int nSpikes = 10,  smallFactor =2;
 	private static final double SPIKINESS = 0.5;
 
 	public Shape newTwoPointShape(Point2D.Float p1, Point2D.Float p2) {

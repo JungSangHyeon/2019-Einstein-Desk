@@ -20,7 +20,6 @@ public enum eShape{
 	starN(new StarNShape()), 
 	triangle(new TriangleShape()), 
 	straightLine(new StraightLineShape()),
-	
 	polygon(new PolygonShape()), 
 	pen(new pen()), 
 	highlight(new HighlightShape()), 

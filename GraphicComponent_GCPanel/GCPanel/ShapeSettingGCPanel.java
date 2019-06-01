@@ -17,7 +17,7 @@ public class ShapeSettingGCPanel extends PeekabooPanel{
 	private static final long serialVersionUID = -4033921725411864658L;
 
 	public ShapeSettingGCPanel() {
-		this.setBounds(1493, 50, 322, 215);
+		this.setBounds(1493, 50, 322, 215+ 52);
 		this.setPanelBackgroundColor(new Color(242,242,242));
 		this.setPanelBorderColor(new Color(204,204,204));
 		this.setborderThick(1);
@@ -27,7 +27,7 @@ public class ShapeSettingGCPanel extends PeekabooPanel{
 		this.add(colorSelectPanel);
 		
 		CMCShapeSelectGCPanel sizeBar = new CMCShapeSelectGCPanel();
-		sizeBar.setGCLocation(this.getX() + 5, this.getY() + 142);
+		sizeBar.setGCLocation(this.getX() + 5, this.getY() + 142 + 52);
 		this.add(sizeBar);
 		
 		this.addFunction(new FKillMasterIfNotSelected());
@@ -40,6 +40,6 @@ public class ShapeSettingGCPanel extends PeekabooPanel{
 		g2d.setColor(Color.BLACK);
 		g2d.setFont(new Font(null, Font.PLAIN, 16));
 		g2d.drawString("PDR Shape", this.getX()+10, this.getY()+25);
-		g2d.drawString("CMC Shape", this.getX()+10, this.getY()+127);
+		g2d.drawString("CMC Shape", this.getX()+10, this.getY()+127+52);
 	}
 }

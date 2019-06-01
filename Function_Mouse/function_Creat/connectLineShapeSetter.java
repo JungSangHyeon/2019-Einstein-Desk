@@ -41,7 +41,7 @@ public class connectLineShapeSetter extends AFunction {
 			g.draw(line);
 			master.getPoints().get(0).setLocation(startCenter.getX(), startCenter.getY());
 			master.getPoints().get(1).setLocation(endCenter.getX(), endCenter.getY());
-			master.setMyCenter(new Point2D.Float((float)(startCenter.getX()+endCenter.getX())/2, (float)(startCenter.getY()+endCenter.getY())/2));
+			master.setCenter(new Point2D.Float((float)(startCenter.getX()+endCenter.getX())/2, (float)(startCenter.getY()+endCenter.getY())/2));
 			
 			master.setShape(line);
 					

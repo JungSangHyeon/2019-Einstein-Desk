@@ -3,8 +3,8 @@ package GCPanel_ShapeSetting_Stuff;
 import java.awt.Color;
 
 import GCPanel_LayoutPixel_Stuff.GCPanel_LayoutPixel;
-import component.ShapeSelectItems;
-import component.ShapeSelectItems.eShapeSelectItem;
+import component_Stuff.GCEnum;
+import component_Stuff.GCEnum.eGC;
 
 @SuppressWarnings("serial")
 public class CMCShapeSelectGCPanel extends GCPanel_LayoutPixel {
@@ -18,6 +18,6 @@ public class CMCShapeSelectGCPanel extends GCPanel_LayoutPixel {
 		
 		this.setItemDraggable(false);
 		 
-		this.add(ShapeSelectItems.getGCItem(eShapeSelectItem.ePolygonItem));
+		this.add(GCEnum.getGC(eGC.ePolygon));
 	}
 }

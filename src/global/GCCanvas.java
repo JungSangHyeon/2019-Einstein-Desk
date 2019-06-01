@@ -34,7 +34,7 @@ public class GCCanvas {
 		canvas.setShape(canvas.getAShape().newShape(canvas.getPoints()));
 		
 		Rectangle rect = canvas.getShape().getBounds();
-		canvas.setMyCenter(new Point2D.Float(rect.x+rect.width/2, rect.y+rect.height/2));
+		canvas.setCenter(new Point2D.Float(rect.x+rect.width/2, rect.y+rect.height/2));
 	}
 
 	public static void paint(Graphics2D g2d) {canvas.paint(g2d);}
