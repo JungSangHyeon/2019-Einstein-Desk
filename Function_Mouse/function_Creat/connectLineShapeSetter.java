@@ -11,7 +11,8 @@ import java.awt.geom.Point2D;
 
 import component_Stuff.GraphicComponent;
 import data.GCStorage_Normal;
-import zFunction_Stuff.AFunction;
+import zStuff_Function.AFunction;
+import zStuff_Function.AFunction.PaintZOrder;
 
 public class connectLineShapeSetter extends AFunction {
 	private static final long serialVersionUID = 3933314511832627932L;
@@ -20,7 +21,8 @@ public class connectLineShapeSetter extends AFunction {
 	int thick = 10;
 	
 	public connectLineShapeSetter(GraphicComponent startGC, GraphicComponent endGC) {
-		this.buttomPaint = true;
+//		this.buttomPaint = true;
+		this.setPaintOrder(PaintZOrder.BOTTOM);
 		this.startGC=startGC;
 		this.endGC=endGC;
 	}

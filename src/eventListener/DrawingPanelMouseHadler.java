@@ -8,11 +8,11 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
 import data.ToolData;
-import function_Paint.Paint_TextWrite_Stuff;
 import function_SelectAndEvent.GCPanelGiveActionTool;
 import function_SelectAndEvent.HandTool;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import view.DrawingPanel;
+import zStuff_Text.FTextWrite_Stuff;
 
 public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListener, MouseWheelListener{//manage all event except AContainer
 
@@ -27,7 +27,7 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 
 	public void mousePressed(MouseEvent e) {
 		pressedBTN = e.getButton();
-		if(Paint_TextWrite_Stuff.isTextEditAreaFocusOwner()) {Paint_TextWrite_Stuff.removeFocusTextEditArea();}//For Text Write Function. remove Focus
+		if(FTextWrite_Stuff.isTextEditAreaFocusOwner()) {FTextWrite_Stuff.removeFocusTextEditArea();}//For Text Write Function. remove Focus
 		if(rightBTNPressed()) {DrawingPanelMoveAndZoom.setDragStartPoint(e.getPoint());}//For Canvas Move. set Start Point
 		processEvent(e);
 	}

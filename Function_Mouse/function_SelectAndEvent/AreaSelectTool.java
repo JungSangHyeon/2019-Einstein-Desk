@@ -8,7 +8,7 @@ import component_Stuff.GraphicComponent;
 import data.GCStorage_Normal;
 import data.GCStorage_Selected;
 import data.ShapeData;
-import function_Shape.Shape_Mover;
+import fGCDataModify.FMove;
 import function_Stuff.ATool;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import shape_Stuff.AShape;
@@ -27,7 +27,7 @@ public class AreaSelectTool extends ATool{//extends TwoPointShapeTool 할까나. 아
 		GraphicComponent GCData = new GraphicComponent();
 		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
-		GCData.addFunction(new Shape_Mover());
+		GCData.addFunction(new FMove());
 		GCData.setFillColor(areaSelectRectColor);
 		GCData.setBorderPaint(false);
 		setShape(GCData);

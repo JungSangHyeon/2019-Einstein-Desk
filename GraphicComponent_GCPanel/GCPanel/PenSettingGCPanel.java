@@ -11,7 +11,7 @@ import GCPanel_LineSetting_Stuff.PenColorSelectGCPanel;
 import GCPanel_LineSetting_Stuff.PenSizeBarGCPanel;
 import GCPanel_Stuff.PeekabooPanel;
 import data.GCPanelStorage;
-import function_Paint.FKillMasterIfNotSelected;
+import fPaint.FKillMasterIfNotSelected;
 
 public class PenSettingGCPanel extends PeekabooPanel{
 	private static final long serialVersionUID = 3141453841486592808L;

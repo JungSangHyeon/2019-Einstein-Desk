@@ -2,34 +2,34 @@ package component;
 
 import GCPanel.ShapeSettingGCPanel;
 import component_Stuff.GraphicComponent;
-import dataModifyFunction.FRedo;
-import dataModifyFunction.FSetShape;
-import dataModifyFunction.FSetTool;
-import dataModifyFunction.FUndo;
-import function_Paint.FGCpeekaboo;
-import function_Paint.Paint_NormalIMG;
-import function_Paint.FPaintMasterIfMouseOn;
-import function_Paint.FShowSelected;
+import fGlobalDataModify.FRedo;
+import fGlobalDataModify.FSetShape;
+import fGlobalDataModify.FSetTool;
+import fGlobalDataModify.FUndo;
+import fImagePaint.FImageNormalPaint;
+import fPaint.FGCpeekaboo;
+import fPaint.FShowMouseOn;
+import fPaint.FShowSelected;
+import fSystem.FKillSystem;
 import function_Stuff.eTool;
-import function_System.FKillSystem;
 import imgLoad.ImgLoad;
 import shape_Stuff.eShape;
-import zFunction_Stuff.AFunction;
+import zStuff_Function.AFunction;
 
 public class ToolSelectItems {
 
 	public enum eToolSelectItem{
-		eHandToolItem(new FSetTool(eTool.eHandTool.getATool()), new Paint_NormalIMG("", "ToolBarImgs/hand.png")),//new Data_ToolSelector(item.getTool()) -> function
-		eEraserToolItem(new FSetTool(eTool.eEraserTool.getATool()), new Paint_NormalIMG("", "ToolBarImgs/eraser.png")),
-		eShapeToolItem(new FGCpeekaboo(new ShapeSettingGCPanel()), new Paint_NormalIMG("", "ToolBarImgs/shape.png")),
-		eBackItem(new FUndo(), new Paint_NormalIMG("", "ToolBarImgs/back.png")),
-		eFrontItem(new FRedo(), new Paint_NormalIMG("", "ToolBarImgs/front.png")),
-		eNewSlideItem(new ImgLoad(), new Paint_NormalIMG("", "ToolBarImgs/newSlide.png")),
+		eHandToolItem(new FSetTool(eTool.eHandTool.getATool()), new FImageNormalPaint("ToolBarImgs/hand.png")),//new Data_ToolSelector(item.getTool()) -> function
+		eEraserToolItem(new FSetTool(eTool.eEraserTool.getATool()), new FImageNormalPaint("ToolBarImgs/eraser.png")),
+		eShapeToolItem(new FGCpeekaboo(new ShapeSettingGCPanel()), new FImageNormalPaint("ToolBarImgs/shape.png")),
+		eBackItem(new FUndo(), new FImageNormalPaint("ToolBarImgs/back.png")),
+		eFrontItem(new FRedo(), new FImageNormalPaint("ToolBarImgs/front.png")),
+		eNewSlideItem(new ImgLoad(), new FImageNormalPaint("ToolBarImgs/newSlide.png")),
 //		eNewSlideItem(new Data_ToolSelector(eTool.eHandTool.getATool()), new Paint_NormalIMG("", "ToolBarImgs/newSlide.png")),
-		eImageItem(new ImgLoad(), new Paint_NormalIMG("", "ToolBarImgs/Image.png")),
-		eOffItem(new FKillSystem(), new Paint_NormalIMG("", "ToolBarImgs/off1.png")),
-		eCanvasTool(new FSetTool(eTool.eCanvasTool.getATool()), new Paint_NormalIMG("", "ToolBarImgs/Canvas.png")),
-		eConnectTool(new FSetTool(eTool.eConnectTool.getATool()), new Paint_NormalIMG("", "ToolBarImgs/Connect.png")),
+		eImageItem(new ImgLoad(), new FImageNormalPaint("ToolBarImgs/Image.png")),
+		eOffItem(new FKillSystem(), new FImageNormalPaint("ToolBarImgs/off1.png")),
+		eCanvasTool(new FSetTool(eTool.eCanvasTool.getATool()), new FImageNormalPaint("ToolBarImgs/Canvas.png")),
+		eConnectTool(new FSetTool(eTool.eConnectTool.getATool()), new FImageNormalPaint("ToolBarImgs/Connect.png")),
 		;
 		private AFunction tool; private AFunction painter;
 		private eToolSelectItem(AFunction tool, AFunction painter) {
@@ -49,7 +49,7 @@ public class ToolSelectItems {
 		GC.addFunction(item.getPainter());
 		GC.setAShape(eShape.rect.getAShape());
 		GC.addFunction(new FShowSelected());
-		GC.addFunction(new FPaintMasterIfMouseOn());
+		GC.addFunction(new FShowMouseOn());
 		return GC;
 	}
 	
@@ -64,7 +64,7 @@ public class ToolSelectItems {
 		GC.addFunction(item.getFunction());//순서 중요함. 페인트의 경우 덧 그려짐
 		GC.addFunction(item.getPainter());
 		GC.addFunction(new FShowSelected());
-		GC.addFunction(new FPaintMasterIfMouseOn());
+		GC.addFunction(new FShowMouseOn());
 		return GC;
 	}
 	
@@ -76,7 +76,7 @@ public class ToolSelectItems {
 		GC.addFunction(item.getFunction());//순서 중요함. 페인트의 경우 덧 그려짐
 		GC.addFunction(item.getPainter());
 		GC.setAShape(eShape.rect.getAShape());
-		GC.addFunction(new FPaintMasterIfMouseOn());
+		GC.addFunction(new FShowMouseOn());
 		return GC;
 	}
 	

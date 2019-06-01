@@ -7,6 +7,7 @@ import shape.PolygonShape;
 import shape.RectShape;
 import shape.SpeechShape;
 import shape.Star4Shape;
+import shape.StarNShape;
 import shape.StraightLineShape;
 import shape.TriangleShape;
 import shape.pen;
@@ -16,6 +17,7 @@ public enum eShape{
 	ellipse(new EllipseShape()), 
 	speech(new SpeechShape()), 
 	star4(new Star4Shape()), 
+	starN(new StarNShape()), 
 	triangle(new TriangleShape()), 
 	straightLine(new StraightLineShape()),
 	

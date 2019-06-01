@@ -5,14 +5,17 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.Vector;
 
 import global.InjectEnums.eColor;
 import global.InjectEnums.eInt;
 import shape_Stuff.AShape;
-import zFunction_Stuff.AFunction;
+import zStuff_Function.AFunction;
+import zStuff_Function.AFunction.PaintZOrder;
 
 public class GraphicComponent  implements Serializable{
 	private static final long serialVersionUID = 2228665649817385320L;
@@ -66,34 +69,36 @@ public class GraphicComponent  implements Serializable{
 	
 	//paint
 	public void topPaint(Graphics2D g) {
-		for(AFunction function : functions) {if(function.isTopPaint()) {function.paint(g);}}
+		for(AFunction function : functions) {function.paint(g, PaintZOrder.TOP);}
 	}
 	public void bottumPaint(Graphics2D g) {
-		for(AFunction function : functions) {if(function.isButtomPaint()) {function.paint(g);}}
+		for(AFunction function : functions) {function.paint(g, PaintZOrder.BOTTOM);}
 	}
 	public void paint(Graphics2D g) {
 		g.setStroke(new BasicStroke(borderThick, strokeCap, strokeJoin));
 		if(paintFill) {g.setColor(fillColor); g.fill(shape);}
 		if(paintBorder) {g.setColor(borderColor); g.draw(shape);}
-		for(AFunction function : functions) {if(!function.isTopPaint()&&!function.isButtomPaint()) {function.paint(g);}}
+		
+		for(AFunction function : functions) {function.paint(g, PaintZOrder.MIDDLE);}
+		
 		for(GraphicComponent gc : aggregateGC) {
 			gc.paint(g);
 		}
 		
 //		아래는 테스트용
-//		if (points.size() > 0) {//points
-//			g.setColor(Color.RED);// 디버깅?
-//			GeneralPath p = new GeneralPath();
-//			p.moveTo(points.get(0).x, points.get(0).y);
-//			for (Point2D.Float pp : points) {
-//				p.lineTo(pp.x, pp.y);
-//			}
-//			g.draw(p);
-//		}
-//		g.setColor(Color.cyan);//border
-//		g.draw(shape.getBounds());
-//		g.setColor(Color.green);//center
-//		g.fill(new Rectangle2D.Float(getCenter().x, getCenter().y, 10,10));
+		if (points.size() > 0) {//points
+			g.setColor(Color.RED);// 디버깅?
+			GeneralPath p = new GeneralPath();
+			p.moveTo(points.get(0).x, points.get(0).y);
+			for (Point2D.Float pp : points) {
+				p.lineTo(pp.x, pp.y);
+			}
+			g.draw(p);
+		}
+		g.setColor(Color.cyan);//border
+		g.draw(shape.getBounds());
+		g.setColor(Color.green);//center
+		g.fill(new Rectangle2D.Float(getCenter().x, getCenter().y, 10,10));
 	}
 	
 	//Process

@@ -11,7 +11,7 @@ import GCPanel_ShapeSetting_Stuff.CMCShapeSelectGCPanel;
 import GCPanel_ShapeSetting_Stuff.PDRShapeSelectGCPanel;
 import GCPanel_Stuff.PeekabooPanel;
 import data.GCPanelStorage;
-import function_Paint.FKillMasterIfNotSelected;
+import fPaint.FKillMasterIfNotSelected;
 
 public class ShapeSettingGCPanel extends PeekabooPanel{
 	private static final long serialVersionUID = -4033921725411864658L;

@@ -8,10 +8,10 @@ import javax.swing.JPanel;
 import component_Stuff.GraphicComponent;
 import data.GCStorage_Normal;
 import data.GCStorage_Selected;
-import function_Shape.Shape_Mover;
-import function_Shape.Shape_MoverWeak;
-import function_Shape.Shape_Resizer;
-import function_Shape.Shape_Rotator;
+import fGCDataModify.FMove;
+import fGCDataModify.FMove_Weak;
+import fGCDataModify.FResize;
+import fGCDataModify.FRotate;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import view.DrawingPanel;
 
@@ -29,9 +29,9 @@ public class DragAndDropManager {
 			if (nowMouseOnPanel instanceof DrawingPanel) {// AContainer -> Drawing Panel
 				applyTransformToDraggingComponent();
 				GCStorage_Normal.addNewGC(draggingComponent);
-				draggingComponent.addFunction(new Shape_Mover());
-				draggingComponent.addFunction(new Shape_Rotator());
-				draggingComponent.addFunction(new Shape_Resizer());
+				draggingComponent.addFunction(new FMove());
+				draggingComponent.addFunction(new FRotate());
+				draggingComponent.addFunction(new FResize());
 				draggingComponent.setSelected(false);
 			} else {// Drawing Panel -> AContainer
 				if(GCStorage_Selected.getSelectedGCVector().size()<2) {//accept only one drag
@@ -46,13 +46,13 @@ public class DragAndDropManager {
 	}
 
 	private static GraphicComponent GCToItem(GraphicComponent draggingComponent) {
-		draggingComponent.removeFunction(new Shape_Mover());
-		draggingComponent.removeFunction(new Shape_Rotator());
-		draggingComponent.removeFunction(new Shape_Resizer());
+		draggingComponent.removeFunction(new FMove());
+		draggingComponent.removeFunction(new FRotate());
+		draggingComponent.removeFunction(new FResize());
 		draggingComponent.addAngle(-draggingComponent.getAngle());//angle -> 0
 		if(draggingComponent.getUpsideDown()) {draggingComponent.reverseUpsideDown();}
 		
-		draggingComponent.addFunction(new Shape_MoverWeak());
+		draggingComponent.addFunction(new FMove_Weak());
 		return draggingComponent;
 	}
 	

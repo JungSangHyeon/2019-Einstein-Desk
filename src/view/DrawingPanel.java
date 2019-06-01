@@ -19,12 +19,12 @@ import data.GCPanelStorage;
 import data.GCStorage_Normal;
 import eventListener.DrawingPanelMouseHadler;
 import eventListener.KeyDispatcher;
-import function_Paint.Paint_TextWrite_Stuff;
 import global.GCCanvas;
 import global.InjectEnums.eColor;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import shape.HighlightShape;
 import shape.pen;
+import zStuff_Text.FTextWrite_Stuff;
 
 @SuppressWarnings("serial")
 public class DrawingPanel extends JPanel implements Runnable {
@@ -44,9 +44,9 @@ public class DrawingPanel extends JPanel implements Runnable {
 		this.addMouseWheelListener(mouseHandler);
 		this.addMouseListener(mouseHandler);
 		
-		Paint_TextWrite_Stuff.setting();
-		this.add(Paint_TextWrite_Stuff.getFocusArea());
-		this.add(Paint_TextWrite_Stuff.getTextEditArea());
+		FTextWrite_Stuff.setting();
+		this.add(FTextWrite_Stuff.getFocusArea());
+		this.add(FTextWrite_Stuff.getTextEditArea());
 		
 		canvas = new GCCanvas(); 
 		

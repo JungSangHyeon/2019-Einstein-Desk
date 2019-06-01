@@ -11,7 +11,7 @@ import data.GCStorage_Selected;
 import deepClone.DeepClone;
 import doUndo.RedoUndo;
 import moveAndZoom.DrawingPanelMoveAndZoom;
-import time_Stuff.FTimeFunction;
+import zStuff_Time.ATimeFunction;
 
 public class CopyAndPaste {
 

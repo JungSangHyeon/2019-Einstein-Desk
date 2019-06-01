@@ -8,10 +8,10 @@ import javax.swing.JPanel;
 import copyAndPaste.CopyAndPaste;
 import delete.Delete;
 import doUndo.RedoUndo;
-import function_Paint.Paint_TextWrite_Stuff;
 import group.GroupTool;
 import onOff.Ctrl;
 import onOff.ThickFollowScale;
+import zStuff_Text.FTextWrite_Stuff;
 import z_order.Z_Order;
 import z_order.Z_Order.SendTo;
 
@@ -27,7 +27,7 @@ public class KeyDispatcher implements KeyEventDispatcher {// 키이벤트가 포커스에
 	
 	public boolean dispatchKeyEvent(KeyEvent e) {
 		keyCode = e.getKeyCode();
-		if(!Paint_TextWrite_Stuff.isTextEditAreaFocusOwner()) {
+		if(!FTextWrite_Stuff.isTextEditAreaFocusOwner()) {
 			if (e.getID() == KeyEvent.KEY_PRESSED) {pressAction();}
 			else if (e.getID() == KeyEvent.KEY_RELEASED) {releaseAction();}
 		}

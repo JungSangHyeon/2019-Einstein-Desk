@@ -7,11 +7,11 @@ import java.awt.geom.Rectangle2D;
 import java.util.Vector;
 
 import component_Stuff.GraphicComponent;
-import function_Shape.Shape_Mover;
-import function_Shape.Shape_Resizer;
-import function_Shape.Shape_Rotator;
+import fGCDataModify.FMove;
+import fGCDataModify.FResize;
+import fGCDataModify.FRotate;
 import shape_Stuff.eShape;
-import time_Stuff.FTimeFunction;
+import zStuff_Time.ATimeFunction;
 
 public class GroupGC extends GraphicComponent{
 	private static final long serialVersionUID = 4167132028348324648L;
@@ -24,9 +24,9 @@ public class GroupGC extends GraphicComponent{
 		this.setAShape(eShape.group.getAShape());
 		this.setFillPaint(false);
 		this.setBorderPaint(false);
-		this.addFunction(new Shape_Mover());
-		this.addFunction(new Shape_Rotator());
-		this.addFunction(new Shape_Resizer());
+		this.addFunction(new FMove());
+		this.addFunction(new FRotate());
+		this.addFunction(new FResize());
 		
 		//size
 		Path2D path = new Path2D.Float();

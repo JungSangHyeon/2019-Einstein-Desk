@@ -7,8 +7,8 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 
 import component_Stuff.GraphicComponent;
-import function_Shape.Shape_Mover;
-import function_Shape.Shape_Resizer;
+import fGCDataModify.FMove;
+import fGCDataModify.FResize;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import shape_Stuff.eShape;
 
@@ -24,8 +24,8 @@ public class GCCanvas {
 		canvas.setFillColor(Color.white);
 		canvas.setBorderPaint(false);
 		
-		canvas.addFunction(new Shape_Mover());
-		canvas.addFunction(new Shape_Resizer());
+		canvas.addFunction(new FMove());
+		canvas.addFunction(new FResize());
 		
 		canvas.setAShape(eShape.rect.getAShape());
 		

@@ -4,8 +4,8 @@ import java.awt.Color;
 
 import GCPanel_LayoutPixel_Stuff.GCPanel_LayoutPixel;
 import component_Stuff.GraphicComponent;
-import dataModifyFunction.FSetHighLightColorBTN;
-import function_Shape.Shape_Mover;
+import fGCDataModify.FMove;
+import fGlobalDataModify.FSetHighLightColorBTN;
 import global.ColorConstant;
 import shape_Stuff.eShape;
 
@@ -30,7 +30,7 @@ public class HighlightColorSelectGCPanel extends GCPanel_LayoutPixel {
 		
 		GC.setAShape(eShape.rect.getAShape());
 		GC.addFunction(new FSetHighLightColorBTN(c, pixelWH));
-		GC.addFunction(new Shape_Mover());
+		GC.addFunction(new FMove());
 		return GC;
 	}
 }

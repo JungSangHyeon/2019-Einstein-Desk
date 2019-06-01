@@ -10,16 +10,11 @@ import data.GCStorage_Selected;
 import data.ShapeData;
 import data.ToolData;
 import doUndo.RedoUndo;
-import function_Paint.Paint_TextWrite;
-import function_Shape.Shape_Mover;
-import function_Shape.Shape_Resizer;
-import function_Shape.Shape_Rotator;
+import fComposite.FInCanvasGCBasicFunction;
 import function_Stuff.ATool;
 import function_Stuff.eTool;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import onOff.AnchorPaint;
-import time_Special.FAutoRotate;
-import time_Stuff.FTimeFunction;
 
 public class PDRShapeDrawTool extends ATool{
 	private static final long serialVersionUID = -2451691127621671062L;
@@ -36,11 +31,9 @@ public class PDRShapeDrawTool extends ATool{
 			GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 			GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 			GCData.setAShape(ShapeData.getNowShapeMaker());
-			GCData.addFunction(new Shape_Mover());
-			GCData.addFunction(new Shape_Rotator());
-			GCData.addFunction(new Shape_Resizer());
-			GCData.addFunction(new Paint_TextWrite());
-			
+			GCData.addFunction(new FInCanvasGCBasicFunction());
+//			GCData.addFunction(new Paint_Text("test1", "Image/TitleImg.png"));
+//			GCData.setBorderPaint(false);
 //			GCData.setOtherCenter(new Point2D.Float(0, 0));
 //			GCData.useOtherCenter();
 			
@@ -62,8 +55,8 @@ public class PDRShapeDrawTool extends ATool{
 		if(e.getButton()==MouseEvent.BUTTON1) {
 			Rectangle rect = GCStorage_Normal.getLastGC().getShape().getBounds();
 			GCStorage_Normal.getLastGC().setMyCenter(new Point2D.Float(rect.x+rect.width/2, rect.y+rect.height/2));
-			GCStorage_Normal.getLastGC().addFunction(new FAutoRotate());//Time Test
-			GCStorage_Normal.getLastGC().moveTime(true);
+//			GCStorage_Normal.getLastGC().addFunction(new FAutoRotate());//Time Test
+//			GCStorage_Normal.getLastGC().moveTime(true);
 			
 			ToolData.setNowTool(eTool.eHandTool.getATool());
 			GCStorage_Selected.addSelectedGC(GCStorage_Normal.getLastGC());
