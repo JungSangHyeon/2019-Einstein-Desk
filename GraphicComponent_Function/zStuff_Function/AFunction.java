@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 import java.io.Serializable;
 import java.util.Vector;
 
-import component_Stuff.GraphicComponent;
+import zStuff_GraphicComponent.GraphicComponent;
 
 public abstract class AFunction  implements Serializable{
 	private static final long serialVersionUID = -1736900760929688622L;

@@ -1,8 +1,8 @@
 package GCPanel;
 
 import GCPanel_LayoutPixel_Stuff.GCPanel_LayoutPixel;
-import component_Stuff.GCEnum;
-import component_Stuff.GCEnum.eGC;
+import zStuff_GraphicComponent.GCEnum;
+import zStuff_GraphicComponent.GCEnum.eGC;
 
 @SuppressWarnings("serial")
 public class ToolBTNGCPanel extends GCPanel_LayoutPixel {
@@ -19,7 +19,6 @@ public class ToolBTNGCPanel extends GCPanel_LayoutPixel {
 		this.add(GCEnum.getGC(eGC.eUndo));
 		this.add(GCEnum.getGC(eGC.eRedo));
 		this.add(GCEnum.getGC(eGC.eNewSlide));
-//		this.add(ToolSelectItems.getNoSelectGCItem(eToolSelectItem.eOffItem));
 		this.add(GCEnum.getGC(eGC.eImage));
 	}
 }

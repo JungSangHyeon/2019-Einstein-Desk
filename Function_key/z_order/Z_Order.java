@@ -2,8 +2,8 @@ package z_order;
 
 import java.util.Vector;
 
-import component_Stuff.GraphicComponent;
 import data.GCStorage_Normal;
+import zStuff_GraphicComponent.GraphicComponent;
 
 public class Z_Order {
 	

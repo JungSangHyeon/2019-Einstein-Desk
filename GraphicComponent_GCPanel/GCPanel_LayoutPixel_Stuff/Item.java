@@ -6,8 +6,8 @@ import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
 
-import component_Stuff.GraphicComponent;
 import deepClone.DeepClone;
+import zStuff_GraphicComponent.GraphicComponent;
 
 public class Item  implements Serializable{
 	private static final long serialVersionUID = 6702642196441912004L;
@@ -24,9 +24,7 @@ public class Item  implements Serializable{
 	
 	public void setOwnPixel(Pixel pt) {ownPT = pt;}
 	public Pixel getOwnPixel() {return ownPT;}
-	public void paint(Graphics2D g2) {
-		inContainerGC.paint(g2);
-	}
+	public void paint(Graphics2D g2) {inContainerGC.paint(g2);}
 	public void processEvent(MouseEvent e) {inContainerGC.processEvent(e);}
 	public GraphicComponent getRealGC() {return realGC;}
 	public GraphicComponent getInContainerGC() {return inContainerGC;}

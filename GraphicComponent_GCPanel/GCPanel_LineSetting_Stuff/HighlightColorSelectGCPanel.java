@@ -3,11 +3,11 @@ package GCPanel_LineSetting_Stuff;
 import java.awt.Color;
 
 import GCPanel_LayoutPixel_Stuff.GCPanel_LayoutPixel;
-import component_Stuff.GraphicComponent;
 import fGCDataModify.FMove;
 import fGlobalDataModify.FSetHighLightColorBTN;
 import global.ColorConstant;
-import shape_Stuff.eShape;
+import zStuff_GraphicComponent.GraphicComponent;
+import zStuff_Shape.eShape;
 
 @SuppressWarnings("serial")
 public class HighlightColorSelectGCPanel extends GCPanel_LayoutPixel {

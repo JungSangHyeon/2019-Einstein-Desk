@@ -8,8 +8,8 @@ import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.Vector;
 
-import shape_Stuff.AShape;
 import zStuff_Function.AFunction;
+import zStuff_Shape.AShape;
 
 public abstract class AFShapeButton extends AFunction implements Serializable{
 	private static final long serialVersionUID = 787188459680824163L;

@@ -6,11 +6,11 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 
-import component_Stuff.GraphicComponent;
 import fGCDataModify.FMove;
 import fGCDataModify.FResize;
 import moveAndZoom.DrawingPanelMoveAndZoom;
-import shape_Stuff.eShape;
+import zStuff_GraphicComponent.GraphicComponent;
+import zStuff_Shape.eShape;
 
 public class GCCanvas {
 

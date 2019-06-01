@@ -4,7 +4,6 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 
-import component_Stuff.GraphicComponent;
 import data.GCStorage_Normal;
 import data.GCStorage_Selected;
 import data.ShapeData;
@@ -16,6 +15,7 @@ import fGCDataModify.FRotate;
 import function_Stuff.ATool;
 import function_Stuff.eTool;
 import moveAndZoom.DrawingPanelMoveAndZoom;
+import zStuff_GraphicComponent.GraphicComponent;
 
 public class CMCShapeDrawTool extends ATool{
 	private static final long serialVersionUID = -2451691127621671062L;

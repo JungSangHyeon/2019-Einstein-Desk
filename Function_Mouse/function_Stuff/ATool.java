@@ -3,7 +3,7 @@ package function_Stuff;
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
 
-import component_Stuff.GraphicComponent;
+import zStuff_GraphicComponent.GraphicComponent;
 
 public abstract class ATool  implements Serializable{//AFUnction하고 똑같음. 따로 있는게 더 좋을 것 같아서 나눔.
 	private static final long serialVersionUID = -6420030261551624512L;
@@ -23,13 +23,12 @@ public abstract class ATool  implements Serializable{//AFUnction하고 똑같음. 따�
 		else if(eID == MouseEvent.MOUSE_WHEEL) {this.mouseWheelMoved(e);}
 	}
 	
-//	public GraphicComponent getMaster() {return master;}
-	public abstract void mousePressed(MouseEvent e);
-	public abstract void mouseReleased(MouseEvent e);
-	public abstract void mouseClicked(MouseEvent e);
-	public abstract void mouseDragged(MouseEvent e);
-	public abstract void mouseMoved(MouseEvent e);
-	public abstract void mouseEntered(MouseEvent e);
-	public abstract void mouseExited(MouseEvent e);
-	public abstract void mouseWheelMoved(MouseEvent e);
+	public void mousePressed(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e) {}
+	public void mouseDragged(MouseEvent e) {}
+	public void mouseMoved(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {}
+	public void mouseWheelMoved(MouseEvent e) {}
 }

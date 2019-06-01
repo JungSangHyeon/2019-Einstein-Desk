@@ -21,8 +21,5 @@ public class Pixel implements Serializable{
 	public boolean isOccupied() {return this.occupied;}
 	public void setOccupied(boolean boo) {this.occupied=boo;}
 	public void setRect(int x, int y, int w, int h) {rect=new Rectangle(x, y, w, h);}
-
-	public void setLocation(int x, int y) {
-		location.move(x, y);
-	}
+	public void setLocation(int x, int y) {location.move(x, y);}
 }

@@ -2,9 +2,9 @@ package group;
 
 import java.util.Vector;
 
-import component_Stuff.GraphicComponent;
 import data.GCStorage_Normal;
 import data.GCStorage_Selected;
+import zStuff_GraphicComponent.GraphicComponent;
 
 public class GroupTool {
 
@@ -37,7 +37,7 @@ public class GroupTool {
 			GCStorage_Normal.removeGC(gc);
 			GCStorage_Selected.removeSelectedGC(gc);
 		}
-		GCStorage_Normal.addAllToGC(releaseGroupMember);//안의 것을 그냥 노말에 넣기만 하면 피피티의 컴포넌트 액션처럼 됨.
+		GCStorage_Normal.addAllToGC(releaseGroupMember);
 		GCStorage_Selected.addAllSelectedGC(releaseGroupMember);
 	}
 	

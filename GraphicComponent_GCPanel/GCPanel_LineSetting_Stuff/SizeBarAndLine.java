@@ -10,7 +10,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.RoundRectangle2D;
 
-import component_Stuff.GraphicComponent;
+import zStuff_GraphicComponent.GraphicComponent;
 
 @SuppressWarnings("serial")
 public abstract class SizeBarAndLine extends GraphicComponent{

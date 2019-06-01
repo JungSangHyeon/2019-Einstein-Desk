@@ -26,10 +26,4 @@ public class CanvasHandTool extends ATool{
 	public void mouseDragged(MouseEvent e) {
 		GCCanvas.processEvent(e);
 	}
-	
-	public void mouseClicked(MouseEvent e) {}
-	public void mouseMoved(MouseEvent e) {}
-	public void mouseWheelMoved(MouseEvent e) {}
-	public void mouseEntered(MouseEvent e) {}
-	public void mouseExited(MouseEvent e) {}
 }

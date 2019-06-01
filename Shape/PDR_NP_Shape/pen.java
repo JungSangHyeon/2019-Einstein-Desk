@@ -1,4 +1,4 @@
-package shape;
+package PDR_NP_Shape;
 
 
 import java.awt.Shape;
@@ -8,10 +8,10 @@ import java.awt.geom.Point2D.Float;
 import java.util.Vector;
 
 import calculation.Calculator;
-import component_Stuff.GraphicComponent;
 import function_Stuff.ATool;
 import function_Stuff.eTool;
-import shape_Stuff.APDRShape;
+import zStuff_GraphicComponent.GraphicComponent;
+import zStuff_Shape.APDRShape;
 
 public class pen extends APDRShape{
 	private static final long serialVersionUID = -1035475723319493551L;

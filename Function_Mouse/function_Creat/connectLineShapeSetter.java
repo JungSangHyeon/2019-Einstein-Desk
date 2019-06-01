@@ -9,10 +9,10 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
-import component_Stuff.GraphicComponent;
 import data.GCStorage_Normal;
 import zStuff_Function.AFunction;
 import zStuff_Function.AFunction.PaintZOrder;
+import zStuff_GraphicComponent.GraphicComponent;
 
 public class connectLineShapeSetter extends AFunction {
 	private static final long serialVersionUID = 3933314511832627932L;

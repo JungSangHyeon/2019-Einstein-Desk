@@ -4,9 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import GCPanel_LayoutPixel_Stuff.GCPanel_LayoutPixel;
-import GCPanel_LayoutPixel_Stuff.Item;
-import component_Stuff.GCEnum;
-import component_Stuff.GCEnum.eGC;
+import zStuff_GraphicComponent.GCEnum;
+import zStuff_GraphicComponent.GCEnum.eGC;
 
 @SuppressWarnings("serial")
 public class ToolSelectGCPanel extends GCPanel_LayoutPixel {
@@ -27,14 +26,6 @@ public class ToolSelectGCPanel extends GCPanel_LayoutPixel {
 		this.add(GCEnum.getGC(eGC.eHandTool));
 		this.add(GCEnum.getGC(eGC.eCanvasHandTool));
 		this.add(GCEnum.getGC(eGC.eConnectTool));
-		
-		for(Item item : this.getItems()) {
-			for(Item connectItem : this.getItems()) {
-				if(connectItem.getInContainerGC()!=item.getInContainerGC()) {
-					item.getInContainerGC().addAssociateGC(connectItem.getInContainerGC());
-				}
-			}
-		}
 	}
 	
 	@Override

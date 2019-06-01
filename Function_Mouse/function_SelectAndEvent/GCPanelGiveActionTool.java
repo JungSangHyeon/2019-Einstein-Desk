@@ -3,9 +3,9 @@ package function_SelectAndEvent;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
 
-import component_Stuff.GraphicComponent;
 import data.GCPanelStorage;
 import function_Stuff.ATool;
+import zStuff_GraphicComponent.GraphicComponent;
 
 public class GCPanelGiveActionTool extends ATool{
 	private static final long serialVersionUID = -272528931530692482L;
@@ -42,7 +42,6 @@ public class GCPanelGiveActionTool extends ATool{
 			}
 		}
 	}
-	
 	private void giveEventToMaster(MouseEvent e) {
 		if(master!=null) {master.processEvent(e);}
 	}
@@ -51,6 +50,4 @@ public class GCPanelGiveActionTool extends ATool{
 			gc.processEvent(e);
 		}
 	}
-	public void mouseEntered(MouseEvent e) {}
-	public void mouseExited(MouseEvent e) {}
 }

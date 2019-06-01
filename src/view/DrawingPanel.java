@@ -14,7 +14,8 @@ import javax.swing.JPanel;
 import GCPanel.OffGCPanel;
 import GCPanel.ToolBTNGCPanel;
 import GCPanel.ToolSelectGCPanel;
-import component_Stuff.GraphicComponent;
+import PDR_NP_Shape.HighlightShape;
+import PDR_NP_Shape.pen;
 import data.GCPanelStorage;
 import data.GCStorage_Normal;
 import eventListener.DrawingPanelMouseHadler;
@@ -22,8 +23,7 @@ import eventListener.KeyDispatcher;
 import global.GCCanvas;
 import global.InjectEnums.eColor;
 import moveAndZoom.DrawingPanelMoveAndZoom;
-import shape.HighlightShape;
-import shape.pen;
+import zStuff_GraphicComponent.GraphicComponent;
 import zStuff_Text.FTextWrite_Stuff;
 
 @SuppressWarnings("serial")

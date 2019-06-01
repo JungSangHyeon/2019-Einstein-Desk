@@ -3,21 +3,17 @@ package GCPanel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.event.MouseEvent;
-import java.awt.geom.Point2D;
 
-import GCPanel_LayoutNull_Stuff.GCPanel_LayoutNull;
 import GCPanel_ShapeSetting_Stuff.CMCShapeSelectGCPanel;
 import GCPanel_ShapeSetting_Stuff.PDRShapeSelectGCPanel;
 import GCPanel_Stuff.PeekabooPanel;
-import data.GCPanelStorage;
 import fPaint.FKillMasterIfNotSelected;
 
 public class ShapeSettingGCPanel extends PeekabooPanel{
 	private static final long serialVersionUID = -4033921725411864658L;
 
 	public ShapeSettingGCPanel() {
-		this.setBounds(1493, 50, 322, 215+ 52);
+		this.setBounds(1493, 50, 322, 215 + 52);
 		this.setPanelBackgroundColor(new Color(242,242,242));
 		this.setPanelBorderColor(new Color(204,204,204));
 		this.setborderThick(1);

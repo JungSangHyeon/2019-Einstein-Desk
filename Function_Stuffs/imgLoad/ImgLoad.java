@@ -9,7 +9,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 
-import component_Stuff.GraphicComponent;
 import data.GCStorage_Normal;
 import data.GCStorage_Selected;
 import doUndo.RedoUndo;
@@ -17,8 +16,9 @@ import fComposite.FInCanvasGCBasicFunction;
 import fImagePaint.FImageNormalPaint;
 import global.GCCanvas;
 import onOff.AnchorPaint;
-import shape_Stuff.eShape;
 import zStuff_Function.AFunction;
+import zStuff_GraphicComponent.GraphicComponent;
+import zStuff_Shape.eShape;
 
 public class ImgLoad extends AFunction{
 	private static final long serialVersionUID = 6790901375407014041L;
@@ -29,21 +29,17 @@ public class ImgLoad extends AFunction{
 		JFileChooser chooser = new JFileChooser("Image/");// 객체 생성
 		int ret = chooser.showOpenDialog(null); // 열기창 정의
 		if (ret != JFileChooser.APPROVE_OPTION) {return;}
+		
 		BufferedImage behindeImg = null;
 		try {behindeImg = ImageIO.read(chooser.getSelectedFile());}
 		catch (IOException e1) {e1.printStackTrace();}
-		//make gc by img
 		
 		GraphicComponent GCData = new GraphicComponent();
-		
 		Rectangle rect = GCCanvas.getCanvas().getShape().getBounds();
-		
 		GCData.addPoint(new Point2D.Float((float)(rect.getX() + rect.getWidth()/2 -  behindeImg.getWidth()/2), (float)(rect.getY() + rect.getHeight()/2 -  behindeImg.getHeight()/2)));
 		GCData.addPoint(new Point2D.Float((float)(rect.getX() + rect.getWidth()/2 +  behindeImg.getWidth()/2), (float)(rect.getY() + rect.getHeight()/2 +  behindeImg.getHeight()/2)));
-		
 		GCData.setAShape(eShape.rect.getAShape());
 		GCData.addFunction(new FInCanvasGCBasicFunction());
-//		GCData.addFunction(new FImageWindowPaint(chooser.getSelectedFile().getPath()));
 		GCData.addFunction(new FImageNormalPaint(chooser.getSelectedFile().getPath()));
 		GCData.setBorderPaint(false);
 		GCData.setFillPaint(false);
@@ -56,7 +52,5 @@ public class ImgLoad extends AFunction{
 		GCStorage_Selected.addSelectedGC(GCStorage_Normal.getLastGC());
 		AnchorPaint.on();
 		RedoUndo.saveNowInHistory();
-		
-		//add img to storage
 	}
 }

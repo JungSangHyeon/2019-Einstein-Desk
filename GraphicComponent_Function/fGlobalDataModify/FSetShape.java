@@ -3,8 +3,8 @@ package fGlobalDataModify;
 import java.io.Serializable;
 
 import data.ShapeData;
-import shape_Stuff.AShape;
 import zStuff_Button.AFShapeButton;
+import zStuff_Shape.AShape;
 
 public class FSetShape extends AFShapeButton implements Serializable{
 	private static final long serialVersionUID = 787188459680824163L;

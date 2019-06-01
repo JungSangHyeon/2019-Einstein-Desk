@@ -1,10 +1,10 @@
-package shape;
+package PDR_2P_Shape;
 
 import java.awt.Shape;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
-import shape_Stuff.APDRShape;
+import zStuff_Shape.APDRShape;
 
 public class RectShape extends APDRShape{
 	private static final long serialVersionUID = -7771762657161778589L;

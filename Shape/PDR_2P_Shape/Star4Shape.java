@@ -1,10 +1,10 @@
-package shape;
+package PDR_2P_Shape;
 
 import java.awt.Shape;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 
-import shape_Stuff.APDRShape;
+import zStuff_Shape.APDRShape;
 
 public class Star4Shape extends APDRShape{
 	private static final long serialVersionUID = 8804449637687739570L;

@@ -16,11 +16,11 @@ import javax.swing.JPanel;
 
 import calculation.AffineMath;
 import calculation.Calculator;
-import component_Stuff.GraphicComponent;
 import data.GCStorage_Selected;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import onOff.AnchorPaint;
 import zStuff_Function.AFunction;
+import zStuff_GraphicComponent.GraphicComponent;
 
 public class FRotate extends AFunction implements Serializable{
 	private static final long serialVersionUID = 3215043540942308860L;

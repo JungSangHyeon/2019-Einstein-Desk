@@ -1,8 +1,8 @@
 package GCPanel;
 
 import GCPanel_LayoutPixel_Stuff.GCPanel_LayoutPixel;
-import component_Stuff.GCEnum;
-import component_Stuff.GCEnum.eGC;
+import zStuff_GraphicComponent.GCEnum;
+import zStuff_GraphicComponent.GCEnum.eGC;
 
 @SuppressWarnings("serial")
 public class OffGCPanel extends GCPanel_LayoutPixel {

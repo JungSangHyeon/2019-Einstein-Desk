@@ -1,4 +1,4 @@
-package component_Stuff;
+package zStuff_GraphicComponent;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -11,9 +11,9 @@ import java.util.Vector;
 
 import global.InjectEnums.eColor;
 import global.InjectEnums.eInt;
-import shape_Stuff.AShape;
 import zStuff_Function.AFunction;
 import zStuff_Function.AFunction.PaintZOrder;
+import zStuff_Shape.AShape;
 
 public class GraphicComponent  implements Serializable{
 	private static final long serialVersionUID = 2228665649817385320L;
@@ -23,7 +23,6 @@ public class GraphicComponent  implements Serializable{
 	public GraphicComponent() {
 		points = new Vector <Point2D.Float>();
 		functions = new Vector <AFunction>();
-		associateGC = new Vector <GraphicComponent>();
 		aggregateGC = new Vector <GraphicComponent>();
 		functionShape = new Vector <Shape>();
 		topFunctionShape = new Vector <Shape>();
@@ -52,7 +51,7 @@ public class GraphicComponent  implements Serializable{
 		for(AFunction function : functions) {function.paint(g, PaintZOrder.MIDDLE);}
 		for(GraphicComponent gc : aggregateGC) {gc.paint(g);}
 		
-//		아래는 테스트용
+//		아래는 테스트용//TODO
 //		if (points.size() > 0) {//points
 //			g.setColor(Color.RED);// 디버깅?
 //			GeneralPath p = new GeneralPath();
@@ -133,12 +132,6 @@ public class GraphicComponent  implements Serializable{
 	public void setText(String text) {this.text=text;}
 	public String getText() {return this.text;}
 
-	//Associate GC
-	private Vector<GraphicComponent> associateGC;
-	public void addAssociateGC(GraphicComponent gc) {associateGC.add(gc);}
-	public void removeAssociateGC(GraphicComponent gc) {associateGC.remove(gc);}
-	public Vector<GraphicComponent> getAssociateGCs() {return associateGC;}
-	
 	//Aggregate GC
 	private Vector<GraphicComponent> aggregateGC;
 	public void addAggregateGC(GraphicComponent gc) {aggregateGC.add(gc);}

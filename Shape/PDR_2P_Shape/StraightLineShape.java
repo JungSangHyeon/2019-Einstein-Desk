@@ -1,12 +1,12 @@
-package shape;
+package PDR_2P_Shape;
 
 import java.awt.Shape;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
 import calculation.Calculator;
-import component_Stuff.GraphicComponent;
-import shape_Stuff.APDRShape;
+import zStuff_GraphicComponent.GraphicComponent;
+import zStuff_Shape.APDRShape;
 
 public class StraightLineShape extends APDRShape{
 	private static final long serialVersionUID = 8622361566770203159L;

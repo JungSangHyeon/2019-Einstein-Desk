@@ -14,11 +14,11 @@ import java.io.Serializable;
 import javax.swing.JPanel;
 
 import calculation.AffineMath;
-import component_Stuff.GraphicComponent;
 import data.GCStorage_Selected;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import onOff.AnchorPaint;
 import zStuff_Function.AFunction;
+import zStuff_GraphicComponent.GraphicComponent;
 
 public class FMove extends AFunction implements Serializable{
 	private static final long serialVersionUID = 2509847208800494236L;

@@ -10,9 +10,9 @@ import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.Vector;
 
-import component_Stuff.GraphicComponent;
 import deepClone.DeepClone;
-import shape_Stuff.eShape;
+import zStuff_GraphicComponent.GraphicComponent;
+import zStuff_Shape.eShape;
 
 public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Serializable{//호호 드럽다. 
 	private static final long serialVersionUID = -9220238498788652662L;
@@ -167,7 +167,6 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 	public void paint(Graphics2D g2d) {//TODO
 		super.paint(g2d);
 		g2d.setClip(x,y, width, height);
-//		g2d.setClip(0,0,10,10);
 		
 		g2d.translate(0, scrollSpeed*nowDeep);
 		for(Item item : itemVector) {

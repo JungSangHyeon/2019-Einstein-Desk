@@ -5,7 +5,6 @@ import java.awt.Rectangle;
 
 import javax.swing.JPanel;
 
-import component_Stuff.GraphicComponent;
 import data.GCStorage_Normal;
 import data.GCStorage_Selected;
 import fGCDataModify.FMove;
@@ -14,6 +13,7 @@ import fGCDataModify.FResize;
 import fGCDataModify.FRotate;
 import moveAndZoom.DrawingPanelMoveAndZoom;
 import view.DrawingPanel;
+import zStuff_GraphicComponent.GraphicComponent;
 
 public class DragAndDropManager {
 

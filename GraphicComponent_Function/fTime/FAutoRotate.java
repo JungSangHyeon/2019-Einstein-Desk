@@ -3,7 +3,7 @@ package fTime;
 import java.io.Serializable;
 
 import calculation.AffineMath;
-import component_Stuff.GraphicComponent;
+import zStuff_GraphicComponent.GraphicComponent;
 import zStuff_Time.ATimeFunction;
 
 public class FAutoRotate extends ATimeFunction implements Serializable{

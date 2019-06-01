@@ -3,14 +3,10 @@ package GCPanel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.event.MouseEvent;
-import java.awt.geom.Point2D;
 
-import GCPanel_LayoutNull_Stuff.GCPanel_LayoutNull;
 import GCPanel_LineSetting_Stuff.PenColorSelectGCPanel;
 import GCPanel_LineSetting_Stuff.PenSizeBarGCPanel;
 import GCPanel_Stuff.PeekabooPanel;
-import data.GCPanelStorage;
 import fPaint.FKillMasterIfNotSelected;
 
 public class PenSettingGCPanel extends PeekabooPanel{

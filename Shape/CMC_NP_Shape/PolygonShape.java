@@ -1,4 +1,4 @@
-package shape;
+package CMC_NP_Shape;
 
 import java.awt.Point;
 import java.awt.Shape;
@@ -8,9 +8,9 @@ import java.awt.geom.Point2D.Float;
 import java.util.Vector;
 
 import calculation.Calculator;
-import component_Stuff.GraphicComponent;
 import moveAndZoom.DrawingPanelMoveAndZoom;
-import shape_Stuff.ACMCShape;
+import zStuff_GraphicComponent.GraphicComponent;
+import zStuff_Shape.ACMCShape;
 
 public class PolygonShape extends ACMCShape{
 	private static final long serialVersionUID = 4276418385726487576L;

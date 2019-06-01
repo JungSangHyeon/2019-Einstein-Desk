@@ -1,9 +1,9 @@
 package delete;
 
-import component_Stuff.GraphicComponent;
 import data.GCStorage_Normal;
 import data.GCStorage_Selected;
 import doUndo.RedoUndo;
+import zStuff_GraphicComponent.GraphicComponent;
 
 public class Delete {
 
@@ -12,5 +12,4 @@ public class Delete {
 		GCStorage_Selected.clearSelected();
 		RedoUndo.saveNowInHistory();
 	}
-	
 }

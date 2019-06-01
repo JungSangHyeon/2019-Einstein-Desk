@@ -1,7 +1,7 @@
 package data;
 
-import shape_Stuff.AShape;
-import shape_Stuff.eShape;
+import zStuff_Shape.AShape;
+import zStuff_Shape.eShape;
 
 public class ShapeData {
 	private static AShape nowShapeMaker = eShape.rect.getAShape();

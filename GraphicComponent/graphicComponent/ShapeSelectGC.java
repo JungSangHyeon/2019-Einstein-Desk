@@ -1,11 +1,11 @@
-package component;
+package graphicComponent;
 
 import fGlobalDataModify.FSetShape;
 import fGlobalDataModify.FSetTool;
-import shape_Stuff.eShape;
 import zStuff_Function.AFunction;
+import zStuff_Shape.eShape;
 
-public class ShapeSelectItems {
+public class ShapeSelectGC {
 	public static AFunction[] //add Functions Here
 			rectFunctions = {
 					new FSetTool(eShape.rect.getAShape().getDrawer()),

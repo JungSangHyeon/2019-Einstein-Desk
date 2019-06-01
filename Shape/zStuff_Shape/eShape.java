@@ -1,16 +1,16 @@
-package shape_Stuff;
+package zStuff_Shape;
 
-import shape.EllipseShape;
-import shape.GroupShape;
-import shape.HighlightShape;
-import shape.PolygonShape;
-import shape.RectShape;
-import shape.SpeechShape;
-import shape.Star4Shape;
-import shape.StarNShape;
-import shape.StraightLineShape;
-import shape.TriangleShape;
-import shape.pen;
+import CMC_NP_Shape.PolygonShape;
+import PDR_2P_Shape.EllipseShape;
+import PDR_2P_Shape.RectShape;
+import PDR_2P_Shape.SpeechShape;
+import PDR_2P_Shape.Star4Shape;
+import PDR_2P_Shape.StarNShape;
+import PDR_2P_Shape.StraightLineShape;
+import PDR_2P_Shape.TriangleShape;
+import PDR_NP_Shape.HighlightShape;
+import PDR_NP_Shape.pen;
+import special_Shape.GroupShape;
 
 public enum eShape{
 	rect(new RectShape()), 

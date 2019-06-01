@@ -7,8 +7,8 @@ import javax.swing.JTextArea;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 
-import component_Stuff.GraphicComponent;
 import data.GCStorage_Selected;
+import zStuff_GraphicComponent.GraphicComponent;
 
 public class FTextWrite_Stuff {
 

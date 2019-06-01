@@ -1,15 +1,13 @@
 package GCPanel_LayoutNull_Stuff;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.io.Serializable;
-import java.util.Vector;
 
-import component_Stuff.GraphicComponent;
-import shape_Stuff.eShape;
+import zStuff_GraphicComponent.GraphicComponent;
+import zStuff_Shape.eShape;
 
 public abstract class GCPanel_LayoutNull extends GraphicComponent implements Serializable{//호호 드럽다. 
 	private static final long serialVersionUID = -9220238498788652662L;
@@ -23,16 +21,12 @@ public abstract class GCPanel_LayoutNull extends GraphicComponent implements Ser
 	public void setPanelBackgroundColor(Color c) {this.setFillColor(c);}
 	public void setPanelBorderColor(Color c) {this.setBorderColor(c);}
 	
-	//Component
-	Vector<GraphicComponent> gcVector;
-	
 	//Event Handling
 	GraphicComponent eventMaster;
 	
 	public GCPanel_LayoutNull() {
 		this.setAShape(eShape.rect.getAShape());
 		this.setShape(new Rectangle(x, y, width, height));
-		gcVector = new Vector<GraphicComponent>();
 	}
 
 	public void setBounds(int x, int y, int width, int height) {
@@ -44,13 +38,7 @@ public abstract class GCPanel_LayoutNull extends GraphicComponent implements Ser
 		return new Rectangle(this.x+x, this.y+y, width, height);
 	}
 	
-	public void add(GraphicComponent gc) {gcVector.add(gc);}
-	
-	@Override
-	public void paint(Graphics2D g2d) {
-		super.paint(g2d);
-		for(GraphicComponent gc : gcVector) {gc.paint(g2d);}
-	}
+	public void add(GraphicComponent gc) {this.addAggregateGC(gc);}
 	
 	public void mouseWheelMoved(MouseWheelEvent e) {findMasterAndGiveEvent(e);}
 	public void mousePressed(MouseEvent e) {findMasterAndGiveEvent(e);}
@@ -64,15 +52,15 @@ public abstract class GCPanel_LayoutNull extends GraphicComponent implements Ser
 		giveEventToMaster(e);
 	}
 	private void findMaster(MouseEvent e) {
-		for(int i = gcVector.size()-1; i>-1; i--) {
-			if(gcVector.get(i).getShape().contains(e.getPoint())) {
-				eventMaster = gcVector.get(i); return;
+		for(int i = this.getAggregateGCSize()-1; i>-1; i--) {
+			if(this.getMyAggregateGCs().get(i).getShape().contains(e.getPoint())) {
+				eventMaster = this.getMyAggregateGCs().get(i); return;
 			}
 		}
 		eventMaster = null;
 	}
 	private void giveEventToMaster(MouseEvent e) {if(eventMaster!=null) {eventMaster.processEvent(e);}}
-	private void giveEventToAll(MouseEvent e) {for(GraphicComponent gc : gcVector) {gc.processEvent(e);}}
+	private void giveEventToAll(MouseEvent e) {for(GraphicComponent gc : this.getMyAggregateGCs()) {gc.processEvent(e);}}
 	
 	@Override
 	public void processEvent(MouseEvent e) {

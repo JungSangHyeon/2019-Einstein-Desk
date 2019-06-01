@@ -2,7 +2,7 @@ package data;
 
 import java.util.Vector;
 
-import component_Stuff.GraphicComponent;
+import zStuff_GraphicComponent.GraphicComponent;
 
 public class ProjectData {
 
