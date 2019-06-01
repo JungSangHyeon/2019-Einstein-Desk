@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 
 import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
 import onOff.AnchorPaint;
+import redoUndo.RedoUndo;
 import zStuff_Function.AFunction;
 import zStuff_GraphicComponent.GCStorage_Selected;
 import zStuff_GraphicComponent.GraphicComponent;
@@ -32,7 +33,7 @@ public class FResize extends AFunction implements Serializable {//얘는 망했어요.
 	float gap = 11;
 	
 	Point2D.Float dragStart;
-	boolean resizeON = false;
+	boolean resizeON = false, resized = false;
 	Vector<Shape> anchors = new Vector<Shape>();
 	int n = 0;
 	Vector<Shape> changeAnchors = new Vector<Shape>();
@@ -53,10 +54,9 @@ public class FResize extends AFunction implements Serializable {//얘는 망했어요.
 	}
 
 	public void mouseDragged(MouseEvent e) {//WOW LONGLONG
-		if(AnchorPaint.isOn()) {
-			AnchorPaint.off();
-		}
+		if(AnchorPaint.isOn()) {AnchorPaint.off();}
 		if (resizeON) {
+			resized = true;
 			Point2D.Float nowPoint = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());//드래그 시작점.
 			Point2D.Float normalDragStart = new Point2D.Float(nowPoint.x, nowPoint.y);//다음 드래그를 위함.
 			Point2D resizeFactor = this.computeResizeFactor(getBeforeRotatePoint(master, dragStart), getBeforeRotatePoint(master, nowPoint));//돌린 것으로 리사이즈 팩터 만듬.
@@ -352,6 +352,10 @@ public class FResize extends AFunction implements Serializable {//얘는 망했어요.
 	public void mouseReleased(MouseEvent e) {
 		AnchorPaint.on();
 		resizeON = false;
+		if(resized) {
+			resized = false;
+			RedoUndo.saveNowInHistory();
+		}
 	}
 	
 	public void mouseMoved(MouseEvent e) {

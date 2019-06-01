@@ -9,6 +9,8 @@ import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.Vector;
 
+import PDR_NP_Shape.HighlightShape;
+import PDR_NP_Shape.pen;
 import global.InjectEnums.eColor;
 import global.InjectEnums.eInt;
 import zStuff_Function.AFunction;
@@ -49,7 +51,9 @@ public class GraphicComponent  implements Serializable{
 		if(paintFill) {g.setColor(fillColor); g.fill(shape);}
 		if(paintBorder) {g.setColor(borderColor); g.draw(shape);}
 		for(AFunction function : functions) {function.paint(g, PaintZOrder.MIDDLE);}
-		for(GraphicComponent gc : aggregateGC) {gc.paint(g);}
+		for(GraphicComponent gc : aggregateGC) {if(!(gc.getAShape() instanceof pen)) {gc.paint(g);}}//shape
+		for(GraphicComponent gc : aggregateGC) {if(gc.getAShape() instanceof HighlightShape) {gc.paint(g);}}//highlight
+		for(GraphicComponent gc : aggregateGC) {if(!(gc.getAShape() instanceof HighlightShape)&&gc.getAShape() instanceof pen) {gc.paint(g);}}//pen
 		
 //		아래는 테스트용//TODO
 //		if (points.size() > 0) {//points

@@ -3,6 +3,7 @@ package createGC;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
+import java.util.Vector;
 
 import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
 import fComposite.FInCanvasGCBasicFunction;
@@ -23,19 +24,19 @@ public class PDRShapeDrawTool extends ATool{
 	
 	public enum state{ready, drawing} 
 	state nowState = state.ready;
+	boolean firstDragAfterPress = false;
 	
 	public void mousePressed(MouseEvent e) {
 		if(e.getButton()==MouseEvent.BUTTON1) {//우클릭으로 화면 이동하면서 그릴 수 있게 함.
+			nowState = state.drawing;
+			firstDragAfterPress = true;
+			
 			GCStorage_Selected.clearSelected();
 			GCData = new GraphicComponent();
 			GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 			GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
 			GCData.setAShape(ShapeData.getNowShapeMaker());
 			GCData.addFunction(new FInCanvasGCBasicFunction());
-//			GCData.addFunction(new Paint_Text("test1", "Image/TitleImg.png"));
-//			GCData.setBorderPaint(false);
-//			GCData.setOtherCenter(new Point2D.Float(0, 0));
-//			GCData.useOtherCenter();
 			
 			setShape(GCData);
 			GCStorage_Normal.addNewGC(GCData);
@@ -53,15 +54,19 @@ public class PDRShapeDrawTool extends ATool{
 	
 	public void mouseReleased(MouseEvent e) {
 		if(e.getButton()==MouseEvent.BUTTON1) {
-			Rectangle rect = GCStorage_Normal.getLastGC().getShape().getBounds();
-			GCStorage_Normal.getLastGC().setCenter(new Point2D.Float(rect.x+rect.width/2, rect.y+rect.height/2));
-//			GCStorage_Normal.getLastGC().addFunction(new FAutoRotate());//Time Test
-//			GCStorage_Normal.getLastGC().moveTime(true);
+			Vector<Point2D.Float> points = GCStorage_Normal.getLastGC().getPoints();
+			if(points.size()<3&&points.get(0).getX()==points.get(1).getX()&&points.get(0).getY()==points.get(1).getY()) {
+				GCStorage_Normal.removeLastGC();//걍 점만찍은 쉐입은 죽인다
+			}else {
+				Rectangle rect = GCStorage_Normal.getLastGC().getShape().getBounds();
+				GCStorage_Normal.getLastGC().setCenter(new Point2D.Float(rect.x+rect.width/2, rect.y+rect.height/2));
+				
+				ToolData.setNowTool(eTool.eHandTool.getATool());
+				GCStorage_Selected.addSelectedGC(GCStorage_Normal.getLastGC());
+				AnchorPaint.on();
+				RedoUndo.saveNowInHistory();
+			}
 			
-			ToolData.setNowTool(eTool.eHandTool.getATool());
-			GCStorage_Selected.addSelectedGC(GCStorage_Normal.getLastGC());
-			AnchorPaint.on();
-			RedoUndo.saveNowInHistory();
 		}
 	}
 	public void mouseClicked(MouseEvent e) {}

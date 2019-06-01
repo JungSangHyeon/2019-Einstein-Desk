@@ -7,6 +7,7 @@ import javax.swing.JTextArea;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 
+import redoUndo.RedoUndo;
 import zStuff_GraphicComponent.GCStorage_Selected;
 import zStuff_GraphicComponent.GraphicComponent;
 
@@ -22,7 +23,7 @@ static boolean textEditing = false;
 	public static boolean isTextEditAreaFocusOwner() {return textEditArea.isFocusOwner();}
 	public static void setTextEditing(boolean boo) {textEditing=boo;}
 	public static void giveFocusToTextEditArea() {textEditArea.requestFocus();}
-	public static void removeFocusTextEditArea() {focusArea.requestFocus();}
+	public static void removeFocusTextEditArea() {focusArea.requestFocus();RedoUndo.saveNowInHistory();}
 	public static void setTextForTextEdit(String text) {textEditArea.setText(text);}
 	
 	public static void setting() {

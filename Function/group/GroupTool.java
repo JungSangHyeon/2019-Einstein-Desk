@@ -2,6 +2,7 @@ package group;
 
 import java.util.Vector;
 
+import redoUndo.RedoUndo;
 import zStuff_GraphicComponent.GCStorage_Normal;
 import zStuff_GraphicComponent.GCStorage_Selected;
 import zStuff_GraphicComponent.GraphicComponent;
@@ -19,6 +20,7 @@ public class GroupTool {
 		}
 		GCStorage_Selected.clearSelected();
 		GCStorage_Selected.addSelectedGC(group);
+		RedoUndo.saveNowInHistory();
 	}
 	
 	public static void unGrouping() {
@@ -39,6 +41,7 @@ public class GroupTool {
 		}
 		GCStorage_Normal.addAllToGC(releaseGroupMember);
 		GCStorage_Selected.addAllSelectedGC(releaseGroupMember);
+		RedoUndo.saveNowInHistory();
 	}
 	
 }

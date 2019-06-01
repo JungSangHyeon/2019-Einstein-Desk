@@ -18,6 +18,7 @@ import calculation.AffineMath;
 import calculation.Calculator;
 import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
 import onOff.AnchorPaint;
+import redoUndo.RedoUndo;
 import zStuff_Function.AFunction;
 import zStuff_GraphicComponent.GCStorage_Selected;
 import zStuff_GraphicComponent.GraphicComponent;
@@ -31,7 +32,7 @@ public class FRotate extends AFunction implements Serializable{
 	
 	Shape anchor;
 	Point2D.Float dragStart;
-	boolean rotateOn = false;
+	boolean rotateOn = false, rotated = false;
 	
 	public FRotate() {this.setPaintOrder(PaintZOrder.TOP);}
 	
@@ -43,6 +44,7 @@ public class FRotate extends AFunction implements Serializable{
 	public void mouseDragged(MouseEvent e) {
 		if(AnchorPaint.isOn()) {AnchorPaint.off();}
 		if(rotateOn) {
+			rotated = true;
 			Point2D.Float nowPoint = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());//get Angle
 			Point2D.Float center = master.getCenter();//모드로 나눌 수 있겠다. 각자의 센터 || 하나의 센터.
 			double rotationAngle = Calculator.computeRotationAngle(center, dragStart, nowPoint);
@@ -60,6 +62,10 @@ public class FRotate extends AFunction implements Serializable{
 	public void mouseReleased(MouseEvent e) {
 		rotateOn = false;
 		AnchorPaint.on();
+		if(rotated) {
+			rotated = false;
+			RedoUndo.saveNowInHistory();
+		}
 	}
 	
 	public void mouseMoved(MouseEvent e) {

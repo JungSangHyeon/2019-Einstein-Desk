@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 
 import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
-import zStuff_Data.ShapeData;
+import redoUndo.RedoUndo;
 import zStuff_GraphicComponent.GCStorage_Normal;
 import zStuff_GraphicComponent.GCStorage_Selected;
 import zStuff_GraphicComponent.GraphicComponent;
@@ -68,6 +68,7 @@ public class ConnectTool extends ATool{
 				GCStorage_Normal.getLastGC().addFunction(new connectLineShapeSetter(startGC, endGC));
 				GCData.setFillPaint(false);
 				GCData.setBorderPaint(false);
+				RedoUndo.saveNowInHistory();
 //				startGC.addFunction(new Paint_ConnectLine(endGC));
 			}else {
 				GCStorage_Normal.removeLastGC();

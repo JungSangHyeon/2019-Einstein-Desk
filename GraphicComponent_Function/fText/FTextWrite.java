@@ -23,8 +23,6 @@ public class FTextWrite extends AFunction{
 	double textYIntervalFactor = 1.1;
 	Color textColor = Color.white;
 	
-	public FTextWrite() {this.setPaintOrder(PaintZOrder.TOP);}
-	
 	Arrange myArrange = Arrange.CENTER;
 	public enum Arrange{LEFTUP, CENTER}
 	

@@ -2,6 +2,7 @@ package zOrder;
 
 import java.util.Vector;
 
+import redoUndo.RedoUndo;
 import zStuff_GraphicComponent.GCStorage_Normal;
 import zStuff_GraphicComponent.GraphicComponent;
 
@@ -14,6 +15,7 @@ public class Z_Order {
 		else if(task == SendTo.Hell) {sendSelectedToHell();}
 		else if(task == SendTo.oneUP) {sendSelectedOneUp();}
 		else if(task == SendTo.oneDown) {sendSelectedOneDown();}
+		RedoUndo.saveNowInHistory();
 	}
 	
 	private static void sendSelectedToTop() {

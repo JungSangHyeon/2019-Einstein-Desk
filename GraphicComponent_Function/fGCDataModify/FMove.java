@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import calculation.AffineMath;
 import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
 import onOff.AnchorPaint;
+import redoUndo.RedoUndo;
 import zStuff_Function.AFunction;
 import zStuff_GraphicComponent.GCStorage_Selected;
 import zStuff_GraphicComponent.GraphicComponent;
@@ -27,7 +28,7 @@ public class FMove extends AFunction implements Serializable{
 	Color rectColor = new Color(150, 150, 150);
 	
 	Point2D.Float dragStart;
-	boolean moveOn = false;
+	boolean moveOn = false, moved = false;
 	
 	public FMove() {this.setPaintOrder(PaintZOrder.TOP);}
 	
@@ -44,6 +45,7 @@ public class FMove extends AFunction implements Serializable{
 	public void mouseDragged(MouseEvent e) {
 		if(AnchorPaint.isOn()) {AnchorPaint.off();}
 		if(moveOn) {
+			moved = true;
 			Point2D.Float nowPoint = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());
 			AffineTransform at = AffineMath.getMoveAffineTransform(dragStart, nowPoint);
 			for(GraphicComponent gc : GCStorage_Selected.getSelectedGCVector()) {
@@ -75,7 +77,13 @@ public class FMove extends AFunction implements Serializable{
 		}
 	}
 	
-	public void mouseReleased(MouseEvent e) {moveOn = false; AnchorPaint.on();}
+	public void mouseReleased(MouseEvent e) {
+		moveOn = false; AnchorPaint.on();
+		if(moved) {
+			moved = false;
+			RedoUndo.saveNowInHistory();
+		}
+	}
 	public void mouseMoved(MouseEvent e) {
 		if(master.isSelected()&&master.getShape().contains(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {//mouse On this
 			boolean onlyOnShape = true;

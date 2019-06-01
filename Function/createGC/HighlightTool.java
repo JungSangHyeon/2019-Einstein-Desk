@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
+import java.util.Vector;
 
 import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
 import redoUndo.RedoUndo;
@@ -32,8 +33,13 @@ public class HighlightTool extends PDRShapeDrawTool{
 	
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		Rectangle rect = GCStorage_Normal.getLastGC().getShape().getBounds();
-		GCStorage_Normal.getLastGC().setCenter(new Point2D.Float(rect.x+rect.width/2, rect.y+rect.height/2));
-		RedoUndo.saveNowInHistory();
+		Vector<Point2D.Float> points = GCStorage_Normal.getLastGC().getPoints();
+		if(points.size()<3) {
+			GCStorage_Normal.removeLastGC();//°Á Á¡¸¸ÂïÀº ½¦ÀÔÀº Á×ÀÎ´Ù
+		}else {
+			Rectangle rect = GCStorage_Normal.getLastGC().getShape().getBounds();
+			GCStorage_Normal.getLastGC().setCenter(new Point2D.Float(rect.x+rect.width/2, rect.y+rect.height/2));
+			RedoUndo.saveNowInHistory();
+		}
 	}
 }

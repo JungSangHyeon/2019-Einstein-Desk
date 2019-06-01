@@ -15,7 +15,8 @@ public class RedoUndo {
 	
 	public static void setFirst() {addCopySaveInHistory();}//암것도 없는 상태 추가. 
 	
-	public static void  saveNowInHistory() {//pdr & cmc create, erase, delete, copy&paste, 
+	//Save List : Copy & Paste, Delete Selected, Eraser, Group, Image Load, Z-Order, Move, Rotate, Resize, Text
+	public static void  saveNowInHistory() {
 		if(history.size()>0){for(int i = history.size()-1; i>0; i--) {if(i>nowHistoryNum) {history.remove(i);}}}//앞부분 버리는 겨.
 		addCopySaveInHistory();
 		nowHistoryNum=history.size()-1;
