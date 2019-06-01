@@ -2,7 +2,7 @@ package fPaint;
 
 import java.awt.Graphics2D;
 
-import data.LineData;
+import zStuff_Data.LineData;
 import zStuff_Function.AFunction;
 
 public class FPaintMasterWithHighLightColor extends AFunction{

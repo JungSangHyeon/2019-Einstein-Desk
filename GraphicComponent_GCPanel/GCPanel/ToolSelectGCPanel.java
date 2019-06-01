@@ -3,7 +3,7 @@ package GCPanel;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import GCPanel_LayoutPixel_Stuff.GCPanel_LayoutPixel;
+import zStuff_GCPanel_LayoutPixel.GCPanel_LayoutPixel;
 import zStuff_GraphicComponent.GCEnum;
 import zStuff_GraphicComponent.GCEnum.eGC;
 

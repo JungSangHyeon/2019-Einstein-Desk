@@ -4,10 +4,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
-import GCPanel_LineSetting_Stuff.PenColorSelectGCPanel;
-import GCPanel_LineSetting_Stuff.PenSizeBarGCPanel;
-import GCPanel_Stuff.PeekabooPanel;
 import fPaint.FKillMasterIfNotSelected;
+import zStuff_GCPanel.PeekabooPanel;
+import zStuff_GCPanel_LineSetting.PenColorSelectGCPanel;
+import zStuff_GCPanel_LineSetting.PenSizeBarGCPanel;
 
 public class PenSettingGCPanel extends PeekabooPanel{
 	private static final long serialVersionUID = 3141453841486592808L;

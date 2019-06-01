@@ -16,10 +16,10 @@ import javax.swing.JPanel;
 
 import calculation.AffineMath;
 import calculation.Calculator;
-import data.GCStorage_Selected;
-import moveAndZoom.DrawingPanelMoveAndZoom;
+import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
 import onOff.AnchorPaint;
 import zStuff_Function.AFunction;
+import zStuff_GraphicComponent.GCStorage_Selected;
 import zStuff_GraphicComponent.GraphicComponent;
 
 public class FRotate extends AFunction implements Serializable{

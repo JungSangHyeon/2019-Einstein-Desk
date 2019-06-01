@@ -1,9 +1,9 @@
 package fPaint;
 
-import data.GCPanelStorage;
-import data.GCStorage_Normal;
-import data.GCStorage_Selected;
 import zStuff_Function.AFunction;
+import zStuff_GCPanel.GCPanelStorage;
+import zStuff_GraphicComponent.GCStorage_Normal;
+import zStuff_GraphicComponent.GCStorage_Selected;
 
 public class FKillMasterIfNotSelected extends AFunction{
 	private static final long serialVersionUID = 4299512141606163429L;

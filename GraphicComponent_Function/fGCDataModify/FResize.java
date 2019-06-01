@@ -16,10 +16,10 @@ import java.util.Vector;
 
 import javax.swing.JPanel;
 
-import data.GCStorage_Selected;
-import moveAndZoom.DrawingPanelMoveAndZoom;
+import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
 import onOff.AnchorPaint;
 import zStuff_Function.AFunction;
+import zStuff_GraphicComponent.GCStorage_Selected;
 import zStuff_GraphicComponent.GraphicComponent;
 
 public class FResize extends AFunction implements Serializable {//¾ê´Â ¸ÁÇß¾î¿ä. È£¿ì.

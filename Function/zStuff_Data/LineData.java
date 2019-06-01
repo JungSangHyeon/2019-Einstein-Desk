@@ -1,0 +1,40 @@
+package zStuff_Data;
+
+import java.awt.Color;
+
+import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
+import onOff.ThickFollowScale;
+
+public class LineData {
+
+	//Pen
+	public static Color penColor = Color.BLACK;
+	public static Color getPenColor() {return penColor;}
+	public static void setPenColor(Color pc) {penColor = pc;}
+	
+	public static int penThick = 10;
+	public static int getPenThick() {
+		int thick;
+		if (ThickFollowScale.isOn()) {thick = (int)(penThick/DrawingPanelMoveAndZoom.getScale());}
+		else {thick = penThick;}
+		if(thick==0) {thick=1;}
+		return thick;
+	}
+	public static void setPenThick(int pt) {penThick = pt;}
+	
+	//HighLighter
+	public static Color highlightColor = Color.YELLOW;
+	public static Color getHighlightColor() {return highlightColor;}
+	public static void setHighlightColor(Color hc) {highlightColor = hc;}
+	
+	public static int highlightThick = 10;
+	public static int getHighlightThick() {
+		int thick;
+		if (ThickFollowScale.isOn()) {thick = (int)(highlightThick/DrawingPanelMoveAndZoom.getScale());}
+		else {thick = highlightThick;}
+		if(thick==0) {thick=1;}
+		return thick;
+	}
+	public static void setHighlightThick(int ht) {highlightThick = ht;}
+	
+}

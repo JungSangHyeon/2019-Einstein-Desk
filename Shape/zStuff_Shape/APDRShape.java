@@ -4,9 +4,9 @@ import java.awt.Shape;
 import java.awt.geom.Point2D;
 import java.util.Vector;
 
-import function_Stuff.ATool;
-import function_Stuff.eTool;
 import zStuff_GraphicComponent.GraphicComponent;
+import zStuff_Tool.ATool;
+import zStuff_Tool.eTool;
 
 public abstract class APDRShape extends AShape {
 	private static final long serialVersionUID = 1706408955698326860L;

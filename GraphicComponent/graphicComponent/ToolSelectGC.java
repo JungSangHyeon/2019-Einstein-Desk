@@ -14,10 +14,10 @@ import fPaint.FPaintMasterWithPenColor;
 import fPaint.FShowMouseOn;
 import fPaint.FShowSelected;
 import fSystem.FKillSystem;
-import function_Stuff.eTool;
 import imgLoad.ImgLoad;
 import zStuff_Function.AFunction;
 import zStuff_Shape.eShape;
+import zStuff_Tool.eTool;
 
 public class ToolSelectGC {
 	public static AFunction[] //add Functions Here

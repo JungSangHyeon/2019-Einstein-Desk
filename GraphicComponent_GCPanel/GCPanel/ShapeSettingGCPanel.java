@@ -4,10 +4,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
-import GCPanel_ShapeSetting_Stuff.CMCShapeSelectGCPanel;
-import GCPanel_ShapeSetting_Stuff.PDRShapeSelectGCPanel;
-import GCPanel_Stuff.PeekabooPanel;
 import fPaint.FKillMasterIfNotSelected;
+import zStuff_GCPanel.PeekabooPanel;
+import zStuff_GCPanel_ShapeSetting.CMCShapeSelectGCPanel;
+import zStuff_GCPanel_ShapeSetting.PDRShapeSelectGCPanel;
 
 public class ShapeSettingGCPanel extends PeekabooPanel{
 	private static final long serialVersionUID = -4033921725411864658L;

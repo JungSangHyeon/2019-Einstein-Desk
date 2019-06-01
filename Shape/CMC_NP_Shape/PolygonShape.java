@@ -8,7 +8,7 @@ import java.awt.geom.Point2D.Float;
 import java.util.Vector;
 
 import calculation.Calculator;
-import moveAndZoom.DrawingPanelMoveAndZoom;
+import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
 import zStuff_GraphicComponent.GraphicComponent;
 import zStuff_Shape.ACMCShape;
 

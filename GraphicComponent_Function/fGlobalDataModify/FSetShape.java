@@ -2,8 +2,8 @@ package fGlobalDataModify;
 
 import java.io.Serializable;
 
-import data.ShapeData;
 import zStuff_Button.AFShapeButton;
+import zStuff_Data.ShapeData;
 import zStuff_Shape.AShape;
 
 public class FSetShape extends AFShapeButton implements Serializable{

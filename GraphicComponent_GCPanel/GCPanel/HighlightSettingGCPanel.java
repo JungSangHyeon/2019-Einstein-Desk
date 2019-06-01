@@ -4,10 +4,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
-import GCPanel_LineSetting_Stuff.HighlightColorSelectGCPanel;
-import GCPanel_LineSetting_Stuff.HighlightSizeBarGCPanel;
-import GCPanel_Stuff.PeekabooPanel;
 import fPaint.FKillMasterIfNotSelected;
+import zStuff_GCPanel.PeekabooPanel;
+import zStuff_GCPanel_LineSetting.HighlightColorSelectGCPanel;
+import zStuff_GCPanel_LineSetting.HighlightSizeBarGCPanel;
 
 public class HighlightSettingGCPanel extends PeekabooPanel{
 	private static final long serialVersionUID = 3141453841486592808L;

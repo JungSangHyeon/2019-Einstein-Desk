@@ -14,10 +14,10 @@ import java.io.Serializable;
 import javax.swing.JPanel;
 
 import calculation.AffineMath;
-import data.GCStorage_Selected;
-import moveAndZoom.DrawingPanelMoveAndZoom;
+import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
 import onOff.AnchorPaint;
 import zStuff_Function.AFunction;
+import zStuff_GraphicComponent.GCStorage_Selected;
 import zStuff_GraphicComponent.GraphicComponent;
 
 public class FMove extends AFunction implements Serializable{

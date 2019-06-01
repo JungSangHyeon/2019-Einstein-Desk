@@ -7,11 +7,11 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
-import data.ToolData;
-import function_SelectAndEvent.GCPanelGiveActionTool;
-import function_SelectAndEvent.HandTool;
-import moveAndZoom.DrawingPanelMoveAndZoom;
+import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
+import selectGCAndGiveEvent.GCPanelGiveActionTool;
+import selectGCAndGiveEvent.HandTool;
 import view.DrawingPanel;
+import zStuff_Data.ToolData;
 import zStuff_Text.FTextWrite_Stuff;
 
 public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListener, MouseWheelListener{//manage all event except AContainer

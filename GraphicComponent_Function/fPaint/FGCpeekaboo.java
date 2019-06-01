@@ -1,7 +1,7 @@
 package fPaint;
 
-import data.GCPanelStorage;
 import zStuff_Function.AFunction;
+import zStuff_GCPanel.GCPanelStorage;
 import zStuff_GraphicComponent.GraphicComponent;
 
 public class FGCpeekaboo extends AFunction{
