@@ -21,13 +21,13 @@ public class HighlightTool extends PDRShapeDrawTool{
 	public void mousePressed(MouseEvent e) {
 		super.mousePressed(e);
 		GCData.setFillPaint(false);
-		GCData.setborderThick(LineData.getHighlightThick());
+		GCData.setborderThick(LineData.getHighlightThick()*DrawingPanelMoveAndZoom.nowZoom);
 		GCData.setBorderColor(LineData.getHighlightColor());
 	}
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		GCStorage_Normal.getLastGC().addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
+		GCStorage_Normal.getLastGC().addPoint(new Point2D.Float(e.getPoint().x, e.getPoint().y));
 		setShape(GCStorage_Normal.getLastGC());
 	}
 	

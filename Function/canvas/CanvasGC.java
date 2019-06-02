@@ -2,12 +2,10 @@ package canvas;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 
-import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
 import fGCDataModify.FMove;
 import fGCDataModify.FResize;
 import zStuff_GraphicComponent.GraphicComponent;
@@ -30,8 +28,8 @@ public class CanvasGC {
 		
 		canvas.setAShape(eShape.rect.getAShape());
 		
-		canvas.addPoint(DrawingPanelMoveAndZoom.transformPoint(new Point(screenWidth/2 - width/2, screenHeight/2 - height/2)));
-		canvas.addPoint(DrawingPanelMoveAndZoom.transformPoint(new Point(screenWidth/2 + width/2, screenHeight/2 + height/2)));
+		canvas.addPoint(new Point2D.Float(screenWidth/2 - width/2, screenHeight/2 - height/2));
+		canvas.addPoint(new Point2D.Float(screenWidth/2 + width/2, screenHeight/2 + height/2));
 		canvas.setShape(canvas.getAShape().newShape(canvas.getPoints()));
 		
 		Rectangle rect = canvas.getShape().getBounds();

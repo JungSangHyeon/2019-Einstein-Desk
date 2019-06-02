@@ -21,13 +21,13 @@ public class PenTool extends PDRShapeDrawTool{
 	public void mousePressed(MouseEvent e) {
 		super.mousePressed(e);
 		GCData.setFillPaint(false);
-		GCData.setborderThick(LineData.getPenThick());
+		GCData.setborderThick(LineData.getPenThick()*DrawingPanelMoveAndZoom.nowZoom);
 		GCData.setBorderColor(LineData.getPenColor());
 	}
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		GCStorage_Normal.getLastGC().addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
+		GCStorage_Normal.getLastGC().addPoint(new Point2D.Float(e.getPoint().x, e.getPoint().y));
 		setShape(GCStorage_Normal.getLastGC());
 	}
 	

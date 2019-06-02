@@ -41,7 +41,7 @@ public class FResize extends AFunction implements Serializable {//얘는 망했어요.
 	public FResize() {this.setPaintOrder(PaintZOrder.TOP);}
 	
 	public void mousePressed(MouseEvent e) {
-		dragStart = DrawingPanelMoveAndZoom.transformPoint(new Point(e.getX(), e.getY()));
+		dragStart = new Point2D.Float(e.getPoint().x, e.getPoint().y);
 		n=0;
 		resizeON = false;
 		for(Shape s : anchors) {
@@ -57,12 +57,12 @@ public class FResize extends AFunction implements Serializable {//얘는 망했어요.
 		if(AnchorPaint.isOn()) {AnchorPaint.off();}
 		if (resizeON) {
 			resized = true;
-			Point2D.Float nowPoint = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());//드래그 시작점.
+			Point2D.Float nowPoint = new Point2D.Float(e.getPoint().x, e.getPoint().y);//드래그 시작점.
 			Point2D.Float normalDragStart = new Point2D.Float(nowPoint.x, nowPoint.y);//다음 드래그를 위함.
 			Point2D resizeFactor = this.computeResizeFactor(getBeforeRotatePoint(master, dragStart), getBeforeRotatePoint(master, nowPoint));//돌린 것으로 리사이즈 팩터 만듬.
 			
 			for(GraphicComponent gc : GCStorage_Selected.getSelectedGCVector()) {
-				int thick = gc.getBorderThick();
+				float thick = gc.getBorderThick();
 				gc.setborderThick(0);
 				if(resizeFactor.getY()<0) {gc.reverseUpsideDown();}
 				Point2D.Float beforeCenter = new Point2D.Float(gc.getCenter().x, gc.getCenter().y);//현재 중심저장.
@@ -111,7 +111,7 @@ public class FResize extends AFunction implements Serializable {//얘는 망했어요.
 					Point2D originalCenter = aggreGc.getCenter();
 					aggreGc.setCenter(beforeCenter);
 					
-					int aggrethick = aggreGc.getBorderThick();
+					float aggrethick = aggreGc.getBorderThick();
 					aggreGc.setborderThick(0);
 					if(resizeFactor.getY()<0) {aggreGc.reverseUpsideDown();}
 					Point2D.Double aggrebeforeCenter = new Point2D.Double(aggreGc.getCenter().x, aggreGc.getCenter().y);//현재 중심저장.
@@ -180,20 +180,18 @@ public class FResize extends AFunction implements Serializable {//얘는 망했어요.
 		float factor = gc.getBorderThick();
 		Rectangle2D masterBorder = getBeforeRotateBorder(gc);//여따 그룹 마스터 쉐입 주쇼임.
 		
-		float scaleAnchorSize = realAnchorSize /DrawingPanelMoveAndZoom.getScale();
-		
 		AffineTransform at = new AffineTransform();
 		at.setToRotation(Math.toRadians(gc.getAngle()), gc.getCenter().x, gc.getCenter().y);
 		
-		double startX = masterBorder.getX() - scaleAnchorSize / 2;
-		double startY = masterBorder.getY() - scaleAnchorSize / 2;
+		double startX = masterBorder.getX() - realAnchorSize / 2;
+		double startY = masterBorder.getY() - realAnchorSize / 2;
 		
 		for(int h=0; h<3; h++) {
 			for(int w=0; w<3; w++) {
 				beforeRotateAnchor = new Ellipse2D.Double(
 						startX + masterBorder.getWidth()/2*w  - factor/2*(1-w), 
 						startY + masterBorder.getHeight()/2*h - factor/2*(1-h), 
-						scaleAnchorSize, scaleAnchorSize);
+						realAnchorSize, realAnchorSize);
 				returnAnchors.add(at.createTransformedShape(beforeRotateAnchor));
 			}
 		}
@@ -231,12 +229,8 @@ public class FResize extends AFunction implements Serializable {//얘는 망했어요.
 			AffineTransform at = new AffineTransform();
 			at.setToRotation(Math.toRadians(master.getAngle()), master.getCenter().x, master.getCenter().y);
 			
-			float scaleAnchorSize = realAnchorSize/DrawingPanelMoveAndZoom.getScale();
-			float scaleGap = gap/DrawingPanelMoveAndZoom.getScale();
-			float scaleShowGap = showAnchorGap/DrawingPanelMoveAndZoom.getScale();
-			
-			double startX = masterBorder.getX() - scaleAnchorSize / 2;
-			double startY = masterBorder.getY() - scaleAnchorSize / 2;
+			double startX = masterBorder.getX() - realAnchorSize / 2;
+			double startY = masterBorder.getY() - realAnchorSize / 2;
 			Vector<Shape> beforeanchors = new Vector<Shape>();
 			
 			for(int h=0; h<3; h++) {
@@ -244,7 +238,7 @@ public class FResize extends AFunction implements Serializable {//얘는 망했어요.
 					beforeRotateAnchor = new Ellipse2D.Double(
 							startX + masterBorder.getWidth()/2*w  - factor/2*(1-w), 
 							startY + masterBorder.getHeight()/2*h - factor/2*(1-h), 
-							scaleAnchorSize, scaleAnchorSize);
+							realAnchorSize, realAnchorSize);
 					beforeanchors.add(beforeRotateAnchor);
 					anchor = at.createTransformedShape(beforeRotateAnchor);
 					anchors.add(anchor);
@@ -270,14 +264,14 @@ public class FResize extends AFunction implements Serializable {//얘는 망했어요.
 			
 			for(Shape s : beforeanchors) {
 				Rectangle2D rect = s.getBounds2D();
-				Ellipse2D.Double beforeRotateInsideAnchor = new Ellipse2D.Double(rect.getX()+scaleShowGap, rect.getY()+scaleShowGap, rect.getWidth()-scaleShowGap*2, rect.getHeight()-scaleShowGap*2);
+				Ellipse2D.Double beforeRotateInsideAnchor = new Ellipse2D.Double(rect.getX()+showAnchorGap, rect.getY()+showAnchorGap, rect.getWidth()-showAnchorGap*2, rect.getHeight()-showAnchorGap*2);
 				if(AnchorPaint.isOn()){g.fill(at.createTransformedShape(beforeRotateInsideAnchor));}
 			}
 			
 			g.setColor(insideAnchorColor);
 			for(Shape s : beforeanchors) {
 				Rectangle2D rect = s.getBounds2D();
-				Ellipse2D.Double beforeRotateInsideAnchor = new Ellipse2D.Double(rect.getX()+scaleGap, rect.getY()+scaleGap, rect.getWidth()-scaleGap*2, rect.getHeight()-scaleGap*2);
+				Ellipse2D.Double beforeRotateInsideAnchor = new Ellipse2D.Double(rect.getX()+gap, rect.getY()+gap, rect.getWidth()-gap*2, rect.getHeight()-gap*2);
 				if(AnchorPaint.isOn()){g.fill(at.createTransformedShape(beforeRotateInsideAnchor));}
 			}
 			
@@ -316,7 +310,7 @@ public class FResize extends AFunction implements Serializable {//얘는 망했어요.
 		double yFactor = deltaH / height + 1.0;
 		double factor = 1.01;
 		
-		float limit = 1/DrawingPanelMoveAndZoom.getScale();
+		float limit = 1;
 		if(width + deltaW < limit&&height + deltaH < limit) {
 			n= 7-n;
 			return new Point2D.Double(-factor,-factor);
@@ -361,7 +355,7 @@ public class FResize extends AFunction implements Serializable {//얘는 망했어요.
 	public void mouseMoved(MouseEvent e) {
 		if(master.isSelected()) {
 			for(Shape a : changeAnchors) {
-				if(a.contains(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
+				if(a.contains(new Point2D.Float(e.getPoint().x, e.getPoint().y))) {
 					int nowAngleFactor;
 					int calee = (int)master.getAngle()/22;
 					if(calee<1) {nowAngleFactor = 0;}

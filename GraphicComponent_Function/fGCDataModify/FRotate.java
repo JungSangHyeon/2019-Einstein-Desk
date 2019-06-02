@@ -16,7 +16,6 @@ import javax.swing.JPanel;
 
 import calculation.AffineMath;
 import calculation.Calculator;
-import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
 import onOff.AnchorPaint;
 import redoUndo.RedoUndo;
 import zStuff_Function.AFunction;
@@ -37,7 +36,7 @@ public class FRotate extends AFunction implements Serializable{
 	public FRotate() {this.setPaintOrder(PaintZOrder.TOP);}
 	
 	public void mousePressed(MouseEvent e) {
-		dragStart = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());
+		dragStart = new Point2D.Float(e.getPoint().x, e.getPoint().y);
 		if(anchor!=null&&anchor.contains(dragStart)) {rotateOn = true;}
 	}
 
@@ -45,7 +44,7 @@ public class FRotate extends AFunction implements Serializable{
 		if(AnchorPaint.isOn()) {AnchorPaint.off();}
 		if(rotateOn) {
 			rotated = true;
-			Point2D.Float nowPoint = DrawingPanelMoveAndZoom.transformPoint(e.getPoint());//get Angle
+			Point2D.Float nowPoint = new Point2D.Float(e.getPoint().x, e.getPoint().y);//get Angle
 			Point2D.Float center = master.getCenter();//모드로 나눌 수 있겠다. 각자의 센터 || 하나의 센터.
 			double rotationAngle = Calculator.computeRotationAngle(center, dragStart, nowPoint);
 			
@@ -69,7 +68,7 @@ public class FRotate extends AFunction implements Serializable{
 	}
 	
 	public void mouseMoved(MouseEvent e) {
-		if(master.isSelected()&&anchor!=null&&anchor.contains(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()))) {
+		if(master.isSelected()&&anchor!=null&&anchor.contains(new Point2D.Float(e.getPoint().x, e.getPoint().y))) {
 			((JPanel) e.getSource()).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		}
 	}
@@ -86,12 +85,10 @@ public class FRotate extends AFunction implements Serializable{
 			AffineTransform at = new AffineTransform();
 			at.setToRotation(Math.toRadians(angle), master.getCenter().x, master.getCenter().y);
 			
-			float scale = DrawingPanelMoveAndZoom.getScale();
-			float scaleLineThick = lineThick/scale, scaleAnchorDistance = anchorDistance/scale, scaleAnchorSize = anchorSize/scale, scaleGap = gap/scale;
-			Rectangle2D.Double beforeRotateBar = new Rectangle2D.Double(beforeRotateBorder.getCenterX()-scaleLineThick/2, beforeRotateBorder.getY()-scaleAnchorDistance-master.getBorderThick()/2, scaleLineThick, scaleAnchorDistance);
-			Ellipse2D.Double beforeRotateAnchor = new Ellipse2D.Double(beforeRotateBorder.getCenterX()-scaleAnchorSize/2, beforeRotateBorder.getY()-scaleAnchorSize-scaleAnchorDistance-master.getBorderThick()/2,scaleAnchorSize,scaleAnchorSize);
+			Rectangle2D.Double beforeRotateBar = new Rectangle2D.Double(beforeRotateBorder.getCenterX()-lineThick/2, beforeRotateBorder.getY()-anchorDistance-master.getBorderThick()/2, lineThick, anchorDistance);
+			Ellipse2D.Double beforeRotateAnchor = new Ellipse2D.Double(beforeRotateBorder.getCenterX()-anchorSize/2, beforeRotateBorder.getY()-anchorSize-anchorDistance-master.getBorderThick()/2,anchorSize,anchorSize);
 			Rectangle2D rect = beforeRotateAnchor.getBounds2D();
-			Ellipse2D.Double beforeRotateInsideAnchor = new Ellipse2D.Double(rect.getX()+scaleGap, rect.getY()+scaleGap, rect.getWidth()-scaleGap*2, rect.getHeight()-scaleGap*2);
+			Ellipse2D.Double beforeRotateInsideAnchor = new Ellipse2D.Double(rect.getX()+gap, rect.getY()+gap, rect.getWidth()-gap*2, rect.getHeight()-gap*2);
 			
 			anchor = at.createTransformedShape(beforeRotateAnchor);
 			master.addTopFunctionShape(anchor);
@@ -99,7 +96,7 @@ public class FRotate extends AFunction implements Serializable{
 			
 			if(AnchorPaint.isOn()) {
 				g.setColor(anchorColor);
-				g.setStroke(new BasicStroke(lineThick/DrawingPanelMoveAndZoom.getScale(), BasicStroke.CAP_ROUND, BasicStroke.CAP_ROUND));
+				g.setStroke(new BasicStroke(lineThick, BasicStroke.CAP_ROUND, BasicStroke.CAP_ROUND));
 				g.fill(at.createTransformedShape(beforeRotateBar));//rotate Bar
 				g.fill(anchor);
 				g.setColor(insideAnchorColor);

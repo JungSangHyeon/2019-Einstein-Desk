@@ -77,11 +77,11 @@ public class DrawingPanel extends JPanel implements Runnable {
 		super.paint(g2d);
 //		g2d.setTransform(DrawingPanelMoveAndZoom.getAT());
 		DrawingPanel.drawingPanelPaint(g2d);
+		paintGCPanel(g2d);
 	}
 
 	public static void drawingPanelPaint(Graphics2D g2d) {
 		paintGC(g2d);
-		paintGCPanel(g2d);
 	}
 	
 	private static void paintGCPanel(Graphics2D g2d) {for(GraphicComponent GCPanel : GCPanelStorage.getGCPanelVector()) {GCPanel.paint(g2d);}}

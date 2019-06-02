@@ -11,50 +11,46 @@ import zStuff_GraphicComponent.GCStorage_Normal;
 import zStuff_GraphicComponent.GCStorage_Selected;
 import zStuff_GraphicComponent.GraphicComponent;
 
-public class CopyAndPaste {
+public class CopyAndPasteTEMPPPPPPPP {
 
 	static Vector<GraphicComponent> copyTemp = new Vector<GraphicComponent>();
 	static int copyInterval = 10;
 	
 	public static void copy() {
 		copyTemp.clear();
-		for (GraphicComponent c : GCStorage_Selected.getSelectedGCVector()) {copyTemp.add(c);}
-	}
-
-	public static void paste() {//Move And Zoom을 그래픽 -> 데이터 로 바꿔서, 여기 몰림.
-		GCStorage_Selected.clearSelected();
-		
-		Vector<GraphicComponent> temp = new Vector<GraphicComponent>();
-		for (GraphicComponent c : copyTemp) {
-			float interval = copyInterval;
-			
+		for (GraphicComponent c : GCStorage_Selected.getSelectedGCVector()) {
 			boolean restartTime = false;
 			if(c.isTimeMoving()) {c.moveTime(false); restartTime = true;}
 			GraphicComponent copyItem = (GraphicComponent)DeepClone.clone(c);
 			copyItem.setSelected(false);
+			copyTemp.add(copyItem);
 			if(restartTime) {c.moveTime(true);}
+		}
+	}
+
+	public static void paste() {
+		GCStorage_Selected.clearSelected();
+		for (GraphicComponent c : copyTemp) {
+			float interval = copyInterval;
 			
 			AffineTransform at = new AffineTransform();
 			at.translate(interval, interval);
 			
-			for(Point2D.Float point : copyItem.getPoints()) {point.setLocation(point.x+interval, point.y+interval);}
-			copyItem.setCenter(new Point2D.Float(copyItem.getCenter().x+interval, copyItem.getCenter().y+interval));
-			copyItem.setShape(at.createTransformedShape(copyItem.getShape()));
+			for(Point2D.Float point : c.getPoints()) {point.setLocation(point.x+interval, point.y+interval);}
+			c.setCenter(new Point2D.Float(c.getCenter().x+interval, c.getCenter().y+interval));
+			c.setShape(at.createTransformedShape(c.getShape()));
 			
-			for(GraphicComponent gc : copyItem.getAllAggregateGCs()) {
+			for(GraphicComponent gc : c.getAllAggregateGCs()) {
 				for(Point2D.Float point : gc.getPoints()) {point.setLocation(point.x+interval, point.y+interval);}
 				gc.setCenter(new Point2D.Float(gc.getCenter().x+interval, gc.getCenter().y+interval));
 				gc.setShape(at.createTransformedShape(gc.getShape()));
 			}
 			
+			GraphicComponent copyItem = (GraphicComponent)DeepClone.clone(c);
 			GCStorage_Normal.addNewGC(copyItem);
 			GCStorage_Selected.addSelectedGC(copyItem);
 			copyItem.setSelected(true);
-			temp.add(copyItem);
 		}
-		copyTemp.clear();
-		copyTemp.addAll(temp);
-		
 		RedoUndo.saveNowInHistory();
 	}
 

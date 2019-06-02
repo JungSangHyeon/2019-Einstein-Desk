@@ -15,7 +15,7 @@ public class LineData {
 	public static int penThick = 10;
 	public static int getPenThick() {
 		int thick;
-		if (ThickFollowScale.isOn()) {thick = (int)(penThick/DrawingPanelMoveAndZoom.getScale());}
+		if (ThickFollowScale.isOn()) {thick = penThick;}//need to change
 		else {thick = penThick;}
 		if(thick==0) {thick=1;}
 		return thick;
@@ -30,7 +30,7 @@ public class LineData {
 	public static int highlightThick = 10;
 	public static int getHighlightThick() {
 		int thick;
-		if (ThickFollowScale.isOn()) {thick = (int)(highlightThick/DrawingPanelMoveAndZoom.getScale());}
+		if (ThickFollowScale.isOn()) {thick = penThick;}//need to change
 		else {thick = highlightThick;}
 		if(thick==0) {thick=1;}
 		return thick;

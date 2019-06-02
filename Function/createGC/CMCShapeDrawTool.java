@@ -34,14 +34,14 @@ public class CMCShapeDrawTool extends ATool{
 	public void mouseMoved(MouseEvent e) {
 		if(GCData!=null) {
 			setShape(GCStorage_Normal.getLastGC());
-			GCData.setLastPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
+			GCData.setLastPoint(new Point2D.Float(e.getPoint().x, e.getPoint().y));
 		}
 	}
 	
 	private void initDrawing(MouseEvent e) {
 		GCStorage_Selected.clearSelected();
 		GCData = new GraphicComponent();
-		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
+		GCData.addPoint(new Point2D.Float(e.getPoint().x, e.getPoint().y));
 		GCData.addFunction(new FMove());
 		GCData.addFunction(new FRotate());
 		GCData.addFunction(new FResize());
@@ -51,7 +51,7 @@ public class CMCShapeDrawTool extends ATool{
 	}
 
 	private void keepDrawing(MouseEvent e) {
-		GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
+		GCData.addPoint(new Point2D.Float(e.getPoint().x, e.getPoint().y));
 		setShape(GCData);
 	}
 

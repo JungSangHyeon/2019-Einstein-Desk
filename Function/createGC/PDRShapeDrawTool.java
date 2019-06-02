@@ -9,6 +9,7 @@ import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
 import fComposite.FInCanvasGCBasicFunction;
 import onOff.AnchorPaint;
 import redoUndo.RedoUndo;
+import zStuff_Data.LineData;
 import zStuff_Data.ShapeData;
 import zStuff_Data.ToolData;
 import zStuff_GraphicComponent.GCStorage_Normal;
@@ -33,8 +34,9 @@ public class PDRShapeDrawTool extends ATool{
 			
 			GCStorage_Selected.clearSelected();
 			GCData = new GraphicComponent();
-			GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
-			GCData.addPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
+			GCData.addPoint(new Point2D.Float(e.getPoint().x, e.getPoint().y));
+			GCData.addPoint(new Point2D.Float(e.getPoint().x, e.getPoint().y));
+			GCData.setborderThick(GCData.getBorderThick()*DrawingPanelMoveAndZoom.nowZoom);
 			GCData.setAShape(ShapeData.getNowShapeMaker());
 			GCData.addFunction(new FInCanvasGCBasicFunction());
 			
@@ -44,7 +46,7 @@ public class PDRShapeDrawTool extends ATool{
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		GCStorage_Normal.getLastGC().setLastPoint(DrawingPanelMoveAndZoom.transformPoint(e.getPoint()));
+		GCStorage_Normal.getLastGC().setLastPoint(new Point2D.Float(e.getPoint().x, e.getPoint().y));
 		setShape(GCStorage_Normal.getLastGC());
 	}
 
