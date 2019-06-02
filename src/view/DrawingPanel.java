@@ -15,11 +15,11 @@ import GCPanel.ToolBTNGCPanel;
 import GCPanel.ToolSelectGCPanel;
 import PDR_NP_Shape.HighlightShape;
 import PDR_NP_Shape.pen;
+import canvas.CanvasGC;
 import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
 import eventListener.DrawingPanelMouseHadler;
 import eventListener.KeyDispatcher;
 import global.InjectEnums.eColor;
-import graphicComponent.CanvasGC;
 import zStuff_GCPanel.GCPanelStorage;
 import zStuff_GraphicComponent.GCStorage_Normal;
 import zStuff_GraphicComponent.GraphicComponent;
@@ -75,13 +75,17 @@ public class DrawingPanel extends JPanel implements Runnable {
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 		
 		super.paint(g2d);
+//		g2d.setTransform(DrawingPanelMoveAndZoom.getAT());
+		DrawingPanel.drawingPanelPaint(g2d);
+	}
+
+	public static void drawingPanelPaint(Graphics2D g2d) {
 		paintGC(g2d);
 		paintGCPanel(g2d);
 	}
-
-	private void paintGCPanel(Graphics2D g2d) {for(GraphicComponent GCPanel : GCPanelStorage.getGCPanelVector()) {GCPanel.paint(g2d);}}
-	private void paintGC(Graphics2D g2d) {
-		g2d.setTransform(DrawingPanelMoveAndZoom.getAT());
+	
+	private static void paintGCPanel(Graphics2D g2d) {for(GraphicComponent GCPanel : GCPanelStorage.getGCPanelVector()) {GCPanel.paint(g2d);}}
+	private static void paintGC(Graphics2D g2d) {
 		CanvasGC.paint(g2d);
 		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {gc.bottumPaint(g2d);}
 		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {if(!(gc.getAShape() instanceof pen)) {gc.paint(g2d);}}//shape

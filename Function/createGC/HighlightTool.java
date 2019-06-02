@@ -34,7 +34,7 @@ public class HighlightTool extends PDRShapeDrawTool{
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		Vector<Point2D.Float> points = GCStorage_Normal.getLastGC().getPoints();
-		if(points.size()<3) {
+		if(points.size()<8) {
 			GCStorage_Normal.removeLastGC();//°Á Á¡¸¸ÂïÀº ½¦ÀÔÀº Á×ÀÎ´Ù
 		}else {
 			Rectangle rect = GCStorage_Normal.getLastGC().getShape().getBounds();

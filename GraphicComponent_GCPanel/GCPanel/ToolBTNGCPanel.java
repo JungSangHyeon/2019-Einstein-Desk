@@ -20,5 +20,6 @@ public class ToolBTNGCPanel extends GCPanel_LayoutPixel {
 		this.add(GCEnum.getGC(eGC.eRedo));
 		this.add(GCEnum.getGC(eGC.eNewSlide));
 		this.add(GCEnum.getGC(eGC.eImage));
+		this.add(GCEnum.getGC(eGC.eSaveImage));
 	}
 }

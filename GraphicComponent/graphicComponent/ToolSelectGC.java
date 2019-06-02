@@ -15,6 +15,7 @@ import fPaint.FShowMouseOn;
 import fPaint.FShowSelected;
 import fSystem.FKillSystem;
 import imgLoad.ImgLoad;
+import saveAsImage.SaveAsImage;
 import zStuff_Function.AFunction;
 import zStuff_Shape.eShape;
 import zStuff_Tool.eTool;
@@ -59,6 +60,11 @@ public class ToolSelectGC {
 			imageFunctions = {
 					new ImgLoad(),
 					new FImageNormalPaint("ToolBarImgs/Image.png"),
+					new FShowMouseOn()
+			},
+			saveImageFunctions = {
+					new SaveAsImage(),
+					new FImageNormalPaint("ToolBarImgs/SaveCanvas.png"),
 					new FShowMouseOn()
 			},
 			offFunctions = {

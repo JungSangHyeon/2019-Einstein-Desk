@@ -13,11 +13,11 @@ public class RedoUndo {
 	static Vector<GraphicComponent> temp = new Vector<GraphicComponent>(); 
 	static int nowHistoryNum=0;
 	
-	public static void setFirst() {addCopySaveInHistory();}//암것도 없는 상태 추가. 
+	public static void setFirst() {addCopySaveInHistory();}//암것도 없는 상태 추가.
 	
 	//Save List : Copy & Paste, Delete Selected, Eraser, Group, Image Load, Z-Order, Move, Rotate, Resize, Text
 	public static void  saveNowInHistory() {
-		if(history.size()>0){for(int i = history.size()-1; i>0; i--) {if(i>nowHistoryNum) {history.remove(i);}}}//앞부분 버리는 겨.
+		if(history.size()>0){for(int i = history.size()-1; i>0; i--) {if(i>nowHistoryNum) {history.remove(i);System.out.println("remove : "+i);}}}//앞부분 버리는 겨.
 		addCopySaveInHistory();
 		nowHistoryNum=history.size()-1;
 	}
@@ -36,11 +36,4 @@ public class RedoUndo {
 	public static void undo() {if(nowHistoryNum>0) {nowHistoryNum--;changeNow();}}
 	public static void redo() {if(nowHistoryNum<history.size()-1) {nowHistoryNum++;changeNow();}}
 	private static void changeNow() {GCStorage_Normal.clearGC(); GCStorage_Normal.addAllToGC(history.get(nowHistoryNum)); GCStorage_Selected.clearSelected();}
-	
-	public static void historyClear() {history.clear();}
-	public static void clearAll() {
-		temp.clear();
-		history.clear();
-		GCStorage_Normal.clearGC();
-	}	
 }

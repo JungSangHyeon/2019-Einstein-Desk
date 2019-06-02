@@ -5,7 +5,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.Vector;
 
@@ -56,19 +58,19 @@ public class GraphicComponent  implements Serializable{
 		for(GraphicComponent gc : aggregateGC) {if(!(gc.getAShape() instanceof HighlightShape)&&gc.getAShape() instanceof pen) {gc.paint(g);}}//pen
 		
 //		아래는 테스트용//TODO
-//		if (points.size() > 0) {//points
-//			g.setColor(Color.RED);// 디버깅?
-//			GeneralPath p = new GeneralPath();
-//			p.moveTo(points.get(0).x, points.get(0).y);
-//			for (Point2D.Float pp : points) {
-//				p.lineTo(pp.x, pp.y);
-//			}
-//			g.draw(p);
-//		}
-//		g.setColor(Color.cyan);//border
-//		g.draw(shape.getBounds());
-//		g.setColor(Color.green);//center
-//		g.fill(new Rectangle2D.Float(getCenter().x, getCenter().y, 10,10));
+		if (points.size() > 0) {//points
+			g.setColor(Color.RED);// 디버깅?
+			GeneralPath p = new GeneralPath();
+			p.moveTo(points.get(0).x, points.get(0).y);
+			for (Point2D.Float pp : points) {
+				p.lineTo(pp.x, pp.y);
+			}
+			g.draw(p);
+		}
+		g.setColor(Color.cyan);//border
+		g.draw(shape.getBounds());
+		g.setColor(Color.green);//center
+		g.fill(new Rectangle2D.Float(getCenter().x, getCenter().y, 10,10));
 	}
 	
 	//Shape

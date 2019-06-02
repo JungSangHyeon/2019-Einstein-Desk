@@ -1,8 +1,7 @@
-package selectGCAndGiveEvent;
+package canvas;
 
 import java.awt.event.MouseEvent;
 
-import graphicComponent.CanvasGC;
 import zStuff_GraphicComponent.GCStorage_Selected;
 import zStuff_Tool.ATool;
 

@@ -1,12 +1,12 @@
 package zStuff_Tool;
 
+import canvas.CanvasHandTool;
+import connect.ConnectTool;
 import createGC.CMCShapeDrawTool;
-import createGC.ConnectTool;
 import createGC.HighlightTool;
 import createGC.PDRShapeDrawTool;
 import createGC.PenTool;
 import eraser.EraserTool;
-import selectGCAndGiveEvent.CanvasHandTool;
 import selectGCAndGiveEvent.HandTool;
 
 public enum eTool {

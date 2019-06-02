@@ -1,7 +1,8 @@
-package graphicComponent;
+package canvas;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
@@ -21,15 +22,16 @@ public class CanvasGC {
 	public CanvasGC() {
 		canvas = new GraphicComponent();
 		canvas.setFillColor(Color.white);
-		canvas.setBorderPaint(false);
+		canvas.setBorderColor(new Color(47,82,143));
+		canvas.setborderThick(10);
 		
 		canvas.addFunction(new FMove());
 		canvas.addFunction(new FResize());
 		
 		canvas.setAShape(eShape.rect.getAShape());
 		
-		canvas.addPoint(DrawingPanelMoveAndZoom.transformPoint(new Point2D.Float(screenWidth/2 - width/2, screenHeight/2 - height/2)));
-		canvas.addPoint(DrawingPanelMoveAndZoom.transformPoint(new Point2D.Float(screenWidth/2 + width/2, screenHeight/2 + height/2)));
+		canvas.addPoint(DrawingPanelMoveAndZoom.transformPoint(new Point(screenWidth/2 - width/2, screenHeight/2 - height/2)));
+		canvas.addPoint(DrawingPanelMoveAndZoom.transformPoint(new Point(screenWidth/2 + width/2, screenHeight/2 + height/2)));
 		canvas.setShape(canvas.getAShape().newShape(canvas.getPoints()));
 		
 		Rectangle rect = canvas.getShape().getBounds();

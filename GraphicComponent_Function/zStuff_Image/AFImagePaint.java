@@ -12,6 +12,7 @@ import zStuff_Function.AFunction;
 public abstract class AFImagePaint extends AFunction implements Serializable{
 	private static final long serialVersionUID = -2266921661341345665L;
 	
+	protected boolean mouseOn = false;
 	protected int imageIndex; 
 	protected Color backGroundColor = Color.WHITE;
 	public void setBackGroundColor(Color c) {this.backGroundColor=c;}

@@ -31,6 +31,7 @@ public class GCEnum {
 		eRedo(ToolSelectGC.redoFunctions),
 		eNewSlide(ToolSelectGC.newSlideFunctions),
 		eImage(ToolSelectGC.imageFunctions),
+		eSaveImage(ToolSelectGC.saveImageFunctions),
 		eOff(ToolSelectGC.offFunctions),
 		;
 		private AFunction[] functions;

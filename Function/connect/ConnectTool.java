@@ -1,4 +1,4 @@
-package createGC;
+package connect;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
