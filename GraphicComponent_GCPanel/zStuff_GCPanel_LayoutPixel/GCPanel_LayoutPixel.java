@@ -4,9 +4,12 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.Vector;
 
@@ -55,7 +58,7 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 	private Pixel getPixel(int x, int y) {return pixelVector.get(x+y*wPixelNum);}
 	
 	//Item
-	private void refreshRect(Item item) {item.setRect(getRealRectangle(item.getOwnPixel().getLocation()));}
+	private void refreshRect(Item item) {item.setShape(getRealRectangle(item.getOwnPixel().getLocation()));}
 	private Rectangle getRealRectangle(Point location) {
 		return new Rectangle(x+wGap+(pixelW+wGap)*location.x, y+hGap+(pixelH+hGap)*location.y, pixelW, pixelH);
 	}
@@ -93,6 +96,11 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 		resetView();
 	}
 	
+	Shape myClip;
+	public void saveClip() {//TODO
+		myClip = new Rectangle(x,y, width, height);
+	}
+	
 	private void resetView() {
 		//Update Speed
 		this.scrollSpeed = (pixelH+hGap)/speedFactor;
@@ -107,7 +115,7 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 		for(int i=0; i<hPixelNum; i++) {
 			for(int v=0; v<wPixelNum; v++) {
 				pixelVector.add(new Pixel(v,i));
-				pixelVector.lastElement().setRect(x+wGap+(pixelW+wGap)*v, y+hGap+(pixelH+hGap)*i, pixelW, pixelH);
+				pixelVector.lastElement().setRectByXYWH(x+wGap+(pixelW+wGap)*v, y+hGap+(pixelH+hGap)*i, pixelW, pixelH);
 			}
 		}
 		
@@ -153,7 +161,7 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 	private void makeSeatFor(Item item) {
 		for(int v=0; v<wPixelNum; v++) {
 			pixelVector.add(new Pixel(v, hPixelNum));
-			pixelVector.lastElement().setRect(x+wGap+(pixelW+wGap)*v, y+hGap+(pixelH+hGap)*(hPixelNum), pixelW, pixelH);
+			pixelVector.lastElement().setRectByXYWH(x+wGap+(pixelW+wGap)*v, y+hGap+(pixelH+hGap)*(hPixelNum), pixelW, pixelH);
 		}
 		
 		item.setOwnPixel(getPixel(0, hPixelNum));
@@ -165,43 +173,45 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 	
 	@Override
 	public void paint(Graphics2D g2d) {//TODO
+		g2d.setClip(myClip);
 		super.paint(g2d);
-		g2d.setClip(x,y, width, height);
 		
-		g2d.translate(0, scrollSpeed*nowDeep);
+//		g2d.translate(0, scrollSpeed*nowDeep);
 		for(Item item : itemVector) {
 			item.paint(g2d);
 		}
-		g2d.translate(0, scrollSpeed*-nowDeep);
+//		g2d.translate(0, scrollSpeed*-nowDeep);
 		
 		if(dragShadeOn) {//아이템 드래그시, 나머지 어둡게.
 			g2d.setColor(draggingShadeColor);
-			g2d.fill(new Rectangle(x, y, width, height));
+			g2d.fill(this.getShape());
 		}
 		
-		g2d.translate(0, scrollSpeed*nowDeep);
-//		int gap = 20;//Pixel Occupied test
-//		for(Pixel p : pixelVector) {
-//			if(p.isOccupied()) {g2d.setColor(Color.green);}
-//			else {g2d.setColor(Color.red);}
-//			Rectangle rect = p.getRect();
-//			g2d.fill(new Rectangle2D.Double(rect.getX()+gap, rect.getY()+gap, rect.getWidth()-gap*2, rect.getHeight()-gap*2));
-//		}
+//		g2d.translate(0, scrollSpeed*nowDeep);
+		g2d.setClip(null);
+		int gap = 20;//Pixel Occupied test
+		for(Pixel p : pixelVector) {
+			if(p.isOccupied()) {g2d.setColor(Color.green);}
+			else {g2d.setColor(Color.red);}
+			Rectangle rect = p.getRect().getBounds();
+			g2d.fill(new Rectangle2D.Double(rect.getX()+gap, rect.getY()+gap, rect.getWidth()-gap*2, rect.getHeight()-gap*2));
+		}g2d.setClip(myClip);
 		
 		if(currentItem!=null&&itemDraggable) {//드래그 중인게 갈 자리 표시
 			g2d.setColor(seatNoticeColor);
-			g2d.fill(currentItem.getRect());
+			g2d.fill(currentItem.getShape());
 		}
 		
-		if(copyCurrentItem!=null) {copyCurrentItem.paint(g2d);}
-		g2d.translate(0, scrollSpeed*-nowDeep);
 		g2d.setClip(null);
+		if(copyCurrentItem!=null) {copyCurrentItem.paint(g2d);}
+//		g2d.translate(0, scrollSpeed*-nowDeep);
 	}
 	
 	public void mousePressed(MouseEvent e) {
 		findCurrentShape(e); 
 //		basicAction(e);
 		if(currentItem!=null) {currentItem.processEvent(e);}
+		if(copyCurrentItem!=null) {copyCurrentItem.processEvent(e);}
 	}
 	
 	public void mouseReleased(MouseEvent e) {//TODO
@@ -221,7 +231,7 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 	public void mouseMoved(MouseEvent e) {basicAction(e);}
 	public void mouseClicked(MouseEvent e) {if(currentItem!=null) {currentItem.processEvent(e);}}
 	
-	public void mouseWheelMoved(MouseWheelEvent e) {
+	public void mouseWheelMoved(MouseWheelEvent e) {//TODO
 		if (e.getWheelRotation() > 0) {if(nowDeep>deepLimit) {wheelAction(-1);}}
 		else if(e.getWheelRotation() < 0){if(nowDeep<0) {wheelAction(1);}}
 		if(currentItem!=null) {currentItem.processEvent(e);}
@@ -229,11 +239,25 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 	
 	public void wheelAction(int i) {
 		nowDeep+= i;
-		if(copyCurrentItem!=null) {
-			Rectangle nowItem = copyCurrentItem.getRect().getBounds();
-			copyCurrentItem.setRect(new Rectangle(nowItem.x, nowItem.y-scrollSpeed*i, nowItem.width, nowItem.height));
+		y+=scrollSpeed*i;
+		
+		AffineTransform at = new AffineTransform();
+		at.translate(0, scrollSpeed*i);
+		
+		//Update Pixel
+		for(Pixel pixel : pixelVector) {
+			pixel.setRectByShape(at.createTransformedShape(pixel.getRect()));
+		}
+		
+		//Update Item
+		for(Item item : itemVector) {
+			item.setShape(item.getOwnPixel().getRect());
+		}
+		
+		if(copyCurrentItem != null) {
 			changeSeat();
 		}
+//		setGCLocation(x, y + scrollSpeed*i);
 	}
 	
 	public void basicAction(MouseEvent e) {
@@ -248,10 +272,10 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 
 	public void findCurrentShape(MouseEvent e) {
 		Point2D nowPoint = e.getPoint();
-		nowPoint.setLocation(nowPoint.getX(), nowPoint.getY()-scrollSpeed*nowDeep);
+//		nowPoint.setLocation(nowPoint.getX(), nowPoint.getY()-scrollSpeed*nowDeep);
 		
 		for(int i=itemVector.size()-1; i>-1; i--) {
-			if(itemVector.get(i).getRect().contains(nowPoint)) {
+			if(itemVector.get(i).getShape().contains(nowPoint)) {
 				currentItem = itemVector.get(i);
 				if(itemDraggable) {copyCurrentItem = (Item) DeepClone.clone(currentItem);}
 				break;
@@ -293,7 +317,7 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 	public void mouseExited(MouseEvent e) {}
 	
 	public void changeSeat() {
-		Rectangle rect = copyCurrentItem.getRect().getBounds();
+		Rectangle rect = copyCurrentItem.getShape().getBounds();
 		Point draggingCenter = new Point(rect.x+rect.width/2, rect.y+rect.height/2);
 		
 		Pixel seatPixel=null;

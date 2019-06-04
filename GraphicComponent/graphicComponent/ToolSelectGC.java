@@ -4,11 +4,13 @@ import GCPanel.HighlightSettingGCPanel;
 import GCPanel.PenSettingGCPanel;
 import GCPanel.ShapeSettingGCPanel;
 import GCPanel.SlidePanel;
+import fGCDataModify.FMove_Weak;
 import fGlobalDataModify.FRedo;
 import fGlobalDataModify.FSetShape;
 import fGlobalDataModify.FSetTool;
 import fGlobalDataModify.FUndo;
 import fImagePaint.FImageNormalPaint;
+import fPaint.FDummy;
 import fPaint.FGCpeekaboo;
 import fPaint.FPaintMasterWithHighLightColor;
 import fPaint.FPaintMasterWithPenColor;
@@ -29,7 +31,7 @@ public class ToolSelectGC {
 					new FSetTool(eTool.eHandTool.getATool()), 
 					new FImageNormalPaint("ToolBarImgs/hand.png"),
 					new FShowSelected(),
-					new FShowMouseOn()
+					new FShowMouseOn(),
 			},
 			eraserToolSelector = {
 					new FSetTool(eTool.eEraserTool.getATool()),
@@ -107,6 +109,11 @@ public class ToolSelectGC {
 	        },
 			slideOnFunctions = {
 					new FPanelOnOff(new SlidePanel()),
+	        },
+	        dummy = {
+	        		new FShowMouseOn(),
+	        		new FMove_Weak(),
+	        		new FPaintMasterWithHighLightColor()
 	        }
 	;
 }

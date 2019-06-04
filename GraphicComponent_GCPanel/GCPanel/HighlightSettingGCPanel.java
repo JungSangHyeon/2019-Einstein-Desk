@@ -19,6 +19,7 @@ public class HighlightSettingGCPanel extends PeekabooPanel{
 		
 		HighlightColorSelectGCPanel colorSelectPanel = new HighlightColorSelectGCPanel();
 		colorSelectPanel.setGCLocation(this.getX() + 5, this.getY() + 40);
+		colorSelectPanel.saveClip();
 		this.add(colorSelectPanel);
 		
 		HighlightSizeBarGCPanel sizeBarPanel = new HighlightSizeBarGCPanel();

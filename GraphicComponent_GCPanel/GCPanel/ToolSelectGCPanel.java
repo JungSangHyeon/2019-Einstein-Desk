@@ -14,8 +14,8 @@ public class ToolSelectGCPanel extends GCPanel_LayoutPixel {
 		this.setPixelSize(48, 48);
 		this.setPixelGap(0, 0);
 		this.setSize(5, 1);
-		
 		this.setGCLocation(1920 - this.getWidth() - 48*4 -1, 0);
+		this.saveClip();
 		
 		this.setItemDraggable(false);
 

@@ -11,8 +11,9 @@ public class SlideOnPanel extends GCPanel_LayoutPixel {
 		this.setPixelSize(48, 48);
 		this.setPixelGap(0, 0);
 		this.setSize(1, 1);
-		
 		this.setGCLocation(0, 0);
+		this.saveClip();
+		
 		this.setItemDraggable(false);
 
 		this.add(GCCreator.create(ToolSelectGC.slideOnFunctions));

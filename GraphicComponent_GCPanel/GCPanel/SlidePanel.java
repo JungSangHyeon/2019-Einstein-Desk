@@ -13,6 +13,7 @@ public class SlidePanel extends GCPanel_LayoutPixel {
 		this.setPixelGap(21, 18);
 		this.setSize(1, 6);
 		this.setGCLocation(0, 48);
+		this.saveClip();
 		
 		this.setBackgroundColor(new Color(230,230,230));
 		this.setBorderColor(new Color(191,191,191));

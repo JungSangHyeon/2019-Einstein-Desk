@@ -19,6 +19,7 @@ public class PenSettingGCPanel extends PeekabooPanel{
 		
 		PenColorSelectGCPanel colorSelectPanel = new PenColorSelectGCPanel();
 		colorSelectPanel.setGCLocation(this.getX() + 5, this.getY() + 40);
+		colorSelectPanel.saveClip();
 		this.add(colorSelectPanel);
 		
 		PenSizeBarGCPanel sizeBar = new PenSizeBarGCPanel();

@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 import GCPanel.OffGCPanel;
 import GCPanel.SlideOnPanel;
+import GCPanel.TestPanel;
 import GCPanel.ToolBTNGCPanel;
 import GCPanel.ToolSelectGCPanel;
 import PDR_NP_Shape.HighlightShape;
@@ -54,6 +55,7 @@ public class DrawingPanel extends JPanel implements Runnable {
 		this.add(new ToolBTNGCPanel());
 		this.add(new OffGCPanel());
 		this.add(new SlideOnPanel());
+		this.add(new TestPanel());
 		
 		SlideManager.newSlide();
 	}
