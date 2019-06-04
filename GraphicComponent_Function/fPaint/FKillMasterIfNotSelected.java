@@ -8,7 +8,7 @@ import zStuff_GraphicComponent.GCStorage_Selected;
 public class FKillMasterIfNotSelected extends AFunction{
 	private static final long serialVersionUID = 4299512141606163429L;
 	
-	public void processSelectEvent(boolean selected) {
+	public void selectEvent(boolean selected) {
 		if(!selected){
 			if(GCPanelStorage.have(master)) {GCPanelStorage.remove(master);}
 			if(GCStorage_Normal.have(master)) {GCStorage_Normal.removeGC(master);}

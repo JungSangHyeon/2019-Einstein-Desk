@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
-import fPaint.FKillMasterIfNotSelected;
 import zStuff_GCPanel.PeekabooPanel;
 import zStuff_GCPanel_LineSetting.HighlightColorSelectGCPanel;
 import zStuff_GCPanel_LineSetting.HighlightSizeBarGCPanel;
@@ -25,8 +24,6 @@ public class HighlightSettingGCPanel extends PeekabooPanel{
 		HighlightSizeBarGCPanel sizeBarPanel = new HighlightSizeBarGCPanel();
 		sizeBarPanel.setGCLocation(this.getX() + 5, this.getY() + 132);
 		this.add(sizeBarPanel);
-		
-		this.addFunction(new FKillMasterIfNotSelected());
 	}
 	
 	@Override

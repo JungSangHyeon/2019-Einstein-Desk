@@ -2,9 +2,9 @@ package zStuff_GCPanel_ShapeSetting;
 
 import java.awt.Color;
 
+import graphicComponent.ShapeSelectGC;
 import zStuff_GCPanel_LayoutPixel.GCPanel_LayoutPixel;
-import zStuff_GraphicComponent.GCEnum;
-import zStuff_GraphicComponent.GCEnum.eGC;
+import zStuff_GraphicComponent.GCCreator;
 
 @SuppressWarnings("serial")
 public class PDRShapeSelectGCPanel extends GCPanel_LayoutPixel {
@@ -17,12 +17,12 @@ public class PDRShapeSelectGCPanel extends GCPanel_LayoutPixel {
 		
 		this.setItemDraggable(false);
 		 
-		this.add(GCEnum.getGC(eGC.eRect));
-		this.add(GCEnum.getGC(eGC.eEllipse));
-		this.add(GCEnum.getGC(eGC.eSpeech));
-		this.add(GCEnum.getGC(eGC.eStar4));
-		this.add(GCEnum.getGC(eGC.eStarN));
-		this.add(GCEnum.getGC(eGC.eTriangle));
-		this.add(GCEnum.getGC(eGC.eStraightLine));
+		this.add(GCCreator.create(ShapeSelectGC.rectSelector));
+		this.add(GCCreator.create(ShapeSelectGC.ellipseSelector));
+		this.add(GCCreator.create(ShapeSelectGC.speechSelector));
+		this.add(GCCreator.create(ShapeSelectGC.star4Selector));
+		this.add(GCCreator.create(ShapeSelectGC.starNSelector));
+		this.add(GCCreator.create(ShapeSelectGC.triangleSelector));
+		this.add(GCCreator.create(ShapeSelectGC.straightLineSelector));
 	}
 }

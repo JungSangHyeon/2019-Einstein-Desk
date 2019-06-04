@@ -42,7 +42,7 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 	Color backGroundColor = new Color(29,31,33);
 	Color seatNoticeColor = new Color(47, 53, 62);
 	public void setDraggingShadeColor(Color c) {this.draggingShadeColor= c;}
-	public void setBackgroundColor(Color c) {this.backGroundColor= c;}
+	public void setBackgroundColor(Color c) {this.backGroundColor= c; this.setFillColor(backGroundColor);}
 	public void setSeatNoticeColor(Color c) {this.seatNoticeColor= c;}
 	
 	//Mode

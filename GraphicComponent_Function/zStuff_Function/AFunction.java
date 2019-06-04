@@ -52,7 +52,11 @@ public abstract class AFunction  implements Serializable{
 	public void setActionOn(boolean boo) {actionOn = boo;}
 	
 	//Action - Process Select Event
-	public void processSelectEvent(boolean selected){}
+	public void processSelectEvent(boolean selected) {
+		this.selectEvent(selected);
+		for(AFunction function : aggregateFunction) {function.processSelectEvent(selected);}
+	}
+	public void selectEvent(boolean selected){}
 	
 	//Action - Process Time On/Off Event
 	public void timeIsMove(boolean boo) {}

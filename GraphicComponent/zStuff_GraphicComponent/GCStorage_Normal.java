@@ -30,4 +30,7 @@ public class GCStorage_Normal {
 			GCVector.remove(target);
 		}
 	}
+	public static void setGCStorage(Vector<GraphicComponent> slide) {
+		GCVector = slide;
+	}
 }

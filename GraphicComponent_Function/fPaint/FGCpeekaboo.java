@@ -2,6 +2,7 @@ package fPaint;
 
 import zStuff_Function.AFunction;
 import zStuff_GCPanel.GCPanelStorage;
+import zStuff_GraphicComponent.GCStorage_Selected;
 import zStuff_GraphicComponent.GraphicComponent;
 
 public class FGCpeekaboo extends AFunction{
@@ -12,7 +13,7 @@ public class FGCpeekaboo extends AFunction{
 	
 	public FGCpeekaboo(GraphicComponent  gc) {this.showUpGC = gc; }
 	
-	public void processSelectEvent(boolean selected) {
+	public void selectEvent(boolean selected) {
 		if(beforeSelected&&selected&&!GCPanelStorage.have(showUpGC)) {
 			GCPanelStorage.remove(showUpGC);
 			GCPanelStorage.add(showUpGC);
@@ -21,6 +22,7 @@ public class FGCpeekaboo extends AFunction{
 		}else if(!selected) {
 			GCPanelStorage.remove(showUpGC);
 		}
+		GCStorage_Selected.removeSelectedGC(showUpGC);
 		beforeSelected = selected;
 	}
 }

@@ -11,15 +11,16 @@ import java.awt.geom.AffineTransform;
 import javax.swing.JPanel;
 
 import GCPanel.OffGCPanel;
+import GCPanel.SlideOnPanel;
 import GCPanel.ToolBTNGCPanel;
 import GCPanel.ToolSelectGCPanel;
 import PDR_NP_Shape.HighlightShape;
 import PDR_NP_Shape.pen;
 import canvas.CanvasGC;
-import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
 import eventListener.DrawingPanelMouseHadler;
 import eventListener.KeyDispatcher;
 import global.InjectEnums.eColor;
+import slide.SlideManager;
 import zStuff_GCPanel.GCPanelStorage;
 import zStuff_GraphicComponent.GCStorage_Normal;
 import zStuff_GraphicComponent.GraphicComponent;
@@ -52,6 +53,9 @@ public class DrawingPanel extends JPanel implements Runnable {
 		this.add(new ToolSelectGCPanel());
 		this.add(new ToolBTNGCPanel());
 		this.add(new OffGCPanel());
+		this.add(new SlideOnPanel());
+		
+		SlideManager.newSlide();
 	}
 	
 	@Override

@@ -9,7 +9,6 @@ import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
 import fComposite.FInCanvasGCBasicFunction;
 import onOff.AnchorPaint;
 import redoUndo.RedoUndo;
-import zStuff_Data.LineData;
 import zStuff_Data.ShapeData;
 import zStuff_Data.ToolData;
 import zStuff_GraphicComponent.GCStorage_Normal;
@@ -36,7 +35,7 @@ public class PDRShapeDrawTool extends ATool{
 			GCData = new GraphicComponent();
 			GCData.addPoint(new Point2D.Float(e.getPoint().x, e.getPoint().y));
 			GCData.addPoint(new Point2D.Float(e.getPoint().x, e.getPoint().y));
-			GCData.setborderThick(GCData.getBorderThick()*DrawingPanelMoveAndZoom.nowZoom);
+			GCData.setborderThick(GCData.getBorderThick()*DrawingPanelMoveAndZoom.getZoom());
 			GCData.setAShape(ShapeData.getNowShapeMaker());
 			GCData.addFunction(new FInCanvasGCBasicFunction());
 			

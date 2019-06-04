@@ -37,8 +37,7 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 			GCStorage_Selected.clearSelected();
 			GCStorage_Selected.addSelectedGC(master);
 		}else {//press on selected GC
-			GCStorage_Selected.removeSelectedGC(master);
-			GCStorage_Selected.addSelectedGC(master);
+			GCStorage_Selected.toLast(master);
 		}
 		basicAction(e);
 	}

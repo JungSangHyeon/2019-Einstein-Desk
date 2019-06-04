@@ -3,7 +3,6 @@ package fGCDataModify;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
@@ -16,7 +15,6 @@ import java.util.Vector;
 
 import javax.swing.JPanel;
 
-import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
 import onOff.AnchorPaint;
 import redoUndo.RedoUndo;
 import zStuff_Function.AFunction;
@@ -40,16 +38,27 @@ public class FResize extends AFunction implements Serializable {//¾ê´Â ¸ÁÇß¾î¿ä.
 	
 	public FResize() {this.setPaintOrder(PaintZOrder.TOP);}
 	
-	public void mousePressed(MouseEvent e) {
-		dragStart = new Point2D.Float(e.getPoint().x, e.getPoint().y);
-		n=0;
-		resizeON = false;
-		for(Shape s : anchors) {
-			if(s.contains(dragStart)) {
-				resizeON = true;
-				break;
+	public void selectEvent(boolean selected){
+		if(!selected) {
+			released = false;
+		}
+	}
+	boolean released = false;
+	
+	public void mousePressed(MouseEvent e) {//TODO
+		System.out.println("pressed");
+		if(released) {
+			dragStart = new Point2D.Float(e.getPoint().x, e.getPoint().y);
+			n=0;
+			resizeON = false;
+			
+			for(Shape s : anchors) {
+				if(s.contains(dragStart)) {
+					resizeON = true;
+					break;
+				}
+				n++;
 			}
-			n++;
 		}
 	}
 
@@ -212,7 +221,7 @@ public class FResize extends AFunction implements Serializable {//¾ê´Â ¸ÁÇß¾î¿ä.
 		return transformPoint(at, point);
 	}
 	
-	public void realPaint(Graphics2D g) {
+	public void realPaint(Graphics2D g) {//TODO
 		if (master.isSelected()) {
 			for(Shape s : anchors) {
 				master.removeTopFunctionShape(s);
@@ -343,10 +352,11 @@ public class FResize extends AFunction implements Serializable {//¾ê´Â ¸ÁÇß¾î¿ä.
 		return new Point2D.Double(xFactor, yFactor);
 	}
 	
-	public void mouseReleased(MouseEvent e) {
+	public void mouseReleased(MouseEvent e) {//TODO
+		released = true;
 		AnchorPaint.on();
 		resizeON = false;
-		if(resized) {
+		if(resized) {//resize on ÀÌ¾î¾ß µÊ.
 			resized = false;
 			RedoUndo.saveNowInHistory();
 		}

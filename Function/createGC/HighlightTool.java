@@ -21,7 +21,7 @@ public class HighlightTool extends PDRShapeDrawTool{
 	public void mousePressed(MouseEvent e) {
 		super.mousePressed(e);
 		GCData.setFillPaint(false);
-		GCData.setborderThick(LineData.getHighlightThick()*DrawingPanelMoveAndZoom.nowZoom);
+		GCData.setborderThick(LineData.getHighlightThick()*DrawingPanelMoveAndZoom.getZoom());
 		GCData.setBorderColor(LineData.getHighlightColor());
 	}
 	

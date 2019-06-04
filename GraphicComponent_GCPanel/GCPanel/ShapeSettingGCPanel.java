@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
-import fPaint.FKillMasterIfNotSelected;
 import zStuff_GCPanel.PeekabooPanel;
 import zStuff_GCPanel_ShapeSetting.CMCShapeSelectGCPanel;
 import zStuff_GCPanel_ShapeSetting.PDRShapeSelectGCPanel;
@@ -25,8 +24,6 @@ public class ShapeSettingGCPanel extends PeekabooPanel{
 		CMCShapeSelectGCPanel sizeBar = new CMCShapeSelectGCPanel();
 		sizeBar.setGCLocation(this.getX() + 5, this.getY() + 142 + 52);
 		this.add(sizeBar);
-		
-		this.addFunction(new FKillMasterIfNotSelected());
 	}
 	
 	@Override

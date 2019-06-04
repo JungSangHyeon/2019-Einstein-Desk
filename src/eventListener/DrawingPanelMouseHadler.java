@@ -6,12 +6,16 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.util.Vector;
 
 import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
 import selectGCAndGiveEvent.GCPanelGiveActionTool;
 import selectGCAndGiveEvent.HandTool;
 import view.DrawingPanel;
 import zStuff_Data.ToolData;
+import zStuff_GCPanel.GCPanelStorage;
+import zStuff_GCPanel.PeekabooPanel;
+import zStuff_GraphicComponent.GraphicComponent;
 import zStuff_Text.FTextWrite_Stuff;
 
 public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListener, MouseWheelListener{//manage all event except AContainer
@@ -30,8 +34,9 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 		if(FTextWrite_Stuff.isTextEditAreaFocusOwner()) {FTextWrite_Stuff.removeFocusTextEditArea();}//For Text Write Function. remove Focus
 		if(rightBTNPressed()) {DrawingPanelMoveAndZoom.setDragStartPoint(e.getPoint());}//For Canvas Move. set Start Point
 		processEvent(e);
+		offPekabooPanel();
 	}
-	
+
 	public void mouseDragged(MouseEvent e) {
 		if (rightBTNPressed()) {DrawingPanelMoveAndZoom.moveCamera(e);}//Canvas Move
 		processEvent(e);
@@ -62,4 +67,15 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 	
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
+	
+	private void offPekabooPanel() {//삭제 몬하나.
+		if(!gCPanelGiveActionTool.isTakeEvent()) {
+			Vector<GraphicComponent> panels = GCPanelStorage.getGCPanelVector();
+			for(int i = panels.size()-1; i>-1; i--) {
+				if(panels.get(i) instanceof PeekabooPanel) {
+					GCPanelStorage.remove(panels.get(i));
+				}
+			}
+		}
+	}
 }

@@ -7,35 +7,35 @@ import zStuff_Shape.eShape;
 
 public class ShapeSelectGC {
 	public static AFunction[] //add Functions Here
-			rectFunctions = {
+			rectSelector = {
 					new FSetTool(eShape.rect.getAShape().getDrawer()),
 					new FSetShape(eShape.rect.getAShape())
 			},
-			ellipseFunctions = {
+			ellipseSelector = {
 					new FSetTool(eShape.ellipse.getAShape().getDrawer()),
 					new FSetShape(eShape.ellipse.getAShape())
 			},
-			speechFunctions = {
+			speechSelector = {
 					new FSetTool(eShape.speech.getAShape().getDrawer()),
 					new FSetShape(eShape.speech.getAShape())
 			},
-			starNFunctions = {
+			starNSelector = {
 					new FSetTool(eShape.starN.getAShape().getDrawer()),
 					new FSetShape(eShape.starN.getAShape())
 			},
-			star4Functions = {
+			star4Selector = {
 					new FSetTool(eShape.star4.getAShape().getDrawer()),
 					new FSetShape(eShape.star4.getAShape())
 			},
-			triangleFunctions = {
+			triangleSelector = {
 					new FSetTool(eShape.triangle.getAShape().getDrawer()),
 					new FSetShape(eShape.triangle.getAShape())
 			},
-			straightLineFunctions = {
+			straightLineSelector = {
 					new FSetTool(eShape.straightLine.getAShape().getDrawer()),
 					new FSetShape(eShape.straightLine.getAShape())
 			},
-			polygonFunctions = {
+			polygonSelector = {
 					new FSetTool(eShape.polygon.getAShape().getDrawer()),
 					new FSetShape(eShape.polygon.getAShape())
 			}

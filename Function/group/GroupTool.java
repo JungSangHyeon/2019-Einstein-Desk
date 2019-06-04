@@ -16,7 +16,12 @@ public class GroupTool {
 		GCStorage_Normal.addNewGC(group);
 		
 		for(int i=groupMember.size()-1; i>-1; i--) {
-			groupMember.get(i).addAngle(-groupMember.get(i).getAngle());//앵글을 0으로 한다. 이것을 통해, 그룹화의 리사이즈를 해결한 대신, 원본이 깨진다? 당연한 건가. 
+			groupMember.get(i).addAngle(-groupMember.get(i).getAngle());//앵글을 0으로 한다. 이것을 통해, 그룹화의 리사이즈를 해결한 대신, 원본이 깨진다? 당연한 건가.
+			groupMember.get(i).clearFunctionEventShapes();
+			for(GraphicComponent gmAggreGC : groupMember.get(i).getAllAggregateGCs()) {
+				gmAggreGC.addAngle(-gmAggreGC.getAngle());
+				gmAggreGC.clearFunctionEventShapes();
+			}
 			GCStorage_Normal.removeGC(groupMember.get(i));
 		}
 		GCStorage_Selected.clearSelected();

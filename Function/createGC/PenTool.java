@@ -21,7 +21,7 @@ public class PenTool extends PDRShapeDrawTool{
 	public void mousePressed(MouseEvent e) {
 		super.mousePressed(e);
 		GCData.setFillPaint(false);
-		GCData.setborderThick(LineData.getPenThick()*DrawingPanelMoveAndZoom.nowZoom);
+		GCData.setborderThick(LineData.getPenThick()*DrawingPanelMoveAndZoom.getZoom());
 		GCData.setBorderColor(LineData.getPenColor());
 	}
 	

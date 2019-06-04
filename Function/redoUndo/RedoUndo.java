@@ -36,4 +36,10 @@ public class RedoUndo {
 	public static void undo() {if(nowHistoryNum>0) {nowHistoryNum--;changeNow();}}
 	public static void redo() {if(nowHistoryNum<history.size()-1) {nowHistoryNum++;changeNow();}}
 	private static void changeNow() {GCStorage_Normal.clearGC(); GCStorage_Normal.addAllToGC(history.get(nowHistoryNum)); GCStorage_Selected.clearSelected();}
+	
+	public static void clear() {
+		history.clear();
+		temp.clear();
+		nowHistoryNum=0;
+	}
 }

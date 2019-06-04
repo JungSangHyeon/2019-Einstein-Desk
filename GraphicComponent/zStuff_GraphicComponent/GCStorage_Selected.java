@@ -27,4 +27,8 @@ public class GCStorage_Selected {
 	public static boolean have(GraphicComponent master) {
 		return selectedComponents.contains(master);
 	}
+	public static void toLast(GraphicComponent master) {
+		selectedComponents.remove(master);
+		selectedComponents.add(master);
+	}
 }

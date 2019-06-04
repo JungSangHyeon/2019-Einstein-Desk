@@ -2,9 +2,9 @@ package zStuff_GCPanel_ShapeSetting;
 
 import java.awt.Color;
 
+import graphicComponent.ShapeSelectGC;
 import zStuff_GCPanel_LayoutPixel.GCPanel_LayoutPixel;
-import zStuff_GraphicComponent.GCEnum;
-import zStuff_GraphicComponent.GCEnum.eGC;
+import zStuff_GraphicComponent.GCCreator;
 
 @SuppressWarnings("serial")
 public class CMCShapeSelectGCPanel extends GCPanel_LayoutPixel {
@@ -17,6 +17,6 @@ public class CMCShapeSelectGCPanel extends GCPanel_LayoutPixel {
 		
 		this.setItemDraggable(false);
 		 
-		this.add(GCEnum.getGC(eGC.ePolygon));
+		this.add(GCCreator.create(ShapeSelectGC.polygonSelector));
 	}
 }

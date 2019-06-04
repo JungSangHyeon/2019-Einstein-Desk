@@ -3,9 +3,9 @@ package GCPanel;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import graphicComponent.ToolSelectGC;
 import zStuff_GCPanel_LayoutPixel.GCPanel_LayoutPixel;
-import zStuff_GraphicComponent.GCEnum;
-import zStuff_GraphicComponent.GCEnum.eGC;
+import zStuff_GraphicComponent.GCCreator;
 
 @SuppressWarnings("serial")
 public class ToolSelectGCPanel extends GCPanel_LayoutPixel {
@@ -19,13 +19,13 @@ public class ToolSelectGCPanel extends GCPanel_LayoutPixel {
 		
 		this.setItemDraggable(false);
 
-		this.add(GCEnum.getGC(eGC.ePen));
-		this.add(GCEnum.getGC(eGC.eHighlight));
-		this.add(GCEnum.getGC(eGC.eEraserTool));
-		this.add(GCEnum.getGC(eGC.eShapeTool));
-		this.add(GCEnum.getGC(eGC.eHandTool));
-		this.add(GCEnum.getGC(eGC.eCanvasHandTool));
-		this.add(GCEnum.getGC(eGC.eConnectTool));
+		this.add(GCCreator.create(ToolSelectGC.penSelector));
+		this.add(GCCreator.create(ToolSelectGC.highlightSelector));
+		this.add(GCCreator.create(ToolSelectGC.eraserToolSelector));
+		this.add(GCCreator.create(ToolSelectGC.shapeToolSelector));
+		this.add(GCCreator.create(ToolSelectGC.handToolSelector));
+		this.add(GCCreator.create(ToolSelectGC.canvasHandSelector));
+		this.add(GCCreator.create(ToolSelectGC.connectSelector));
 	}
 	
 	@Override

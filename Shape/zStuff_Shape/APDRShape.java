@@ -21,7 +21,6 @@ public abstract class APDRShape extends AShape {
 	
 	public boolean thisGCIsSelected(GraphicComponent gc, Point2D.Float point) {
 		if(gc.getShape().contains(point)) {return true;}
-		
 		for(Shape s : gc.getFunctionShape()) {
 			if(s.contains(point)) {
 				return true;

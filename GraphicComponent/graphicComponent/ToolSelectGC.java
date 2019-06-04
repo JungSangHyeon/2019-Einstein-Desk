@@ -3,6 +3,7 @@ package graphicComponent;
 import GCPanel.HighlightSettingGCPanel;
 import GCPanel.PenSettingGCPanel;
 import GCPanel.ShapeSettingGCPanel;
+import GCPanel.SlidePanel;
 import fGlobalDataModify.FRedo;
 import fGlobalDataModify.FSetShape;
 import fGlobalDataModify.FSetTool;
@@ -11,30 +12,32 @@ import fImagePaint.FImageNormalPaint;
 import fPaint.FGCpeekaboo;
 import fPaint.FPaintMasterWithHighLightColor;
 import fPaint.FPaintMasterWithPenColor;
+import fPaint.FPanelOnOff;
 import fPaint.FShowMouseOn;
 import fPaint.FShowSelected;
 import fSystem.FKillSystem;
 import imgLoad.ImgLoad;
 import saveAsImage.SaveAsImage;
+import slide.newSlide;
 import zStuff_Function.AFunction;
 import zStuff_Shape.eShape;
 import zStuff_Tool.eTool;
 
 public class ToolSelectGC {
 	public static AFunction[] //add Functions Here
-			handToolFunctions = {
+			handToolSelector = {
 					new FSetTool(eTool.eHandTool.getATool()), 
 					new FImageNormalPaint("ToolBarImgs/hand.png"),
 					new FShowSelected(),
 					new FShowMouseOn()
 			},
-			eraserToolFunctions = {
+			eraserToolSelector = {
 					new FSetTool(eTool.eEraserTool.getATool()),
 					new FImageNormalPaint("ToolBarImgs/eraser.png"),
 					new FShowSelected(),
 					new FShowMouseOn()
 			},
-			shapeToolFunctions = {
+			shapeToolSelector = {
 					new FSetTool(eShape.rect.getAShape().getDrawer()),
 					new FSetShape(eShape.rect.getAShape()),
 					new FImageNormalPaint("ToolBarImgs/shape.png"),
@@ -42,67 +45,68 @@ public class ToolSelectGC {
 					new FGCpeekaboo(new ShapeSettingGCPanel()),
 					new FShowMouseOn()
 			},
-			undoFunctions = {
+			undo = {
 					new FUndo(),
 					new FImageNormalPaint("ToolBarImgs/back.png"),
 					new FShowMouseOn()
 			},
-			redoFunctions = {
+			redo = {
 					new FRedo(),
 					new FImageNormalPaint("ToolBarImgs/front.png"),
 					new FShowMouseOn()
 			},
-			newSlideFunctions = {
-					new ImgLoad(),
+			newSlide = {
+					new newSlide(),
 					new FImageNormalPaint("ToolBarImgs/newSlide.png"),
 					new FShowMouseOn()
 			},
-			imageFunctions = {
+			imageLoad = {
 					new ImgLoad(),
 					new FImageNormalPaint("ToolBarImgs/Image.png"),
 					new FShowMouseOn()
 			},
-			saveImageFunctions = {
+			saveAsImage = {
 					new SaveAsImage(),
 					new FImageNormalPaint("ToolBarImgs/SaveCanvas.png"),
 					new FShowMouseOn()
 			},
-			offFunctions = {
+			off = {
 					new FKillSystem(),
 					new FImageNormalPaint("ToolBarImgs/off1.png"),
 					new FShowMouseOn()
 			},
-			canvasHandFunctions = {
+			canvasHandSelector = {
 					new FSetTool(eTool.eCanvasTool.getATool()),
 					new FImageNormalPaint("ToolBarImgs/Canvas.png"),
 					new FShowSelected(),
 					new FShowMouseOn()
 			},
-			connectFunctions = {
+			connectSelector = {
 					new FSetTool(eTool.eConnectTool.getATool()),
 					new FImageNormalPaint("ToolBarImgs/Connect.png"),
 					new FShowSelected(),
 					new FShowMouseOn()
 			},
-			penFunctions = {
+			penSelector = {
 					new FSetTool(eShape.pen.getAShape().getDrawer()),
 					new FSetShape(eShape.pen.getAShape()),
 					new FPaintMasterWithPenColor(),
 					new FImageNormalPaint("ToolBarImgs/pen.png"),
 					new FShowSelected(),
-					new FShowMouseOn(),
 					new FGCpeekaboo(new PenSettingGCPanel()),
 					new FShowMouseOn()
 	        },
-			highlightFunctions = {
+			highlightSelector = {
 					new FSetTool(eShape.highlight.getAShape().getDrawer()),
 					new FSetShape(eShape.highlight.getAShape()),
 					new FPaintMasterWithHighLightColor(),
 					new FImageNormalPaint("ToolBarImgs/highlight.png"),
 					new FShowSelected(),
-					new FShowMouseOn(),
 					new FGCpeekaboo(new HighlightSettingGCPanel()),
 					new FShowMouseOn()
+	        },
+			slideOnFunctions = {
+					new FPanelOnOff(new SlidePanel()),
 	        }
 	;
 }

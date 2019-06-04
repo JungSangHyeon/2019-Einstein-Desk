@@ -12,10 +12,10 @@ public class LineData {
 	public static Color getPenColor() {return penColor;}
 	public static void setPenColor(Color pc) {penColor = pc;}
 	
-	public static int penThick = 10;
-	public static int getPenThick() {
-		int thick;
-		if (ThickFollowScale.isOn()) {thick = penThick;}//need to change
+	public static float penThick = 10;
+	public static float getPenThick() {
+		float thick;
+		if (ThickFollowScale.isOn()) {thick = penThick/DrawingPanelMoveAndZoom.getZoom();}//need to change
 		else {thick = penThick;}
 		if(thick==0) {thick=1;}
 		return thick;
@@ -30,7 +30,7 @@ public class LineData {
 	public static int highlightThick = 10;
 	public static int getHighlightThick() {
 		int thick;
-		if (ThickFollowScale.isOn()) {thick = penThick;}//need to change
+		if (ThickFollowScale.isOn()) {thick = highlightThick;}//need to change
 		else {thick = highlightThick;}
 		if(thick==0) {thick=1;}
 		return thick;
