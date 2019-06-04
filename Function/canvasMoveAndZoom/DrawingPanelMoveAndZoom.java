@@ -21,6 +21,10 @@ public class DrawingPanelMoveAndZoom {
 	private static int zoomLevel = 0;
 	private static Point dragStartPoint;
 	
+	public static AffineTransform getNowApplied() {
+		return nowApplied;//x=y니께
+	}
+	
 	public static float getZoom() {
 		return (float)nowApplied.getScaleX();//x=y니께
 	}
@@ -46,7 +50,7 @@ public class DrawingPanelMoveAndZoom {
 			gc.setborderThick(gc.getBorderThick()*zoom);
 			for(GraphicComponent aggreGC : gc.getAllAggregateGCs()) {
 				AffineMath.applyAffineTransformToGC(coordTransform, aggreGC);
-				gc.setborderThick(aggreGC.getBorderThick()*zoom);
+				aggreGC.setborderThick(aggreGC.getBorderThick()*zoom);
 			}
 		}
 		AffineMath.applyAffineTransformToGC(coordTransform, CanvasGC.getCanvas());

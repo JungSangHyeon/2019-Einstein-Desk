@@ -11,6 +11,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.Vector;
 
 import calculation.AffineMath;
+import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
 import zStuff_Function.AFunction;
 import zStuff_Text.FTextWrite_Stuff;
 
@@ -19,7 +20,7 @@ public class FTextWrite extends AFunction{
 	
 	static final String myCaret = "|";
 	
-	int textSize = 50;
+	int realtextSize = 50, scaletextSize = 50;
 	double textYIntervalFactor = 1.1;
 	Color textColor = Color.white;
 	
@@ -27,7 +28,9 @@ public class FTextWrite extends AFunction{
 	public enum Arrange{LEFTUP, CENTER}
 	
 	public void realPaint(Graphics2D g) {
-		g.setFont(new Font(null, Font.BOLD, textSize));
+		scaletextSize = (int) (realtextSize*DrawingPanelMoveAndZoom.getZoom());
+		
+		g.setFont(new Font(null, Font.BOLD, scaletextSize));
 		
 		String rawText = master.getText();
 		if(master.isSelected()&&FTextWrite_Stuff.isTextEditing()) {
@@ -68,7 +71,7 @@ public class FTextWrite extends AFunction{
 			double transX = masterBeforeRotateBorder.getX() + (masterBeforeRotateBorder.getWidth() - nowBound.getWidth())/2;
 			double transY = myY;
 			AffineTransform at = new AffineTransform();
-			at.translate(transX-textSize*4/50, transY+textSize/5*4);//MY radio. 왜 이런지는 모르겠음. 텍스트가 원래 이상하게 그려지긴 했음...
+			at.translate(transX-scaletextSize*4/50, transY+scaletextSize/5*4);//MY radio. 왜 이런지는 모르겠음. 텍스트가 원래 이상하게 그려지긴 했음...
 			nowTextShape = at.createTransformedShape(nowTextShape);
 			
 			at = new AffineTransform();//한번에 적용이 안됨.

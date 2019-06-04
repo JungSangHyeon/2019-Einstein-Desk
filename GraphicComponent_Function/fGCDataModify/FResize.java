@@ -43,10 +43,9 @@ public class FResize extends AFunction implements Serializable {//¾ê´Â ¸ÁÇß¾î¿ä.
 			released = false;
 		}
 	}
-	boolean released = false;
+	boolean released = true;
 	
 	public void mousePressed(MouseEvent e) {//TODO
-		System.out.println("pressed");
 		if(released) {
 			dragStart = new Point2D.Float(e.getPoint().x, e.getPoint().y);
 			n=0;
