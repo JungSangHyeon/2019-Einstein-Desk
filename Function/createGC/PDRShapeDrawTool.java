@@ -38,7 +38,7 @@ public class PDRShapeDrawTool extends ATool{
 			GCData.setborderThick(GCData.getBorderThick()*DrawingPanelMoveAndZoom.getZoom());
 			GCData.setAShape(ShapeData.getNowShapeMaker());
 			GCData.addFunction(new FInCanvasGCBasicFunction());
-			
+
 			setShape(GCData);
 			GCStorage_Normal.addNewGC(GCData);
 		}

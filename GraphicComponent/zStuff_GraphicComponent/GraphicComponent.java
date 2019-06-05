@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.Vector;
@@ -54,7 +52,7 @@ public class GraphicComponent  implements Serializable{
 		if(paintFill) {g.setColor(fillColor); g.fill(shape);}
 		if(paintBorder) {g.setColor(borderColor); g.draw(shape);}
 		for(AFunction function : functions) {function.paint(g, PaintZOrder.MIDDLE);}
-		for(GraphicComponent gc : aggregateGC) {if(!(gc.getAShape() instanceof pen)) {gc.paint(g);}}//shape
+		for(GraphicComponent gc : aggregateGC) {if(!(gc.getAShape() instanceof pen)) {gc.paint(g);}}//shape & etc
 		for(GraphicComponent gc : aggregateGC) {if(gc.getAShape() instanceof HighlightShape) {gc.paint(g);}}//highlight
 		for(GraphicComponent gc : aggregateGC) {if(!(gc.getAShape() instanceof HighlightShape)&&gc.getAShape() instanceof pen) {gc.paint(g);}}//pen
 		
@@ -139,6 +137,9 @@ public class GraphicComponent  implements Serializable{
 	
 	//Text
 	String text = "";
+	int textSize = 50;
+	public void setTextSize(int size) {this.textSize=size;}
+	public int getTextSize() {return this.textSize;}
 	public void setText(String text) {this.text=text;}
 	public String getText() {return this.text;}
 

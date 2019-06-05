@@ -13,7 +13,7 @@ public class TestPanel extends GCPanel_LayoutPixel {
 		this.setPixelSize(48, 48);
 		this.setPixelGap(10, 10);
 		this.setSize(5, 3);
-		this.setGCLocation(700,300);
+		this.setGCLocation(1600,100);
 		this.saveClip();
 //		this.setItemDraggable(false);
 

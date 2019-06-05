@@ -20,7 +20,7 @@ public class FTextWrite extends AFunction{
 	
 	static final String myCaret = "|";
 	
-	int realtextSize = 50, scaletextSize = 50;
+	int scaletextSize = 50;
 	double textYIntervalFactor = 1.1;
 	Color textColor = Color.white;
 	
@@ -28,7 +28,7 @@ public class FTextWrite extends AFunction{
 	public enum Arrange{LEFTUP, CENTER}
 	
 	public void realPaint(Graphics2D g) {
-		scaletextSize = (int) (realtextSize*DrawingPanelMoveAndZoom.getZoom());
+		scaletextSize = (int) (master.getTextSize()*DrawingPanelMoveAndZoom.getZoom());
 		
 		g.setFont(new Font(null, Font.BOLD, scaletextSize));
 		

@@ -1,4 +1,4 @@
-package GCPanel;
+package toolPanel;
 
 import graphicComponent.ToolSelectGC;
 import zStuff_GCPanel_LayoutPixel.GCPanel_LayoutPixel;
@@ -11,11 +11,10 @@ public class ToolBTNGCPanel extends GCPanel_LayoutPixel {
 		this.setPixelSize(48, 48);
 		this.setPixelGap(0, 0);
 		this.setSize(3, 1);
-		this.setGCLocation(1920 - this.getWidth() - 48, 0);
-		this.saveClip();
-		
 		this.setItemDraggable(false);
+	}
 
+	public void addItems() {
 		this.add(GCCreator.create(ToolSelectGC.undo));
 		this.add(GCCreator.create(ToolSelectGC.redo));
 		this.add(GCCreator.create(ToolSelectGC.newSlide));

@@ -1,9 +1,5 @@
 package graphicComponent;
 
-import GCPanel.HighlightSettingGCPanel;
-import GCPanel.PenSettingGCPanel;
-import GCPanel.ShapeSettingGCPanel;
-import GCPanel.SlidePanel;
 import fGCDataModify.FMove_Weak;
 import fGlobalDataModify.FRedo;
 import fGlobalDataModify.FSetShape;
@@ -20,7 +16,11 @@ import fPaint.FShowSelected;
 import fSystem.FKillSystem;
 import imgLoad.ImgLoad;
 import saveAsImage.SaveAsImage;
+import settingPanel.HighlightSettingGCPanel;
+import settingPanel.PenSettingGCPanel;
+import settingPanel.ShapeSettingGCPanel;
 import slide.newSlide;
+import slidePanel.SlidePanel;
 import zStuff_Function.AFunction;
 import zStuff_Shape.eShape;
 import zStuff_Tool.eTool;

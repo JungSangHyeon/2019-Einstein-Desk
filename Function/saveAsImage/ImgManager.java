@@ -3,7 +3,6 @@ package saveAsImage;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.Vector;
 
@@ -16,11 +15,7 @@ public class ImgManager {
 	
 	public static BufferedImage getImage(Vector<GraphicComponent> gcVector) {
 		//Undo Zoom & Move
-		AffineTransform nowApplied = DrawingPanelMoveAndZoom.getNowApplied();
-		AffineTransform back = new AffineTransform();
-		back.scale(1/nowApplied.getScaleX(), 1/nowApplied.getScaleY());
-		back.translate(-nowApplied.getTranslateX(), -nowApplied.getTranslateY());
-		AffineMath.applyAffineToAllGC(back);
+		AffineMath.applyAffineToAllGC(DrawingPanelMoveAndZoom.getBackToNormal());
 		
 		//Make Image
 		GraphicComponent canvas = CanvasGC.getCanvas();
@@ -35,7 +30,7 @@ public class ImgManager {
 		
 		//Re do Zoom & Move
 		canvas.setBorderPaint(true);
-		AffineMath.applyAffineToAllGC(nowApplied);
+		AffineMath.applyAffineToAllGC(DrawingPanelMoveAndZoom.getNowApplied());
 		
 		return image;
 	}

@@ -1,4 +1,4 @@
-package GCPanel;
+package settingPanel;
 
 import java.awt.Color;
 import java.awt.Font;

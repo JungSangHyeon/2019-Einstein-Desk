@@ -14,14 +14,15 @@ import zStuff_Shape.eShape;
 public class CanvasGC {
 
 	static GraphicComponent canvas;
+//	int width = 1920, height = 1080;
 	int width = 1455, height = 820;
 	int screenWidth = 1920, screenHeight = 1080;
 	
 	public CanvasGC() {
 		canvas = new GraphicComponent();
 		canvas.setFillColor(Color.white);
-		canvas.setBorderColor(new Color(47,82,143));
-		canvas.setborderThick(10);
+		canvas.setBorderColor(new Color(198,198,198));
+		canvas.setborderThick(1);
 		
 		canvas.addFunction(new FMove());
 		canvas.addFunction(new FResize());
@@ -45,4 +46,11 @@ public class CanvasGC {
 		canvas.setSelected(true);
 		canvas.processEvent(e);
 	}
+
+	public static double getCenterX() {return canvas.getShape().getBounds().getCenterX();}
+	public static double getCenterY() {return canvas.getShape().getBounds().getCenterY();}
+	public static double getWidth() {return canvas.getShape().getBounds().getWidth();}
+	public static double getHeight() {return canvas.getShape().getBounds().getHeight();}
+	public static double getX() {return canvas.getShape().getBounds().getX();}
+	public static double getY() {return canvas.getShape().getBounds().getY();}
 }

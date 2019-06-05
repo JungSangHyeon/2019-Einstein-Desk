@@ -6,6 +6,7 @@ import java.awt.geom.Point2D;
 import java.util.Vector;
 
 import canvas.CanvasGC;
+import slide.SlideManager;
 import zStuff_GraphicComponent.GCStorage_Normal;
 import zStuff_GraphicComponent.GraphicComponent;
 
@@ -58,7 +59,35 @@ public class AffineMath {
 	}
 	
 	public static void applyAffineToAllGC(AffineTransform at) {
-		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {
+//		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {
+//			AffineMath.applyAffineTransformToGC(at, gc);
+//			gc.setborderThick(gc.getBorderThick()*(float)(at.getScaleX()));
+//			for(GraphicComponent aggreGC : gc.getAllAggregateGCs()) {
+//				AffineMath.applyAffineTransformToGC(at, aggreGC);
+//				aggreGC.setborderThick(aggreGC.getBorderThick()*(float)(at.getScaleX()));
+//			}
+//		}
+		AffineMath.applyAffineTransformToGC(at, CanvasGC.getCanvas());
+		CanvasGC.getCanvas().setborderThick(CanvasGC.getCanvas().getBorderThick()*(float)(at.getScaleX()));
+		
+		//add all slide
+		for(Vector<GraphicComponent> slide : SlideManager.getSlideVector()) {
+			for(GraphicComponent gc : slide) {
+				AffineMath.applyAffineTransformToGC(at, gc);
+				gc.setborderThick(gc.getBorderThick()*(float)(at.getScaleX()));
+				for(GraphicComponent aggreGC : gc.getAllAggregateGCs()) {
+					AffineMath.applyAffineTransformToGC(at, aggreGC);
+					aggreGC.setborderThick(aggreGC.getBorderThick()*(float)(at.getScaleX()));
+				}
+			}
+//		if(!SlideManager.isNowSlide(slide)) {
+//			
+//		}	
+		}
+	}
+	
+	public static void applyAffineToThisGCVector(Vector<GraphicComponent>gcVector, AffineTransform at) {
+		for(GraphicComponent gc : gcVector) {
 			AffineMath.applyAffineTransformToGC(at, gc);
 			gc.setborderThick(gc.getBorderThick()*(float)(at.getScaleX()));
 			for(GraphicComponent aggreGC : gc.getAllAggregateGCs()) {
@@ -70,3 +99,4 @@ public class AffineMath {
 		CanvasGC.getCanvas().setborderThick(CanvasGC.getCanvas().getBorderThick()*(float)(at.getScaleX()));
 	}
 }
+

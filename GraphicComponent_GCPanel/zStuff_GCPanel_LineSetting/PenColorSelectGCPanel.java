@@ -17,9 +17,7 @@ public class PenColorSelectGCPanel extends GCPanel_LayoutPixel {
 		this.setPixelGap(0, 0);
 		this.setSize(6, 5);
 		this.setItemDraggable(false);
-		for(Color c : ColorConstant.penColors) {
-			this.add(makeColorSelectCircle(c));
-		}
+		for(Color c : ColorConstant.penColors) {this.add(makeColorSelectCircle(c));}
 	}
 
 	public GraphicComponent makeColorSelectCircle(Color c) {

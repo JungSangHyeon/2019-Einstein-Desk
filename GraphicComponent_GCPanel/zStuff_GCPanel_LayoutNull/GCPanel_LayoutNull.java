@@ -9,7 +9,7 @@ import java.io.Serializable;
 import zStuff_GraphicComponent.GraphicComponent;
 import zStuff_Shape.eShape;
 
-public abstract class GCPanel_LayoutNull extends GraphicComponent implements Serializable{//호호 드럽다. 
+public abstract class GCPanel_LayoutNull extends GraphicComponent implements Serializable{
 	private static final long serialVersionUID = -9220238498788652662L;
 	
 	//Bound
