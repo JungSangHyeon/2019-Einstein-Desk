@@ -64,6 +64,7 @@ public abstract class GCPanel_LayoutNull extends GraphicComponent implements Ser
 	
 	@Override
 	public void processEvent(MouseEvent e) {
+//		super.processEvent(e);
 		switch(e.getID()) {
 		case MouseEvent.MOUSE_PRESSED : this.mousePressed(e); break;
 		case MouseEvent.MOUSE_RELEASED : this.mouseReleased(e); break;

@@ -13,13 +13,12 @@ public abstract class AFImagePaint extends AFunction implements Serializable{
 	private static final long serialVersionUID = -2266921661341345665L;
 	
 	protected boolean mouseOn = false;
-	protected int imageIndex; 
+	protected long imageIndex; 
 	protected Color backGroundColor = Color.WHITE;
 	public void setBackGroundColor(Color c) {this.backGroundColor=c;}
 	
 	public void setImage(String fileAddress) {
-		try {ImgStorage.addImage(ImageIO.read(new File(fileAddress)));}
+		try {imageIndex = ImgStorage.addImage(ImageIO.read(new File(fileAddress)));}
 		catch (IOException e) {/*DO NOTHING*/}
-		imageIndex = ImgStorage.getIndex();
 	}
 }

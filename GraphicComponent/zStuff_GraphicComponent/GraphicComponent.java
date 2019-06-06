@@ -42,6 +42,7 @@ public class GraphicComponent  implements Serializable{
 	public void setborderThick(float i) {borderThick =i;}
 	public void setFillColor(Color c) {this.fillColor = c;}
 	public void setBorderColor(Color c) {this.borderColor = c;}
+	public Color getBorderColor() {return this.borderColor;}
 	public void setFillPaint(boolean boo) {this.paintFill = boo;}
 	public void setBorderPaint(boolean boo) {this.paintBorder = boo;}
 	

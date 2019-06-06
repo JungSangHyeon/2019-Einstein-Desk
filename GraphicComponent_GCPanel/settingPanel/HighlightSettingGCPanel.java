@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
+import fPaint.FShadow;
 import zStuff_GCPanel.PeekabooPanel;
 import zStuff_GCPanel_LineSetting.HighlightColorSelectGCPanel;
 import zStuff_GCPanel_LineSetting.HighlightSizeBarGCPanel;
@@ -19,12 +20,13 @@ public class HighlightSettingGCPanel extends PeekabooPanel{
 		
 		HighlightColorSelectGCPanel colorSelectPanel = new HighlightColorSelectGCPanel();
 		colorSelectPanel.setGCLocation(this.getX() + 5, this.getY() + 40);
-		colorSelectPanel.saveClip();
 		this.add(colorSelectPanel);
 		
 		HighlightSizeBarGCPanel sizeBarPanel = new HighlightSizeBarGCPanel();
 		sizeBarPanel.setGCLocation(this.getX() + 5, this.getY() + 132);
 		this.add(sizeBarPanel);
+		
+		this.addFunction(new FShadow());
 	}
 	
 	@Override

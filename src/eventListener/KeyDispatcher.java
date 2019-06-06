@@ -11,6 +11,7 @@ import group.GroupTool;
 import onOff.Ctrl;
 import onOff.ThickFollowScale;
 import redoUndo.RedoUndo;
+import toHome.ToHome;
 import zOrder.Z_Order;
 import zOrder.Z_Order.SendTo;
 import zStuff_Text.FTextWrite_Stuff;
@@ -50,7 +51,8 @@ public class KeyDispatcher implements KeyEventDispatcher {// 키이벤트가 포커스에
 			else if (keyIs(KeyEvent.VK_Y)) {RedoUndo.redo();}
 			else if (keyIs(KeyEvent.VK_T)) {ThickFollowScale.onOff();}
 			else if (keyIs(KeyEvent.VK_G)) {GroupTool.grouping();}
-			else if (keyIs(KeyEvent.VK_H)) {GroupTool.unGrouping();}
+			else if (keyIs(KeyEvent.VK_U)) {GroupTool.unGrouping();}
+			else if (keyIs(KeyEvent.VK_H)) {ToHome.letsGoBack();}
 			else if (keyIs(KeyEvent.VK_UP)) {}
 			else if (keyIs(KeyEvent.VK_DOWN)) {}
 		}

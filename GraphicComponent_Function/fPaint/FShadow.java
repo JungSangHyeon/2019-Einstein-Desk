@@ -11,20 +11,30 @@ public class FShadow extends AFunction {
 	private static final long serialVersionUID = 5046938002818853280L;
 
 	static int gap = 1;
+	static int transparent = 40;
 	static Color[] shadowColors = {
-			new Color(210, 208, 206),
-			new Color(211, 211, 211),
-			new Color(215, 215, 215),
-			new Color(219, 219, 219),
-			new Color(223, 223, 223),
-			new Color(226, 226, 226),
+//			new Color(210, 208, 206, transparent),
+			
+//			new Color(211, 211, 211, transparent),
+			new Color(215, 215, 215, transparent),
+			new Color(219, 219, 219, transparent),
+			new Color(223, 223, 223, transparent),
+			new Color(226, 226, 226, transparent),
 	};
+//	static Color[] shadowColors = {
+//			new Color(210, 208, 206),
+//			new Color(211, 211, 211),
+//			new Color(215, 215, 215),
+//			new Color(219, 219, 219),
+//			new Color(223, 223, 223),
+//			new Color(226, 226, 226),
+//	};
 	public FShadow() {this.setPaintOrder(PaintZOrder.BOTTOM);}
 	
 	@Override
 	public void realPaint(Graphics2D g2d) {
 		Rectangle2D bound = master.getShape().getBounds2D();
-		bound = new Rectangle2D.Double(bound.getX(), bound.getY()+1, bound.getWidth(), bound.getHeight());
+		bound = new Rectangle2D.Double(bound.getX(), bound.getY()+1, bound.getWidth()+1, bound.getHeight());
 		Vector<Rectangle2D> bounds = new Vector<Rectangle2D>();
 		for(int i=0; i<shadowColors.length; i++) {
 			Rectangle2D temp = new Rectangle2D.Double(

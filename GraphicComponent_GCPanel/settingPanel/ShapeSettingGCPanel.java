@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
+import fPaint.FShadow;
 import zStuff_GCPanel.PeekabooPanel;
 import zStuff_GCPanel_ShapeSetting.CMCShapeSelectGCPanel;
 import zStuff_GCPanel_ShapeSetting.PDRShapeSelectGCPanel;
@@ -26,6 +27,8 @@ public class ShapeSettingGCPanel extends PeekabooPanel{
 		sizeBar.setGCLocation(this.getX() + 5, this.getY() + 142 + 52);
 		sizeBar.saveClip();
 		this.add(sizeBar);
+		
+		this.addFunction(new FShadow());
 	}
 	
 	@Override

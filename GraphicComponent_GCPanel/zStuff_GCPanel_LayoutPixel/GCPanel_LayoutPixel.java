@@ -1,5 +1,6 @@
 package zStuff_GCPanel_LayoutPixel;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -61,10 +62,10 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 	public void setItemDraggable(boolean boo) {this.itemDraggable = boo;}
 	
 	//Pixel
-	private Pixel getPixel(int x, int y) {return pixelVector.get(x+y*wPixelNum);}
+	protected Pixel getPixel(int x, int y) {return pixelVector.get(x+y*wPixelNum);}
 	
 	//Item
-	private void refreshRect(Item item) {item.setShape(getRealRectangle(item.getOwnPixel().getLocation()));}
+	protected void refreshRect(Item item) {item.setShape(getRealRectangle(item.getOwnPixel().getLocation()));}
 	private Rectangle getRealRectangle(Point location) {
 		return new Rectangle(x+wGap+(pixelW+wGap)*location.x, y+hGap+(pixelH+hGap)*location.y, pixelW, pixelH);
 	}
@@ -155,6 +156,20 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 		itemVector.add(item);
 	}
 	
+	public void add(int i, GraphicComponent gc) {
+		Item item = new Item(gc);
+		itemVector.add(item);
+		Vector<Item> temp = new Vector<Item>();
+		for(Pixel p : pixelVector) {
+			temp.add(p.getMaster());
+			p.setMaster(null);
+		}
+		temp.add(i, item);
+		for(Item it : temp) {
+			findSeatFor(it);
+		}
+	}
+	
 	public Vector<Item> getItems() {
 		return itemVector;
 	}
@@ -219,7 +234,9 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 		
 		if(getCurrentItem()!=null&&itemDraggable) {//드래그 중인게 갈 자리 표시
 			g2d.setColor(seatNoticeColor);
+			g2d.setStroke(new BasicStroke(getCurrentItem().getInContainerGC().getBorderThick()+1));
 			g2d.fill(getCurrentItem().getShape());
+			g2d.draw(getCurrentItem().getShape());
 		}
 		
 		g2d.setClip(null);
@@ -235,7 +252,6 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 	}
 	
 	public void mouseReleased(MouseEvent e) {//TODO
-//		basicAction(e);
 		basicAction(e);
 		actionReset(); 
 		//if mouse not in this, drop.
@@ -249,7 +265,8 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 		}
 	}
 	public void mouseMoved(MouseEvent e) {basicAction(e);}
-	public void mouseClicked(MouseEvent e) {if(getCurrentItem()!=null) {getCurrentItem().processEvent(e);}}
+//	public void mouseClicked(MouseEvent e) {if(getCurrentItem()!=null) {getCurrentItem().processEvent(e);}}
+	public void mouseClicked(MouseEvent e) {basicAction(e);}
 	
 	public void mouseWheelMoved(MouseWheelEvent e) {//TODO
 		if (e.getWheelRotation() > 0) {if(nowDeep>deepLimit) {wheelAction(-1);}}
@@ -335,7 +352,8 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
 	
-	public void changeSeat() {
+	public boolean changeSeat() {
+		boolean changed = false;
 		Rectangle rect = copyCurrentItem.getShape().getBounds();
 		Point draggingCenter = new Point(rect.x+rect.width/2, rect.y+rect.height/2);
 		
@@ -371,10 +389,10 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 				refreshRect(seatPixelMaster);
 				seatPixelMaster.getOwnPixel().setOccupied(true);
 				seatPixelMaster.getOwnPixel().setMaster(seatPixelMaster);
-				itemVector.remove(seatPixelMaster);
-				itemVector.add(seatPixelMaster);
+				changed = true;
 			}
 		}
+		return changed;
 	}
 	private boolean pushCondition(Pixel seatPixel) {
 		if(push) {return seatPixel.isOccupied();}

@@ -1,7 +1,6 @@
 package zStuff_GCPanel_LayoutPixel;
 
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.io.Serializable;

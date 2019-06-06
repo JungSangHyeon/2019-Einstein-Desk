@@ -1,12 +1,10 @@
 package main;
 
-import java.awt.Color;
+import java.util.Vector;
 
+import calculation.SuperVector;
 import global.InjectEnums;
-import global.InjectEnums.eInt;
-import global.InjectEnums.eString;
 import globalTimer.GlobalTimer;
-import loadingPage.LoadingPage;
 import redoUndo.RedoUndo;
 import view.PaintMainFrame;
 import zOrder.Z_Order;
@@ -15,6 +13,14 @@ import zOrder.Z_Order.SendTo;
 public class PaintMain {
 
 	public static void main(String[] args) {
+//		Vector<Integer> a =  new Vector<Integer> ();
+//		a.add(1);
+//		a.add(2);
+//		a.add(3);
+//		SuperVector.changeSeat(a, 1, 2);
+//		System.out.println(a.get(0));
+//		System.out.println(a.get(1));
+//		System.out.println(a.get(2));
 		System.out.println("ULTRA-PAINT");
 		
 		Z_Order.changeZOrder(SendTo.Top);

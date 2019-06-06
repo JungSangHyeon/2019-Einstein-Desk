@@ -15,6 +15,7 @@ public class ToolPanel extends GCPanel_LayoutNull{
 	
 	public ToolPanel() {
 		this.setBounds(1920 - 48*9 -1, 0, 48*9 +1, 48-1 );//height가 왜 1 더 긴거여?
+//		this.setBounds(100,100, 48*9 +1, 48-1 );//height가 왜 1 더 긴거여?
 		this.setborderThick(0);
 		
 		toolSelectGCPanel = new ToolSelectGCPanel();
@@ -31,6 +32,8 @@ public class ToolPanel extends GCPanel_LayoutNull{
 		offGCPanel.setGCLocation(toolBTNGCPanel.getX() + toolBTNGCPanel.getWidth(), this.getY());
 		offGCPanel.addItems();
 		this.add(offGCPanel);
+		
+		this.addFunction(new FShadow());
 	}
 	
 	@Override

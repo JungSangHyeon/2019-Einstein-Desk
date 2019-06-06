@@ -1,4 +1,4 @@
-package GCPanel;
+package testPanel;
 
 import fPaint.FDummy;
 import graphicComponent.ToolSelectGC;

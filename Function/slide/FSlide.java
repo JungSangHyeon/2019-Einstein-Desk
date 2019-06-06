@@ -2,6 +2,7 @@ package slide;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
@@ -13,75 +14,61 @@ import calculation.AffineMath;
 import canvas.CanvasGC;
 import deepClone.DeepClone;
 import zStuff_Function.AFunction;
+import zStuff_GraphicComponent.GCStorage_Normal;
 import zStuff_GraphicComponent.GraphicComponent;
 import zStuff_Image.ImgStorage;
 
 public class FSlide extends AFunction{
 	private static final long serialVersionUID = -6960217079754403253L;
 
-	int slideNum = -1;
+	long imageID = -1;
 	
-	boolean needMakeImg = true;
-//	BufferedImage image;
-	int imageID = -1;
-	
-	public FSlide(int slideNum) {
-		this.slideNum=slideNum;
+	public void loadSlide() {
+		SlidePanel.loadSlide(slideNum);
 	}
-	int gap = 1;
+	int slideNum = -1;
+	public FSlide(int i) {
+		slideNum = i;
+	}
+	
+	public boolean isNowSlide() {
+		return GCStorage_Normal.getGCVector()==SlidePanel.getSlide(slideNum);
+	}
+	
+	int hRadio = 15;
+	boolean mouseOnMe = false;
+	Color selectColor = new Color(68, 114, 196), normalColor = new Color(198,198,198);
+	
+	
+	public void mouseMoved(MouseEvent e) {
+		if(master.getShape().contains(e.getPoint())) {mouseOnMe = true;}
+		else {mouseOnMe = false;}
+	}
+	
 	public void realPaint(Graphics2D g) {
-		//Show Normal
-		if(needMakeImg) {makeImg();}
-		Rectangle2D rect = master.getShape().getBounds2D();
+		if(GCStorage_Normal.getGCVector()==SlidePanel.getSlide(slideNum)) {
+			master.setBorderColor(selectColor);
+			if(mouseOnMe) {master.setborderThick(4);}
+			else {master.setborderThick(3);}
+		}else {
+			master.setBorderColor(normalColor);
+			if(mouseOnMe) {master.setborderThick(2);}
+			else {master.setborderThick(1);}
+		}
 		
-//		g.setColor(Color.CYAN);
-//		g.fill(rect);
-//		rect = new Rectangle2D.Double(rect.getX() + gap, rect.getY() + gap, rect.getWidth()-gap, rect.getHeight()-gap);
-//		g.setColor(Color.cyan);
-//		g.fill(rect);
-//
+//		if(isNowSlide()||imageID==-1) {makeImg();}
+		makeImg();
+		Rectangle2D rect = master.getShape().getBounds2D();
 		AffineTransform at = new AffineTransform();
 		at.translate(rect.getX(), rect.getY());
+		
 		g.drawImage(ImgStorage.getImage(imageID), at, null);
-		
 		g.draw(master.getShape());
-		//2
-//		Rectangle2D rect = master.getShape().getBounds2D();
-//		rect = new Rectangle2D.Double(rect.getX() + gap, rect.getY() + gap, rect.getWidth()-gap*2, rect.getHeight()-gap*2);
-//		g.setColor(Color.WHITE);
-//		g.fill(rect);
-//		
-//		BufferedImage image = ImgManager.getImage(SlideManager.getSlide(slideNum));
-//		float widthRadio = (float) (rect.getWidth()/image.getWidth());
-//		float heightRadio = (float) (rect.getHeight()/image.getHeight());
-//		
-//		AffineTransform at = new AffineTransform();
-//		at.translate(rect.getX(), rect.getY());
-//		at.scale(widthRadio, heightRadio);
-//		
-//		g.drawImage(image, at, null);
-		
-		
-		//1
-//		g.drawImage(image, (int)rect.getX(), (int)rect.getY(), null);
-//		g.setClip(master.getShape());
-//		for(GraphicComponent gc : SlideManager.getSlide(slideNum)) {gc.paint(g);}
-//		g.setClip(null);
-//		Rectangle rect = master.getShape().getBounds();
-//		g.drawString(slideNum+"", (int)rect.getX(), (int)rect.getY());
-//		g.fill(master.getShape());
-//		
-//		BufferedImage image = ImgManager.getImage(SlideManager.getSlide(slideNum));
-//		
-//		g.setClip(master.getShape());
-//		for(GraphicComponent gc : SlideManager.getSlide(slideNum)) {gc.paint(g);}
-//		g.setClip(null);
 	}
 	
 	@SuppressWarnings("unchecked")
 	private void makeImg() {
 		Rectangle2D rect = master.getShape().getBounds2D();
-//		rect = new Rectangle2D.Double(rect.getX() + gap, rect.getY() + gap, rect.getWidth()-gap, rect.getHeight()-gap);
 		
 		BufferedImage image = new BufferedImage((int)rect.getWidth(), (int)rect.getHeight(), BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = image.createGraphics();
@@ -92,7 +79,7 @@ public class FSlide extends AFunction{
 		AffineTransform at = new AffineTransform();
 		at.scale(widthRadio, heightRadio);
 		at.translate(-CanvasGC.getX(), -CanvasGC.getY());
-		Vector<GraphicComponent> copyGCVector = (Vector<GraphicComponent>)DeepClone.clone(SlideManager.getSlide(slideNum));
+		Vector<GraphicComponent> copyGCVector = (Vector<GraphicComponent>)DeepClone.clone(SlidePanel.getSlide(slideNum));
 		
 		for(GraphicComponent gc : copyGCVector) {
 			AffineMath.applyAffineTransformToGC(at, gc);
@@ -102,25 +89,21 @@ public class FSlide extends AFunction{
 				aggreGC.setborderThick(aggreGC.getBorderThick()*(float)(at.getScaleX()));
 			}
 		}
-		
 		for(GraphicComponent gc : copyGCVector) {
 			gc.setTextSize((int) (gc.getTextSize()*widthRadio));
 			gc.paint(g);
 		}
-		if(imageID!=-1) {
-			ImgStorage.removeImage(imageID);
-		}
-		ImgStorage.addImage(image);
-		imageID = ImgStorage.getIndex();
-//		needMakeImg = false;
-	}
-	public void mouseReleased(MouseEvent e){
-		if(slideNum==SlideManager.getNowSlideNum()-1) {
-			needMakeImg = true;
-		}
-		if(master.getShape().contains(e.getPoint())) {
-			SlideManager.loadSlide(slideNum);
-		}
+		if(imageID!=-1) {ImgStorage.changeImg(imageID, image);}
+		else {imageID = ImgStorage.addImage(image);}
 	}
 	
+	Point pressPoint;
+	public void mousePressed(MouseEvent e){
+		pressPoint = e.getPoint();
+	}
+	public void mouseReleased(MouseEvent e){
+		if(pressPoint!=null&&pressPoint.distance(e.getPoint())<5) {
+			if(master.getShape().contains(e.getPoint())) {loadSlide();}
+		}
+	}
 }

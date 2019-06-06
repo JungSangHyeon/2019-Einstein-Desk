@@ -9,6 +9,7 @@ import java.awt.geom.Point2D;
 
 import calculation.AffineMath;
 import canvas.CanvasGC;
+import toHome.ToHome;
 
 public class DrawingPanelMoveAndZoom {
 
@@ -29,12 +30,12 @@ public class DrawingPanelMoveAndZoom {
 		return nowApplied;//x=y´Ï²²
 	}
 	
-	public static void allZero() {
-		AffineMath.applyAffineToAllGC(DrawingPanelMoveAndZoom.getBackToNormal());
-		zoomLevel = 0;
-		nowApplied = new AffineTransform();
-		dragStartPoint = new Point();
-	}
+//	public static void allZero() {
+//		AffineMath.applyAffineToAllGC(DrawingPanelMoveAndZoom.getBackToNormal());
+//		zoomLevel = 0;
+//		nowApplied = new AffineTransform();
+//		dragStartPoint = new Point();
+//	}
 	
 	public static AffineTransform getBackToNormal() {
 		AffineTransform back = null;
@@ -82,6 +83,7 @@ public class DrawingPanelMoveAndZoom {
 		coordTransform.translate(p2.getX() - p1.getX(), p2.getY() - p1.getY());
 		nowApplied.translate(p2.getX() - p1.getX(), p2.getY() - p1.getY());
 		
+		ToHome.applyAffine(coordTransform);
 		AffineMath.applyAffineToAllGC(coordTransform);
 	}
 
@@ -92,6 +94,7 @@ public class DrawingPanelMoveAndZoom {
 		coordTransform.translate(dragEndPoint.getX() - dragStartPoint.getX(), dragEndPoint.getY() - dragStartPoint.getY());
 		nowApplied.translate(dragEndPoint.getX() - dragStartPoint.getX(), dragEndPoint.getY() - dragStartPoint.getY());
 		
+		ToHome.applyAffine(coordTransform);
 		AffineMath.applyAffineToAllGC(coordTransform);
 		dragStartPoint = dragEndPoint;
 	}
