@@ -14,6 +14,18 @@ import zStuff_Image.forSaveImg;
 public class SaveAndLoad {
 
 	public static void save() {
+		try {
+//			File dir = new File("saveFile");
+//			File[] files = dir.listFiles();
+//			
+//			ObjectOutputStream projectOOS = new ObjectOutputStream(new FileOutputStream("project"+files.length));
+			ObjectOutputStream projectOOS = new ObjectOutputStream(new FileOutputStream("saveFile/"+"test"));
+			projectOOS.reset();
+			projectOOS.writeObject(ProjectManager.getSave());
+			projectOOS.writeObject(ImgStorage.saveImg());
+			projectOOS.close();
+		} catch (Exception e) {e.printStackTrace();}
+		
 //		try {
 ////			File dir = new File("saveFile");
 ////			File[] files = dir.listFiles();
@@ -31,9 +43,16 @@ public class SaveAndLoad {
 	public static void load() {
 		try {
 			ObjectInputStream projectOIS = new ObjectInputStream(new FileInputStream("saveFile/"+"test"));
-			SlidePanel.setSlide((Vector<Vector<GraphicComponent>>)projectOIS.readObject());
+			ProjectManager.setFiles((Vector<GraphicComponent>)projectOIS.readObject());
 			ImgStorage.loadImgVector((Vector<forSaveImg>) projectOIS.readObject());
 			projectOIS.close();
 		} catch (Exception e) {e.printStackTrace();}
+		
+//		try {
+//			ObjectInputStream projectOIS = new ObjectInputStream(new FileInputStream("saveFile/"+"test"));
+//			SlidePanel.setSlide((Vector<Vector<GraphicComponent>>)projectOIS.readObject());
+//			ImgStorage.loadImgVector((Vector<forSaveImg>) projectOIS.readObject());
+//			projectOIS.close();
+//		} catch (Exception e) {e.printStackTrace();}
 	}
 }

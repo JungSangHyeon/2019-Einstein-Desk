@@ -11,6 +11,8 @@ public class FNewFile extends AFunction implements Serializable{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		ProjectManager.newFile();
+		if(e.getClickCount()==2) {
+			ProjectManager.newFile();
+		}
 	}
 }

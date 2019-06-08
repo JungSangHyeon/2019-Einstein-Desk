@@ -8,6 +8,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+import SAL.SaveAndLoad;
 import global.InjectEnums.eInt;
 import global.InjectEnums.eString;
 
@@ -22,7 +23,7 @@ public class PaintMainFrame extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		
-//		this.setUndecorated(true);
+		this.setUndecorated(true);
 		
 		try {this.setIconImage(ImageIO.read(new File(eString.MainFrameIconImageAddress.getVal())));} 
 		catch (IOException e) {/*DO NOTHING*/}
@@ -35,6 +36,7 @@ public class PaintMainFrame extends JFrame {
 	}
 
 	public void initialize() {
+		SaveAndLoad.load();
 		this.setVisible(true);
 		drawingPanel.initialize();
 	}

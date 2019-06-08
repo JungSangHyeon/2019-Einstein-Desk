@@ -9,6 +9,7 @@ import canvas.CanvasGC;
 import fComposite.FInCanvasGCBasicFunction;
 import fSystem.FNewFile;
 import fSystem.FOpenFile;
+import toolPanel.OffGCPanel;
 import zStuff_Data.ToolData;
 import zStuff_GCPanel.GCPanelStorage;
 import zStuff_GraphicComponent.GCStorage_Normal;
@@ -31,6 +32,9 @@ public class ProjectManager {
 	
 	public static void toHome() {
 		GCPanelStorage.getGCPanelVector().clear();
+		OffGCPanel offGCPanel = new OffGCPanel();
+		offGCPanel.addItems();
+		GCPanelStorage.add(offGCPanel);
 		ToolData.setNowTool(eTool.eHandTool.getATool());
 		GCStorage_Normal.newVector();
 		GCStorage_Normal.addNewGC(createNewFileGC());
@@ -38,6 +42,9 @@ public class ProjectManager {
 	}
 	
 	public static void init() {
+		OffGCPanel offGCPanel = new OffGCPanel();
+		offGCPanel.addItems();
+		GCPanelStorage.add(offGCPanel);
 		GCStorage_Normal.addNewGC(createNewFileGC());
 		GCStorage_Normal.addAllToGC(fileLoadGCVector);
 	}
@@ -85,6 +92,17 @@ public class ProjectManager {
 		gc.addFunction(new FOpenFile());
 		fileLoadGCVector.add(gc);
 		GCStorage_Normal.addNewGC(gc);
+	}
+
+	public static Vector<GraphicComponent> getSave() {
+		return fileLoadGCVector;
+	}
+
+	public static void setFiles(Vector<GraphicComponent> readObject) {
+		fileLoadGCVector = readObject;
+		GCStorage_Normal.newVector();
+		GCStorage_Normal.addNewGC(createNewFileGC());
+		GCStorage_Normal.addAllToGC(fileLoadGCVector);
 	}
 	
 }

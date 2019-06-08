@@ -22,14 +22,12 @@ import toolPanel.ToolPanel;
 import zStuff_Function.AFunction;
 import zStuff_GCPanel.GCPanelStorage;
 import zStuff_GraphicComponent.GraphicComponent;
-import zStuff_Image.ImgStorage;
-import zStuff_Image.forSaveImg;
 
 public class FOpenFile extends AFunction implements Serializable{
 	private static final long serialVersionUID = -2030130460706095868L;
 	
 	Vector<Vector<GraphicComponent>> slides = new Vector<Vector<GraphicComponent>>();
-	Vector<forSaveImg> imgs = new Vector<forSaveImg>();
+//	Vector<forSaveImg> imgs = new Vector<forSaveImg>();
 	
 	public FOpenFile() {
 		Vector<GraphicComponent> slide = new Vector<GraphicComponent>();
@@ -45,7 +43,7 @@ public class FOpenFile extends AFunction implements Serializable{
 		GCPanelStorage.add(new ToolPanel());
 		GCPanelStorage.add(new SlideOnPanel());
 		SlidePanel.setSlide(slides);
-		ImgStorage.loadImgVector(imgs);
+//		ImgStorage.loadImgVector(imgs);
 		ProjectManager.loadProject();
 	}
 	
@@ -61,13 +59,13 @@ public class FOpenFile extends AFunction implements Serializable{
 		g.setClip(master.getShape());
 		
 		Rectangle2D rect = master.getShape().getBounds2D();
-		AffineTransform at = new AffineTransform();
-		at.translate(rect.getX(), rect.getY());
+//		AffineTransform at = new AffineTransform();
+//		at.translate(rect.getX(), rect.getY());
 		
 		g.rotate(Math.toRadians(master.getAngle()), master.getCenter().getX(), master.getCenter().getY());//affine에 넣으면 안되네여
-		
+		makeImg(g);
 //		g.draw(master.getShape());
-		g.drawImage(makeImg(g), at, null);
+//		g.drawImage(makeImg(g), at, null);
 	}
 	
 	private BufferedImage makeImg(Graphics2D g2) {
@@ -80,9 +78,10 @@ public class FOpenFile extends AFunction implements Serializable{
 		float widthRadio = (float) (image.getWidth()/CanvasGC.getWidth());
 		float heightRadio = (float) (image.getHeight()/CanvasGC.getHeight());
 		AffineTransform at = new AffineTransform();
-		at.translate(-CanvasGC.getX(), -CanvasGC.getY());
 		at.setToTranslation(rect.getX(), rect.getY());
 		at.scale(widthRadio, heightRadio);
+		at.translate(-CanvasGC.getX(), -CanvasGC.getY());
+		
 		g2.transform(at);
 		
 		try {

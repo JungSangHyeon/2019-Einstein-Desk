@@ -12,18 +12,17 @@ public class ImgStorage { //이미지는 클론 만들때 안되소 따로 빼놓음. 그편이 메모
 	static long nowId = 0;
 	static Vector<IDImage> images = new  Vector<IDImage>();
 	
-	static Vector<forSaveImg> imagesForSave;
-	public static void saveImg(){
-		imagesForSave.clear();
+	public static Vector<forSaveImg> saveImg(){
+		Vector<forSaveImg> imagesForSave = new Vector<forSaveImg> ();
 		for(IDImage img : images) {
 			if(!img.getFileName().equals("")) {
 				imagesForSave.add(new forSaveImg(img.getId(), img.getFileName()));
 			}
 		}
+		return imagesForSave;
 	}
 	
 	public static void loadImgVector(Vector<forSaveImg> imgVector){
-		imagesForSave = imgVector;
 		Vector<IDImage> img = new Vector<IDImage>();
 		for(forSaveImg info : imgVector) {
 			try {
