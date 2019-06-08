@@ -1,5 +1,6 @@
 package zStuff_Image;
 
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -27,7 +28,13 @@ public class ImgStorage { //이미지는 클론 만들때 안되소 따로 빼놓음. 그편이 메모
 		for(forSaveImg info : imgVector) {
 			try {
 				img.add(new IDImage(info.getId(), ImageIO.read(new File(info.getFileName())), info.getFileName()));
-			} catch (IOException e) {e.printStackTrace();}
+			} catch (IOException e) {
+				try {
+					img.add(new IDImage(info.getId(), ImageIO.read(new File("Image/error.png")), info.getFileName()));
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
 		}
 		images.addAll(img);
 		nowId = images.lastElement().getId();

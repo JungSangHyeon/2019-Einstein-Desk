@@ -20,5 +20,6 @@ public class ToolBTNGCPanel extends GCPanel_LayoutPixel_Y {
 		this.add(GCCreator.create(ToolSelectGC.newSlide));
 		this.add(GCCreator.create(ToolSelectGC.imageLoad));
 		this.add(GCCreator.create(ToolSelectGC.saveAsImage));
+		this.add(GCCreator.create(ToolSelectGC.newProject));
 	}
 }

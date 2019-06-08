@@ -12,6 +12,7 @@ import fPaint.FPaintMasterWithPenColor;
 import fPaint.FShowMouseOn;
 import fPaint.FShowSelected;
 import fSystem.FKillSystem;
+import fSystem.FNewProject;
 import imgLoad.ImgLoad;
 import saveAsImage.SaveAsImage;
 import settingPanel.HighlightSettingGCPanel;
@@ -107,6 +108,11 @@ public class ToolSelectGC {
 	        dummy = {
 	        		new FShowMouseOn(),
 	        		new FMove_Item(),
+	        },
+	        newProject = {
+			        new FImageNormalPaint("ToolBarImgs/pen.png"),
+			        new FNewProject(),
+			        new FShowMouseOn(),
 	        }
 	;
 }

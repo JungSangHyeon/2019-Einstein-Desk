@@ -1,5 +1,6 @@
 package fSystem;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -12,13 +13,12 @@ import java.util.Vector;
 
 import PDR_NP_Shape.HighlightShape;
 import PDR_NP_Shape.pen;
-import SAL.ProjectManager;
 import calculation.AffineMath;
 import canvas.CanvasGC;
 import canvasMoveAndZoom.GlobalAT;
 import slide.SlidePanel;
 import slidePanel.SlideOnPanel;
-import toolPanel.ToolPanel;
+import toHome.ToHome;
 import zStuff_Function.AFunction;
 import zStuff_GCPanel.GCPanelStorage;
 import zStuff_GraphicComponent.GraphicComponent;
@@ -27,7 +27,6 @@ public class FOpenFile extends AFunction implements Serializable{
 	private static final long serialVersionUID = -2030130460706095868L;
 	
 	Vector<Vector<GraphicComponent>> slides = new Vector<Vector<GraphicComponent>>();
-//	Vector<forSaveImg> imgs = new Vector<forSaveImg>();
 	
 	public FOpenFile() {
 		Vector<GraphicComponent> slide = new Vector<GraphicComponent>();
@@ -40,21 +39,19 @@ public class FOpenFile extends AFunction implements Serializable{
 	}
 
 	private void load() {
-		GCPanelStorage.add(new ToolPanel());
-		GCPanelStorage.add(new SlideOnPanel());
 		SlidePanel.setSlide(slides);
-//		ImgStorage.loadImgVector(imgs);
-		ProjectManager.loadProject();
+		ToHome.letsGoBack();
+		GCPanelStorage.add(new SlideOnPanel());
 	}
 	
 	public void realPaint(Graphics2D g) {
-		if (mouseOnMe) {
-			master.setBorderColor(selectColor);
-			master.setborderThick(4);
-		} else {
-			master.setBorderColor(normalColor);
-			master.setborderThick(1);
-		}
+//		if (mouseOnMe) {
+//			master.setBorderColor(selectColor);
+//			master.setborderThick(10);
+//		} else {
+//			master.setBorderColor(normalColor);
+//			master.setborderThick(1);
+//		}
 		
 		g.setClip(master.getShape());
 		
@@ -63,6 +60,14 @@ public class FOpenFile extends AFunction implements Serializable{
 //		at.translate(rect.getX(), rect.getY());
 		
 		g.rotate(Math.toRadians(master.getAngle()), master.getCenter().getX(), master.getCenter().getY());//affine에 넣으면 안되네여
+		
+		if (mouseOnMe) {
+			Rectangle2D brect = AffineMath.getRotateShape(master.getShape(), -master.getAngle(), master.getCenter()).getBounds2D();
+			g.setColor(selectColor);
+			g.setStroke(new BasicStroke(10));
+			g.draw(brect);
+		}
+		
 		makeImg(g);
 //		g.draw(master.getShape());
 //		g.drawImage(makeImg(g), at, null);

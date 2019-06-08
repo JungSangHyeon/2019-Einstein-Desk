@@ -2,8 +2,10 @@ package slide;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.util.Vector;
 
+import calculation.SuperVector;
 import fGCDataModify.FMove_Item;
 import redoUndo.RedoUndo;
 import zStuff_Function.AFunction;
@@ -35,8 +37,15 @@ public class SlidePanel extends GCPanel_LayoutPixel_Y {
 	
 	@Override
 	public void paint(Graphics2D g2d) {
+		
+		if(needReset) {
+			itemVector.clear();
+			needReset = false;
+		}
 		if(needUpdate.size()>0) {
-			for(GraphicComponent gc : needUpdate) {this.add(gc);}
+			for(GraphicComponent gc : needUpdate) {
+				this.add(gc);
+				}
 			needUpdate.clear();
 		}
 		Item currentItem = this.getCurrentItem();
@@ -65,16 +74,30 @@ public class SlidePanel extends GCPanel_LayoutPixel_Y {
 	
 	static Vector<GraphicComponent> needUpdate = new Vector<GraphicComponent>();
 	static Vector<Vector<GraphicComponent>> slides = new Vector<Vector<GraphicComponent>>();
-//	static Vector<Vector<GraphicComponent>> slidesForSave = new Vector<Vector<GraphicComponent>>();
+	static Vector<Vector<GraphicComponent>> slidesForSave = new Vector<Vector<GraphicComponent>>();
 	
 //	public static Vector<Vector<GraphicComponent>> getSlideForSave(){return slidesForSave;}
-	public static Vector<Vector<GraphicComponent>> getSlideForSave(){return slides;}
+	public static Vector<Vector<GraphicComponent>> getSlideForSave(){return slidesForSave;}
 	
 	public static Vector<Vector<GraphicComponent>> getSlides(){return slides;}
+	
+	@Override
+	public Point changeSeat() {
+		Point showChange = super.changeSeat();
+		if(showChange!=null) {
+			SuperVector.change(slidesForSave, showChange.x, showChange.y);
+		}
+		System.out.println("@@@@@@@@@@@");
+		for(Vector<GraphicComponent> slide : slidesForSave) {
+			System.out.println(slide.size());
+		}
+		return null;
+	}
+	
 	public static void newSlide() {
 		Vector<GraphicComponent> slide = new Vector<GraphicComponent>();
 		slides.add(slide);
-//		slidesForSave.add(slide);
+		slidesForSave.add(slide);
 		GCStorage_Normal.setGCStorage(slide);
 		needUpdate.add(getSlideGC(slides.size()-1));
 		resetGCStorage_Normal();
@@ -92,23 +115,12 @@ public class SlidePanel extends GCPanel_LayoutPixel_Y {
 		GCStorage_Selected.clearSelected();
 		RedoUndo.setFirst();
 	}
-	
-//	@Override
-//	public Point changeSeat() {
-//		Point showChange = super.changeSeat();
-//		if(showChange!=null) {
-//			SuperVector.change(slidesForSave, showChange.x, showChange.y);
-//		}
-////		System.out.println("@@@@@@@@@@@");
-////		for(Vector<GraphicComponent> slide : slideForSave) {
-////			System.out.println(slide.size());
-////		}
-//		return null;
-//	}
-
+	static boolean needReset = false;
 	public static void setSlide(Vector<Vector<GraphicComponent>> data) {
-		slides = data;
-//		slidesForSave = data;
+		needReset = true;
+		slides.clear();
+		slides.addAll(data);
+		slidesForSave = data;
 		for(int i=0; i<slides.size(); i++) {
 			needUpdate.add(getSlideGC(i));
 		}

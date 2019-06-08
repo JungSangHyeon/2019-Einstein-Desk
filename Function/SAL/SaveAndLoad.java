@@ -6,7 +6,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Vector;
 
-import slide.SlidePanel;
 import zStuff_GraphicComponent.GraphicComponent;
 import zStuff_Image.ImgStorage;
 import zStuff_Image.forSaveImg;

@@ -9,6 +9,7 @@ import java.awt.event.MouseWheelListener;
 import java.util.Vector;
 
 import canvasMoveAndZoom.GlobalAT;
+import presentation.Presentation;
 import selectGCAndGiveEvent.GCPanelGiveActionTool;
 import selectGCAndGiveEvent.HandTool;
 import view.DrawingPanel;
@@ -46,6 +47,10 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		processEvent(e);
 		if(!gCPanelGiveActionTool.isTakeEvent()) {GlobalAT.zoomCamera(e);}//Canvas Zoom If GCPanel Not Take Event
+		if(Presentation.isOn()) {
+			if (e.getWheelRotation()>0) {Presentation.nextSlide();}
+			else if(e.getWheelRotation()<0){Presentation.beforeSlide();}
+		}
 	}
 	
 	public void processEvent(MouseEvent e) {
@@ -60,7 +65,7 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 	}
 	
 	public void mouseClicked(MouseEvent e) {processEvent(e);}
-	public void mouseReleased(MouseEvent e) {processEvent(e);}
+	public void mouseReleased(MouseEvent e) {processEvent(e); pressedBTN=-1;}
 	
 //	private boolean leftBTNPressed() {return pressedBTN == MouseEvent.BUTTON1;}
 	private boolean rightBTNPressed() {return pressedBTN == MouseEvent.BUTTON3;}

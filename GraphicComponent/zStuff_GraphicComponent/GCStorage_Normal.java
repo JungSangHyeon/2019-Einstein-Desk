@@ -14,7 +14,7 @@ public class GCStorage_Normal {
 	public static void removeGC(GraphicComponent gc) {GCVector.remove(gc);}
 	public static void removeLastGC() {GCVector.remove(GCVector.size()-1);}
 	public static void clearGC() {GCVector.clear();}
-	public static void newVector() {GCVector = new Vector<GraphicComponent>();}
+//	public static void newVector() {GCVector = new Vector<GraphicComponent>();}
 	
 	//Get
 	public static Vector<GraphicComponent> getGCVector() {return GCVector;}

@@ -13,6 +13,7 @@ import group.GroupTool;
 import onOff.Ctrl;
 import onOff.Debug;
 import onOff.ThickFollowScale;
+import presentation.Presentation;
 import redoUndo.RedoUndo;
 import zOrder.Z_Order;
 import zOrder.Z_Order.SendTo;
@@ -46,6 +47,9 @@ public class KeyDispatcher implements KeyEventDispatcher {// 키이벤트가 포커스에
 		else if (keyIs(KeyEvent.VK_2)) {Z_Order.changeZOrder(SendTo.Hell);}
 		else if (keyIs(KeyEvent.VK_3)) {Z_Order.changeZOrder(SendTo.oneUP);}
 		else if (keyIs(KeyEvent.VK_4)) {Z_Order.changeZOrder(SendTo.oneDown);}
+		else if (keyIs(KeyEvent.VK_F5)) {Presentation.startPresentation();}
+		else if (keyIs(KeyEvent.VK_UP)) {Presentation.beforeSlide();}
+		else if (keyIs(KeyEvent.VK_DOWN)) {Presentation.nextSlide();}
 		if(Ctrl.isOn()) {
 			if (keyIs(KeyEvent.VK_C)) {CopyAndPaste.copy();}
 			else if (keyIs(KeyEvent.VK_V)) {CopyAndPaste.paste();}
@@ -58,8 +62,6 @@ public class KeyDispatcher implements KeyEventDispatcher {// 키이벤트가 포커스에
 //			else if (keyIs(KeyEvent.VK_H)) {ToHome.letsGoBack();}
 			else if (keyIs(KeyEvent.VK_S)) {SaveAndLoad.save();}
 			else if (keyIs(KeyEvent.VK_L)) {SaveAndLoad.load();}
-			else if (keyIs(KeyEvent.VK_UP)) {}
-			else if (keyIs(KeyEvent.VK_DOWN)) {}
 		}
 	}
 

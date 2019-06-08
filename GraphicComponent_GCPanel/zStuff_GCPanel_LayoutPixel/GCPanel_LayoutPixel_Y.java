@@ -167,6 +167,13 @@ public abstract class GCPanel_LayoutPixel_Y extends GraphicComponent implements 
 		itemVector.add(item);
 	}
 	
+	public void add(int i, GraphicComponent gc) {//TODO
+		Item item = new Item(gc);
+		findSeatFor(item);
+		itemVector.add(i,item);
+		resetFollowVector();
+	}
+	
 	public Vector<Item> getItems() {
 		return itemVector;
 	}

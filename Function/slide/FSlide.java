@@ -26,6 +26,7 @@ public class FSlide extends AFunction{
 		SlidePanel.loadSlide(slideNum);
 	}
 	int slideNum = -1;
+	public int getSlideNum() {return slideNum;}
 	public FSlide(int i) {slideNum = i;}
 	
 	public boolean isNowSlide() {

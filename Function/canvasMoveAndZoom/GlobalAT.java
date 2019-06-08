@@ -20,24 +20,39 @@ public class GlobalAT {
 	public static float getZoom() {return (float) nowAT.getScaleX();}
 	
 	public static void zoomCamera(MouseWheelEvent e) {
-		Point2D p1 = transformPoint(e.getPoint());
-		if (e.getWheelRotation() > 0&&zoomLevel<maxZoomLevel) {zoomLevel++; nowAT.scale(1 / zoomFactor, 1 / zoomFactor);}
-		else if(e.getWheelRotation() < 0&&zoomLevel>minZoomLevel){zoomLevel--;nowAT.scale(zoomFactor, zoomFactor);}
-		Point2D p2 = transformPoint(e.getPoint());
-		nowAT.translate(p2.getX() - p1.getX(), p2.getY() - p1.getY());
+		if(switchOn) {
+			Point2D p1 = transformPoint(e.getPoint());
+			if (e.getWheelRotation() > 0&&zoomLevel<maxZoomLevel) {zoomLevel++; nowAT.scale(1 / zoomFactor, 1 / zoomFactor);}
+			else if(e.getWheelRotation() < 0&&zoomLevel>minZoomLevel){zoomLevel--;nowAT.scale(zoomFactor, zoomFactor);}
+			Point2D p2 = transformPoint(e.getPoint());
+			nowAT.translate(p2.getX() - p1.getX(), p2.getY() - p1.getY());
+		}
 	}
 
 	public static void setDragStartPoint(Point p) {dragStartPoint = p;}
 	public static void moveCamera(MouseEvent e) {
-		Point dragEndPoint = e.getPoint();
-		Point2D.Float dragStart = transformPoint(dragStartPoint), dragEnd = transformPoint(dragEndPoint);
-		nowAT.translate(dragEnd.getX() - dragStart.getX(), dragEnd.getY() - dragStart.getY());
-		dragStartPoint = dragEndPoint;
+		if(switchOn) {
+			Point dragEndPoint = e.getPoint();
+			Point2D.Float dragStart = transformPoint(dragStartPoint), dragEnd = transformPoint(dragEndPoint);
+			nowAT.translate(dragEnd.getX() - dragStart.getX(), dragEnd.getY() - dragStart.getY());
+			dragStartPoint = dragEndPoint;
+		}
 	}
 
 	public static Point2D.Float transformPoint(Point p1)  {
 		Point2D.Float p2 = new Point2D.Float();
 		try {nowAT.createInverse().transform(p1, p2);}catch (Exception e) {e.printStackTrace();}
 		return p2;
+	}
+	public static void setAT(AffineTransform at) {
+		nowAT = at;
+	}
+	
+	static boolean switchOn = true;
+	public static void off() {
+		switchOn = false;
+	}
+	public static void on() {
+		switchOn = true;
 	}
 }

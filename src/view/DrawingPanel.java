@@ -44,10 +44,10 @@ public class DrawingPanel extends JPanel implements Runnable {
 		FTextWrite_Stuff.setting();
 		this.add(FTextWrite_Stuff.getFocusArea());
 		this.add(FTextWrite_Stuff.getTextEditArea());
-		
+
 		new CanvasGC(); 
 		ProjectManager.init();
-//		SlidePanel.newSlide();
+		GCPanelStorage.add(new ToolPanel());
 	}
 	
 	@Override
