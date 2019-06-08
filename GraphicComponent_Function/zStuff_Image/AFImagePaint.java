@@ -17,6 +17,13 @@ public abstract class AFImagePaint extends AFunction implements Serializable{
 	protected Color backGroundColor = Color.WHITE;
 	public void setBackGroundColor(Color c) {this.backGroundColor=c;}
 	
+	public void setImage(String fileAddress, boolean save) {
+		try {
+			if(save) {imageIndex = ImgStorage.addImage(ImageIO.read(new File(fileAddress)), fileAddress);}
+			else{imageIndex = ImgStorage.addImage(ImageIO.read(new File(fileAddress)));}}
+		catch (IOException e) {/*DO NOTHING*/}
+	}
+	
 	public void setImage(String fileAddress) {
 		try {imageIndex = ImgStorage.addImage(ImageIO.read(new File(fileAddress)));}
 		catch (IOException e) {/*DO NOTHING*/}

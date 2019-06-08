@@ -8,11 +8,10 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.util.Vector;
 
-import calculation.AffineMath;
+import PDR_NP_Shape.HighlightShape;
+import PDR_NP_Shape.pen;
 import canvas.CanvasGC;
-import deepClone.DeepClone;
 import zStuff_Function.AFunction;
 import zStuff_GraphicComponent.GCStorage_Normal;
 import zStuff_GraphicComponent.GraphicComponent;
@@ -27,9 +26,7 @@ public class FSlide extends AFunction{
 		SlidePanel.loadSlide(slideNum);
 	}
 	int slideNum = -1;
-	public FSlide(int i) {
-		slideNum = i;
-	}
+	public FSlide(int i) {slideNum = i;}
 	
 	public boolean isNowSlide() {
 		return GCStorage_Normal.getGCVector()==SlidePanel.getSlide(slideNum);
@@ -56,8 +53,7 @@ public class FSlide extends AFunction{
 			else {master.setborderThick(1);}
 		}
 		
-//		if(isNowSlide()||imageID==-1) {makeImg();}
-		makeImg();
+		if(isNowSlide()||imageID==-1) {makeImg();}
 		Rectangle2D rect = master.getShape().getBounds2D();
 		AffineTransform at = new AffineTransform();
 		at.translate(rect.getX(), rect.getY());
@@ -66,7 +62,6 @@ public class FSlide extends AFunction{
 		g.draw(master.getShape());
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void makeImg() {
 		Rectangle2D rect = master.getShape().getBounds2D();
 		
@@ -79,20 +74,13 @@ public class FSlide extends AFunction{
 		AffineTransform at = new AffineTransform();
 		at.scale(widthRadio, heightRadio);
 		at.translate(-CanvasGC.getX(), -CanvasGC.getY());
-		Vector<GraphicComponent> copyGCVector = (Vector<GraphicComponent>)DeepClone.clone(SlidePanel.getSlide(slideNum));
+		g.transform(at);
 		
-		for(GraphicComponent gc : copyGCVector) {
-			AffineMath.applyAffineTransformToGC(at, gc);
-			gc.setborderThick(gc.getBorderThick()*(float)(at.getScaleX()));
-			for(GraphicComponent aggreGC : gc.getAllAggregateGCs()) {
-				AffineMath.applyAffineTransformToGC(at, aggreGC);
-				aggreGC.setborderThick(aggreGC.getBorderThick()*(float)(at.getScaleX()));
-			}
-		}
-		for(GraphicComponent gc : copyGCVector) {
-			gc.setTextSize((int) (gc.getTextSize()*widthRadio));
-			gc.paint(g);
-		}
+		for(GraphicComponent gc : SlidePanel.getSlide(slideNum)) {gc.bottumPaint(g);}
+		for(GraphicComponent gc : SlidePanel.getSlide(slideNum)) {if(!(gc.getAShape() instanceof pen)) {gc.paint(g);}}//shape
+		for(GraphicComponent gc : SlidePanel.getSlide(slideNum)) {if(gc.getAShape() instanceof HighlightShape) {gc.paint(g);}}//highlight
+		for(GraphicComponent gc : SlidePanel.getSlide(slideNum)) {if(!(gc.getAShape() instanceof HighlightShape)&&gc.getAShape() instanceof pen) {gc.paint(g);}}//pen
+		
 		if(imageID!=-1) {ImgStorage.changeImg(imageID, image);}
 		else {imageID = ImgStorage.addImage(image);}
 	}

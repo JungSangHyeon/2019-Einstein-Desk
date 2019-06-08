@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 import java.util.Vector;
 
-import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
+import canvasMoveAndZoom.GlobalAT;
 import redoUndo.RedoUndo;
 import zStuff_Data.LineData;
 import zStuff_GraphicComponent.GCStorage_Normal;
@@ -21,13 +21,13 @@ public class PenTool extends PDRShapeDrawTool{
 	public void mousePressed(MouseEvent e) {
 		super.mousePressed(e);
 		GCData.setFillPaint(false);
-		GCData.setborderThick(LineData.getPenThick()*DrawingPanelMoveAndZoom.getZoom());
+		GCData.setborderThick(LineData.getPenThick());
 		GCData.setBorderColor(LineData.getPenColor());
 	}
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		GCStorage_Normal.getLastGC().addPoint(new Point2D.Float(e.getPoint().x, e.getPoint().y));
+		GCStorage_Normal.getLastGC().addPoint(GlobalAT.transformPoint(e.getPoint()));
 		setShape(GCStorage_Normal.getLastGC());
 	}
 	

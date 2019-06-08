@@ -1,6 +1,5 @@
 package CMC_NP_Shape;
 
-import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
@@ -8,7 +7,6 @@ import java.awt.geom.Point2D.Float;
 import java.util.Vector;
 
 import calculation.Calculator;
-import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
 import zStuff_GraphicComponent.GraphicComponent;
 import zStuff_Shape.ACMCShape;
 

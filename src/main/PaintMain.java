@@ -1,8 +1,5 @@
 package main;
 
-import java.util.Vector;
-
-import calculation.SuperVector;
 import global.InjectEnums;
 import globalTimer.GlobalTimer;
 import redoUndo.RedoUndo;
@@ -17,13 +14,16 @@ public class PaintMain {
 //		a.add(1);
 //		a.add(2);
 //		a.add(3);
-//		SuperVector.changeSeat(a, 1, 2);
+//		a.add(4);
+//		a.add(5);
+//		SuperVector.change(a, 1, 4);
 //		System.out.println(a.get(0));
 //		System.out.println(a.get(1));
 //		System.out.println(a.get(2));
-		System.out.println("ULTRA-PAINT");
+//		System.out.println(a.get(3));
+//		System.out.println(a.get(4));
 		
-		Z_Order.changeZOrder(SendTo.Top);
+		System.out.println("ULTRA-PAINT");
 		
 		new GlobalTimer();//Time Starts Moving
 		

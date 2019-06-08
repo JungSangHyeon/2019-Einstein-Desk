@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
 import java.io.Serializable;
 import java.util.Vector;
 
@@ -30,10 +31,12 @@ public abstract class AFunction  implements Serializable{
 		Color beforeColor = g.getColor();
 		Font beforeFont = g.getFont();
 		Shape beforeClip = g.getClip();
+		AffineTransform at = g.getTransform();
 		
 		if(myPaintOrder == targetOrder) {realPaint(g);}
 		for(AFunction function : aggregateFunction) {function.paint(g, targetOrder);}
 		
+		g.setTransform(at);
 		g.setStroke(beforeStroke);
 		g.setColor(beforeColor);
 		g.setFont(beforeFont);

@@ -8,13 +8,14 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.Vector;
 
-import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
+import canvasMoveAndZoom.GlobalAT;
 import selectGCAndGiveEvent.GCPanelGiveActionTool;
 import selectGCAndGiveEvent.HandTool;
 import view.DrawingPanel;
 import zStuff_Data.ToolData;
 import zStuff_GCPanel.GCPanelStorage;
-import zStuff_GCPanel.PeekabooPanel;
+import zStuff_GCPanel.NullPeekabooPanel;
+import zStuff_GCPanel.PixelPeekabooPanel;
 import zStuff_GraphicComponent.GraphicComponent;
 import zStuff_Text.FTextWrite_Stuff;
 
@@ -32,19 +33,19 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 	public void mousePressed(MouseEvent e) {
 		pressedBTN = e.getButton();
 		if(FTextWrite_Stuff.isTextEditAreaFocusOwner()) {FTextWrite_Stuff.removeFocusTextEditArea();}//For Text Write Function. remove Focus
-		if(rightBTNPressed()) {DrawingPanelMoveAndZoom.setDragStartPoint(e.getPoint());}//For Canvas Move. set Start Point
+		if(rightBTNPressed()) {GlobalAT.setDragStartPoint(e.getPoint());}//For Canvas Move. set Start Point
 		processEvent(e);
 		offPekabooPanel();
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		if (rightBTNPressed()) {DrawingPanelMoveAndZoom.moveCamera(e);}//Canvas Move
+		if (rightBTNPressed()) {GlobalAT.moveCamera(e);}//Canvas Move
 		processEvent(e);
 	}
 	
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		processEvent(e);
-		if(!gCPanelGiveActionTool.isTakeEvent()) {DrawingPanelMoveAndZoom.zoomCamera(e);}//Canvas Zoom If GCPanel Not Take Event
+		if(!gCPanelGiveActionTool.isTakeEvent()) {GlobalAT.zoomCamera(e);}//Canvas Zoom If GCPanel Not Take Event
 	}
 	
 	public void processEvent(MouseEvent e) {
@@ -72,7 +73,7 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 		if(!gCPanelGiveActionTool.isTakeEvent()) {
 			Vector<GraphicComponent> panels = GCPanelStorage.getGCPanelVector();
 			for(int i = panels.size()-1; i>-1; i--) {
-				if(panels.get(i) instanceof PeekabooPanel) {
+				if(panels.get(i) instanceof NullPeekabooPanel|| panels.get(i) instanceof PixelPeekabooPanel) {
 					GCPanelStorage.remove(panels.get(i));
 				}
 			}

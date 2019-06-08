@@ -7,7 +7,6 @@ import java.awt.Stroke;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
-import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
 import zStuff_Function.AFunction;
 import zStuff_GraphicComponent.GCStorage_Normal;
 import zStuff_GraphicComponent.GraphicComponent;
@@ -27,7 +26,7 @@ public class connectLineShapeSetter extends AFunction {
 	public void realPaint(Graphics2D g) {
 		if(GCStorage_Normal.have(startGC)&&GCStorage_Normal.have(endGC)) {
 			Stroke startStroke = g.getStroke();
-			g.setStroke(new BasicStroke(thick*DrawingPanelMoveAndZoom.getZoom(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+			g.setStroke(new BasicStroke(thick, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 			g.setColor(new Color(255, 192, 0));
 			
 			Point2D.Float startCenter = startGC.getCenter();

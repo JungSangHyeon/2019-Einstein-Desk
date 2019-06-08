@@ -2,10 +2,9 @@ package selectGCAndGiveEvent;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
-import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
+import canvasMoveAndZoom.GlobalAT;
 import zStuff_Data.ShapeData;
 import zStuff_GraphicComponent.GCStorage_Normal;
 import zStuff_GraphicComponent.GCStorage_Selected;
@@ -25,8 +24,8 @@ public class AreaSelectTool extends ATool{
 		ShapeData.setNowShapeMaker(eShape.rect.getAShape());
 		
 		GraphicComponent GCData = new GraphicComponent();
-		GCData.addPoint(new Point2D.Float(e.getPoint().x, e.getPoint().y));
-		GCData.addPoint(new Point2D.Float(e.getPoint().x, e.getPoint().y));
+		GCData.addPoint(GlobalAT.transformPoint(e.getPoint()));
+		GCData.addPoint(GlobalAT.transformPoint(e.getPoint()));
 		GCData.setFillColor(areaSelectRectColor);
 		GCData.setBorderPaint(false);
 		setShape(GCData);
@@ -34,7 +33,7 @@ public class AreaSelectTool extends ATool{
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		GCStorage_Normal.getLastGC().setPoint(1, new Point2D.Float(e.getPoint().x, e.getPoint().y));
+		GCStorage_Normal.getLastGC().setPoint(1, GlobalAT.transformPoint(e.getPoint()));
 		setShape(GCStorage_Normal.getLastGC());
 	}
 

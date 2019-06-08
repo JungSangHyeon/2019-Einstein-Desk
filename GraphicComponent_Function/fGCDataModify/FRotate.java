@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 
 import calculation.AffineMath;
 import calculation.Calculator;
+import canvasMoveAndZoom.GlobalAT;
 import onOff.AnchorPaint;
 import redoUndo.RedoUndo;
 import zStuff_Function.AFunction;
@@ -36,7 +37,7 @@ public class FRotate extends AFunction implements Serializable{
 	public FRotate() {this.setPaintOrder(PaintZOrder.TOP);}
 	
 	public void mousePressed(MouseEvent e) {
-		dragStart = new Point2D.Float(e.getPoint().x, e.getPoint().y);
+		dragStart = GlobalAT.transformPoint(e.getPoint());
 		if(anchor!=null&&anchor.contains(dragStart)) {rotateOn = true;}
 	}
 
@@ -44,7 +45,7 @@ public class FRotate extends AFunction implements Serializable{
 		if(AnchorPaint.isOn()) {AnchorPaint.off();}
 		if(rotateOn) {
 			rotated = true;
-			Point2D.Float nowPoint = new Point2D.Float(e.getPoint().x, e.getPoint().y);//get Angle
+			Point2D.Float nowPoint = GlobalAT.transformPoint(e.getPoint());//get Angle
 			Point2D.Float center = master.getCenter();//모드로 나눌 수 있겠다. 각자의 센터 || 하나의 센터.
 			double rotationAngle = Calculator.computeRotationAngle(center, dragStart, nowPoint);
 			
@@ -68,7 +69,7 @@ public class FRotate extends AFunction implements Serializable{
 	}
 	
 	public void mouseMoved(MouseEvent e) {
-		if(master.isSelected()&&anchor!=null&&anchor.contains(new Point2D.Float(e.getPoint().x, e.getPoint().y))) {
+		if(master.isSelected()&&anchor!=null&&anchor.contains(GlobalAT.transformPoint(e.getPoint()))) {
 			((JPanel) e.getSource()).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		}
 	}
@@ -84,6 +85,12 @@ public class FRotate extends AFunction implements Serializable{
 			
 			AffineTransform at = new AffineTransform();
 			at.setToRotation(Math.toRadians(angle), master.getCenter().x, master.getCenter().y);
+			
+			float 
+			anchorSize = this.anchorSize/GlobalAT.getZoom(), 
+			anchorDistance =this.anchorDistance/GlobalAT.getZoom(), 
+			lineThick = this.lineThick/GlobalAT.getZoom(), 
+			gap = this.gap/GlobalAT.getZoom();
 			
 			Rectangle2D.Double beforeRotateBar = new Rectangle2D.Double(beforeRotateBorder.getCenterX()-lineThick/2, beforeRotateBorder.getY()-anchorDistance-master.getBorderThick()/2, lineThick, anchorDistance);
 			Ellipse2D.Double beforeRotateAnchor = new Ellipse2D.Double(beforeRotateBorder.getCenterX()-anchorSize/2, beforeRotateBorder.getY()-anchorSize-anchorDistance-master.getBorderThick()/2,anchorSize,anchorSize);

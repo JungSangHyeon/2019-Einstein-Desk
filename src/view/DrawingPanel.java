@@ -12,11 +12,12 @@ import javax.swing.JPanel;
 
 import PDR_NP_Shape.HighlightShape;
 import PDR_NP_Shape.pen;
+import SAL.ProjectManager;
 import canvas.CanvasGC;
+import canvasMoveAndZoom.GlobalAT;
 import eventListener.DrawingPanelMouseHadler;
 import eventListener.KeyDispatcher;
 import global.InjectEnums.eColor;
-import slide.SlidePanel;
 import slidePanel.SlideOnPanel;
 import toolPanel.ToolPanel;
 import zStuff_GCPanel.GCPanelStorage;
@@ -26,8 +27,6 @@ import zStuff_Text.FTextWrite_Stuff;
 
 @SuppressWarnings("serial")
 public class DrawingPanel extends JPanel implements Runnable {
-	
-	CanvasGC canvas;
 	
 	public DrawingPanel() {
 		this.setBackground(eColor.DrawingPanelBackGroundColor.getVal());
@@ -46,27 +45,23 @@ public class DrawingPanel extends JPanel implements Runnable {
 		this.add(FTextWrite_Stuff.getFocusArea());
 		this.add(FTextWrite_Stuff.getTextEditArea());
 		
-		canvas = new CanvasGC(); 
-		
-		this.add(new ToolPanel());
-		this.add(new SlideOnPanel());
-//		this.add(new TestPanel());
-		
-//		SlideManager.newSlide();
-		SlidePanel.newSlide();
+		new CanvasGC(); 
+		ProjectManager.init();
+//		SlidePanel.newSlide();
 	}
 	
 	@Override
 	public void run() {
 		while(true) {
 			repaint();
-			try {Thread.sleep(20);}catch(Exception e) {}
+			try {Thread.sleep(10);}catch(Exception e) {}
 		}
 	}
 	
 	public void initialize() {
 //		Thread th = new Thread(this); th.start();
-		}
+	}
+	
 	private void add(GraphicComponent gc) {GCPanelStorage.add(gc);}
 	public void ArrangeContainerLocation() {}
 	
@@ -77,8 +72,9 @@ public class DrawingPanel extends JPanel implements Runnable {
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 		
 		super.paint(g2d);
-//		g2d.setTransform(DrawingPanelMoveAndZoom.getAT());
+		g2d.setTransform(GlobalAT.getNowAT());
 		paintGC(g2d);
+		g2d.setTransform(new AffineTransform());	
 		paintGCPanel(g2d);
 	}
 
@@ -86,18 +82,14 @@ public class DrawingPanel extends JPanel implements Runnable {
 		for(GraphicComponent GCPanel : GCPanelStorage.getGCPanelVector()) {GCPanel.bottumPaint(g2d);}
 		for(GraphicComponent GCPanel : GCPanelStorage.getGCPanelVector()) {GCPanel.paint(g2d);}
 	}
-	private static void paintGC(Graphics2D g2d) {
+	public static void paintGC(Graphics2D g2d) {
 		CanvasGC.paint(g2d);
 		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {gc.bottumPaint(g2d);}
-		//Normal Paint
-//		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {gc.paint(g2d);}
-		//Index Paint
 		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {if(!(gc.getAShape() instanceof pen)) {gc.paint(g2d);}}//shape
 		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {if(gc.getAShape() instanceof HighlightShape) {gc.paint(g2d);}}//highlight
 		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {if(!(gc.getAShape() instanceof HighlightShape)&&gc.getAShape() instanceof pen) {gc.paint(g2d);}}//pen
 		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {gc.topPaint(g2d);}
 		CanvasGC.topPaint(g2d);
-		g2d.setTransform(new AffineTransform());		
 	}
 	
 	public class componentHandler extends ComponentAdapter{

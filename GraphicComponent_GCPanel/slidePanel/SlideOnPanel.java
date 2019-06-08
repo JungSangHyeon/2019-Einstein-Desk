@@ -1,11 +1,13 @@
 package slidePanel;
 
-import graphicComponent.ToolSelectGC;
-import zStuff_GCPanel_LayoutPixel.GCPanel_LayoutPixel;
+import fPaint.FPanelOnOff;
+import slide.SlidePanel;
+import zStuff_Function.AFunction;
+import zStuff_GCPanel_LayoutPixel.GCPanel_LayoutPixel_Y;
 import zStuff_GraphicComponent.GCCreator;
 
 @SuppressWarnings("serial")
-public class SlideOnPanel extends GCPanel_LayoutPixel {
+public class SlideOnPanel extends GCPanel_LayoutPixel_Y {
 
 	public SlideOnPanel() {
 		this.setPixelSize(48, 48);
@@ -16,6 +18,9 @@ public class SlideOnPanel extends GCPanel_LayoutPixel {
 		
 		this.setItemDraggable(false);
 
-		this.add(GCCreator.create(ToolSelectGC.slideOnFunctions));
+		AFunction[] functions = {
+				new FPanelOnOff(new SlidePanel()),
+        };
+		this.add(GCCreator.create(functions));
 	}
 }

@@ -1,11 +1,11 @@
 package toolPanel;
 
 import graphicComponent.ToolSelectGC;
-import zStuff_GCPanel_LayoutPixel.GCPanel_LayoutPixel;
+import zStuff_GCPanel_LayoutPixel.GCPanel_LayoutPixel_Y;
 import zStuff_GraphicComponent.GCCreator;
 
 @SuppressWarnings("serial")
-public class OffGCPanel extends GCPanel_LayoutPixel {
+public class OffGCPanel extends GCPanel_LayoutPixel_Y {
 
 	public OffGCPanel() {
 		this.setPixelSize(48, 48);

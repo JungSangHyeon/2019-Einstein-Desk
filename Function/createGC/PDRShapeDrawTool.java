@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 import java.util.Vector;
 
-import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
+import canvasMoveAndZoom.GlobalAT;
 import fComposite.FInCanvasGCBasicFunction;
 import onOff.AnchorPaint;
 import redoUndo.RedoUndo;
@@ -33,19 +33,18 @@ public class PDRShapeDrawTool extends ATool{
 			
 			GCStorage_Selected.clearSelected();
 			GCData = new GraphicComponent();
-			GCData.addPoint(new Point2D.Float(e.getPoint().x, e.getPoint().y));
-			GCData.addPoint(new Point2D.Float(e.getPoint().x, e.getPoint().y));
-			GCData.setborderThick(GCData.getBorderThick()*DrawingPanelMoveAndZoom.getZoom());
+			GCData.addPoint(GlobalAT.transformPoint(e.getPoint()));
+			GCData.addPoint(GlobalAT.transformPoint(e.getPoint()));
 			GCData.setAShape(ShapeData.getNowShapeMaker());
 			GCData.addFunction(new FInCanvasGCBasicFunction());
-
+			
 			setShape(GCData);
 			GCStorage_Normal.addNewGC(GCData);
 		}
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		GCStorage_Normal.getLastGC().setLastPoint(new Point2D.Float(e.getPoint().x, e.getPoint().y));
+		GCStorage_Normal.getLastGC().setLastPoint(GlobalAT.transformPoint(e.getPoint()));
 		setShape(GCStorage_Normal.getLastGC());
 	}
 

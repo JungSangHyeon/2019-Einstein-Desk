@@ -6,16 +6,17 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.util.Vector;
 
-import calculation.AffineMath;
+import PDR_NP_Shape.HighlightShape;
+import PDR_NP_Shape.pen;
 import canvas.CanvasGC;
-import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
+import zStuff_GraphicComponent.GCStorage_Normal;
+import zStuff_GraphicComponent.GCStorage_Selected;
 import zStuff_GraphicComponent.GraphicComponent;
 
 public class ImgManager {
 	
 	public static BufferedImage getImage(Vector<GraphicComponent> gcVector) {
-		//Undo Zoom & Move
-		AffineMath.applyAffineToAllGC(DrawingPanelMoveAndZoom.getBackToNormal());
+		GCStorage_Selected.clearSelected();
 		
 		//Make Image
 		GraphicComponent canvas = CanvasGC.getCanvas();
@@ -25,12 +26,17 @@ public class ImgManager {
 		Graphics2D g = image.createGraphics();
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 		g.translate(-canvasBound.getX(), -canvasBound.getY());
-		for(GraphicComponent gc : gcVector) {gc.paint(g);}
+		
+		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {gc.bottumPaint(g);}
+		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {if(!(gc.getAShape() instanceof pen)) {gc.paint(g);}}//shape
+		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {if(gc.getAShape() instanceof HighlightShape) {gc.paint(g);}}//highlight
+		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {if(!(gc.getAShape() instanceof HighlightShape)&&gc.getAShape() instanceof pen) {gc.paint(g);}}//pen
+		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {gc.topPaint(g);}
+		
 		g.dispose();
 		
 		//Re do Zoom & Move
 		canvas.setBorderPaint(true);
-		AffineMath.applyAffineToAllGC(DrawingPanelMoveAndZoom.getNowApplied());
 		
 		return image;
 	}

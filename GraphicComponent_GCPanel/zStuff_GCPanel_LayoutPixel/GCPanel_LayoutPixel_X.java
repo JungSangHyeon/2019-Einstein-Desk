@@ -10,14 +10,17 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.Vector;
 
+import calculation.SuperVector;
 import deepClone.DeepClone;
+import onOff.Debug;
 import zStuff_GraphicComponent.GraphicComponent;
 import zStuff_Shape.eShape;
 
-public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Serializable{//호호 드럽다. 
+public abstract class GCPanel_LayoutPixel_X extends GraphicComponent implements Serializable{//호호 드럽다. 
 	private static final long serialVersionUID = -9220238498788652662L;
 	
 	boolean shadow = true;
@@ -29,13 +32,15 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 	boolean dragShadeOn = false;
 	boolean firstDrag = true;
 	protected Vector<Pixel> pixelVector;
-	Vector <Item>itemVector;
+	protected Vector <Item>itemVector;
 	private Item currentItem;
 
 	Item copyCurrentItem;
 		
 	//View
-	int wPixelNum = 4, hPixelNum = 4, pixelW = 100, pixelH = 100, wGap = 4, hGap = 4;
+	int 
+	wPixelNum = 4, hPixelNum = 4, 
+	pixelW = 100, pixelH = 100, wGap = 4, hGap = 4;
 	
 	//Scroll
 	int scrollSpeed, nowDeep=0, deepLimit=0, speedFactor = 2;// 한 픽셀의 speedFactor등분 만큼씩 움직임.
@@ -62,7 +67,13 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 	public void setItemDraggable(boolean boo) {this.itemDraggable = boo;}
 	
 	//Pixel
-	protected Pixel getPixel(int x, int y) {return pixelVector.get(x+y*wPixelNum);}
+	protected Pixel getPixel(int x, int y) {
+		try {
+			return pixelVector.get(x+y*wPixelNum);
+		}catch(Exception e) {}
+		return null;
+		
+		}
 	
 	//Item
 	protected void refreshRect(Item item) {item.setShape(getRealRectangle(item.getOwnPixel().getLocation()));}
@@ -70,7 +81,7 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 		return new Rectangle(x+wGap+(pixelW+wGap)*location.x, y+hGap+(pixelH+hGap)*location.y, pixelW, pixelH);
 	}
 	
-	public GCPanel_LayoutPixel() {
+	public GCPanel_LayoutPixel_X() {
 		this.setAShape(eShape.rect.getAShape());
 		this.setFillColor(backGroundColor);
 		this.scrollSpeed = (pixelH+hGap)/speedFactor;
@@ -156,81 +167,56 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 		itemVector.add(item);
 	}
 	
-	public void add(int i, GraphicComponent gc) {
-		Item item = new Item(gc);
-		itemVector.add(item);
-		Vector<Item> temp = new Vector<Item>();
-		for(Pixel p : pixelVector) {
-			temp.add(p.getMaster());
-			p.setMaster(null);
-		}
-		temp.add(i, item);
-		for(Item it : temp) {
-			findSeatFor(it);
-		}
-	}
-	
 	public Vector<Item> getItems() {
 		return itemVector;
 	}
 	
 	public void findSeatFor(Item item) {
 		boolean findSeat = false;
-		for(int i=0; i<hPixelNum; i++) {
-			for(int v=0; v<wPixelNum; v++) {
-				Pixel nowPixel = getPixel(v, i);
-				if(!nowPixel.isOccupied()) {
-					nowPixel.setOccupied(true);
-					nowPixel.setMaster(item);
-					item.setOwnPixel(nowPixel);
-					findSeat = true;
-					break;
-				}
-			}
-			if(findSeat) {break;}
-		}
-		if(!findSeat) {makeSeatFor(item);}
+		int nowItemNum = itemVector.size();
+		Pixel seat = getPixel(nowItemNum%wPixelNum, nowItemNum/wPixelNum);
+		if(seat!=null) {item.setOwnPixel(seat);}
+		else {if(!findSeat) {makeSeatFor(item);}}
 		refreshRect(item);
 	}
 	
 	private void makeSeatFor(Item item) {
-		for(int v=0; v<wPixelNum; v++) {
-			pixelVector.add(new Pixel(v, hPixelNum));
-			pixelVector.lastElement().setRectByXYWH(x+wGap+(pixelW+wGap)*v, y+hGap+(pixelH+hGap)*(hPixelNum), pixelW, pixelH);
-		}
+//		for(int v=0; v<wPixelNum; v++) {
+//			pixelVector.add(new Pixel(v, hPixelNum));
+//			pixelVector.lastElement().setRectByXYWH(x+wGap+(pixelW+wGap)*v, y+hGap+(pixelH+hGap)*(hPixelNum), pixelW, pixelH);
+//		}
+//		item.setOwnPixel(getPixel(0, hPixelNum));
+//		deepLimit-=speedFactor;
+//		this.hPixelNum += 1;
 		
-		item.setOwnPixel(getPixel(0, hPixelNum));
-		getPixel(0, hPixelNum).setOccupied(true);
-		getPixel(0, hPixelNum).setMaster(item);
+		for(int v=0; v<hPixelNum; v++) {
+			pixelVector.add(new Pixel(wPixelNum, v));
+			pixelVector.lastElement().setRectByXYWH(x+wGap+(pixelW+wGap)*wPixelNum, y+hGap+(pixelH+hGap)*(v), pixelW, pixelH);
+		}
+		item.setOwnPixel(getPixel(wPixelNum, 0));
 		deepLimit-=speedFactor;
-		this.hPixelNum += 1;
+		this.wPixelNum += 1;
 	}
 	
 	@Override
 	public void paint(Graphics2D g2d) {//TODO
 		g2d.setClip(myClip);
 		super.paint(g2d);
-		
-//		g2d.translate(0, scrollSpeed*nowDeep);
-		for(Item item : itemVector) {
-			item.paint(g2d);
-		}
-//		g2d.translate(0, scrollSpeed*-nowDeep);
-		
+		for(Item item : itemVector) {item.paint(g2d);}
 		if(shadow&&dragShadeOn) {//아이템 드래그시, 나머지 어둡게.
 			g2d.setColor(draggingShadeColor);
 			g2d.fill(this.getShape());
 		}
 		
-//		g2d.translate(0, scrollSpeed*nowDeep);
-//		g2d.setClip(null);
-//		int gap = 20;//Pixel Occupied test
-//		for(Pixel p : pixelVector) {
-//			if(p.isOccupied()) {g2d.setColor(Color.green);}
-//			else {g2d.setColor(Color.red);}
-//			Rectangle rect = p.getRect().getBounds();
-//			g2d.fill(new Rectangle2D.Double(rect.getX()+gap, rect.getY()+gap, rect.getWidth()-gap*2, rect.getHeight()-gap*2));
-//		}g2d.setClip(myClip);
+		if(Debug.isOn()) {
+			g2d.setClip(null);
+			int gap = 20;//Pixel Occupied test
+			g2d.setColor(Color.red);
+			for(Item p : itemVector) {
+				Rectangle rect = p.getOwnPixel().getRect().getBounds();
+				g2d.fill(new Rectangle2D.Double(rect.getX()+gap, rect.getY()+gap, rect.getWidth()-gap*2, rect.getHeight()-gap*2));
+			}g2d.setClip(myClip);
+		}
 		
 		if(getCurrentItem()!=null&&itemDraggable) {//드래그 중인게 갈 자리 표시
 			g2d.setColor(seatNoticeColor);
@@ -241,12 +227,10 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 		
 		g2d.setClip(null);
 		if(copyCurrentItem!=null) {copyCurrentItem.paint(g2d);}
-//		g2d.translate(0, scrollSpeed*-nowDeep);
 	}
 	
 	public void mousePressed(MouseEvent e) {
 		findCurrentShape(e); 
-//		basicAction(e);
 		if(getCurrentItem()!=null) {getCurrentItem().processEvent(e);}
 		if(copyCurrentItem!=null) {copyCurrentItem.processEvent(e);}
 	}
@@ -265,7 +249,6 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 		}
 	}
 	public void mouseMoved(MouseEvent e) {basicAction(e);}
-//	public void mouseClicked(MouseEvent e) {if(getCurrentItem()!=null) {getCurrentItem().processEvent(e);}}
 	public void mouseClicked(MouseEvent e) {basicAction(e);}
 	
 	public void mouseWheelMoved(MouseWheelEvent e) {//TODO
@@ -276,10 +259,10 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 	
 	public void wheelAction(int i) {
 		nowDeep+= i;
-		y+=scrollSpeed*i;
+		x+=scrollSpeed*i;
 		
 		AffineTransform at = new AffineTransform();
-		at.translate(0, scrollSpeed*i);
+		at.translate(scrollSpeed*i, 0);
 		
 		//Update Pixel
 		for(Pixel pixel : pixelVector) {
@@ -308,7 +291,6 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 
 	public void findCurrentShape(MouseEvent e) {
 		Point2D nowPoint = e.getPoint();
-//		nowPoint.setLocation(nowPoint.getX(), nowPoint.getY()-scrollSpeed*nowDeep);
 		
 		for(int i=itemVector.size()-1; i>-1; i--) {
 			if(itemVector.get(i).getShape().contains(nowPoint)) {
@@ -322,7 +304,6 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 	}
 	
 	public void dragStartAction() {
-//		copyCurrentItem.loadShape();
 		firstDrag = false;
 		dragShadeOn = true;
 	}
@@ -352,8 +333,8 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
 	
-	public boolean changeSeat() {
-		boolean changed = false;
+	public Point changeSeat() {
+		Point returnPoint = null;
 		Rectangle rect = copyCurrentItem.getShape().getBounds();
 		Point draggingCenter = new Point(rect.x+rect.width/2, rect.y+rect.height/2);
 		
@@ -367,41 +348,44 @@ public abstract class GCPanel_LayoutPixel extends GraphicComponent implements Se
 			}
 			if(seatPixel!=null) {break;}
 		}
-		
 		if (seatPixel != null&&seatPixel!=getCurrentItem().getOwnPixel()&&pushCondition(seatPixel)) {
-			Point seatPixelPoint = seatPixel.getLocation();
-			Item seatPixelMaster = seatPixel.getMaster();
 			Point currentItemPoint = getCurrentItem().getOwnPixel().getLocation();
 			
-			Pixel beforeMovePixel = getCurrentItem().getOwnPixel(); 
-			beforeMovePixel.setOccupied(false);
-			beforeMovePixel.setMaster(null);//null아니냐? currentItem->null 했음.
-			
-			getCurrentItem().setOwnPixel(getPixel(seatPixelPoint.x, seatPixelPoint.y));
-			refreshRect(getCurrentItem());
-			
-			Pixel afterMovePixel =  getCurrentItem().getOwnPixel(); 
-			afterMovePixel.setOccupied(true);
-			afterMovePixel.setMaster(getCurrentItem());
-			
-			if(seatPixel.isOccupied()&&currentItemPoint!=null&&seatPixelMaster!=null) {
-				seatPixelMaster.setOwnPixel(getPixel(currentItemPoint.x, currentItemPoint.y));
-				refreshRect(seatPixelMaster);
-				seatPixelMaster.getOwnPixel().setOccupied(true);
-				seatPixelMaster.getOwnPixel().setMaster(seatPixelMaster);
-				changed = true;
+			int currentItemVectorNum = pixelLocationToVectorNum(getCurrentItem().getOwnPixel());
+			int seatPixelVectorNum = pixelLocationToVectorNum(seatPixel);
+			if(seatPixelVectorNum<itemVector.size()) {
+				SuperVector.change(itemVector, currentItemVectorNum, seatPixelVectorNum);
+				resetFollowVector();
+				returnPoint = new Point(currentItemPoint.getLocation().y, seatPixel.getLocation().y);
 			}
 		}
-		return changed;
+		return returnPoint;
 	}
+	
+	protected void resetFollowVector() {
+		for(Item item : itemVector) {
+			Pixel ownPixel = findPixelByVectorNum(itemVector.indexOf(item));
+			item.setOwnPixel(ownPixel);
+			refreshRect(item);
+		}
+	}
+	
+	private int pixelLocationToVectorNum(Pixel pixel) {
+		Point p = pixel.getLocation();
+		return p.x+p.y*wPixelNum;
+	}
+	
+	private Pixel findPixelByVectorNum(int num) {
+		Pixel pixel = getPixel(num%wPixelNum, num/wPixelNum);
+		return pixel;
+	}
+	
 	private boolean pushCondition(Pixel seatPixel) {
-		if(push) {return seatPixel.isOccupied();}
+		if(push) {
+			return itemVector.size()>pixelLocationToVectorNum(seatPixel);
+		}
 		else {return true;}
 	}
-	public Item getCurrentItem() {
-		return currentItem;
-	}
-	public void setCurrentItem(Item currentItem) {
-		this.currentItem = currentItem;
-	}
+	public Item getCurrentItem() {return currentItem;}
+	public void setCurrentItem(Item currentItem) {this.currentItem = currentItem;}
 }

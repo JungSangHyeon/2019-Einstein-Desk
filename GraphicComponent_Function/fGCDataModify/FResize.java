@@ -15,6 +15,7 @@ import java.util.Vector;
 
 import javax.swing.JPanel;
 
+import canvasMoveAndZoom.GlobalAT;
 import onOff.AnchorPaint;
 import redoUndo.RedoUndo;
 import zStuff_Function.AFunction;
@@ -47,7 +48,7 @@ public class FResize extends AFunction implements Serializable {//얘는 망했어요.
 	
 	public void mousePressed(MouseEvent e) {//TODO
 		if(released) {
-			dragStart = new Point2D.Float(e.getPoint().x, e.getPoint().y);
+			dragStart = GlobalAT.transformPoint(e.getPoint());
 			n=0;
 			resizeON = false;
 			
@@ -65,7 +66,7 @@ public class FResize extends AFunction implements Serializable {//얘는 망했어요.
 		if(AnchorPaint.isOn()) {AnchorPaint.off();}
 		if (resizeON) {
 			resized = true;
-			Point2D.Float nowPoint = new Point2D.Float(e.getPoint().x, e.getPoint().y);//드래그 시작점.
+			Point2D.Float nowPoint = GlobalAT.transformPoint(e.getPoint());//드래그 시작점.
 			Point2D.Float normalDragStart = new Point2D.Float(nowPoint.x, nowPoint.y);//다음 드래그를 위함.
 			Point2D resizeFactor = this.computeResizeFactor(getBeforeRotatePoint(master, dragStart), getBeforeRotatePoint(master, nowPoint));//돌린 것으로 리사이즈 팩터 만듬.
 			
@@ -153,10 +154,6 @@ public class FResize extends AFunction implements Serializable {//얘는 망했어요.
 					aggreGc.setborderThick(aggrethick);
 				}
 			}
-			
-			
-			
-			
 			dragStart = normalDragStart;
 		}
 		
@@ -232,6 +229,11 @@ public class FResize extends AFunction implements Serializable {//얘는 망했어요.
 			Rectangle2D masterBorder = getBeforeRotateBorder(master);
 			
 			float factor = master.getBorderThick();
+			
+			float realAnchorSize = this.realAnchorSize/GlobalAT.getZoom();
+			float showAnchorGap = this.showAnchorGap/GlobalAT.getZoom();
+			float gap = this.gap/GlobalAT.getZoom();
+			
 			Shape anchor;
 			Shape beforeRotateAnchor;
 			AffineTransform at = new AffineTransform();
@@ -364,7 +366,7 @@ public class FResize extends AFunction implements Serializable {//얘는 망했어요.
 	public void mouseMoved(MouseEvent e) {
 		if(master.isSelected()) {
 			for(Shape a : changeAnchors) {
-				if(a.contains(new Point2D.Float(e.getPoint().x, e.getPoint().y))) {
+				if(a.contains(GlobalAT.transformPoint(e.getPoint()))) {
 					int nowAngleFactor;
 					int calee = (int)master.getAngle()/22;
 					if(calee<1) {nowAngleFactor = 0;}

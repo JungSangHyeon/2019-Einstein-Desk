@@ -17,9 +17,13 @@ public class RedoUndo {
 	
 	//Save List : Copy & Paste, Delete Selected, Eraser, Group, Image Load, Z-Order, Move, Rotate, Resize, Text
 	public static void  saveNowInHistory() {
-		if(history.size()>0){for(int i = history.size()-1; i>0; i--) {if(i>nowHistoryNum) {history.remove(i);System.out.println("remove : "+i);}}}//앞부분 버리는 겨.
+		if(history.size()>0){for(int i = history.size()-1; i>0; i--) {if(i>nowHistoryNum) {history.remove(i);}}}//앞부분 버리는 겨.
 		addCopySaveInHistory();
 		nowHistoryNum=history.size()-1;
+		if(history.size()>10) {
+			history.remove(history.firstElement());
+			nowHistoryNum--;
+		}
 	}
 	
 	private static void addCopySaveInHistory() {
@@ -35,7 +39,11 @@ public class RedoUndo {
 	
 	public static void undo() {if(nowHistoryNum>0) {nowHistoryNum--;changeNow();}}
 	public static void redo() {if(nowHistoryNum<history.size()-1) {nowHistoryNum++;changeNow();}}
-	private static void changeNow() {GCStorage_Normal.clearGC(); GCStorage_Normal.addAllToGC(history.get(nowHistoryNum)); GCStorage_Selected.clearSelected();}
+	private static void changeNow() {
+		GCStorage_Normal.clearGC(); 
+		GCStorage_Normal.addAllToGC(history.get(nowHistoryNum));
+		GCStorage_Selected.clearSelected();
+	}
 	
 	public static void clear() {
 		history.clear();

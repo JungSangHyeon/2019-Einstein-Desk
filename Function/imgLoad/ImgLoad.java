@@ -42,7 +42,7 @@ public class ImgLoad extends AFunction{
 			GCData.addPoint(new Point2D.Float((float)(rect.getX() + rect.getWidth()/2 +  behindeImg.getWidth()/2), (float)(rect.getY() + rect.getHeight()/2 +  behindeImg.getHeight()/2)));
 			GCData.setAShape(eShape.rect.getAShape());
 			GCData.addFunction(new FInCanvasGCBasicFunction());
-			GCData.addFunction(new FImageNormalPaint(chooser.getSelectedFile().getPath()));
+			GCData.addFunction(new FImageNormalPaint(chooser.getSelectedFile().getPath(), true));
 			GCData.setBorderPaint(false);
 			GCData.setFillPaint(false);
 			GCData.setShape(GCData.getAShape().newShape(GCData.getPoints()));

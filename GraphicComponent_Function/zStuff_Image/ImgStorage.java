@@ -1,13 +1,41 @@
 package zStuff_Image;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Vector;
+
+import javax.imageio.ImageIO;
 
 public class ImgStorage { //이미지는 클론 만들때 안되소 따로 빼놓음. 그편이 메모리도 덜 먹을 듯 ㄹ함. //호! 잘된다.
 	
 	static long nowId = 0;
 	static Vector<IDImage> images = new  Vector<IDImage>();
 	
+	static Vector<forSaveImg> imagesForSave;
+	public static void saveImg(){
+		imagesForSave.clear();
+		for(IDImage img : images) {
+			if(!img.getFileName().equals("")) {
+				imagesForSave.add(new forSaveImg(img.getId(), img.getFileName()));
+			}
+		}
+	}
+	
+	public static void loadImgVector(Vector<forSaveImg> imgVector){
+		imagesForSave = imgVector;
+		Vector<IDImage> img = new Vector<IDImage>();
+		for(forSaveImg info : imgVector) {
+			try {
+				img.add(new IDImage(info.getId(), ImageIO.read(new File(info.getFileName())), info.getFileName()));
+			} catch (IOException e) {e.printStackTrace();}
+		}
+		images.addAll(img);
+		nowId = images.lastElement().getId();
+	}
+
+	//+address
+	public static long addImage(BufferedImage img, String fileName) {images.add(new IDImage(++nowId, img, fileName));return nowId;}
 	public static long addImage(BufferedImage img) {images.add(new IDImage(++nowId, img));return nowId;}
 	public static void removeImage(long id) {images.remove(findIDImage(id));}
 	public static BufferedImage getImage(long id) {return findIDImage(id).getImage();}

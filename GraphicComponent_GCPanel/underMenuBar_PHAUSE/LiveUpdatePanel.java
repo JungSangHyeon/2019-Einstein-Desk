@@ -1,9 +1,9 @@
 package underMenuBar_PHAUSE;
 
-import zStuff_GCPanel_LayoutPixel.GCPanel_LayoutPixel;
+import zStuff_GCPanel_LayoutPixel.GCPanel_LayoutPixel_Y;
 
 @SuppressWarnings("serial")
-public class LiveUpdatePanel extends GCPanel_LayoutPixel {
+public class LiveUpdatePanel extends GCPanel_LayoutPixel_Y {
 
 	public LiveUpdatePanel() {
 		this.setPixelSize(100,100);

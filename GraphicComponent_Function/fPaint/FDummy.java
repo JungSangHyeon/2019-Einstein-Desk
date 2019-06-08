@@ -1,5 +1,6 @@
 package fPaint;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.font.GlyphVector;
@@ -18,6 +19,9 @@ public class FDummy extends AFunction {
 		GlyphVector gv = g.getFont().createGlyphVector(g.getFontRenderContext(), num+"");
 		AffineTransform at = new AffineTransform();
 		at.translate(rect.getX()+rect.getWidth()/2-gv.getOutline().getBounds().getWidth()/2, rect.getY()+rect.getHeight()/2-gv.getOutline().getBounds().getHeight()/2);
+		g.setColor(Color.cyan);
 		g.fill(at.createTransformedShape(gv.getOutline()));
 	}
+
+	public int getNum() {return num;}
 }

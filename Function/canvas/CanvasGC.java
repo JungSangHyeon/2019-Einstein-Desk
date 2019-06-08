@@ -53,4 +53,8 @@ public class CanvasGC {
 	public static double getHeight() {return canvas.getShape().getBounds().getHeight();}
 	public static double getX() {return canvas.getShape().getBounds().getX();}
 	public static double getY() {return canvas.getShape().getBounds().getY();}
+
+	public static void setCanvas(GraphicComponent beforeCanvas) {
+		canvas = beforeCanvas;
+	}
 }

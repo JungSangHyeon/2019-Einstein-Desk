@@ -11,7 +11,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.Vector;
 
 import calculation.AffineMath;
-import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
+import canvasMoveAndZoom.GlobalAT;
 import zStuff_Function.AFunction;
 import zStuff_Text.FTextWrite_Stuff;
 
@@ -28,7 +28,7 @@ public class FTextWrite extends AFunction{
 	public enum Arrange{LEFTUP, CENTER}
 	
 	public void realPaint(Graphics2D g) {
-		scaletextSize = (int) (master.getTextSize()*DrawingPanelMoveAndZoom.getZoom());
+		scaletextSize = (int) (master.getTextSize());
 		
 		g.setFont(new Font(null, Font.BOLD, scaletextSize));
 		

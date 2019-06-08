@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.Vector;
@@ -13,6 +15,7 @@ import PDR_NP_Shape.HighlightShape;
 import PDR_NP_Shape.pen;
 import global.InjectEnums.eColor;
 import global.InjectEnums.eInt;
+import onOff.Debug;
 import zStuff_Function.AFunction;
 import zStuff_Function.AFunction.PaintZOrder;
 import zStuff_Shape.AShape;
@@ -53,26 +56,29 @@ public class GraphicComponent  implements Serializable{
 		if(paintFill) {g.setColor(fillColor); g.fill(shape);}
 		if(paintBorder) {g.setColor(borderColor); g.draw(shape);}
 		for(AFunction function : functions) {function.paint(g, PaintZOrder.MIDDLE);}
+		for(GraphicComponent gc : aggregateGC) {gc.bottumPaint(g);}//shape & etc
 		for(GraphicComponent gc : aggregateGC) {if(!(gc.getAShape() instanceof pen)) {gc.paint(g);}}//shape & etc
 		for(GraphicComponent gc : aggregateGC) {if(gc.getAShape() instanceof HighlightShape) {gc.paint(g);}}//highlight
 		for(GraphicComponent gc : aggregateGC) {if(!(gc.getAShape() instanceof HighlightShape)&&gc.getAShape() instanceof pen) {gc.paint(g);}}//pen
 		
 //		아래는 테스트용//TODO
-//		if (points.size() > 0) {//points
-//			g.setColor(Color.RED);// 디버깅?
-//			GeneralPath p = new GeneralPath();
-//			p.moveTo(points.get(0).x, points.get(0).y);
-//			for (Point2D.Float pp : points) {
-//				p.lineTo(pp.x, pp.y);
-//			}
-//			g.draw(p);
-//		}
-//		g.setColor(Color.cyan);//border
-//		g.draw(shape.getBounds());
-//		if(selected) {g.fill(new Ellipse2D.Float(getCenter().x-20, getCenter().y-20, 40,40));}
-//		g.setColor(Color.green);//center
-//		g.fill(new Ellipse2D.Float(getCenter().x-5, getCenter().y-5, 10,10));
-//		for(Shape s : functionEventShape) {g.fill(s);}
+		if(Debug.isOn()) {
+			if (points.size() > 0) {//points
+				g.setColor(Color.RED);// 디버깅?
+				GeneralPath p = new GeneralPath();
+				p.moveTo(points.get(0).x, points.get(0).y);
+				for (Point2D.Float pp : points) {
+					p.lineTo(pp.x, pp.y);
+				}
+				g.draw(p);
+			}
+			g.setColor(Color.cyan);//border
+			g.draw(shape.getBounds());
+			if(selected) {g.fill(new Ellipse2D.Float(getCenter().x-20, getCenter().y-20, 40,40));}
+			g.setColor(Color.green);//center
+			g.fill(new Ellipse2D.Float(getCenter().x-5, getCenter().y-5, 10,10));
+			for(Shape s : functionEventShape) {g.fill(s);}
+		}
 	}
 	
 	//Shape
@@ -168,7 +174,7 @@ public class GraphicComponent  implements Serializable{
 	public void setTakeEvent(boolean takeEvent) {this.takeEvent = takeEvent;}
 	
 	//Time
-	boolean timeMove = false;
+	boolean timeMove = true;
 	public boolean isTimeMoving() {return timeMove;}
 	public void moveTime(boolean boo) {
 		timeMove = boo;

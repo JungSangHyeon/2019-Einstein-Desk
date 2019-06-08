@@ -1,6 +1,6 @@
 package graphicComponent;
 
-import fGCDataModify.FMove_Weak;
+import fGCDataModify.FMove_Item;
 import fGlobalDataModify.FRedo;
 import fGlobalDataModify.FSetShape;
 import fGlobalDataModify.FSetTool;
@@ -9,7 +9,6 @@ import fImagePaint.FImageNormalPaint;
 import fPaint.FGCpeekaboo;
 import fPaint.FPaintMasterWithHighLightColor;
 import fPaint.FPaintMasterWithPenColor;
-import fPaint.FPanelOnOff;
 import fPaint.FShowMouseOn;
 import fPaint.FShowSelected;
 import fSystem.FKillSystem;
@@ -18,7 +17,6 @@ import saveAsImage.SaveAsImage;
 import settingPanel.HighlightSettingGCPanel;
 import settingPanel.PenSettingGCPanel;
 import settingPanel.ShapeSettingGCPanel;
-import slide.SlidePanel;
 import slide.newSlide;
 import zStuff_Function.AFunction;
 import zStuff_Shape.eShape;
@@ -106,13 +104,9 @@ public class ToolSelectGC {
 					new FGCpeekaboo(new HighlightSettingGCPanel()),
 					new FShowMouseOn()
 	        },
-			slideOnFunctions = {
-					new FPanelOnOff(new SlidePanel()),
-	        },
 	        dummy = {
 	        		new FShowMouseOn(),
-	        		new FMove_Weak(),
-	        		new FPaintMasterWithHighLightColor()
+	        		new FMove_Item(),
 	        }
 	;
 }

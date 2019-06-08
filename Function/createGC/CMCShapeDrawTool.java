@@ -4,10 +4,8 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 
-import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
-import fGCDataModify.FMove;
-import fGCDataModify.FResize;
-import fGCDataModify.FRotate;
+import canvasMoveAndZoom.GlobalAT;
+import fComposite.FInCanvasGCBasicFunction;
 import redoUndo.RedoUndo;
 import zStuff_Data.ShapeData;
 import zStuff_Data.ToolData;
@@ -34,24 +32,22 @@ public class CMCShapeDrawTool extends ATool{
 	public void mouseMoved(MouseEvent e) {
 		if(GCData!=null) {
 			setShape(GCStorage_Normal.getLastGC());
-			GCData.setLastPoint(new Point2D.Float(e.getPoint().x, e.getPoint().y));
+			GCData.setLastPoint(GlobalAT.transformPoint(e.getPoint()));
 		}
 	}
 	
 	private void initDrawing(MouseEvent e) {
 		GCStorage_Selected.clearSelected();
 		GCData = new GraphicComponent();
-		GCData.addPoint(new Point2D.Float(e.getPoint().x, e.getPoint().y));
-		GCData.addFunction(new FMove());
-		GCData.addFunction(new FRotate());
-		GCData.addFunction(new FResize());
+		GCData.addPoint(GlobalAT.transformPoint(e.getPoint()));
+		GCData.addFunction(new FInCanvasGCBasicFunction());
 		GCData.setAShape(ShapeData.getNowShapeMaker());
 		GCStorage_Normal.addNewGC(GCData);
 		firstClick=false;
 	}
 
 	private void keepDrawing(MouseEvent e) {
-		GCData.addPoint(new Point2D.Float(e.getPoint().x, e.getPoint().y));
+		GCData.addPoint(GlobalAT.transformPoint(e.getPoint()));
 		setShape(GCData);
 	}
 

@@ -12,7 +12,8 @@ import zStuff_Image.ImgStorage;
 public class FImageNormalPaint extends AFImagePaint {
 	private static final long serialVersionUID = -7941746680321916676L;
 	
-	public FImageNormalPaint(String fileAddress) {this.setImage(fileAddress);}
+	public FImageNormalPaint(String fileAddress) {this.setImage(fileAddress, false);}
+	public FImageNormalPaint(String fileAddress, boolean save) {this.setImage(fileAddress, save);}
 
 	public void realPaint(Graphics2D g2d) {
 		Rectangle2D beforeRotateBound = AffineMath.getRotateShape(master.getShape(), -master.getAngle(), master.getCenter()).getBounds2D();

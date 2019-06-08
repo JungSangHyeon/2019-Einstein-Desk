@@ -5,11 +5,11 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 
 import fPaint.FShadow;
-import zStuff_GCPanel.PeekabooPanel;
+import zStuff_GCPanel.NullPeekabooPanel;
 import zStuff_GCPanel_LineSetting.HighlightColorSelectGCPanel;
 import zStuff_GCPanel_LineSetting.HighlightSizeBarGCPanel;
 
-public class HighlightSettingGCPanel extends PeekabooPanel{
+public class HighlightSettingGCPanel extends NullPeekabooPanel{
 	private static final long serialVersionUID = 3141453841486592808L;
 
 	public HighlightSettingGCPanel() {
@@ -20,6 +20,7 @@ public class HighlightSettingGCPanel extends PeekabooPanel{
 		
 		HighlightColorSelectGCPanel colorSelectPanel = new HighlightColorSelectGCPanel();
 		colorSelectPanel.setGCLocation(this.getX() + 5, this.getY() + 40);
+		colorSelectPanel.addItems();
 		this.add(colorSelectPanel);
 		
 		HighlightSizeBarGCPanel sizeBarPanel = new HighlightSizeBarGCPanel();

@@ -1,9 +1,9 @@
 package underMenuBar_PHAUSE;
 
-import zStuff_GCPanel_LayoutPixel.GCPanel_LayoutPixel;
+import zStuff_GCPanel_LayoutPixel.GCPanel_LayoutPixel_Y;
 
 @SuppressWarnings("serial")
-public class UnderMenuBar extends GCPanel_LayoutPixel {
+public class UnderMenuBar extends GCPanel_LayoutPixel_Y {
 
 	public UnderMenuBar() {
 		this.setPixelSize(48, 40);

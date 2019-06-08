@@ -16,11 +16,7 @@ public class Pixel implements Serializable{
 	public Pixel(int x, int y) {this.location = new Point(x,y);}
 	
 	public Shape getRect() {return rect;}
-	public Item getMaster() {return master;}
-	public void setMaster(Item i ) {master=i;}
 	public Point getLocation() {return this.location;}
-	public boolean isOccupied() {return this.occupied;}
-	public void setOccupied(boolean boo) {this.occupied=boo;}
 	public void setRectByXYWH(int x, int y, int w, int h) {rect=new Rectangle(x, y, w, h);}
 	public void setRectByShape(Shape r) {rect=r;}
 	public void setLocation(int x, int y) {location.move(x, y);}

@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 import zStuff_Function.AFunction;
 
-public class FMove_Weak extends AFunction implements Serializable {
+public class FMove_Item extends AFunction implements Serializable {
 	private static final long serialVersionUID = 2509847208800494236L;
 
 	Point2D.Float dragStart;

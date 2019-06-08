@@ -14,6 +14,7 @@ import java.io.Serializable;
 import javax.swing.JPanel;
 
 import calculation.AffineMath;
+import canvasMoveAndZoom.GlobalAT;
 import onOff.AnchorPaint;
 import redoUndo.RedoUndo;
 import zStuff_Function.AFunction;
@@ -32,7 +33,7 @@ public class FMove extends AFunction implements Serializable{
 	public FMove() {this.setPaintOrder(PaintZOrder.TOP);}
 	
 	public void mousePressed(MouseEvent e) {
-		dragStart = new Point2D.Float(e.getPoint().x, e.getPoint().y);//진짜 쉐입이 바뀌어서, 이거 안바꿔도 되게좀 해버ㅑㅏ.
+		dragStart = GlobalAT.transformPoint(e.getPoint());//진짜 쉐입이 바뀌어서, 이거 안바꿔도 되게좀 해버ㅑㅏ.
 		if(master.getAShape().thisGCIsSelected(master, dragStart)) {
 			moveOn = true;
 			for(Shape s : master.getFunctionShape()) {
@@ -45,7 +46,7 @@ public class FMove extends AFunction implements Serializable{
 		if(AnchorPaint.isOn()) {AnchorPaint.off();}
 		if(moveOn) {
 			moved = true;
-			Point2D.Float nowPoint = new Point2D.Float(e.getPoint().x, e.getPoint().y);
+			Point2D.Float nowPoint = GlobalAT.transformPoint(e.getPoint());
 			AffineTransform at = AffineMath.getMoveAffineTransform(dragStart, nowPoint);
 			for(GraphicComponent gc : GCStorage_Selected.getSelectedGCVector()) {
 				AffineMath.applyAffineTransformToGC(at, gc);
@@ -68,7 +69,7 @@ public class FMove extends AFunction implements Serializable{
 					masterBeforeRotateBorder.getHeight()+factor
 			);
 			g.setColor(rectColor);
-			g.setStroke(new BasicStroke(rectBorderThick, BasicStroke.CAP_ROUND, BasicStroke.CAP_ROUND));
+			g.setStroke(new BasicStroke(rectBorderThick/GlobalAT.getZoom(), BasicStroke.CAP_ROUND, BasicStroke.CAP_ROUND));
 			
 			AffineTransform at = new AffineTransform();
 			at.setToRotation(Math.toRadians(master.getAngle()), master.getCenter().x, master.getCenter().y);
@@ -83,11 +84,12 @@ public class FMove extends AFunction implements Serializable{
 			RedoUndo.saveNowInHistory();
 		}
 	}
+	
 	public void mouseMoved(MouseEvent e) {
-		if(master.isSelected()&&master.getShape().contains(new Point2D.Float(e.getPoint().x, e.getPoint().y))) {//mouse On this
+		if(master.isSelected()&&master.getShape().contains(GlobalAT.transformPoint(e.getPoint()))) {//mouse On this
 			boolean onlyOnShape = true;
 			for(Shape s : master.getFunctionShape()) {
-				if(s.contains(new Point2D.Float(e.getPoint().x, e.getPoint().y))) {onlyOnShape = false;}
+				if(s.contains(GlobalAT.transformPoint(e.getPoint()))) {onlyOnShape = false;}
 			}
 			if(onlyOnShape) {((JPanel) e.getSource()).setCursor(new Cursor(Cursor.MOVE_CURSOR));}
 		}

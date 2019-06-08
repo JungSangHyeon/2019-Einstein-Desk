@@ -2,8 +2,8 @@ package connect;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Point2D;
 
+import canvasMoveAndZoom.GlobalAT;
 import redoUndo.RedoUndo;
 import zStuff_GraphicComponent.GCStorage_Normal;
 import zStuff_GraphicComponent.GCStorage_Selected;
@@ -22,7 +22,7 @@ public class ConnectTool extends ATool{
 		if(e.getButton()==MouseEvent.BUTTON1) {
 			//Find Start GC
 			for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {
-				if(gc.getAShape().thisGCIsSelected(gc, new Point2D.Float(e.getPoint().x, e.getPoint().y))) {
+				if(gc.getAShape().thisGCIsSelected(gc, GlobalAT.transformPoint(e.getPoint()))) {
 					startGC = gc;
 					haveStartGC = true;
 					break;
@@ -35,7 +35,7 @@ public class ConnectTool extends ATool{
 				GCData = new GraphicComponent();
 				GCData.addPoint(startGC.getCenter());
 				GCData.addPoint(startGC.getCenter());
-				GCData.setborderThick(10);
+				GCData.setborderThick(10*GlobalAT.getZoom());
 				GCData.setBorderColor(new Color(255, 192, 0));
 				GCData.setAShape(eShape.straightLine.getAShape());
 				GCData.setTakeEvent(false);
@@ -48,7 +48,7 @@ public class ConnectTool extends ATool{
 	public void mouseDragged(MouseEvent e) {
 		//Dragging End Of Line
 		if(haveStartGC) {
-			GCStorage_Normal.getLastGC().setLastPoint(new Point2D.Float(e.getPoint().x, e.getPoint().y));
+			GCStorage_Normal.getLastGC().setLastPoint(GlobalAT.transformPoint(e.getPoint()));
 			setShape(GCStorage_Normal.getLastGC());
 		}
 	}
@@ -57,7 +57,7 @@ public class ConnectTool extends ATool{
 		if(e.getButton()==MouseEvent.BUTTON1&&haveStartGC) {
 			//Find End GC
 			for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {
-				if(gc!=GCData&&gc.getAShape().thisGCIsSelected(gc, new Point2D.Float(e.getPoint().x, e.getPoint().y))) {
+				if(gc!=GCData&&gc.getAShape().thisGCIsSelected(gc, GlobalAT.transformPoint(e.getPoint()))) {
 					endGC = gc;
 					haveEndGC = true;
 					break;

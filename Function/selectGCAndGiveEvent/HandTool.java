@@ -1,15 +1,14 @@
 package selectGCAndGiveEvent;
 
-import java.awt.Cursor; 
+import java.awt.Cursor;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Point2D;
 import java.util.Vector;
 
 import javax.swing.JPanel;
 
 import PDR_NP_Shape.HighlightShape;
 import PDR_NP_Shape.pen;
-import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
+import canvasMoveAndZoom.GlobalAT;
 import onOff.Ctrl;
 import zStuff_GraphicComponent.GCStorage_Normal;
 import zStuff_GraphicComponent.GCStorage_Selected;
@@ -58,14 +57,19 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 			}
 		}
 	}
-	public void mouseMoved(MouseEvent e) {cursorControl(e);}
+	public void mouseMoved(MouseEvent e) {cursorControl(e);
+	for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {
+		gc.processEvent(e);
+	}
+	
+	}
 	public void mouseWheelMoved(MouseEvent e) {basicAction(e);}
 	
 	private void findMaster(MouseEvent e) {//TODO
 		Vector<GraphicComponent> Components = GCStorage_Normal.getGCVector();
 		for(int b = 0; b<3; b++) {
 			for(int i=Components.size()-1; i>-1; i--) {
-				if(Components.get(i).isTakeEvent()&&aShapeBool(b, Components.get(i))&&Components.get(i).isSelected()&&Components.get(i).isTopSelected(new Point2D.Float(e.getPoint().x, e.getPoint().y))) {
+				if(Components.get(i).isTakeEvent()&&aShapeBool(b, Components.get(i))&&Components.get(i).isSelected()&&Components.get(i).isTopSelected(GlobalAT.transformPoint(e.getPoint()))) {
 					master = Components.get(i);
 					return;
 				}
@@ -73,7 +77,7 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 		}
 		for(int b = 0; b<3; b++) {
 			for(int i=Components.size()-1; i>-1; i--) {
-				if(Components.get(i).isTakeEvent()&&aShapeBool(b, Components.get(i))&&Components.get(i).getAShape().thisGCIsSelected(Components.get(i), new Point2D.Float(e.getPoint().x, e.getPoint().y))) {
+				if(Components.get(i).isTakeEvent()&&aShapeBool(b, Components.get(i))&&Components.get(i).getAShape().thisGCIsSelected(Components.get(i), GlobalAT.transformPoint(e.getPoint()))) {
 					master = Components.get(i);
 					return;
 				}

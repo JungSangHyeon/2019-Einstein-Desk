@@ -2,23 +2,20 @@ package slide;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 import java.util.Vector;
 
-import calculation.AffineMath;
-import fGCDataModify.FMove_Weak;
+import fGCDataModify.FMove_Item;
 import redoUndo.RedoUndo;
 import zStuff_Function.AFunction;
-import zStuff_GCPanel_LayoutPixel.GCPanel_LayoutPixel;
+import zStuff_GCPanel_LayoutPixel.GCPanel_LayoutPixel_Y;
 import zStuff_GCPanel_LayoutPixel.Item;
-import zStuff_GCPanel_LayoutPixel.Pixel;
 import zStuff_GraphicComponent.GCCreator;
 import zStuff_GraphicComponent.GCStorage_Normal;
 import zStuff_GraphicComponent.GCStorage_Selected;
 import zStuff_GraphicComponent.GraphicComponent;
 
 @SuppressWarnings("serial")
-public class SlidePanel extends GCPanel_LayoutPixel {
+public class SlidePanel extends GCPanel_LayoutPixel_Y {
 
 	public SlidePanel() {
 		this.setPixelSize(254, 144);
@@ -56,7 +53,7 @@ public class SlidePanel extends GCPanel_LayoutPixel {
 	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	
 	public static GraphicComponent getSlideGC(int i) {
-		AFunction[] functions = {new FSlide(i), new FMove_Weak(), new FShowSelectedByRect()};
+		AFunction[] functions = {new FSlide(i), new FMove_Item()};
 		GraphicComponent slide = GCCreator.create(functions);
 		slide.setBorderPaint(true);
 		slide.setFillPaint(true);
@@ -68,32 +65,24 @@ public class SlidePanel extends GCPanel_LayoutPixel {
 	
 	static Vector<GraphicComponent> needUpdate = new Vector<GraphicComponent>();
 	static Vector<Vector<GraphicComponent>> slides = new Vector<Vector<GraphicComponent>>();
+//	static Vector<Vector<GraphicComponent>> slidesForSave = new Vector<Vector<GraphicComponent>>();
 	
-	public static Vector<Vector<GraphicComponent>> getSlides(){return slides; }
+//	public static Vector<Vector<GraphicComponent>> getSlideForSave(){return slidesForSave;}
+	public static Vector<Vector<GraphicComponent>> getSlideForSave(){return slides;}
+	
+	public static Vector<Vector<GraphicComponent>> getSlides(){return slides;}
 	public static void newSlide() {
 		Vector<GraphicComponent> slide = new Vector<GraphicComponent>();
 		slides.add(slide);
+//		slidesForSave.add(slide);
 		GCStorage_Normal.setGCStorage(slide);
 		needUpdate.add(getSlideGC(slides.size()-1));
 		resetGCStorage_Normal();
 	}
 	
 	public static void loadSlide(int i) {
-		for(Vector<GraphicComponent> slide : SlidePanel.getSlides()) {
-			if(GCStorage_Normal.getGCVector()!=slide) {
-				for(GraphicComponent gc : slide) {
-					AffineMath.applyAffineTransformToGC(forFriendAT, gc);
-					gc.setborderThick(gc.getBorderThick()*(float)(forFriendAT.getScaleX()));
-					for(GraphicComponent aggreGC : gc.getAllAggregateGCs()) {
-						AffineMath.applyAffineTransformToGC(forFriendAT, aggreGC);
-						aggreGC.setborderThick(aggreGC.getBorderThick()*(float)(forFriendAT.getScaleX()));
-					}
-				}
-			}
-		}
 		GCStorage_Normal.setGCStorage(slides.get(i));
 		resetGCStorage_Normal();
-		forFriendAT = new AffineTransform();
 	}
 	public static Vector<GraphicComponent> getSlide(int i) {
 		return slides.get(i);
@@ -103,12 +92,27 @@ public class SlidePanel extends GCPanel_LayoutPixel {
 		GCStorage_Selected.clearSelected();
 		RedoUndo.setFirst();
 	}
-	static AffineTransform forFriendAT = new AffineTransform();
-	public static void applyAffine(AffineTransform at) {
-//		forFriendAT.concatenate(at);
-		forFriendAT.preConcatenate(at);
-	}
-	public static void removeAT() {
-		forFriendAT = new AffineTransform();
+	
+//	@Override
+//	public Point changeSeat() {
+//		Point showChange = super.changeSeat();
+//		if(showChange!=null) {
+//			SuperVector.change(slidesForSave, showChange.x, showChange.y);
+//		}
+////		System.out.println("@@@@@@@@@@@");
+////		for(Vector<GraphicComponent> slide : slideForSave) {
+////			System.out.println(slide.size());
+////		}
+//		return null;
+//	}
+
+	public static void setSlide(Vector<Vector<GraphicComponent>> data) {
+		slides = data;
+//		slidesForSave = data;
+		for(int i=0; i<slides.size(); i++) {
+			needUpdate.add(getSlideGC(i));
+		}
+		GCStorage_Normal.setGCStorage(data.get(0));
+		resetGCStorage_Normal();
 	}
 }

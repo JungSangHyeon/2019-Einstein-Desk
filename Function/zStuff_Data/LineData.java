@@ -2,7 +2,7 @@ package zStuff_Data;
 
 import java.awt.Color;
 
-import canvasMoveAndZoom.DrawingPanelMoveAndZoom;
+import canvasMoveAndZoom.GlobalAT;
 import onOff.ThickFollowScale;
 
 public class LineData {
@@ -15,7 +15,7 @@ public class LineData {
 	public static float penThick = 10;
 	public static float getPenThick() {
 		float thick;
-		if (ThickFollowScale.isOn()) {thick = penThick/DrawingPanelMoveAndZoom.getZoom();}//need to change
+		if (ThickFollowScale.isOn()) {thick = penThick/GlobalAT.getZoom();}//need to change
 		else {thick = penThick;}
 		if(thick==0) {thick=1;}
 		return thick;

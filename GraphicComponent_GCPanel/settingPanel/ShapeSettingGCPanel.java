@@ -5,11 +5,11 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 
 import fPaint.FShadow;
-import zStuff_GCPanel.PeekabooPanel;
+import zStuff_GCPanel.NullPeekabooPanel;
 import zStuff_GCPanel_ShapeSetting.CMCShapeSelectGCPanel;
 import zStuff_GCPanel_ShapeSetting.PDRShapeSelectGCPanel;
 
-public class ShapeSettingGCPanel extends PeekabooPanel{
+public class ShapeSettingGCPanel extends NullPeekabooPanel{
 	private static final long serialVersionUID = -4033921725411864658L;
 
 	public ShapeSettingGCPanel() {

@@ -3,11 +3,11 @@ package zStuff_GCPanel_ShapeSetting;
 import java.awt.Color;
 
 import graphicComponent.ShapeSelectGC;
-import zStuff_GCPanel_LayoutPixel.GCPanel_LayoutPixel;
+import zStuff_GCPanel_LayoutPixel.GCPanel_LayoutPixel_Y;
 import zStuff_GraphicComponent.GCCreator;
 
 @SuppressWarnings("serial")
-public class CMCShapeSelectGCPanel extends GCPanel_LayoutPixel {
+public class CMCShapeSelectGCPanel extends GCPanel_LayoutPixel_Y {
 
 	public CMCShapeSelectGCPanel() {
 		this.setFillColor(new Color(242,242,242));
