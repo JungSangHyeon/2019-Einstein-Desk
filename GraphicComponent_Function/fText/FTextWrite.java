@@ -11,7 +11,6 @@ import java.awt.geom.Rectangle2D;
 import java.util.Vector;
 
 import calculation.AffineMath;
-import canvasMoveAndZoom.GlobalAT;
 import zStuff_Function.AFunction;
 import zStuff_Text.FTextWrite_Stuff;
 

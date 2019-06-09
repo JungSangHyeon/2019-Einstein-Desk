@@ -1,3 +1,3 @@
 ShapeBasicBorderThick(2);
-ShapeBasicBorderColor(47,82,143);
-ShapeBasicFillColor(68,114,196);
+ShapeBasicBorderColor(47,82,143);  //dark blue = 47,82,143// 
+ShapeBasicFillColor(68,114,196);   //blue = 68,114,196// 

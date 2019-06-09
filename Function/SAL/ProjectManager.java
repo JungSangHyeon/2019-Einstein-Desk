@@ -13,6 +13,7 @@ import toolPanel.ToolPanel;
 import zStuff_Data.ToolData;
 import zStuff_GCPanel.GCPanelStorage;
 import zStuff_GraphicComponent.GCStorage_Normal;
+import zStuff_GraphicComponent.GCStorage_Selected;
 import zStuff_GraphicComponent.GraphicComponent;
 import zStuff_Shape.eShape;
 import zStuff_Tool.eTool;
@@ -22,6 +23,7 @@ public class ProjectManager {
 	static Vector<GraphicComponent> fileLoadGCVector = new Vector<GraphicComponent>();
 	
 	public static void toHome() {
+		GCStorage_Selected.clearSelected();
 		ToHome.letsGoBack();
 		GCPanelStorage.getGCPanelVector().clear();
 		GCPanelStorage.add(new ToolPanel());

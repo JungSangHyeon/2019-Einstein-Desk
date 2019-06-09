@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Vector;
 
+import zStuff_GraphicComponent.GCStorage_Selected;
 import zStuff_GraphicComponent.GraphicComponent;
 import zStuff_Image.ImgStorage;
 import zStuff_Image.forSaveImg;
@@ -13,6 +14,7 @@ import zStuff_Image.forSaveImg;
 public class SaveAndLoad {
 
 	public static void save() {
+		GCStorage_Selected.clearSelected();
 		try {
 //			File dir = new File("saveFile");
 //			File[] files = dir.listFiles();

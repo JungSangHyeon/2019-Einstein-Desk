@@ -37,17 +37,18 @@ public class SlidePanel extends GCPanel_LayoutPixel_Y {
 	
 	@Override
 	public void paint(Graphics2D g2d) {
-		
 		if(needReset) {
 			itemVector.clear();
 			needReset = false;
 		}
 		if(needUpdate.size()>0) {
-			for(GraphicComponent gc : needUpdate) {
-				this.add(gc);
-				}
+			for(GraphicComponent gc : needUpdate) {this.add(gc);}
 			needUpdate.clear();
 		}
+		System.out.println(itemVector.size());
+//		for(int i = itemVector.size()-1; i>-1; i--) {
+////			if()
+//		}
 		Item currentItem = this.getCurrentItem();
 		if(currentItem!=null) {currentItem.getInContainerGC().setBorderPaint(false);}
 		super.paint(g2d);
@@ -57,6 +58,15 @@ public class SlidePanel extends GCPanel_LayoutPixel_Y {
 		if(currentItem!=null) {currentItem.getInContainerGC().setBorderPaint(false);}
 		super.paint(g2d);
 		if(currentItem!=null) {currentItem.getInContainerGC().setBorderPaint(true);}
+	}
+
+	private boolean have(Item nowItem) {
+		for(Item item : itemVector) {
+			if(item != nowItem) {
+				
+			}
+		}
+		return false;
 	}
 
 	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -87,10 +97,10 @@ public class SlidePanel extends GCPanel_LayoutPixel_Y {
 		if(showChange!=null) {
 			SuperVector.change(slidesForSave, showChange.x, showChange.y);
 		}
-		System.out.println("@@@@@@@@@@@");
-		for(Vector<GraphicComponent> slide : slidesForSave) {
-			System.out.println(slide.size());
-		}
+//		System.out.println("@@@@@@@@@@@");
+//		for(Vector<GraphicComponent> slide : slidesForSave) {
+//			System.out.println(slide.size());
+//		}
 		return null;
 	}
 	
@@ -121,6 +131,7 @@ public class SlidePanel extends GCPanel_LayoutPixel_Y {
 		slides.clear();
 		slides.addAll(data);
 		slidesForSave = data;
+		needUpdate.clear();
 		for(int i=0; i<slides.size(); i++) {
 			needUpdate.add(getSlideGC(i));
 		}
