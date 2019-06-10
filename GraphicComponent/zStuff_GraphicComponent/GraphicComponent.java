@@ -194,4 +194,5 @@ public class GraphicComponent  implements Serializable{
 	private double angle =0;
 	public void addAngle(double da) {angle+=da; angle=angle%360;}
 	public double getAngle() {return angle;}
+
 }

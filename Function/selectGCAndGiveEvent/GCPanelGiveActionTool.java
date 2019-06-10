@@ -10,10 +10,15 @@ import zStuff_Tool.ATool;
 public class GCPanelGiveActionTool extends ATool{
 	private static final long serialVersionUID = -272528931530692482L;
 	
+	@Override
+	public void processEvent(MouseEvent e) {
+		super.processEvent(e);
+	}
+	
 	public void mouseWheelMoved(MouseEvent e) {findMasterAndGiveEvent(e);}
 	public void mousePressed(MouseEvent e) {findMasterAndGiveEvent(e);}
 	
-	public void mouseMoved(MouseEvent e) {giveEventToAll(e);}
+	public void mouseMoved(MouseEvent e) {giveEventToAll(e); master=null;}//원래 이자식 리셋 해줘야 댐. 클릭땜에 못함. 북에 불들어오는걸 위해 야만 해놈.
 	
 	public void mouseClicked(MouseEvent e) {giveEventToMaster(e);}
 	public void mouseDragged(MouseEvent e) {giveEventToMaster(e);}
@@ -24,6 +29,7 @@ public class GCPanelGiveActionTool extends ATool{
 		giveEventToMaster(e);
 	}
 	
+	public void newEvent() {master=null;}
 	public boolean isTakeEvent() {return master!=null;}
 	
 	private void findMaster(MouseEvent e) {

@@ -110,7 +110,7 @@ public class ToolSelectGC {
 	        		new FMove_Item(),
 	        },
 	        newProject = {
-			        new FImageNormalPaint("ToolBarImgs/pen.png"),
+			        new FImageNormalPaint("ToolBarImgs/File.png"),
 			        new FNewProject(),
 			        new FShowMouseOn(),
 	        }

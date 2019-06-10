@@ -1,11 +1,13 @@
 package group;
 
+import java.awt.event.MouseEvent;
 import java.awt.geom.Area;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Vector;
 
+import canvasMoveAndZoom.GlobalAT;
 import fComposite.FInCanvasGCBasicFunction;
 import zStuff_GraphicComponent.GraphicComponent;
 import zStuff_Shape.eShape;
@@ -35,4 +37,17 @@ public class GroupGC extends GraphicComponent{
 		//center
 		this.setCenter(new Point2D.Float((float)bound.getCenterX(), (float)bound.getCenterY()));
 	}
+	
+	@Override
+	public void processEvent(MouseEvent e) {
+		super.processEvent(e);
+		if(e.getID() == MouseEvent.MOUSE_CLICKED) {
+			for(GraphicComponent aggreGC : this.getMyAggregateGCs()) {
+				if(aggreGC.getShape().contains(GlobalAT.transformPoint(e.getPoint()))) {
+					aggreGC.processEvent(e);
+				}
+			}
+		}
+	}
+	
 }
