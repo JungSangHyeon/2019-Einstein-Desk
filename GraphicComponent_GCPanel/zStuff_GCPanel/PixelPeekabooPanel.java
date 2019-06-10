@@ -1,7 +1,5 @@
 package zStuff_GCPanel;
 
-import java.awt.event.MouseEvent;
-
 import zStuff_GCPanel_LayoutPixel.GCPanel_LayoutPixel_Y;
 
 public class PixelPeekabooPanel extends GCPanel_LayoutPixel_Y{

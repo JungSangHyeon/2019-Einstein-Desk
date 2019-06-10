@@ -18,7 +18,7 @@ import canvasMoveAndZoom.GlobalAT;
 import eventListener.DrawingPanelMouseHadler;
 import eventListener.KeyDispatcher;
 import global.InjectEnums.eColor;
-import slidePanel.SlideOnPanel;
+import rightClickPanel.ETCPanel;
 import toolPanel.ToolPanel;
 import zStuff_GCPanel.GCPanelStorage;
 import zStuff_GraphicComponent.GCStorage_Normal;
@@ -48,6 +48,7 @@ public class DrawingPanel extends JPanel implements Runnable {
 		new CanvasGC(); 
 		ProjectManager.init();
 		GCPanelStorage.add(new ToolPanel());
+//		GCPanelStorage.add(new ETCPanel(null));
 	}
 	
 	@Override

@@ -68,12 +68,10 @@ public abstract class GCPanel_LayoutPixel_Y extends GraphicComponent implements 
 	
 	//Pixel
 	protected Pixel getPixel(int x, int y) {
-		try {
-			return pixelVector.get(x+y*wPixelNum);
-		}catch(Exception e) {}
+		try {return pixelVector.get(x+y*wPixelNum);}
+		catch(Exception e) {}
 		return null;
-		
-		}
+	}
 	
 	//Item
 	protected void refreshRect(Item item) {item.setShape(getRealRectangle(item.getOwnPixel().getLocation()));}
@@ -120,9 +118,9 @@ public abstract class GCPanel_LayoutPixel_Y extends GraphicComponent implements 
 	}
 	
 	Shape myClip; int relax =2;
-	public void saveClip() {//TODO
-		myClip = new Rectangle(x,y, width+relax, height);
-	}
+	public void saveClip() {myClip = new Rectangle(x,y, width+relax, height);}
+	public void setClip(Shape newClip) {myClip = newClip;}
+	public Shape getClip() {return myClip;}
 	
 	protected void resetView() {
 		//Update Speed

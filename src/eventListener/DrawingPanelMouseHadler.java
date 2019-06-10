@@ -10,6 +10,7 @@ import java.util.Vector;
 
 import canvasMoveAndZoom.GlobalAT;
 import presentation.Presentation;
+import rightClick.RightClickMenu;
 import selectGCAndGiveEvent.GCPanelGiveActionTool;
 import selectGCAndGiveEvent.HandTool;
 import view.DrawingPanel;
@@ -60,12 +61,13 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 	}
 	
 	public void mouseMoved(MouseEvent e) {
+		pressedBTN=-1;
 		processEvent(e);
 		if(!(ToolData.getNowTool() instanceof HandTool)) {drawingPanel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));}
 	}
 	
-	public void mouseClicked(MouseEvent e) {processEvent(e);}
-	public void mouseReleased(MouseEvent e) {processEvent(e); pressedBTN=-1;}
+	public void mouseClicked(MouseEvent e) {processEvent(e); if(rightBTNPressed()) {RightClickMenu.OpenMenu(e.getPoint());}}
+	public void mouseReleased(MouseEvent e) {processEvent(e);}
 	
 //	private boolean leftBTNPressed() {return pressedBTN == MouseEvent.BUTTON1;}
 	private boolean rightBTNPressed() {return pressedBTN == MouseEvent.BUTTON3;}
