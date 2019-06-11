@@ -6,7 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 
-import canvasMoveAndZoom.GlobalAT;
 import zStuff_Function.AFunction;
 
 public class FInnerRect extends AFunction {
@@ -37,5 +36,4 @@ public class FInnerRect extends AFunction {
 		if(master.getShape().contains(e.getPoint())) {mouseOnMe = true;}
 		else {mouseOnMe = false;}
 	}
-	
 }

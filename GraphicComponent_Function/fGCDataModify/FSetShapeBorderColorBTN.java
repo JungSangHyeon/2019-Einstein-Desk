@@ -1,6 +1,7 @@
 package fGCDataModify;
 
 import java.awt.Color;
+import java.awt.event.MouseEvent;
 
 import zStuff_Button.ColorBtn;
 import zStuff_GraphicComponent.GCStorage_Selected;
@@ -11,6 +12,19 @@ public class FSetShapeBorderColorBTN extends ColorBtn{
 
 	public FSetShapeBorderColorBTN(Color c) {super(c);}
 
+	@Override
+	public void mouseMoved(MouseEvent e){
+		if(master.getShape().contains(e.getPoint())) {
+			for(GraphicComponent gc : GCStorage_Selected.getSelectedGCVector()) {
+				gc.setTempBorderColor(mainColor);
+			}
+		}else if(master.getTempBorderColor()==mainColor){
+			for(GraphicComponent gc : GCStorage_Selected.getSelectedGCVector()) {
+				gc.setTempBorderColor(null);
+			}
+		}
+	}
+	
 	@Override
 	public void actionPerformed() {
 		for(GraphicComponent gc : GCStorage_Selected.getSelectedGCVector()) {

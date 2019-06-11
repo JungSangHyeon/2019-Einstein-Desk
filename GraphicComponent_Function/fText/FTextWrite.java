@@ -23,11 +23,16 @@ public class FTextWrite extends AFunction{
 	double textYIntervalFactor = 1.1;
 	Color textColor = Color.white;
 	
-	Arrange myArrange = Arrange.CENTER;
+//	Arrange myArrange = Arrange.CENTER;
 	public enum Arrange{LEFTUP, CENTER}
 	
 	public void realPaint(Graphics2D g) {
 		textColor = master.getTextColor();
+		if(master.getTempTextColor()!=null) {
+			textColor = master.getTempTextColor();
+		}
+		g.setColor(textColor);
+		
 		scaletextSize = (int) (master.getTextSize());
 		
 		g.setFont(new Font(null, Font.BOLD, scaletextSize));
@@ -50,11 +55,31 @@ public class FTextWrite extends AFunction{
 			textShape.add(gv.getOutline());
 		}
 		
-		if(myArrange == Arrange.CENTER) {centerPaint(g, textShape);}
-		else if(myArrange == Arrange.LEFTUP) {leftUpPaint(g, textShape);}
+		if(master.getTextArrange() == Arrange.CENTER) {centerPaint(g, textShape);}
+		else if(master.getTextArrange() == Arrange.LEFTUP) {leftUpPaint(g, textShape);}
 	}
 	
 	private void leftUpPaint(Graphics2D g, Vector<Shape> textShape) {
+		Rectangle2D masterBeforeRotateBorder = AffineMath.getRotateShape(master.getShape(), -master.getAngle(), master.getCenter()).getBounds2D();
+		double gap = textShape.get(0).getBounds().getHeight()/2;
+		double startX = masterBeforeRotateBorder.getX() + gap; 
+		double startY = masterBeforeRotateBorder.getY() + gap;
+		
+		for(Shape nowTextShape : textShape) {
+			Rectangle2D nowBound = nowTextShape.getBounds2D();
+			
+			AffineTransform at = new AffineTransform();
+			startY += nowBound.getHeight();
+			at.translate(startX, startY);//MY radio. 왜 이런지는 모르겠음. 텍스트가 원래 이상하게 그려지긴 했음...
+			startY += nowBound.getHeight()*textYIntervalFactor/2;
+			nowTextShape = at.createTransformedShape(nowTextShape);
+			
+			at = new AffineTransform();//한번에 적용이 안됨.
+			at.setToRotation(Math.toRadians(master.getAngle()), masterBeforeRotateBorder.getCenterX(), masterBeforeRotateBorder.getCenterY());
+			nowTextShape = at.createTransformedShape(nowTextShape);
+			
+			g.fill(nowTextShape);
+		}
 	}
 
 	private void centerPaint(Graphics2D g, Vector<Shape> textShape) {
@@ -80,7 +105,6 @@ public class FTextWrite extends AFunction{
 			
 			myY+=nowBound.getHeight()*textYIntervalFactor;
 			
-			g.setColor(textColor);
 			g.fill(nowTextShape);
 		}
 	}

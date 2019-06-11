@@ -13,6 +13,7 @@ import java.util.Vector;
 
 import PDR_NP_Shape.HighlightShape;
 import PDR_NP_Shape.pen;
+import fText.FTextWrite.Arrange;
 import global.InjectEnums.eColor;
 import global.InjectEnums.eInt;
 import onOff.Debug;
@@ -35,6 +36,17 @@ public class GraphicComponent  implements Serializable{
 	
 	//Paint
 	private Color fillColor = eColor.ShapeBasicFillColor.getVal(), borderColor = eColor.ShapeBasicBorderColor.getVal();
+	private Color tempFillColor, tempBorderColor, tempTextColor;//죽여야댐.
+	
+	public Color getTempTextColor() {return tempTextColor;}
+	public void setTempTextColor(Color tempText) {this.tempTextColor = tempText;}
+	
+	public Color getTempFillColor() {return tempFillColor;}
+	public void setTempFillColor(Color tempFillColor) {this.tempFillColor = tempFillColor;}
+	
+	public Color getTempBorderColor() {return tempBorderColor;}
+	public void setTempBorderColor(Color tempBorderColor) {this.tempBorderColor = tempBorderColor;}
+
 	private float borderThick = eInt.ShapeBasicBorderThick.getVal();
 	private int strokeCap = BasicStroke.CAP_ROUND, strokeJoin = BasicStroke.JOIN_ROUND;
 	private boolean paintFill = true, paintBorder = true;
@@ -53,16 +65,15 @@ public class GraphicComponent  implements Serializable{
 	public void bottumPaint(Graphics2D g) {for(AFunction function : functions) {function.paint(g, PaintZOrder.BOTTOM);}}
 	public void paint(Graphics2D g) {
 		g.setStroke(new BasicStroke(borderThick, strokeCap, strokeJoin));
-		if(paintFill) {g.setColor(fillColor); g.fill(shape);}
-		if(paintBorder) {g.setColor(borderColor); g.draw(shape);}
+		if(paintFill) {g.setColor(fillColor); if(tempFillColor!=null) {g.setColor(tempFillColor);} g.fill(shape);}
+		if(paintBorder) {g.setColor(borderColor); if(tempBorderColor!=null) {g.setColor(tempBorderColor);} g.draw(shape);}
 		for(AFunction function : functions) {function.paint(g, PaintZOrder.MIDDLE);}
 		for(GraphicComponent gc : aggregateGC) {gc.bottumPaint(g);}//shape & etc
 		for(GraphicComponent gc : aggregateGC) {if(!(gc.getAShape() instanceof pen)) {gc.paint(g);}}//shape & etc
 		for(GraphicComponent gc : aggregateGC) {if(gc.getAShape() instanceof HighlightShape) {gc.paint(g);}}//highlight
 		for(GraphicComponent gc : aggregateGC) {if(!(gc.getAShape() instanceof HighlightShape)&&gc.getAShape() instanceof pen) {gc.paint(g);}}//pen
 		
-//		아래는 테스트용//TODO
-		if(Debug.isOn()) {
+		if(Debug.isOn()) {//디버그
 			if (points.size() > 0) {//points
 				g.setColor(Color.RED);// 디버깅?
 				GeneralPath p = new GeneralPath();
@@ -146,13 +157,16 @@ public class GraphicComponent  implements Serializable{
 	String text = "";
 	int textSize = 50;
 	Color textColor = Color.WHITE;
+	Arrange myArrange = Arrange.CENTER;
 	public Color getTextColor() {return textColor;}
 	public void setTextColor(Color c) {this.textColor=c;}
 	public void setTextSize(int size) {this.textSize=size;}
 	public int getTextSize() {return this.textSize;}
 	public void setText(String text) {this.text=text;}
 	public String getText() {return this.text;}
-
+	public Arrange getTextArrange() {return myArrange;}
+	public void setTextArrange(Arrange arrange) {myArrange = arrange;}
+	
 	//Aggregate GC
 	private Vector<GraphicComponent> aggregateGC;
 	public void addAggregateGC(GraphicComponent gc) {aggregateGC.add(gc);}
@@ -197,5 +211,4 @@ public class GraphicComponent  implements Serializable{
 	private double angle =0;
 	public void addAngle(double da) {angle+=da; angle=angle%360;}
 	public double getAngle() {return angle;}
-
 }

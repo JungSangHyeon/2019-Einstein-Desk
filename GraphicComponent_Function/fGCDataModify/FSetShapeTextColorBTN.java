@@ -1,6 +1,7 @@
 package fGCDataModify;
 
 import java.awt.Color;
+import java.awt.event.MouseEvent;
 
 import zStuff_Button.ColorBtn;
 import zStuff_GraphicComponent.GCStorage_Selected;
@@ -11,6 +12,19 @@ public class FSetShapeTextColorBTN extends ColorBtn{
 
 	public FSetShapeTextColorBTN(Color c) {super(c);}
 
+	@Override
+	public void mouseMoved(MouseEvent e){
+		if(master.getShape().contains(e.getPoint())) {
+			for(GraphicComponent gc : GCStorage_Selected.getSelectedGCVector()) {
+				gc.setTempTextColor(mainColor);
+			}
+		}else if(master.getTempTextColor()==mainColor){
+			for(GraphicComponent gc : GCStorage_Selected.getSelectedGCVector()) {
+				gc.setTempTextColor(null);
+			}
+		}
+	}
+	
 	@Override
 	public void actionPerformed() {
 		for(GraphicComponent gc : GCStorage_Selected.getSelectedGCVector()) {

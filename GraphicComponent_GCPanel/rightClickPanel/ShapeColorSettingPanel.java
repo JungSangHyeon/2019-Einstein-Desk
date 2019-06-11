@@ -4,12 +4,15 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.event.MouseEvent;
 
 import fPaint.FShadow;
 import rightClick.RightClickMenu;
 import rightClickPanel.ShapeColorSetter.Target;
 import zStuff_GCPanel.NullPeekabooPanel;
 import zStuff_GCPanel_LineSetting.ColorConstant;
+import zStuff_GraphicComponent.GCStorage_Selected;
+import zStuff_GraphicComponent.GraphicComponent;
 
 public class ShapeColorSettingPanel extends NullPeekabooPanel{
 	private static final long serialVersionUID = 3141453841486592808L;
@@ -56,13 +59,22 @@ public class ShapeColorSettingPanel extends NullPeekabooPanel{
 		headColorSettingPanel.setPixelSize(thisWidth-1 - 10, 23);
 		headColorSettingPanel.setPixelGap(0, 0);
 		headColorSettingPanel.setSize(1, 1);
-		Color[] noColor = {Color.white};
+		Color[] noColor = {new Color(0,0,0,0)};
 		headColorSettingPanel.addItems(noColor);
 		this.add(headColorSettingPanel);
 		
 		this.addFunction(new FShadow());
 	}
 	
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		for(GraphicComponent gc : GCStorage_Selected.getSelectedGCVector()) {
+			gc.setTempBorderColor(null);
+			gc.setTempFillColor(null);
+			gc.setTempTextColor(null);
+		}
+		super.mouseMoved(e);
+	}
 	@Override
 	public void paint(Graphics2D g2d) {
 		super.paint(g2d);

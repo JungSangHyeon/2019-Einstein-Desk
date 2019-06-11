@@ -18,7 +18,7 @@ public class GCPanelGiveActionTool extends ATool{
 	public void mouseWheelMoved(MouseEvent e) {findMasterAndGiveEvent(e);}
 	public void mousePressed(MouseEvent e) {findMasterAndGiveEvent(e);}
 	
-	public void mouseMoved(MouseEvent e) {giveEventToAll(e); master=null;}//원래 이자식 리셋 해줘야 댐. 클릭땜에 못함. 북에 불들어오는걸 위해 야만 해놈.
+	public void mouseMoved(MouseEvent e) {giveEventToAll(e);}
 	
 	public void mouseClicked(MouseEvent e) {giveEventToMaster(e);}
 	public void mouseDragged(MouseEvent e) {giveEventToMaster(e);}
