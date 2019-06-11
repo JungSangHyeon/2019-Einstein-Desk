@@ -10,7 +10,7 @@ import java.awt.geom.Rectangle2D;
 import zStuff_Function.AFunction;
 
 @SuppressWarnings("serial")
-public abstract class AFToggleButton extends AFunction{
+public abstract class AFToggleButtonTEMP extends AFunction{
 
 	Shape circle;
 	double boarderGap, circleDiameter = 0;
@@ -24,7 +24,7 @@ public abstract class AFToggleButton extends AFunction{
 	public enum eMode{ELLIPSE, RECTANGLE};
 	public eMode nowMode = eMode.ELLIPSE;
 	
-	public AFToggleButton(Color circleColor, int diameter, eMode mode) {
+	public AFToggleButtonTEMP(Color circleColor, int diameter, eMode mode) {
 		this.btnColor=circleColor;
 		this.circleDiameter = 9*diameter/13;
 		this.normalCircleDiameter = 9*diameter/13;

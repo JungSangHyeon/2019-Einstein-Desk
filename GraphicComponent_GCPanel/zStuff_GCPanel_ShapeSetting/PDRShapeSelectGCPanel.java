@@ -3,12 +3,23 @@ package zStuff_GCPanel_ShapeSetting;
 import java.awt.Color;
 
 import graphicComponent.ShapeSelectGC;
+import zStuff_Function.AFunction;
 import zStuff_GCPanel_LayoutPixel.GCPanel_LayoutPixel_Y;
 import zStuff_GraphicComponent.GCCreator;
 
 @SuppressWarnings("serial")
 public class PDRShapeSelectGCPanel extends GCPanel_LayoutPixel_Y {
 
+	public static AFunction[][] items = { 
+		ShapeSelectGC.rectSelector,
+		ShapeSelectGC.ellipseSelector,
+		ShapeSelectGC.speechSelector,
+		ShapeSelectGC.star4Selector,
+		ShapeSelectGC.starNSelector,
+		ShapeSelectGC.triangleSelector,
+		ShapeSelectGC.straightLineSelector,
+	};
+	
 	public PDRShapeSelectGCPanel() {
 		this.setFillColor(new Color(242,242,242));
 		this.setPixelSize(52, 52);
@@ -16,13 +27,7 @@ public class PDRShapeSelectGCPanel extends GCPanel_LayoutPixel_Y {
 		this.setSize(6, 2);
 		
 		this.setItemDraggable(false);
-		 
-		this.add(GCCreator.create(ShapeSelectGC.rectSelector));
-		this.add(GCCreator.create(ShapeSelectGC.ellipseSelector));
-		this.add(GCCreator.create(ShapeSelectGC.speechSelector));
-		this.add(GCCreator.create(ShapeSelectGC.star4Selector));
-		this.add(GCCreator.create(ShapeSelectGC.starNSelector));
-		this.add(GCCreator.create(ShapeSelectGC.triangleSelector));
-		this.add(GCCreator.create(ShapeSelectGC.straightLineSelector));
 	}
+	
+	public void addItems() {for(AFunction[] item : items) {this.add(GCCreator.create(item));}}
 }

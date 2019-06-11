@@ -18,9 +18,9 @@ import canvasMoveAndZoom.GlobalAT;
 import eventListener.DrawingPanelMouseHadler;
 import eventListener.KeyDispatcher;
 import global.InjectEnums.eColor;
-import rightClickPanel.ETCPanel;
 import toolPanel.ToolPanel;
 import zStuff_GCPanel.GCPanelStorage;
+import zStuff_GraphicComponent.GCStorage_KillTarget;
 import zStuff_GraphicComponent.GCStorage_Normal;
 import zStuff_GraphicComponent.GraphicComponent;
 import zStuff_Text.FTextWrite_Stuff;
@@ -67,7 +67,7 @@ public class DrawingPanel extends JPanel implements Runnable {
 	public void ArrangeContainerLocation() {}
 	
 	public void paint(Graphics g) {
-		GCStorage_Normal.killTargets();
+		GCStorage_KillTarget.killTargets();
 		
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);

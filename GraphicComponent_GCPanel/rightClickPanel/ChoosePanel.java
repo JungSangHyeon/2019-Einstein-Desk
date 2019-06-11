@@ -5,8 +5,10 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 import fImagePaint.FImageAndTextPaint_Y;
+import fPaint.FReleaseAddPanel;
 import fPaint.FShadow;
 import fPaint.FShowMouseOn;
+import rightClickPanel.ShapeColorSetter.Target;
 import zStuff_Function.AFunction;
 import zStuff_GCPanel_LayoutPixel.GCPanel_LayoutPixel_Y;
 import zStuff_GraphicComponent.GCCreator;
@@ -49,14 +51,17 @@ public class ChoosePanel extends GCPanel_LayoutPixel_Y{
 			{ 
 					{ //Fill 
 						new FImageAndTextPaint_Y("Ã¤¿ì±â", textSize, "RightClickPanelImage/Fill.png"), 
+						new FReleaseAddPanel(Target.Fill), 
 						new FShowMouseOn(), 
 					},
 					{ //Border 
 						new FImageAndTextPaint_Y("À±°û¼±", textSize, "RightClickPanelImage/Border.png"), 
+						new FReleaseAddPanel(Target.Border), 
 						new FShowMouseOn(), 
 					},
 					{ //Text
 						new FImageAndTextPaint_Y("ÅØ½ºÆ®", textSize, "RightClickPanelImage/Text.png"), 
+						new FReleaseAddPanel(Target.Text), 
 						new FShowMouseOn(), 
 					},
 			};

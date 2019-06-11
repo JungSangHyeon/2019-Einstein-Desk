@@ -18,7 +18,7 @@ public class ETCPanel extends GCPanel_LayoutPixel_Y{
 		this.setPixelSize(180, 28);
 		this.setPixelGap(0, 0);
 		this.setSize(1, items.length);
-		this.setGCLocation(mousePoint.x, mousePoint.y);
+		this.setGCLocation(mousePoint.x, mousePoint.y);//BOOK BOOk
 		
 		this.setBorderColor(new Color(198,198,198));
 		this.setBackgroundColor(Color.WHITE);

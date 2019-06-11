@@ -145,6 +145,9 @@ public class GraphicComponent  implements Serializable{
 	//Text
 	String text = "";
 	int textSize = 50;
+	Color textColor = Color.WHITE;
+	public Color getTextColor() {return textColor;}
+	public void setTextColor(Color c) {this.textColor=c;}
 	public void setTextSize(int size) {this.textSize=size;}
 	public int getTextSize() {return this.textSize;}
 	public void setText(String text) {this.text=text;}

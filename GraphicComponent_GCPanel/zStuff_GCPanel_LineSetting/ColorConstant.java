@@ -3,8 +3,7 @@ package zStuff_GCPanel_LineSetting;
 import java.awt.Color;
 
 public class ColorConstant {
-
-	public static final Color[] themeColors = {
+	public static final Color[] headThemeColors = {
 			new Color(255, 255, 255)
 			, new Color(0,0,0)
 			, new Color(230,230,230)
@@ -15,9 +14,9 @@ public class ColorConstant {
 			, new Color(255,192,0)
 			, new Color(91,155,213)
 			, new Color(112,173,71)
-			
-			
-			, new Color(242,242,242)
+	};
+	public static final Color[] themeColors = {
+			new Color(242,242,242)
 			, new Color(127,127,127)
 			, new Color(208,206,206)
 			, new Color(214,220,228)
@@ -75,9 +74,10 @@ public class ColorConstant {
 			, new Color(127,96,0)
 			, new Color(30,78,121)
 			, new Color(55,86,35)
-			
-			
-			, new Color(192, 0, 0)
+	};
+	
+	public static final Color[] rainbowColors = {
+			new Color(192, 0, 0)
 			, new Color(255,0,0)
 			, new Color(255,192,0)
 			, new Color(255,255,0)
@@ -88,8 +88,6 @@ public class ColorConstant {
 			, new Color(0,32,96)
 			, new Color(112,48,160)
 	};
-	
-	
 	public static final Color[] highlightColors = {
 			new Color(255, 230, 0)
 			, new Color(38, 230, 0)

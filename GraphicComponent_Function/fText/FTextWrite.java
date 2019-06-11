@@ -27,6 +27,7 @@ public class FTextWrite extends AFunction{
 	public enum Arrange{LEFTUP, CENTER}
 	
 	public void realPaint(Graphics2D g) {
+		textColor = master.getTextColor();
 		scaletextSize = (int) (master.getTextSize());
 		
 		g.setFont(new Font(null, Font.BOLD, scaletextSize));

@@ -38,6 +38,7 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 		if(rightBTNPressed()) {GlobalAT.setDragStartPoint(e.getPoint());}//For Canvas Move. set Start Point
 		processEvent(e);
 		offPekabooPanel();
+		RightClickMenu.checkAndOff(e);
 	}
 
 	public void mouseDragged(MouseEvent e) {
@@ -67,7 +68,7 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 	}
 	
 	public void mouseClicked(MouseEvent e) {processEvent(e); if(rightBTNPressed()) {RightClickMenu.OpenMenu(e.getPoint());}}
-	public void mouseReleased(MouseEvent e) {processEvent(e);}
+	public void mouseReleased(MouseEvent e) {processEvent(e); RightClickMenu.checkAndOff(e);}
 	
 //	private boolean leftBTNPressed() {return pressedBTN == MouseEvent.BUTTON1;}
 	private boolean rightBTNPressed() {return pressedBTN == MouseEvent.BUTTON3;}

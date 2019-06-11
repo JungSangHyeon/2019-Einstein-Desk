@@ -8,6 +8,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
 import zStuff_Function.AFunction;
+import zStuff_GraphicComponent.GCStorage_KillTarget;
 import zStuff_GraphicComponent.GCStorage_Normal;
 import zStuff_GraphicComponent.GraphicComponent;
 
@@ -43,7 +44,7 @@ public class connectLineShapeSetter extends AFunction {
 					
 			g.setStroke(startStroke);
 		}else {
-			GCStorage_Normal.killGCAtNextPaint(master);
+			GCStorage_KillTarget.killGCAtNextPaint(master);
 		}
 	}
 }

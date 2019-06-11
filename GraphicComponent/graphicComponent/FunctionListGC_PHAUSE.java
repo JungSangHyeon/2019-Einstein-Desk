@@ -5,7 +5,7 @@ import fPaint.FShadow;
 import fTime.FAutoRotate;
 import zStuff_Function.AFunction;
 
-public class FunctionListGC {
+public class FunctionListGC_PHAUSE {
 	public static AFunction[] //add Functions Here
 			PaintFunctions = {
 					new FShadow(),

@@ -18,15 +18,15 @@ public class ShapeSettingGCPanel extends NullPeekabooPanel{
 		this.setPanelBorderColor(new Color(204,204,204));
 		this.setborderThick(1);
 		
-		PDRShapeSelectGCPanel colorSelectPanel = new PDRShapeSelectGCPanel();
-		colorSelectPanel.setGCLocation(this.getX() + 5, this.getY() + 40);
-		colorSelectPanel.saveClip();
-		this.add(colorSelectPanel);
+		PDRShapeSelectGCPanel pdrShapeSelectPanel = new PDRShapeSelectGCPanel();
+		pdrShapeSelectPanel.setGCLocation(this.getX() + 5, this.getY() + 40);
+		pdrShapeSelectPanel.addItems();
+		this.add(pdrShapeSelectPanel);
 		
-		CMCShapeSelectGCPanel sizeBar = new CMCShapeSelectGCPanel();
-		sizeBar.setGCLocation(this.getX() + 5, this.getY() + 142 + 52);
-		sizeBar.saveClip();
-		this.add(sizeBar);
+		CMCShapeSelectGCPanel cmcShapeSelectPanel = new CMCShapeSelectGCPanel();
+		cmcShapeSelectPanel.setGCLocation(this.getX() + 5, this.getY() + 142 + 52);
+		cmcShapeSelectPanel.addItems();
+		this.add(cmcShapeSelectPanel);
 		
 		this.addFunction(new FShadow());
 	}
