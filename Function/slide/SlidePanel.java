@@ -45,10 +45,6 @@ public class SlidePanel extends GCPanel_LayoutPixel_Y {
 			for(GraphicComponent gc : needUpdate) {this.add(gc);}
 			needUpdate.clear();
 		}
-		System.out.println(itemVector.size());
-//		for(int i = itemVector.size()-1; i>-1; i--) {
-////			if()
-//		}
 		Item currentItem = this.getCurrentItem();
 		if(currentItem!=null) {currentItem.getInContainerGC().setBorderPaint(false);}
 		super.paint(g2d);
@@ -58,15 +54,6 @@ public class SlidePanel extends GCPanel_LayoutPixel_Y {
 		if(currentItem!=null) {currentItem.getInContainerGC().setBorderPaint(false);}
 		super.paint(g2d);
 		if(currentItem!=null) {currentItem.getInContainerGC().setBorderPaint(true);}
-	}
-
-	private boolean have(Item nowItem) {
-		for(Item item : itemVector) {
-			if(item != nowItem) {
-				
-			}
-		}
-		return false;
 	}
 
 	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -86,9 +73,7 @@ public class SlidePanel extends GCPanel_LayoutPixel_Y {
 	static Vector<Vector<GraphicComponent>> slides = new Vector<Vector<GraphicComponent>>();
 	static Vector<Vector<GraphicComponent>> slidesForSave = new Vector<Vector<GraphicComponent>>();
 	
-//	public static Vector<Vector<GraphicComponent>> getSlideForSave(){return slidesForSave;}
 	public static Vector<Vector<GraphicComponent>> getSlideForSave(){return slidesForSave;}
-	
 	public static Vector<Vector<GraphicComponent>> getSlides(){return slides;}
 	
 	@Override

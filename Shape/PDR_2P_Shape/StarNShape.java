@@ -13,19 +13,19 @@ public class StarNShape extends APDRShape {
 	private static final double SPIKINESS = 0.5;
 
 	public Shape newTwoPointShape(Point2D.Float p1, Point2D.Float p2) {
-		return makePath(Math.min(p1.x, p2.x), Math.min(p1.y, p2.y), Math.abs(p1.x - p2.x), Math.abs(p1.y - p2.y));
+		return makePath(Math.min(p1.x, p2.x), Math.min(p1.y, p2.y), Math.abs(p1.x - p2.x), Math.abs(p1.y - p2.y), nSpikes);
 	}
 
-	private static GeneralPath makePath(float x, float y, float w, float h) {
+	public static GeneralPath makePath(float x, float y, float w, float h, int spikeNum) {
 		float ctrX = x + w/2, ctrY = y + h/ 2;
-		int nPoints = nSpikes * 2 + 1;
+		int nPoints = spikeNum * 2 + 1;
 		double xPoint[] = new double[nPoints];
 		double yPoint[] = new double[nPoints];
 
 		for (int i = 0; i < nPoints; i++) {
 			double wRadius = (i % 2 == 0) ? w : (w * SPIKINESS);
 			double hRadius = (i % 2 == 0) ? h : (h * SPIKINESS);
-			double angle = (i * 360.0) / (2 * nSpikes);
+			double angle = (i * 360.0) / (2 * spikeNum);
 			xPoint[i] = ctrX + wRadius * Math.cos(Math.toRadians(angle - 90))/smallFactor;
 			yPoint[i] = ctrY + hRadius * Math.sin(Math.toRadians(angle - 90))/smallFactor;
 		}

@@ -18,6 +18,7 @@ import canvasMoveAndZoom.GlobalAT;
 import onOff.AnchorPaint;
 import redoUndo.RedoUndo;
 import zStuff_Function.AFunction;
+import zStuff_GCPanel.GCPanelStorage;
 import zStuff_GraphicComponent.GCStorage_Selected;
 import zStuff_GraphicComponent.GraphicComponent;
 
@@ -91,8 +92,11 @@ public class FMove extends AFunction implements Serializable{
 			for(Shape s : master.getFunctionShape()) {
 				if(s.contains(GlobalAT.transformPoint(e.getPoint()))) {onlyOnShape = false;}
 			}
+			for(GraphicComponent gc : GCPanelStorage.getGCPanelVector()) {
+				if(gc.getShape().contains(e.getPoint())) {onlyOnShape = false;}
+			}
 			if(onlyOnShape) {((JPanel) e.getSource()).setCursor(new Cursor(Cursor.MOVE_CURSOR));}
+			else {((JPanel) e.getSource()).setCursor(new Cursor(Cursor.DEFAULT_CURSOR));}
 		}
 	}
-	
 }

@@ -6,7 +6,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
 
 import SAL.ProjectManager;
-import SAL.SaveAndLoad;
 import copyAndPaste.CopyAndPaste;
 import deleteSelected.Delete;
 import group.GroupTool;
@@ -15,6 +14,7 @@ import onOff.Debug;
 import onOff.ThickFollowScale;
 import presentation.Presentation;
 import redoUndo.RedoUndo;
+import toHome.ToHome;
 import zOrder.Z_Order;
 import zOrder.Z_Order.SendTo;
 import zStuff_Text.FTextWrite_Stuff;
@@ -41,7 +41,7 @@ public class KeyDispatcher implements KeyEventDispatcher {// 키이벤트가 포커스에
 	
 	private void pressAction() {
 		if (keyIs(KeyEvent.VK_CONTROL)) {Ctrl.on();}
-		if (keyIs(KeyEvent.VK_DELETE)) {Delete.delete();master.repaint();}
+		if (keyIs(KeyEvent.VK_DELETE)) {Delete.delete();}
 		if (keyIs(KeyEvent.VK_ESCAPE)) {Debug.onOff();}
 		else if (keyIs(KeyEvent.VK_1)) {Z_Order.changeZOrder(SendTo.Top);}
 		else if (keyIs(KeyEvent.VK_2)) {Z_Order.changeZOrder(SendTo.Hell);}
@@ -59,9 +59,7 @@ public class KeyDispatcher implements KeyEventDispatcher {// 키이벤트가 포커스에
 			else if (keyIs(KeyEvent.VK_G)) {GroupTool.grouping();}
 			else if (keyIs(KeyEvent.VK_U)) {GroupTool.unGrouping();}
 			else if (keyIs(KeyEvent.VK_H)) {ProjectManager.toHome();}
-//			else if (keyIs(KeyEvent.VK_H)) {ToHome.letsGoBack();}
-			else if (keyIs(KeyEvent.VK_S)) {SaveAndLoad.save();}
-			else if (keyIs(KeyEvent.VK_L)) {SaveAndLoad.load();}
+			else if (keyIs(KeyEvent.VK_B)) {ToHome.letsGoBack();}
 		}
 	}
 

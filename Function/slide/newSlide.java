@@ -9,7 +9,6 @@ public class newSlide extends AFunction{
 	
 	public void mouseReleased(MouseEvent e){
 		if(SlidePanel.slides.size()>0) {
-			
 			if(master.getShape().contains(e.getPoint())) {SlidePanel.newSlide();}
 		}
 	}

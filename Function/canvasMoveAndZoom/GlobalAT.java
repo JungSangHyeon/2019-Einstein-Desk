@@ -44,15 +44,9 @@ public class GlobalAT {
 		try {nowAT.createInverse().transform(p1, p2);}catch (Exception e) {e.printStackTrace();}
 		return p2;
 	}
-	public static void setAT(AffineTransform at) {
-		nowAT = at;
-	}
+	public static void setAT(AffineTransform at) {nowAT = at;}
 	
 	static boolean switchOn = true;
-	public static void off() {
-		switchOn = false;
-	}
-	public static void on() {
-		switchOn = true;
-	}
+	public static void off() {switchOn = false;}
+	public static void on() {switchOn = true;}
 }

@@ -37,7 +37,7 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 		if(FTextWrite_Stuff.isTextEditAreaFocusOwner()) {FTextWrite_Stuff.removeFocusTextEditArea();}//For Text Write Function. remove Focus
 		if(rightBTNPressed()) {GlobalAT.setDragStartPoint(e.getPoint());}//For Canvas Move. set Start Point
 		processEvent(e);
-		offPekabooPanel();
+		offPeekabooPanel();
 		RightClickMenu.checkAndOff(e);
 	}
 
@@ -77,7 +77,7 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
 	
-	private void offPekabooPanel() {//삭제 몬하나.
+	private void offPeekabooPanel() {//삭제 몬하나.
 		if(!gCPanelGiveActionTool.isTakeEvent()) {
 			Vector<GraphicComponent> panels = GCPanelStorage.getGCPanelVector();
 			for(int i = panels.size()-1; i>-1; i--) {

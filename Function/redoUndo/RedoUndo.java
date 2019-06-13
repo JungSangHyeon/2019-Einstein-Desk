@@ -12,6 +12,7 @@ public class RedoUndo {
 	static Vector <Vector<GraphicComponent>> history = new Vector <Vector<GraphicComponent>>();
 	static Vector<GraphicComponent> temp = new Vector<GraphicComponent>(); 
 	static int nowHistoryNum=0;
+	static int limit=20;
 	
 	public static void setFirst() {addCopySaveInHistory();}//암것도 없는 상태 추가.
 	
@@ -20,7 +21,7 @@ public class RedoUndo {
 		if(history.size()>0){for(int i = history.size()-1; i>0; i--) {if(i>nowHistoryNum) {history.remove(i);}}}//앞부분 버리는 겨.
 		addCopySaveInHistory();
 		nowHistoryNum=history.size()-1;
-		if(history.size()>10) {
+		if(history.size()>limit) {
 			history.remove(history.firstElement());
 			nowHistoryNum--;
 		}

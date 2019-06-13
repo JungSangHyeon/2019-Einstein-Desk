@@ -1,5 +1,6 @@
 package zStuff_Text;
 
+import java.awt.Rectangle;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
@@ -7,6 +8,7 @@ import javax.swing.JTextArea;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 
+import PDR_2P_Shape.StarNShape;
 import fText.FTextWrite.Arrange;
 import redoUndo.RedoUndo;
 import zStuff_GraphicComponent.GCStorage_Selected;
@@ -68,8 +70,19 @@ static boolean textEditing = false;
 						gc.setTextArrange(Arrange.CENTER);
 						gc.setText("");
 					}
+				}else if(order.split("\\(")[0].equals("this.setBorderThick")) {
+					int thick =  Integer.parseInt(order.split("\\(")[1].split("\\)")[0]);
+					gc.setborderThick(thick);
+					gc.setText("");
+				}else if(order.split("\\(")[0].equals("this.setShapeAsStar")) {
+					int spike =  Integer.parseInt(order.split("\\(")[1].split("\\)")[0]);
+					Rectangle rect = gc.getShape().getBounds();
+					if(spike>1) {
+						gc.setShape(StarNShape.makePath((float)rect.getX(), (float)rect.getY(), (float)rect.getWidth(), (float)rect.getHeight(), spike));
+					}
+					gc.setText("");
 				}
-			}catch(Exception e) {e.printStackTrace();System.out.println("¸í·É¾î Àß¸øÃÆ¾û"); gc.setText("");}
+			}catch(Exception e) {System.out.println("¸í·É¾î Àß¸øÃÆ¾û"); gc.setText("");}
 		}
 	}
 }

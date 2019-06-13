@@ -19,7 +19,13 @@ public class RightClickMenu {
 
 	public static void OpenMenu(Point point) {
 		nowPoint = point;
-		
+	
+		if(GCPanelStorage.have(eTCPanel)) {
+			GCPanelStorage.remove(eTCPanel);
+		}
+		if(GCPanelStorage.have(choosePanel)) {
+			GCPanelStorage.remove(choosePanel);
+		}
 		eTCPanel = new ETCPanel(point);
 		GCPanelStorage.add(eTCPanel);
 		

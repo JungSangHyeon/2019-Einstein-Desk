@@ -55,31 +55,5 @@ public class AffineMath {
 		return pointBeforeRotate;
 	}
 	
-//	public static void applyAffineToAllGC(AffineTransform at) {
-//		AffineMath.applyAffineTransformToGC(at, CanvasGC.getCanvas());
-//		SlidePanel.applyAffine(at);
-//		
-//		for (Vector<GraphicComponent> gcv : RedoUndo.getHistory()) {
-////			if(gcv!=GCStorage_Normal.getGCVector()) {
-//				for (GraphicComponent gc : gcv) {
-//					AffineMath.applyAffineTransformToGC(at, gc);
-//					gc.setborderThick(gc.getBorderThick() * (float) (at.getScaleX()));
-//					for (GraphicComponent aggreGC : gc.getAllAggregateGCs()) {
-//						AffineMath.applyAffineTransformToGC(at, aggreGC);
-//						aggreGC.setborderThick(aggreGC.getBorderThick() * (float) (at.getScaleX()));
-//					}
-//				}
-////			}
-//		}
-////		for (GraphicComponent gc : GCStorage_Normal.getGCVector()) {
-////			AffineMath.applyAffineTransformToGC(at, gc);
-////			gc.setborderThick(gc.getBorderThick() * (float) (at.getScaleX()));
-////			for (GraphicComponent aggreGC : gc.getAllAggregateGCs()) {
-////				AffineMath.applyAffineTransformToGC(at, aggreGC);
-////				aggreGC.setborderThick(aggreGC.getBorderThick() * (float) (at.getScaleX()));
-////			}
-////		}
-//	}
-	
 }
 
