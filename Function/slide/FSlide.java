@@ -77,6 +77,7 @@ public class FSlide extends AFunction{
 		at.translate(-CanvasGC.getX(), -CanvasGC.getY());
 		g.transform(at);
 		
+		CanvasGC.paint(g);
 		for(GraphicComponent gc : SlidePanel.getSlide(slideNum)) {gc.bottumPaint(g);}
 		for(GraphicComponent gc : SlidePanel.getSlide(slideNum)) {if(!(gc.getAShape() instanceof pen)) {gc.paint(g);}}//shape
 		for(GraphicComponent gc : SlidePanel.getSlide(slideNum)) {if(gc.getAShape() instanceof HighlightShape) {gc.paint(g);}}//highlight

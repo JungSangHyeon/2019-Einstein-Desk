@@ -4,9 +4,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.KeyboardFocusManager;
 import java.awt.RenderingHints;
+import java.awt.Shape;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.NoninvertibleTransformException;
+import java.awt.geom.Rectangle2D;
+import java.util.Vector;
 
 import javax.swing.JPanel;
 
@@ -18,7 +22,9 @@ import canvasMoveAndZoom.GlobalAT;
 import eventListener.DrawingPanelMouseHadler;
 import eventListener.KeyDispatcher;
 import global.InjectEnums.eColor;
+import onOff.Debug;
 import toolPanel.ToolPanel;
+import zStuff_Data.ToolData;
 import zStuff_GCPanel.GCPanelStorage;
 import zStuff_GraphicComponent.GCStorage_KillTarget;
 import zStuff_GraphicComponent.GCStorage_Normal;
@@ -48,7 +54,7 @@ public class DrawingPanel extends JPanel implements Runnable {
 		new CanvasGC(); 
 		ProjectManager.init();
 		GCPanelStorage.add(new ToolPanel());
-//		GCPanelStorage.add(new ETCPanel(null));
+//		GCPanelStorage.add(new LiveUpdatePanel());
 	}
 	
 	@Override
@@ -63,7 +69,6 @@ public class DrawingPanel extends JPanel implements Runnable {
 //		Thread th = new Thread(this); th.start();
 	}
 	
-	private void add(GraphicComponent gc) {GCPanelStorage.add(gc);}
 	public void ArrangeContainerLocation() {}
 	
 	public void paint(Graphics g) {
@@ -73,24 +78,45 @@ public class DrawingPanel extends JPanel implements Runnable {
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 		
 		super.paint(g2d);
-		g2d.setTransform(GlobalAT.getNowAT());
-		paintGC(g2d);
-		g2d.setTransform(new AffineTransform());	
+		paintGC(g2d, GCStorage_Normal.getGCVector());
 		paintGCPanel(g2d);
+		
+//		g2d.setTransform(GlobalAT.getNowAT());
+//		paintGC(g2d, GCStorage_DragAndDrop.getCanvasToPanel());
+//		g2d.setTransform(new AffineTransform());	
+		
+		ToolData.getNowTool().toolPaint(g2d);
 	}
 
 	private static void paintGCPanel(Graphics2D g2d) {
 		for(GraphicComponent GCPanel : GCPanelStorage.getGCPanelVector()) {GCPanel.bottumPaint(g2d);}
 		for(GraphicComponent GCPanel : GCPanelStorage.getGCPanelVector()) {GCPanel.paint(g2d);}
 	}
-	public static void paintGC(Graphics2D g2d) {
+	
+	private static void paintGC(Graphics2D g2d, Vector<GraphicComponent> targets) {
+		g2d.setTransform(GlobalAT.getNowAT());
 		CanvasGC.paint(g2d);
-		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {gc.bottumPaint(g2d);}
-		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {if(!(gc.getAShape() instanceof pen)) {gc.paint(g2d);}}//shape
-		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {if(gc.getAShape() instanceof HighlightShape) {gc.paint(g2d);}}//highlight
-		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {if(!(gc.getAShape() instanceof HighlightShape)&&gc.getAShape() instanceof pen) {gc.paint(g2d);}}//pen
-		for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {gc.topPaint(g2d);}
+		
+		//Filter 1 : Zoom ¸¹ÀÌ ÇßÀ»‹š »¡¶óÁü.
+		Shape rect = new Rectangle2D.Double(0,0,1920,1080);
+		if(Debug.isOn()) {rect = new Rectangle2D.Double(0,0,1000,1080);}
+		
+		try {rect = GlobalAT.getNowAT().createInverse().createTransformedShape(rect);}
+		catch (NoninvertibleTransformException e) {e.printStackTrace();}
+		g2d.setClip(rect);
+		
+		Vector<GraphicComponent> drawTarget = new Vector<GraphicComponent>();
+		for(GraphicComponent gc2 : targets) {
+			if(gc2.getShape().intersects(rect.getBounds())) {drawTarget.add(gc2);}
+		}
+		
+		for(GraphicComponent gc : drawTarget) {gc.bottumPaint(g2d);}
+		for(GraphicComponent gc : drawTarget) {if(!(gc.getAShape() instanceof pen)) {gc.paint(g2d);}}//shape
+		for(GraphicComponent gc : drawTarget) {if(gc.getAShape() instanceof HighlightShape) {gc.paint(g2d);}}//highlight
+		for(GraphicComponent gc : drawTarget) {if(!(gc.getAShape() instanceof HighlightShape)&&gc.getAShape() instanceof pen) {gc.paint(g2d);}}//pen
+		for(GraphicComponent gc : drawTarget) {gc.topPaint(g2d);}
 		CanvasGC.topPaint(g2d);
+		g2d.setTransform(new AffineTransform());	
 	}
 	
 	public class componentHandler extends ComponentAdapter{

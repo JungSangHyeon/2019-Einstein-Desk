@@ -1,15 +1,21 @@
 package createGC;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.util.Vector;
 
 import canvasMoveAndZoom.GlobalAT;
 import redoUndo.RedoUndo;
 import zStuff_Data.LineData;
+import zStuff_GCPanel.GCPanelStorage;
 import zStuff_GraphicComponent.GCStorage_Normal;
+import zStuff_GraphicComponent.GraphicComponent;
 
 public class HighlightTool extends PDRShapeDrawTool{
 	private static final long serialVersionUID = -2451691127621671062L;
@@ -23,6 +29,23 @@ public class HighlightTool extends PDRShapeDrawTool{
 		GCData.setFillPaint(false);
 		GCData.setborderThick(LineData.getHighlightThick());
 		GCData.setBorderColor(LineData.getHighlightColor());
+	}
+	
+	@Override
+	public void toolPaint(Graphics2D g2d) {
+		Point nowMousePoint = MouseInfo.getPointerInfo().getLocation();
+		if(notOnPanel(nowMousePoint)) {
+			g2d.setColor(new Color(166,166,184));
+			double diameter = LineData.getHighlightThick()*GlobalAT.getZoom();
+			g2d.draw(new Ellipse2D.Double(nowMousePoint.x - diameter/2, nowMousePoint.y - diameter/2 , diameter, diameter ));
+		}
+	}
+	
+	private boolean notOnPanel(Point point) {
+		for (GraphicComponent panel : GCPanelStorage.getGCPanelVector()) {
+			if (panel.getShape().contains(point)) {return false;}
+		}
+		return true;
 	}
 	
 	@Override

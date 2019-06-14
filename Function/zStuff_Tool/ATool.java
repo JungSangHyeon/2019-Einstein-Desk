@@ -1,5 +1,6 @@
 package zStuff_Tool;
 
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
 
@@ -10,6 +11,8 @@ public abstract class ATool  implements Serializable{//AFUnction하고 똑같음. 따�
 	
 	protected GraphicComponent master;
 	public void setMaster(GraphicComponent graphicComponent) {this.master=graphicComponent;}
+	
+	public void toolPaint(Graphics2D g2d) {}
 	
 	public void processEvent(MouseEvent e) {//그냥 processEvent만 쓰려고 만듬.
 		int eID = e.getID();

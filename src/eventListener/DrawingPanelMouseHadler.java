@@ -18,6 +18,7 @@ import zStuff_Data.ToolData;
 import zStuff_GCPanel.GCPanelStorage;
 import zStuff_GCPanel.NullPeekabooPanel;
 import zStuff_GCPanel.PixelPeekabooPanel;
+import zStuff_GraphicComponent.GCStorage_DragAndDrop;
 import zStuff_GraphicComponent.GraphicComponent;
 import zStuff_Text.FTextWrite_Stuff;
 
@@ -68,8 +69,28 @@ public class DrawingPanelMouseHadler implements MouseListener, MouseMotionListen
 	}
 	
 	public void mouseClicked(MouseEvent e) {processEvent(e); if(rightBTNPressed()) {RightClickMenu.OpenMenu(e.getPoint());}}
-	public void mouseReleased(MouseEvent e) {processEvent(e); RightClickMenu.checkAndOff(e);}
+	public void mouseReleased(MouseEvent e) {
+		processEvent(e);
+//		dragAndDrop(e);
+		RightClickMenu.checkAndOff(e);
+		GCStorage_DragAndDrop.clearCanvasToPanel();
+	}
 	
+//	private void dragAndDrop(MouseEvent e) {//시간관계상 중단~
+//		if(notOnPanel(e.getPoint())) {
+//			for(GraphicComponent gc : GCStorage_DragAndDrop.getCanvasToPanel()) {
+//				GCStorage_Normal.addNewGC((GraphicComponent) DeepClone.clone(gc));
+//			}
+//		}		
+//	}
+
+//	private boolean notOnPanel(Point point) {
+//		for (GraphicComponent panel : GCPanelStorage.getGCPanelVector()) {
+//			if (panel.getShape().contains(point)) {return false;}
+//		}
+//		return true;
+//	}
+
 //	private boolean leftBTNPressed() {return pressedBTN == MouseEvent.BUTTON1;}
 	private boolean rightBTNPressed() {return pressedBTN == MouseEvent.BUTTON3;}
 //	private boolean noBTNPressed() {return pressedBTN == MouseEvent.NOBUTTON;}

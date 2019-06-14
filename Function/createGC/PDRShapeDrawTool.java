@@ -7,6 +7,7 @@ import java.util.Vector;
 
 import canvasMoveAndZoom.GlobalAT;
 import fComposite.FInCanvasGCBasicFunction;
+import fTime.FRainbow;
 import onOff.AnchorPaint;
 import redoUndo.RedoUndo;
 import zStuff_Data.ShapeData;

@@ -9,6 +9,7 @@ public class PaintMain {
 
 	public static void main(String[] args) {
 		System.out.println("ULTRA-PAINT");
+		System.out.println("Einstain's Last Desk");
 		
 		new GlobalTimer();//Time Starts Moving
 		

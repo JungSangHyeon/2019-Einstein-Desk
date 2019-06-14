@@ -9,7 +9,9 @@ import javax.swing.JPanel;
 import PDR_NP_Shape.HighlightShape;
 import PDR_NP_Shape.pen;
 import canvasMoveAndZoom.GlobalAT;
+import onOff.Alt;
 import onOff.Ctrl;
+import zStuff_GraphicComponent.GCStorage_DragAndDrop;
 import zStuff_GraphicComponent.GCStorage_Normal;
 import zStuff_GraphicComponent.GCStorage_Selected;
 import zStuff_GraphicComponent.GraphicComponent;
@@ -24,7 +26,9 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 	public void mousePressed(MouseEvent e) {
 		master=null;
 		findMaster(e);//set master
-		if(Ctrl.isOn()) {
+		if(Alt.isOn()) {
+			GCStorage_DragAndDrop.addAllToCanvasToPanel(GCStorage_Selected.getSelectedGCVector());
+		}else if(Ctrl.isOn()) {
 			if(master!=null) {
 				if(master.isSelected()) {GCStorage_Selected.removeSelectedGC(master);}
 				else {GCStorage_Selected.addSelectedGC(master);}

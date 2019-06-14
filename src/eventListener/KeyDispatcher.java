@@ -9,6 +9,7 @@ import SAL.ProjectManager;
 import copyAndPaste.CopyAndPaste;
 import deleteSelected.Delete;
 import group.GroupTool;
+import onOff.Alt;
 import onOff.Ctrl;
 import onOff.Debug;
 import onOff.ThickFollowScale;
@@ -41,6 +42,7 @@ public class KeyDispatcher implements KeyEventDispatcher {// 키이벤트가 포커스에
 	
 	private void pressAction() {
 		if (keyIs(KeyEvent.VK_CONTROL)) {Ctrl.on();}
+		if (keyIs(KeyEvent.VK_ALT)) {Alt.on();}
 		if (keyIs(KeyEvent.VK_DELETE)) {Delete.delete();}
 		if (keyIs(KeyEvent.VK_ESCAPE)) {Debug.onOff();}
 		else if (keyIs(KeyEvent.VK_1)) {Z_Order.changeZOrder(SendTo.Top);}
@@ -65,5 +67,6 @@ public class KeyDispatcher implements KeyEventDispatcher {// 키이벤트가 포커스에
 
 	private void releaseAction() {
 		if (keyIs(KeyEvent.VK_CONTROL)) {Ctrl.off();}
+		if (keyIs(KeyEvent.VK_ALT)) {Alt.off();}
 	}
 }

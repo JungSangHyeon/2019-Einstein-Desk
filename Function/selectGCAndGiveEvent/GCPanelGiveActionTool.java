@@ -3,6 +3,7 @@ package selectGCAndGiveEvent;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
 
+import onOff.Alt;
 import zStuff_GCPanel.GCPanelStorage;
 import zStuff_GraphicComponent.GraphicComponent;
 import zStuff_Tool.ATool;
@@ -22,7 +23,8 @@ public class GCPanelGiveActionTool extends ATool{
 	
 	public void mouseClicked(MouseEvent e) {giveEventToMaster(e);}
 	public void mouseDragged(MouseEvent e) {giveEventToMaster(e);}
-	public void mouseReleased(MouseEvent e) {giveEventToMaster(e);}
+//	public void mouseReleased(MouseEvent e) {giveEventToMaster(e);}//change to below to D&D. 0613 11:42
+	public void mouseReleased(MouseEvent e) {if(Alt.isOn()) {findMasterAndGiveEvent(e);}else{giveEventToMaster(e);}}
 	
 	private void findMasterAndGiveEvent(MouseEvent e) {
 		findMaster(e);

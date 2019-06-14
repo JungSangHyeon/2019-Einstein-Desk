@@ -14,15 +14,23 @@ import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.Vector;
 
+import calculation.AffineMath;
 import calculation.SuperVector;
 import deepClone.DeepClone;
+import fGCDataModify.FMove_Item;
+import fPaint.FShowMouseOn;
 import onOff.Debug;
+import zStuff_GraphicComponent.GCStorage_DragAndDrop;
+import zStuff_GraphicComponent.GCStorage_Normal;
+import zStuff_GraphicComponent.GCStorage_Selected;
 import zStuff_GraphicComponent.GraphicComponent;
 import zStuff_Shape.eShape;
 
 public abstract class GCPanel_LayoutPixel_Y extends GraphicComponent implements Serializable{//호호 드럽다. 
 	private static final long serialVersionUID = -9220238498788652662L;
 	
+	boolean dragAndDrop = false;
+	public void setDragAndDrop(boolean boo) {dragAndDrop = boo;}
 	boolean shadow = true;
 	public void setShadow(boolean boo) {shadow = boo;}
 	boolean push = false;
@@ -159,13 +167,31 @@ public abstract class GCPanel_LayoutPixel_Y extends GraphicComponent implements 
 //		itemVector.clear();
 	}
 	
+	public void changeVector(Vector<GraphicComponent> newVector) {//TODO
+		itemVector = new Vector<Item>();
+		for(GraphicComponent gc : newVector) {this.add(gc);}
+//		this.resetFollowVector();
+	}
+	
 	public void add(GraphicComponent gc) {
+		if(gc.getShape()!=null) {
+			Rectangle2D rect = gc.getShape().getBounds2D();
+			AffineTransform at = new AffineTransform();
+			at.translate(-rect.getX(), - rect.getY());
+			AffineMath.applyAffineTransformToGC(at, gc);
+		}
 		Item item = new Item(gc);
 		findSeatFor(item);
 		itemVector.add(item);
 	}
 	
 	public void add(int i, GraphicComponent gc) {//TODO
+		if(gc.getShape()!=null) {
+			Rectangle2D rect = gc.getShape().getBounds2D();
+			AffineTransform at = new AffineTransform();
+			at.translate(-rect.getX(), - rect.getY());
+			AffineMath.applyAffineTransformToGC(at, gc);
+		}
 		Item item = new Item(gc);
 		findSeatFor(item);
 		itemVector.add(i,item);
@@ -230,12 +256,29 @@ public abstract class GCPanel_LayoutPixel_Y extends GraphicComponent implements 
 		findCurrentShape(e); 
 		if(getCurrentItem()!=null) {getCurrentItem().processEvent(e);}
 		if(copyCurrentItem!=null) {copyCurrentItem.processEvent(e);}
+//		if(dragAndDrop) {//TODO
+//			GCStorage_DragAndDrop.addGCToCanvasToPanel(copyCurrentItem.getRealGC());
+//		}
 	}
 	
 	public void mouseReleased(MouseEvent e) {//TODO
+		if(dragAndDrop) {dropIn();}
 		basicAction(e);
 		actionReset(); 
-		//if mouse not in this, drop.
+	}
+	
+	private void dropIn() {
+		Vector<GraphicComponent> DADGCVector =GCStorage_DragAndDrop.getCanvasToPanel();
+		for(GraphicComponent gc : DADGCVector) {
+			this.add(gc);
+			GraphicComponent inContainerGC = itemVector.lastElement().getInContainerGC();
+			inContainerGC.addFunction(new FMove_Item());
+			inContainerGC.addFunction(new FShowMouseOn());
+		}
+		for(GraphicComponent gc : DADGCVector) {
+			GCStorage_Normal.removeGC(gc);
+			GCStorage_Selected.removeSelectedGC(gc);
+		}
 	}
 	
 	public void mouseDragged(MouseEvent e) {
@@ -359,7 +402,7 @@ public abstract class GCPanel_LayoutPixel_Y extends GraphicComponent implements 
 		return returnPoint;
 	}
 	
-	protected void resetFollowVector() {
+	protected void resetFollowVector() {//TODO. change real data
 		for(Item item : itemVector) {
 			Pixel ownPixel = findPixelByVectorNum(itemVector.indexOf(item));
 			item.setOwnPixel(ownPixel);

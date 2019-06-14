@@ -16,6 +16,8 @@ public abstract class GCPanel_LayoutNull extends GraphicComponent implements Ser
 	int x=0, y=0, width=0, height=0;
 	public int getX() {return x;}
 	public int getY() {return y;}
+	public int getWidth() {return width;}
+	public int getHeight() {return height;}
 	
 	//Color
 	public void setPanelBackgroundColor(Color c) {this.setFillColor(c);}

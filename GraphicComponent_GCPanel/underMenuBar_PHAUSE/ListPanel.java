@@ -6,10 +6,9 @@ import zStuff_GCPanel_LayoutPixel.GCPanel_LayoutPixel_Y;
 public class ListPanel extends GCPanel_LayoutPixel_Y {
 
 	public ListPanel() {
-		this.setPixelSize(248,36);
+		this.setPixelSize(248,38);
 		this.setPixelGap(4, 4);
-		this.setSize(1, 20);
+		this.setSize(1, 12);
 	}
-	
 	
 }
