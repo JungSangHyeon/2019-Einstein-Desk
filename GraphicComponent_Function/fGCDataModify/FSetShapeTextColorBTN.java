@@ -3,11 +3,11 @@ package fGCDataModify;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 
-import zStuff_Button.ColorBtn;
+import zStuff_Button.AColorBtn;
 import zStuff_GraphicComponent.GCStorage_Selected;
 import zStuff_GraphicComponent.GraphicComponent;
 
-public class FSetShapeTextColorBTN extends ColorBtn{
+public class FSetShapeTextColorBTN extends AColorBtn{
 	private static final long serialVersionUID = 5289256977245912590L;
 
 	public FSetShapeTextColorBTN(Color c) {super(c);}

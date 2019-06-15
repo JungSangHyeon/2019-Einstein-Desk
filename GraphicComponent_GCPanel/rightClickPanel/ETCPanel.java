@@ -4,15 +4,25 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-import fImagePaint.FImageAndTextPaint_X;
 import fPaint.FShadow;
-import fPaint.FShowMouseOn;
+import graphicComponent.RightClickGC;
 import zStuff_Function.AFunction;
 import zStuff_GCPanel_LayoutPixel.GCPanel_LayoutPixel_Y;
 import zStuff_GraphicComponent.GCCreator;
 
 public class ETCPanel extends GCPanel_LayoutPixel_Y{
 	private static final long serialVersionUID = 3390225195290912805L;
+	
+	public static AFunction[][] items = { 
+			RightClickGC.Copy,
+			RightClickGC.Paste,
+			RightClickGC.Group,
+			RightClickGC.UnGroup,
+			RightClickGC.Top,
+			RightClickGC.Front,
+			RightClickGC.Hell,
+			RightClickGC.Back
+	};
 	
 	public ETCPanel (Point mousePoint) {
 		this.setPixelSize(180, 28);
@@ -36,30 +46,5 @@ public class ETCPanel extends GCPanel_LayoutPixel_Y{
 		this.addFunction(new FShadow());
 	}
 
-	private void addItems() {
-		for(AFunction[] item : items) {
-			this.add(GCCreator.create(item));
-		}
-	}
-	
-	static int textSize = 12;
-	public static AFunction[][] items = 
-			{ 
-					{ //zOrder_Top 
-						new FImageAndTextPaint_X("맨 위로 보내기", textSize, "RightClickPanelImage/Top.png"), 
-						new FShowMouseOn(), 
-					},
-					{ //zOrder_Front
-						new FImageAndTextPaint_X("앞으로 보내기", textSize, "RightClickPanelImage/Front.png"), 
-						new FShowMouseOn(), 
-					},
-					{ //zOrder_Hell 
-						new FImageAndTextPaint_X("맨 뒤로 보내기", textSize, "RightClickPanelImage/Hell.png"), 
-						new FShowMouseOn(), 
-					},
-					{ //zOrder_Back
-						new FImageAndTextPaint_X("뒤로 보내기", textSize, "RightClickPanelImage/Back.png"), 
-						new FShowMouseOn(), 
-					},
-			};
+	private void addItems() {for(AFunction[] item : items) {this.add(GCCreator.create(item));}}
 }

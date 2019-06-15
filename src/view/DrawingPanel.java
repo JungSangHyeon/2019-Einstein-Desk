@@ -54,19 +54,18 @@ public class DrawingPanel extends JPanel implements Runnable {
 		new CanvasGC(); 
 		ProjectManager.init();
 		GCPanelStorage.add(new ToolPanel());
-//		GCPanelStorage.add(new LiveUpdatePanel());
 	}
 	
 	@Override
 	public void run() {
-		while(true) {
-			repaint();
-			try {Thread.sleep(10);}catch(Exception e) {}
-		}
+//		while(true) {
+//			repaint();
+//			try {Thread.sleep(20);}catch(Exception e) {}
+//		}
 	}
 	
 	public void initialize() {
-//		Thread th = new Thread(this); th.start();
+//		Thread th = new Thread(this); th.start();//pause
 	}
 	
 	public void ArrangeContainerLocation() {}
@@ -79,13 +78,8 @@ public class DrawingPanel extends JPanel implements Runnable {
 		
 		super.paint(g2d);
 		paintGC(g2d, GCStorage_Normal.getGCVector());
-		paintGCPanel(g2d);
-		
-//		g2d.setTransform(GlobalAT.getNowAT());
-//		paintGC(g2d, GCStorage_DragAndDrop.getCanvasToPanel());
-//		g2d.setTransform(new AffineTransform());	
-		
 		ToolData.getNowTool().toolPaint(g2d);
+		paintGCPanel(g2d);
 	}
 
 	private static void paintGCPanel(Graphics2D g2d) {

@@ -25,7 +25,7 @@ public class connectLineShapeSetter extends AFunction {
 	}
 
 	public void realPaint(Graphics2D g) {
-		if(GCStorage_Normal.have(startGC)&&GCStorage_Normal.have(endGC)) {
+//		if(GCStorage_Normal.have(startGC)&&GCStorage_Normal.have(endGC)) {
 			Stroke startStroke = g.getStroke();
 			g.setStroke(new BasicStroke(thick, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 			g.setColor(new Color(255, 192, 0));
@@ -43,8 +43,8 @@ public class connectLineShapeSetter extends AFunction {
 			master.setShape(line);
 					
 			g.setStroke(startStroke);
-		}else {
-			GCStorage_KillTarget.killGCAtNextPaint(master);
-		}
+//		}else {
+//			GCStorage_KillTarget.killGCAtNextPaint(master);
+//		}
 	}
 }

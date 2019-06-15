@@ -27,42 +27,41 @@ public class FTextWrite extends AFunction{
 	public enum Arrange{LEFTUP, CENTER}
 	
 	public void realPaint(Graphics2D g) {
-		try {
-			textColor = master.getTextColor();
-			if(master.getTempTextColor()!=null) {
-				textColor = master.getTempTextColor();
-			}
-			g.setColor(textColor);
-			
-			scaletextSize = (int) (master.getTextSize());
-			
-			g.setFont(new Font(null, Font.BOLD, scaletextSize));
-			
-			String rawText = master.getText();
-			if(master.isSelected()&&FTextWrite_Stuff.isTextEditing()) {
-				if(rawText.equals("")) {rawText = myCaret;}//if no text -> caret
-				else {
-					rawText = rawText.replace(myCaret, "");//if text -> move caret
-					String backSide = rawText.substring(FTextWrite_Stuff.getTextEditArea().getCaretPosition());
-					String frontSide = rawText.substring(0, FTextWrite_Stuff.getTextEditArea().getCaretPosition());
-					String cookText = frontSide + myCaret + backSide;
-					rawText = cookText;
+		if(master.getText().length()>0||(master.isSelected()&&FTextWrite_Stuff.isTextEditing())) {
+			try {
+				textColor = master.getTextColor();
+				if(master.getTempTextColor()!=null) {
+					textColor = master.getTempTextColor();
 				}
-			}
-			
-			Vector<Shape> textShape = new Vector<Shape>();
-			for(String txtDivideByEndter : rawText.split((char)10+"")) {//split text by ENTER(10)
-				GlyphVector gv = g.getFont().createGlyphVector(g.getFontRenderContext(), txtDivideByEndter);
-				if(gv.getOutline().getBounds().getHeight()!=0) {
-					textShape.add(gv.getOutline());
-				}else {
-					textShape.add(new Rectangle(0,0,0,scaletextSize));
+				g.setColor(textColor);
+				
+				scaletextSize = (int) (master.getTextSize());
+				
+				g.setFont(new Font(null, Font.BOLD, scaletextSize));
+				
+				String rawText = master.getText();
+				if(master.isSelected()&&FTextWrite_Stuff.isTextEditing()) {
+					if(rawText.equals("")) {rawText = myCaret;}//if no text -> caret
+					else {
+						rawText = rawText.replace(myCaret, "");//if text -> move caret
+						String backSide = rawText.substring(FTextWrite_Stuff.getTextEditArea().getCaretPosition());
+						String frontSide = rawText.substring(0, FTextWrite_Stuff.getTextEditArea().getCaretPosition());
+						String cookText = frontSide + myCaret + backSide;
+						rawText = cookText;
+					}
 				}
-			}
-			
-			if(master.getTextArrange() == Arrange.CENTER) {centerPaint(g, textShape);}
-			else if(master.getTextArrange() == Arrange.LEFTUP) {leftUpPaint(g, textShape);}
-		}catch(Exception e) {System.out.println("FTextWrite Err");}
+				
+				Vector<Shape> textShape = new Vector<Shape>();
+				for(String txtDivideByEndter : rawText.split((char)10+"")) {//split text by ENTER(10)
+					GlyphVector gv = g.getFont().createGlyphVector(g.getFontRenderContext(), txtDivideByEndter);
+					if(gv.getOutline().getBounds().getHeight()!=0) {textShape.add(gv.getOutline());}
+					else {textShape.add(new Rectangle(0,0,0,scaletextSize));}
+				}
+				
+				if(master.getTextArrange() == Arrange.CENTER) {centerPaint(g, textShape);}
+				else if(master.getTextArrange() == Arrange.LEFTUP) {leftUpPaint(g, textShape);}
+			}catch(Exception e) {System.out.println("FTextWrite Err");}
+		}
 	}
 	
 	private void leftUpPaint(Graphics2D g, Vector<Shape> textShape) {

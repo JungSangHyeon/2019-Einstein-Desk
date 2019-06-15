@@ -18,6 +18,7 @@ public class PDRShapeSelectGCPanel extends GCPanel_LayoutPixel_Y {
 		ShapeSelectGC.starNSelector,
 		ShapeSelectGC.triangleSelector,
 		ShapeSelectGC.straightLineSelector,
+		ShapeSelectGC.rombusSelector,
 	};
 	
 	public PDRShapeSelectGCPanel() {

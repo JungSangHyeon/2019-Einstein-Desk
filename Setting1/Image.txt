@@ -1,2 +1,2 @@
-LoadingPageImageAddress(Image/TitleImg.png);
-MainFrameIconImageAddress(Image/loadingIMG.png);
+LoadingPageImageAddress(Image/Title.png);
+MainFrameIconImageAddress(Image/Einstein Desk.png);

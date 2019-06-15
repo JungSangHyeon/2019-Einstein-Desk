@@ -9,12 +9,14 @@ import SAL.ProjectManager;
 import copyAndPaste.CopyAndPaste;
 import deleteSelected.Delete;
 import group.GroupTool;
+import music.Speaker;
 import onOff.Alt;
 import onOff.Ctrl;
 import onOff.Debug;
 import onOff.ThickFollowScale;
 import presentation.Presentation;
 import redoUndo.RedoUndo;
+import slide.SlidePanel;
 import toHome.ToHome;
 import zOrder.Z_Order;
 import zOrder.Z_Order.SendTo;
@@ -50,10 +52,11 @@ public class KeyDispatcher implements KeyEventDispatcher {// 키이벤트가 포커스에
 		else if (keyIs(KeyEvent.VK_3)) {Z_Order.changeZOrder(SendTo.oneUP);}
 		else if (keyIs(KeyEvent.VK_4)) {Z_Order.changeZOrder(SendTo.oneDown);}
 		else if (keyIs(KeyEvent.VK_F5)) {Presentation.startPresentation();}
-		else if (keyIs(KeyEvent.VK_UP)) {Presentation.beforeSlide();}
-		else if (keyIs(KeyEvent.VK_DOWN)) {Presentation.nextSlide();}
+		else if (keyIs(KeyEvent.VK_UP)) {Presentation.beforeSlide();SlidePanel.beforeSlide();}
+		else if (keyIs(KeyEvent.VK_DOWN)) {Presentation.nextSlide();SlidePanel.nextSlide();}
 		if(Ctrl.isOn()) {
 			if (keyIs(KeyEvent.VK_C)) {CopyAndPaste.copy();}
+			if (keyIs(KeyEvent.VK_X)) {CopyAndPaste.cut();}
 			else if (keyIs(KeyEvent.VK_V)) {CopyAndPaste.paste();}
 			else if (keyIs(KeyEvent.VK_Z)) {RedoUndo.undo();}
 			else if (keyIs(KeyEvent.VK_Y)) {RedoUndo.redo();}
@@ -62,7 +65,13 @@ public class KeyDispatcher implements KeyEventDispatcher {// 키이벤트가 포커스에
 			else if (keyIs(KeyEvent.VK_U)) {GroupTool.unGrouping();}
 			else if (keyIs(KeyEvent.VK_H)) {ProjectManager.toHome();}
 			else if (keyIs(KeyEvent.VK_B)) {ToHome.letsGoBack();}
+			else if (keyIs(KeyEvent.VK_M)) {musicControl();}
 		}
+	}
+
+	private void musicControl() {
+		if(Speaker.isOn()) {Speaker.off();}
+		else {Speaker.on("music/Golden Hour.wav", true);}
 	}
 
 	private void releaseAction() {

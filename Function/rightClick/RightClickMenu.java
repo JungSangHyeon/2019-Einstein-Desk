@@ -34,7 +34,7 @@ public class RightClickMenu {
 	}
 
 	public static void checkAndOff(MouseEvent e) {//Release ½Ã.
-		if (e.getID() == MouseEvent.MOUSE_PRESSED) {
+		if (e.getID() == MouseEvent.MOUSE_RELEASED) {
 			if(GCPanelStorage.have(eTCPanel)) {
 				GCPanelStorage.remove(eTCPanel);
 			}

@@ -38,6 +38,10 @@ public class ShapeSelectGC {
 			polygonSelector = {
 					new FSetTool(eShape.polygon.getAShape().getDrawer()),
 					new FSetShape(eShape.polygon.getAShape())
-			}
+			},
+			rombusSelector = {
+					new FSetTool(eShape.rombus.getAShape().getDrawer()),
+					new FSetShape(eShape.rombus.getAShape())
+	        }
 	;
 }

@@ -1,6 +1,6 @@
 package zStuff_Shape;
 
-import CMC_NP_Shape.PolygonShape;
+import CMC_NP_Shape.PolygonShape; 
 import PDR_2P_Shape.EllipseShape;
 import PDR_2P_Shape.RectShape;
 import PDR_2P_Shape.SpeechShape;
@@ -8,6 +8,7 @@ import PDR_2P_Shape.Star4Shape;
 import PDR_2P_Shape.StarNShape;
 import PDR_2P_Shape.StraightLineShape;
 import PDR_2P_Shape.TriangleShape;
+import PDR_2P_Shape.RombusShape;
 import PDR_NP_Shape.HighlightShape;
 import PDR_NP_Shape.pen;
 import special_Shape.GroupShape;
@@ -24,6 +25,7 @@ public enum eShape{
 	pen(new pen()), 
 	highlight(new HighlightShape()), 
 	group(new GroupShape()), 
+	rombus(new RombusShape()), 
 	;
 	
 	AShape shape;

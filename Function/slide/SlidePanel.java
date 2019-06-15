@@ -3,12 +3,15 @@ package slide;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.Vector;
 
 import calculation.SuperVector;
 import fGCDataModify.FMove_Item;
+import presentation.Presentation;
 import redoUndo.RedoUndo;
 import zStuff_Function.AFunction;
+import zStuff_GCPanel.GCPanelStorage;
 import zStuff_GCPanel_LayoutPixel.GCPanel_LayoutPixel_Y;
 import zStuff_GCPanel_LayoutPixel.Item;
 import zStuff_GraphicComponent.GCCreator;
@@ -33,6 +36,9 @@ public class SlidePanel extends GCPanel_LayoutPixel_Y {
 		this.setSeatNoticeColor(new Color(230,230,230));
 		this.setShadow(false);
 		this.setPush(true);
+		
+		Rectangle clip = this.getClip().getBounds();
+		this.setClip(new Rectangle(clip.x, clip.y, clip.width, clip.height+1));
 	}
 	
 	@Override
@@ -57,7 +63,12 @@ public class SlidePanel extends GCPanel_LayoutPixel_Y {
 	}
 
 	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	
+	public void update() {
+		if(needUpdate.size()>0) {
+			for(GraphicComponent gc : needUpdate) {this.add(gc);}
+			needUpdate.clear();
+		}
+	}
 	public static GraphicComponent getSlideGC(int i) {
 		AFunction[] functions = {new FSlide(i), new FMove_Item()};
 		GraphicComponent slide = GCCreator.create(functions);
@@ -89,6 +100,30 @@ public class SlidePanel extends GCPanel_LayoutPixel_Y {
 		return null;
 	}
 	
+	public static void nextSlide() {//TODO
+		int nowSlideNum = getNowOnSlideNum();
+		if(!Presentation.isOn()&&nowSlideNum<slides.size()-1) {loadSlideAtForSave(nowSlideNum+1);}
+	}
+	
+	public static void loadSlideAtForSave(int i) {
+		GCStorage_Normal.setGCStorage(slidesForSave.get(i));
+		resetGCStorage_Normal();
+	}
+	
+	public static void beforeSlide() {
+		int nowSlideNum = getNowOnSlideNum();
+		if(!Presentation.isOn()&&nowSlideNum>0) {loadSlideAtForSave(nowSlideNum-1);}
+	}
+	
+	public static int getNowOnSlideNum() {
+		int i =0;
+		for(Vector<GraphicComponent> slide : slidesForSave) {
+			if(slide==GCStorage_Normal.getGCVector()) {return i;}
+			i++;
+		}
+		return -1;
+	}
+	
 	public static void newSlide() {
 		Vector<GraphicComponent> slide = new Vector<GraphicComponent>();
 		slides.add(slide);
@@ -101,7 +136,16 @@ public class SlidePanel extends GCPanel_LayoutPixel_Y {
 	public static void loadSlide(int i) {
 		GCStorage_Normal.setGCStorage(slides.get(i));
 		resetGCStorage_Normal();
+		
+		Vector<GraphicComponent> gcV = GCPanelStorage.getGCPanelVector();//off panel
+		for(int v = gcV.size()-1; v>-1; v--) {
+			if(gcV.get(v) instanceof SlidePanel) {
+				GCPanelStorage.remove(gcV.get(v));
+				break;
+			}
+		}
 	}
+	
 	public static Vector<GraphicComponent> getSlide(int i) {
 		return slides.get(i);
 	}

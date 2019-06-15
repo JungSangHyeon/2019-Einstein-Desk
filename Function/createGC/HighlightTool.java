@@ -1,5 +1,6 @@
 package createGC;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.MouseInfo;
@@ -33,6 +34,7 @@ public class HighlightTool extends PDRShapeDrawTool{
 	
 	@Override
 	public void toolPaint(Graphics2D g2d) {
+		g2d.setStroke(new BasicStroke(1));
 		Point nowMousePoint = MouseInfo.getPointerInfo().getLocation();
 		if(notOnPanel(nowMousePoint)) {
 			g2d.setColor(new Color(166,166,184));

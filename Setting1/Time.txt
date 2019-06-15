@@ -1,1 +1,1 @@
-LeastLoadingPageOnTime(3000);//Pre-Enum
+LeastLoadingPageOnTime(4000);//Pre-Enum

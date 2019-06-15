@@ -64,6 +64,7 @@ public class GraphicComponent  implements Serializable{
 	public void topPaint(Graphics2D g) {for(AFunction function : functions) {function.paint(g, PaintZOrder.TOP);}}
 	public void bottumPaint(Graphics2D g) {for(AFunction function : functions) {function.paint(g, PaintZOrder.BOTTOM);}}
 	public void paint(Graphics2D g) {
+		
 		g.setStroke(new BasicStroke(borderThick, strokeCap, strokeJoin));
 		if(paintFill) {g.setColor(fillColor); if(tempFillColor!=null) {g.setColor(tempFillColor);} g.fill(shape);}
 		if(paintBorder) {g.setColor(borderColor); if(tempBorderColor!=null) {g.setColor(tempBorderColor);} g.draw(shape);}
@@ -147,7 +148,7 @@ public class GraphicComponent  implements Serializable{
 	private Vector<Shape> topFunctionShape;
 	public void addTopFunctionShape(Shape s) {this.topFunctionShape.add(s);}
 	public void removeTopFunctionShape(Shape s) {this.topFunctionShape.remove(s);}
-	public Vector<Shape> getTopFunctionShape() {return this.topFunctionShape;}
+	public Vector<Shape> getTopFunctionShapeVector() {return this.topFunctionShape;}
 	public boolean isTopSelected(Point2D.Float point) {
 		for(Shape s : topFunctionShape) {if(s.contains(point)) {return true;}}
 		return false;

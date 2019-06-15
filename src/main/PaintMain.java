@@ -1,32 +1,36 @@
 package main;
 
+import java.awt.Color;
+
 import global.InjectEnums;
+import global.InjectEnums.eInt;
+import global.InjectEnums.eString;
 import globalTimer.GlobalTimer;
-import redoUndo.RedoUndo;
+import loadingPage.LoadingPage;
 import view.PaintMainFrame;
 
 public class PaintMain {
 
 	public static void main(String[] args) {
-		System.out.println("ULTRA-PAINT");
-		System.out.println("Einstain's Last Desk");
+		System.out.println("Einstein Desk");
 		
 		new GlobalTimer();//Time Starts Moving
 		
 		InjectEnums.injectPreEnums();
-		
+		LoadingPage loadingPage = new LoadingPage(Color.white, "Image/a.png");
 //		LoadingPage loadingPage = new LoadingPage(Color.white, eString.LoadingPageImageAddress.getVal());
-//		int id = GlobalTimer.addTimer(eInt.LeastLoadingPageOnTime.getVal()); //min Title Time
+		int id = GlobalTimer.addTimer(eInt.LeastLoadingPageOnTime.getVal()); //min Title Time
 		
 		InjectEnums.injectAllEnums();
 		
 		PaintMainFrame mf = new PaintMainFrame();
 		mf.initialize();
+		mf.setVisible(true);
+//		RedoUndo.setFirst();
 		
-//		GlobalTimer.waitTimeOut(id);
-//		loadingPage.LoadingPageOff();
+		GlobalTimer.waitTimeOut(id);
+		loadingPage.LoadingPageOff();
 		
-		RedoUndo.setFirst();
 	}
 	
 }

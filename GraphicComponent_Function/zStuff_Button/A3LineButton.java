@@ -26,7 +26,7 @@ public abstract class A3LineButton extends AFunction{//색 3개짜리 버튼. 타겟을 �
 	Color backGroundColor;
 	Color barColor;
 	
-	static boolean on = false;
+	public boolean on = false;
 	boolean mouseIn = false;
 	public void off() {on=false; barColor = normalBarC; backGroundColor=normalBackC;}
 	

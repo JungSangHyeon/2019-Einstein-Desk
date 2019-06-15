@@ -48,6 +48,7 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 	public void mouseReleased(MouseEvent e) {
 		basicAction(e);
 		areaSelect = false;
+		Alt.off();
 	}
 	
 	public void mouseDragged(MouseEvent e) {basicAction(e);}
@@ -61,12 +62,7 @@ public class HandTool extends ATool{//Select(1 or Area) & give Event to Selected
 			}
 		}
 	}
-	public void mouseMoved(MouseEvent e) {cursorControl(e);
-	for(GraphicComponent gc : GCStorage_Normal.getGCVector()) {
-		gc.processEvent(e);
-	}
-	
-	}
+	public void mouseMoved(MouseEvent e) {cursorControl(e);}
 	public void mouseWheelMoved(MouseEvent e) {basicAction(e);}
 	
 	private void findMaster(MouseEvent e) {//TODO

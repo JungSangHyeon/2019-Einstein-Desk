@@ -20,6 +20,15 @@ public class CopyAndPaste {
 		copyTemp.clear();
 		for (GraphicComponent c : GCStorage_Selected.getSelectedGCVector()) {copyTemp.add(c);}
 	}
+	
+	public static void cut() {
+		copyTemp.clear();
+		for (GraphicComponent c : GCStorage_Selected.getSelectedGCVector()) {copyTemp.add(c);}
+		for (GraphicComponent c : GCStorage_Selected.getSelectedGCVector()) {
+			GCStorage_Normal.removeGC(c);
+		}
+		GCStorage_Selected.clearSelected();
+	}
 
 	public static void paste() {//Move And Zoom을 그래픽 -> 데이터 로 바꿔서, 여기 몰림.
 		GCStorage_Selected.clearSelected();

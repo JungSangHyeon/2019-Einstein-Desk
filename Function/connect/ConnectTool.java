@@ -35,7 +35,7 @@ public class ConnectTool extends ATool{
 				GCData = new GraphicComponent();
 				GCData.addPoint(startGC.getCenter());
 				GCData.addPoint(startGC.getCenter());
-				GCData.setborderThick(10*GlobalAT.getZoom());
+				GCData.setborderThick(10);
 				GCData.setBorderColor(new Color(255, 192, 0));
 				GCData.setAShape(eShape.straightLine.getAShape());
 				GCData.setTakeEvent(false);

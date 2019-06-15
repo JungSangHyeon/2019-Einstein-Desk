@@ -27,10 +27,10 @@ public class LineData {
 	public static Color getHighlightColor() {return highlightColor;}
 	public static void setHighlightColor(Color hc) {highlightColor = hc;}
 	
-	public static int highlightThick = 10;
-	public static int getHighlightThick() {
-		int thick;
-		if (ThickFollowScale.isOn()) {thick = highlightThick;}//need to change
+	public static float highlightThick = 10;
+	public static float getHighlightThick() {
+		float thick;
+		if (ThickFollowScale.isOn()) {thick = highlightThick/GlobalAT.getZoom();}//need to change
 		else {thick = highlightThick;}
 		if(thick==0) {thick=1;}
 		return thick;

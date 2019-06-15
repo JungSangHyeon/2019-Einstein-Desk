@@ -37,7 +37,6 @@ public class PaintMainFrame extends JFrame {
 
 	public void initialize() {
 		SaveAndLoad.load();
-		this.setVisible(true);
 		drawingPanel.initialize();
 	}
 }
